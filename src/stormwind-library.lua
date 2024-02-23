@@ -1,3 +1,7 @@
 -- Library version = '0.0.2'
 
-print('hello stormwind library!')
+-- import src/Models/Item.lua
+
+function self:createItem()
+    return Item.new('test')
+end

@@ -1,11 +1,20 @@
 const fs = require('fs');
+const path = require('path');
 
 /**
  * Wrapper for the Stormwind Library file located in the src directory.
  */
 class StormwindLibrary {
-    constructor() {
+    /**
+     * Builds the library.
+     */
+    build = () => {
         this.read();
+
+        this.importFiles();
+        this.fileContent = this.wrapLibraryMainFunction();
+
+        this.write();
     }
 
     /**
@@ -16,6 +25,45 @@ class StormwindLibrary {
      */
     getVersionInSnakeCase = (separator = '_') => {
         return this.parseVersion().replace(/\./g, separator);
+    }
+
+    /**
+     * Imports a file by replacing the import line instruction with the file content.
+     * 
+     * @param {string} filePath 
+     */
+    importFile = (filePath) => {
+        const fileContent = fs.readFileSync(`../${filePath}`, 'utf8');
+
+        // replace the file content import line with the file contents
+        this.fileContent = this.fileContent.replace(`-- import ${filePath}`, fileContent);
+    }
+
+    /**
+     * Finds all the import lines in the library file and imports the files.
+     */
+    importFiles = () => {
+        const importFiles = this.listImportFiles();
+
+        importFiles.forEach((filePath) => {
+            this.importFile(filePath);
+        });
+    }
+
+    /**
+     * Gets all the import lines inside the library file.
+     * 
+     * An import line is represented by a comment containing the word import followed by the
+     * name of the file to import. Example:
+     * 
+     * -- import src/Models/Item.lua
+     * 
+     * @returns the file names without the comment
+     */
+    listImportFiles = () => {
+        const importLines = this.fileContent.match(/-- import .+/g);
+
+        return importLines.map((line) => line.replace('-- import ', ''));
     }
 
     /**
@@ -46,6 +94,13 @@ class StormwindLibrary {
         return this.libraryVersion;
     }
 
+    /**
+     * Wraps the library main function with a check to avoid redefining the library.
+     * 
+     * Addons using the new library version must replace the instantiation line with the new version.
+     * 
+     * @returns {string}
+     */
     wrapLibraryMainFunction = () => {
         const library = `StormwindLibrary_v${this.getVersionInSnakeCase()}`;
 
@@ -56,7 +111,9 @@ ${library} = {}
 ${library}.__index = ${library}
 
 function ${library}.new()
+    local self = setmetatable({}, ${library})
     ${this.fileContent}
+    return self
 end`;
     }
 
@@ -72,9 +129,9 @@ end`;
             fs.mkdirSync(distFolderPath);
         }
 
-        fs.writeFileSync(`${distFolderPath}/stormwind-library.lua`, this.wrapLibraryMainFunction(), 'utf8');
+        fs.writeFileSync(`${distFolderPath}/stormwind-library.lua`, this.fileContent, 'utf8');
     }
 }
 
-const library = new StormwindLibrary();
-library.write();
+// Fire the build process!
+new StormwindLibrary().build();

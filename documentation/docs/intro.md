@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Overview
 
-Stormwind Library is developed in [Lua](https://www.lua.org/) to serve as a framework for building World of Warcraft addons.
+Stormwind Library is a library developed in [Lua](https://www.lua.org/) to serve as a framework for building World of Warcraft addons.
 
 It basically works as a layer between the addon and the World of Warcraft API so...
 
