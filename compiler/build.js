@@ -67,13 +67,6 @@ class StormwindLibrary {
     }
 
     /**
-     * Reads the library file content and stores it in the fileContent property.
-     */
-    read = () => {
-        this.fileContent = fs.readFileSync('../src/stormwind-library.lua', 'utf8');
-    }
-
-    /**
      * The library version is located anywhere in the main file as a comment.
      * 
      * Example:
@@ -83,15 +76,20 @@ class StormwindLibrary {
      * This method will parse the version from the file content.
      */
     parseVersion = () => {
-        if (this.libraryVersion) {
-            return this.libraryVersion;
-        }
+        if (this.libraryVersion) { return this.libraryVersion; }
 
         const match = this.fileContent.match(/-- Library version = '(\d+\.\d+\.\d+)'/);
 
         this.libraryVersion = match ? match[1] : null;
 
         return this.libraryVersion;
+    }
+
+    /**
+     * Reads the library file content and stores it in the fileContent property.
+     */
+    read = () => {
+        this.fileContent = fs.readFileSync('../src/stormwind-library.lua', 'utf8');
     }
 
     /**
