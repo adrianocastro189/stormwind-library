@@ -1,4 +1,4 @@
-Item = {}
+local Item = {}
 Item.__index = Item
 
 function Item.new(name)

@@ -1,4 +1,4 @@
--- Library version = '0.0.2'
+-- Library version = '0.0.3'
 
 -- import src/Models/Item.lua
 
