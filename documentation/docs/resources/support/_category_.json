@@ -1,0 +1,7 @@
+{
+  "label": "Support",
+  "link": {
+    "type": "generated-index",
+    "description": "Classes that act as helpers to manipulate data, types, and objects in general."
+  }
+}

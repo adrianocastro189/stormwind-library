@@ -1,0 +1,8 @@
+{
+  "label": "Resources",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "This section lists all the resources available in the Stormwind Library to build World of Warcraft addons."
+  }
+}
