@@ -1,12 +1,13 @@
 local Macro = {}
 Macro.__index = Macro
+self.classes['Macro'] = Macro
 
 --[[
 Macro constructor.
 
 @tparam string name the macro's name
 ]]
-function Macro.new(name)
+function Macro.__construct(name)
     local self = setmetatable({}, Macro)
 
     self.name = name
@@ -92,10 +93,3 @@ function Macro:setName(value)
     self.name = value
     return self
 end
-
---[[
-Library macro builder.
-
-@tparam string name the macro's name
-]]
-function self:createMacro(name) return Macro.new(name) end
