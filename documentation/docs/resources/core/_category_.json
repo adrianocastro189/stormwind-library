@@ -1,0 +1,7 @@
+{
+  "label": "Core",
+  "link": {
+    "type": "generated-index",
+    "description": "Core functionalities, that are related with the addon structure, not entirely related with the game itself."
+  }
+}
