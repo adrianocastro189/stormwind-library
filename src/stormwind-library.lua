@@ -1,7 +1,5 @@
--- Library version = '0.0.3'
+-- Library version = '0.0.4'
 
--- import src/Models/Item.lua
+-- import src/Support/Arr.lua
 
-function self:createItem()
-    return Item.new('test')
-end
+-- import src/Models/Macro.lua
