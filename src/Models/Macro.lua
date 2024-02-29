@@ -70,7 +70,7 @@ end
 --[[
 Sets the macro icon.
 
-@tparam integer value the macro's icon texture id
+@tparam integer|string value the macro's icon texture id
 
 @return self
 ]]
