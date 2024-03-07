@@ -14,7 +14,7 @@ specified delimiter.
 @treturn string
 ]]
 function Arr:implode(delimiter, list)
-    if not (self.isArray) then
+    if not (self:isArray(list)) then
         return list
     end
 
@@ -56,3 +56,5 @@ function Arr:isArray(value)
     end
     return false
 end
+
+self.arr = Arr
