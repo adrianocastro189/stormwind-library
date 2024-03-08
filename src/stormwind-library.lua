@@ -1,4 +1,4 @@
--- Library version = '0.0.5'
+-- Library version = '0.0.6'
 
 -- import src/Core/Factory.lua
 
