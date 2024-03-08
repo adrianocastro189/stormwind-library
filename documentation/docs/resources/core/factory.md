@@ -10,7 +10,7 @@ that are registered in its `classes` property.
 These are the steps to allow classes to be instantiated:
 
 1. When writing a Lua file containing a class, make sure to register it by doing
-`self.classes['<class name>'] = <class name>` right below the `<class name>.__index = <class name>`
+`self:addClass('<class name>', <class name>)` right below the `<class name>.__index = <class name>`
 line
 1. Write the `__constructor()` method accepting zero or many parameters
 
@@ -23,7 +23,7 @@ Example:
 ```lua
 local MyClass = {}
 MyClass.__index = MyClass
-self.classes['MyClass'] = MyClass
+self:addClass('MyClass', MyClass)
 
 function MyClass.__construct(name)
     local self = setmetatable({}, MyClass)
