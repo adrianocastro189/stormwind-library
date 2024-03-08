@@ -2,7 +2,7 @@
 
 ## 2024.mm.dd - version 0.0.6-alpha
 
-* Add the Factory:addClass() method
+* Allow addons to register
 
 ## 2024.03.08 - version 0.0.5-alpha
 
