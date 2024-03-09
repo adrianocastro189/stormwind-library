@@ -1,3 +1,26 @@
+-- @see testArrCanGet
+local function testArrCanGetExecution(list, key, default, expectedOutput)
+    lu.assertEquals(__.arr:get(list, key, default), expectedOutput)
+end
+
+--[[
+@covers Arr:get()
+]]
+function testArrCanGet()
+    testArrCanGetExecution({}, 'test', nil, nil)
+    testArrCanGetExecution({}, 'test', 'default', 'default')
+
+    local listWithSingleObject = {}
+    listWithSingleObject['test'] = 'test'
+    testArrCanGetExecution(listWithSingleObject, 'test', nil, 'test')
+
+    local listWithNestedKeys = {}
+    listWithNestedKeys['test-a'] = {}
+    listWithNestedKeys['test-a']['test-b'] = {}
+    listWithNestedKeys['test-a']['test-b']['test-c'] = 'test'
+    testArrCanGetExecution(listWithNestedKeys, 'test-a.test-b.test-c', nil, 'test')
+end
+
 --[[
 @covers Arr
 ]]

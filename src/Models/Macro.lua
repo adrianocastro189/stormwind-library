@@ -1,6 +1,7 @@
 local Macro = {}
 Macro.__index = Macro
-self.classes['Macro'] = Macro
+Macro.__ = self
+self:addClass('Macro', Macro)
 
 --[[
 Macro constructor.
@@ -63,7 +64,7 @@ be separated by a line break.
 @return self
 ]]
 function Macro:setBody(value)
-    self.body = Arr:implode('\n', value)
+    self.body = __.arr:implode('\n', value)
     return self
 end
 

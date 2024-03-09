@@ -3,6 +3,19 @@ The Arr support class contains helper functions to manipulate arrays.
 ]]
 local Arr = {}
 Arr.__index = Arr
+Arr.__ = self
+
+--[[
+    @TODO: Keep working here
+]]
+function Arr:get(list, key, default)
+    local keys = __.str:split(key, '.')
+    local current = list[keys[1]]
+
+    for i = 2, #keys do current = current and current[keys[i]] or nil end
+
+    return current or default
+end
 
 --[[
 Combines the elements of a table into a single string, separated by a
