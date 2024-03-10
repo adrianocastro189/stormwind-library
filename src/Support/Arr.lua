@@ -74,6 +74,15 @@ function Arr:isArray(value)
 end
 
 --[[
+Initializes a value in a table if it's not initialized yet.
+
+The key accepts a dot notation key just like get() and set().
+]]
+function Arr:maybeInitialize(list, key, initialValue)
+    if self:get(list, key) == nil then self:set(list, key, initialValue) end
+end
+
+--[[
 Sets a value using arrays dot notation.
 
 It will basically iterate over the keys separated by "." and create
@@ -93,9 +102,10 @@ function Arr:set(list, key, value)
             return
         end
 
-        -- sets the "pointer" for the next iteration
+        -- creates an empty table
         if current[key] == nil then current[key] = {} end
         
+        -- sets the "pointer" for the next iteration
         current = current[key]
     end
 end

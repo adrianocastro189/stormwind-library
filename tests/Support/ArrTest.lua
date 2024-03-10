@@ -97,3 +97,22 @@ function testArrIsArray()
     arr:set(tableWithStringKeys, 'a.b.c', 'test')
     lu.assertIsFalse(arr:isArray(tableWithStringKeys))
 end
+
+-- @see testArrMaybeInitialize
+local function testArrMaybeInitializeExecution(list, key, value, expectedValue)
+    local arr = __.arr
+
+    arr:maybeInitialize(list, key, value)
+
+    lu.assertEquals(arr:get(list, key), expectedValue)
+end
+
+--[[
+@covers Arr:maybeInitialize()
+]]
+function testArrMaybeInitialize()
+    local list = {}
+
+    testArrMaybeInitializeExecution(list, 'test-key', 'test-value', 'test-value')
+    testArrMaybeInitializeExecution(list, 'test-key', 'test-value-again', 'test-value')
+end
