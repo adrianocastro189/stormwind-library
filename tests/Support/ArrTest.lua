@@ -56,6 +56,26 @@ function testArrCanImplodeWithNonList()
     lu.assertEquals(result, text)
 end
 
+-- @see testArrCanMap
+local function testArrCanMapExecution(list, expectedOutput)
+    local arr = __.arr
+
+    local results = __.arr:map(list, function (val, i)
+        return val .. '-' .. i
+    end)
+
+    lu.assertEquals(results, expectedOutput)
+end
+
+--[[
+@covers Arr:map()
+]]
+function testArrCanMap()
+    testArrCanMapExecution({}, {})
+    testArrCanMapExecution({'test', 'test', 'test'}, {'test-1', 'test-2', 'test-3'})
+    testArrCanMapExecution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {['a'] = 'a-a', ['b'] = 'b-b', ['c'] = 'c-c'})
+end
+
 --[[
 @covers Arr:set()
 ]]

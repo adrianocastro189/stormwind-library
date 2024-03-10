@@ -74,6 +74,23 @@ function Arr:isArray(value)
 end
 
 --[[
+Iterates over the list values and calls the callback function in the second
+argument for each of them.
+
+The callback function must be a function that accepts (val) or (val, i)
+where val is the object in the interaction and i it's index.
+
+This method accepts arrays and tables.
+]]
+function Arr:map(list, callback)
+    local results = {}
+
+    for i, val in pairs(list) do results[i] = callback(val, i) end
+
+    return results
+end
+
+--[[
 Initializes a value in a table if it's not initialized yet.
 
 The key accepts a dot notation key just like get() and set().
