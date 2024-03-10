@@ -12,7 +12,7 @@ With the dot notation search, it's possible to query a value in a multidimension
 by passing a single string containing keys separated by dot.
 ]]
 function Arr:get(list, key, default)
-    local keys = __.str:split(key, '.')
+    local keys = self.__.str:split(key, '.')
     local current = list[keys[1]]
 
     for i = 2, #keys do current = current and current[keys[i]] or nil end
@@ -90,7 +90,7 @@ the missing indexes, finally setting the last key with the value in
 the args list.
 ]]
 function Arr:set(list, key, value)
-    local keys = __.str:split(key, '.')
+    local keys = self.__.str:split(key, '.')
     local current = list
 
     for i = 1, #keys do
