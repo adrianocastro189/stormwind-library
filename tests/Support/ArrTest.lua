@@ -57,6 +57,31 @@ function testArrCanImplodeWithNonList()
 end
 
 --[[
+@covers Arr:set()
+]]
+function testArrCanSet()
+    local arr = __.arr
+
+    local list = {}
+    list['a'] = {}
+    list['a']['b'] = 'test-initial'
+
+    -- sanity checks to make sure the list is consistent
+    lu.assertEquals(arr:get(list, 'a.b'), 'test-initial')
+    lu.assertIsNil(arr:get(list, 'a.c'))
+    lu.assertIsNil(arr:get(list, 'x.y.z'))
+
+    -- sets a couple of properties
+    arr:set(list, 'a.c', 'test-with-set')
+    arr:set(list, 'x.y.z', 'test-with-three-levels')
+
+    -- checks if the property 
+    lu.assertEquals(arr:get(list, 'a.c'), 'test-with-set')
+    lu.assertEquals(arr:get(list, 'x.y.z'), 'test-with-three-levels')
+    lu.assertEquals(arr:get(list, 'a.b'), 'test-initial')
+end
+
+--[[
 @covers Arr:isArray()
 ]]
 function testArrIsArray()
@@ -67,4 +92,8 @@ function testArrIsArray()
     lu.assertIsFalse(arr:isArray(1))
     lu.assertIsFalse(arr:isArray('a'))
     lu.assertIsFalse(arr:isArray(arr))
+
+    local tableWithStringKeys = {}
+    arr:set(tableWithStringKeys, 'a.b.c', 'test')
+    lu.assertIsFalse(arr:isArray(tableWithStringKeys))
 end

@@ -6,7 +6,10 @@ Arr.__index = Arr
 Arr.__ = self
 
 --[[
-    @TODO: Keep working here
+Gets a value in an array using the dot notation.
+
+With the dot notation search, it's possible to query a value in a multidimensional array
+by passing a single string containing keys separated by dot.
 ]]
 function Arr:get(list, key, default)
     local keys = __.str:split(key, '.')
@@ -68,6 +71,33 @@ function Arr:isArray(value)
         return isArray
     end
     return false
+end
+
+--[[
+Sets a value using arrays dot notation.
+
+It will basically iterate over the keys separated by "." and create
+the missing indexes, finally setting the last key with the value in
+the args list.
+]]
+function Arr:set(list, key, value)
+    local keys = __.str:split(key, '.')
+    local current = list
+
+    for i = 1, #keys do
+        local key = keys[i]
+
+        if i == #keys then
+            -- this is the last key, so just the value and return
+            current[key] = value
+            return
+        end
+
+        -- sets the "pointer" for the next iteration
+        if current[key] == nil then current[key] = {} end
+        
+        current = current[key]
+    end
 end
 
 self.arr = Arr
