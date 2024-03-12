@@ -64,7 +64,7 @@ be separated by a line break.
 @return self
 ]]
 function Macro:setBody(value)
-    self.body = __.arr:implode('\n', value)
+    self.body = self.__.arr:implode('\n', value)
     return self
 end
 
