@@ -46,6 +46,25 @@ function Arr:implode(delimiter, list)
 end
 
 --[[
+Determines whether a value is in an array.
+
+If so, returns true and the index, false and 0 otherwise.
+
+@treturn boolean, int
+]]
+function Arr:inArray(list, value)
+    local results = {}
+
+    for i, val in pairs(list) do
+        if val == value then
+            return true, i
+        end
+    end
+
+    return false, 0
+end
+
+--[[
 Determines whether the value is an array or not.
 
 The function checks whether the parameter passed is a table in Lua.

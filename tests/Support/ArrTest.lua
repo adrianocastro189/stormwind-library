@@ -101,6 +101,42 @@ function testArrCanSet()
     lu.assertEquals(arr:get(list, 'a.b'), 'test-initial')
 end
 
+-- @see testArrInArray
+local function testArrInArrayExecution(list, value, expectedResult, expectedIndex)
+    local result, index = __.arr:inArray(list, value)
+    
+    lu.assertEquals(result, expectedResult)
+    lu.assertEquals(index, expectedIndex)
+end
+
+--[[
+@covers Arr:inArray()
+]]
+function testArrInArray()
+    testArrInArrayExecution({}, nil, false, 0)
+    testArrInArrayExecution({'a', 'b', 'c'}, 'd', false, 0)
+    testArrInArrayExecution({'a', 'b', 'c'}, 'a', true, 1)
+    testArrInArrayExecution({'a', 'b', 'c'}, 'c', true, 3)
+    testArrInArrayExecution({a = 'a', b = 'b', c = 'c'}, 'c', true, 'c')
+
+    local ComparableObject = {}
+    ComparableObject.__index = ComparableObject
+    ComparableObject.__ = self
+    function ComparableObject:new(value)
+        local self = setmetatable({}, ComparableObject)
+        self.value = value
+        return self
+    end
+    function ComparableObject:__eq(object) return self.value == object.value end
+
+    local objectA = ComparableObject:new('test-object-a')
+    local objectB = ComparableObject:new('test-object-b')
+    local objectC = ComparableObject:new('test-object-c')
+
+    testArrInArrayExecution({objectA, objectB}, objectC, false, 0)
+    testArrInArrayExecution({objectA, objectB}, objectB, true, 2)
+end
+
 --[[
 @covers Arr:isArray()
 ]]

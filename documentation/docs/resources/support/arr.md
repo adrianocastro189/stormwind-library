@@ -65,6 +65,7 @@ reaching the last key.
 * `Arr:get()` - Gets a value in an array using the dot notation.
 * `Arr:implode()` - Combines the elements of a table into a single string,
 separated by a specified delimiter.
+* `Arr:inArray()` - Determines whether a value is in an array.
 * `Arr:isArray()` - Determines whether the value is an array indexed by numeric keys or not, by returning false if the table has string keys
 * `Arr:map()` - Iterates over the list values and calls the callback
 function in the second argument for each of them.
