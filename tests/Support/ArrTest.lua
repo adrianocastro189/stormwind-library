@@ -183,4 +183,18 @@ TestArr = {}
 
         execution({objectA, objectB, objectC}, 'test-key.test-nested-key', {'test-value'})
     end
+
+    -- @covers Arr:remove()
+    function TestArr:testRemove()
+        local execution = function(list, key, expectedOutput)
+            local arr = __.arr
+            arr:remove(list, key)
+            lu.assertEquals(list, expectedOutput)
+        end
+
+        execution({}, 'test', {})
+        execution({'a', 'b', 'c'}, 'a', {'b', 'c'})
+        execution({1, 2, 3}, 2, {1, 3})
+        execution({a = 'a', b = 'b', c = 'c'}, 'a', {a = 'a', b = 'b', c = 'c'})
+    end
 -- end of TestArr

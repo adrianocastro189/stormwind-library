@@ -159,6 +159,24 @@ local Arr = {}
     end
 
     --[[
+    Removes a value from an indexed array.
+
+    Tables with non numeric keys won't be affected by this method.
+
+    The value must be the value to be removed and not the index.
+    ]]
+    function Arr:remove(list, value)
+        if not self:isArray(list) then return false end
+
+        local found, index = self:inArray(list, value)
+
+        if not found then return false end
+
+        table.remove(list, index)
+        return true
+    end
+
+    --[[
     Sets a value using arrays dot notation.
 
     It will basically iterate over the keys separated by "." and create

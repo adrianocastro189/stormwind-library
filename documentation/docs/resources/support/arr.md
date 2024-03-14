@@ -76,6 +76,7 @@ function in the second argument for each of them.
 initialized yet.
 * `Arr:pluck()` - Extracts a list of values from a list of objects based on 
 a given key.
+* `Arr:remove()` - Removes a value from an indexed array.
 * `Arr:set()` - Sets a value in an array using the dot notation.
 
 :::tip Methods args and logic
