@@ -68,7 +68,7 @@ function Arr:inArray(list, value)
 end
 
 --[[
-Inserts a value in an array if it it's not in the array yet.
+Inserts a value in an array if it's not in the array yet.
 
 It's important to mention that this method only works for arrays with
 numeric indexes. After all, if using string keys, there's no need to check,
@@ -138,6 +138,24 @@ The key accepts a dot notation key just like get() and set().
 ]]
 function Arr:maybeInitialize(list, key, initialValue)
     if self:get(list, key) == nil then self:set(list, key, initialValue) end
+end
+
+--[[
+Extracts a list of values from a list of objects based on a given key.
+
+It's important to mention that nil values won't be returned in the
+resulted list. Which means: objects that have no property or when their
+properties are nil, the values won't be returned. That said, a list with n
+items can return a smaller list.
+
+The key accepts a dot notation key just like get() and set().
+]]
+function Arr:pluck(list, key)
+    local results = {}
+    for _, item in ipairs(list) do
+        table.insert(results, self:get(item, key))
+    end
+    return results
 end
 
 --[[

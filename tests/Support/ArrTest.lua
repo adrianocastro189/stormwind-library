@@ -56,8 +56,8 @@ function testArrCanImplodeWithNonList()
     lu.assertEquals(result, text)
 end
 
--- @see testCanInsertNotInArray
-local function testCanInsertNotInArrayExecution(list, value, expectedBooleanResult, expectedListResult)
+-- @see testArrCanInsertNotInArray
+local function testArrCanInsertNotInArrayExecution(list, value, expectedBooleanResult, expectedListResult)
     local booleanResult = __.arr:insertNotInArray(list, value)
 
     lu.assertEquals(booleanResult, expectedBooleanResult)
@@ -67,11 +67,11 @@ end
 --[[
 @covers Arr:insertNotInArray()
 ]]
-function testCanInsertNotInArray()
-    testCanInsertNotInArrayExecution('a', 'a', false, 'a')
-    testCanInsertNotInArrayExecution({}, 'a', true, {'a'})
-    testCanInsertNotInArrayExecution({'a'}, 'a', false, {'a'})
-    testCanInsertNotInArrayExecution({'a'}, 'b', true, {'a', 'b'})
+function testArrCanInsertNotInArray()
+    testArrCanInsertNotInArrayExecution('a', 'a', false, 'a')
+    testArrCanInsertNotInArrayExecution({}, 'a', true, {'a'})
+    testArrCanInsertNotInArrayExecution({'a'}, 'a', false, {'a'})
+    testArrCanInsertNotInArrayExecution({'a'}, 'b', true, {'a', 'b'})
 end
 
 -- @see testArrCanMap
@@ -189,4 +189,24 @@ function testArrMaybeInitialize()
 
     testArrMaybeInitializeExecution(list, 'test-key', 'test-value', 'test-value')
     testArrMaybeInitializeExecution(list, 'test-key', 'test-value-again', 'test-value')
+end
+
+-- @see testArrPluck
+local function testArrPluckExecution(list, key, expectedOutput)
+    local output = __.arr:pluck(list, key)
+
+    lu.assertEquals(output, expectedOutput)
+end
+
+--[[
+@covers Arr:pluck()
+]]
+function testArrPluck()
+    testArrPluckExecution({}, 'test-key', {})
+
+    local objectA = {['test-key'] = {['test-nested-key'] = 'test-value'}}
+    local objectB = {['test-key'] = nil}
+    local objectC = {}
+
+    testArrPluckExecution({objectA, objectB, objectC}, 'test-key.test-nested-key', {'test-value'})
 end

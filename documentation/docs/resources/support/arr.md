@@ -74,6 +74,8 @@ numeric keys or not, by returning false if the table has string keys
 function in the second argument for each of them.
 * `Arr:maybeInitialize()` - Initializes a value in a table if it's not 
 initialized yet.
+* `Arr:pluck()` - Extracts a list of values from a list of objects based on 
+a given key.
 * `Arr:set()` - Sets a value in an array using the dot notation.
 
 :::tip Methods args and logic
