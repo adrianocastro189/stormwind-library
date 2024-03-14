@@ -193,6 +193,7 @@ TestArr = {}
         end
 
         execution({}, 'test', {})
+        execution({'test'}, 'test', {})
         execution({'a', 'b', 'c'}, 'a', {'b', 'c'})
         execution({1, 2, 3}, 2, {1, 3})
         execution({a = 'a', b = 'b', c = 'c'}, 'a', {a = 'a', b = 'b', c = 'c'})
