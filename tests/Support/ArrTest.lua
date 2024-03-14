@@ -56,6 +56,24 @@ function testArrCanImplodeWithNonList()
     lu.assertEquals(result, text)
 end
 
+-- @see testCanInsertNotInArray
+local function testCanInsertNotInArrayExecution(list, value, expectedBooleanResult, expectedListResult)
+    local booleanResult = __.arr:insertNotInArray(list, value)
+
+    lu.assertEquals(booleanResult, expectedBooleanResult)
+    lu.assertEquals(list, expectedListResult)
+end
+
+--[[
+@covers Arr:insertNotInArray()
+]]
+function testCanInsertNotInArray()
+    testCanInsertNotInArrayExecution('a', 'a', false, 'a')
+    testCanInsertNotInArrayExecution({}, 'a', true, {'a'})
+    testCanInsertNotInArrayExecution({'a'}, 'a', false, {'a'})
+    testCanInsertNotInArrayExecution({'a'}, 'b', true, {'a', 'b'})
+end
+
 -- @see testArrCanMap
 local function testArrCanMapExecution(list, expectedOutput)
     local arr = __.arr

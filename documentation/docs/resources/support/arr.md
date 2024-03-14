@@ -66,7 +66,10 @@ reaching the last key.
 * `Arr:implode()` - Combines the elements of a table into a single string,
 separated by a specified delimiter.
 * `Arr:inArray()` - Determines whether a value is in an array.
-* `Arr:isArray()` - Determines whether the value is an array indexed by numeric keys or not, by returning false if the table has string keys
+* `Arr:insertNotInArray()` - Inserts a value in an array if it's not in the 
+array yet.
+* `Arr:isArray()` - Determines whether the value is an array indexed by 
+numeric keys or not, by returning false if the table has string keys
 * `Arr:map()` - Iterates over the list values and calls the callback
 function in the second argument for each of them.
 * `Arr:maybeInitialize()` - Initializes a value in a table if it's not 

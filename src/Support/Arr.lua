@@ -50,6 +50,9 @@ Determines whether a value is in an array.
 
 If so, returns true and the index, false and 0 otherwise.
 
+Class instances can also be checked in this method, not only primitive
+types, as long as they implement the __eq method.
+
 @treturn boolean, int
 ]]
 function Arr:inArray(list, value)
@@ -62,6 +65,25 @@ function Arr:inArray(list, value)
     end
 
     return false, 0
+end
+
+--[[
+Inserts a value in an array if it it's not in the array yet.
+
+It's important to mention that this method only works for arrays with
+numeric indexes. After all, if using string keys, there's no need to check,
+but only setting and replacing the value.
+
+Class instances can also be passed as the value, not only primitive types,
+as long as they implement the __eq method.
+]]
+function Arr:insertNotInArray(list, value)
+    if not self:isArray(list) or self:inArray(list, value) then
+        return false
+    end
+
+    table.insert(list, value)
+    return true
 end
 
 --[[
