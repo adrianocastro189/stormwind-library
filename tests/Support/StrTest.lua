@@ -1,13 +1,12 @@
--- @see testStrCanSplit
-local function testStrCanSplitExecution(value, separator, expectedOutput)
-    lu.assertEquals(__.str:split(value, separator), expectedOutput)
-end
+TestStr = {}
+    -- @covers Str:split()
+    function TestStr:testCanSplit()
+        local function execution(value, separator, expectedOutput)
+            lu.assertEquals(__.str:split(value, separator), expectedOutput)
+        end
 
---[[
-@covers Str:split()
-]]
-function testStrCanSplit()
-    testStrCanSplitExecution('', '.', {})
-    testStrCanSplitExecution('test', '.', {'test'})
-    testStrCanSplitExecution('test-a.test-b.test-c', '.', {'test-a', 'test-b', 'test-c'})
-end
+        execution('', '.', {})
+        execution('test', '.', {'test'})
+        execution('test-a.test-b.test-c', '.', {'test-a', 'test-b', 'test-c'})
+    end
+-- end of TestStr
