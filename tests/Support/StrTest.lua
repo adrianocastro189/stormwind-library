@@ -8,5 +8,6 @@ TestStr = {}
         execution('', '.', {})
         execution('test', '.', {'test'})
         execution('test-a.test-b.test-c', '.', {'test-a', 'test-b', 'test-c'})
+        execution('test-a test-b test-c', ' ', {'test-a', 'test-b', 'test-c'})
     end
 -- end of TestStr
