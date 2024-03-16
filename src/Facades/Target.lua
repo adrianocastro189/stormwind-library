@@ -6,29 +6,29 @@ This class can also be used to access the target with many other purposes,
 like setting the target icon.
 ]]
 local Target = {
-        -- constants
-        MARKER_REMOVE = 'remove',
-        MARKER_STAR = 'star',
-        MARKER_CIRCLE = 'circle',
-        MARKER_DIAMOND = 'diamond',
-        MARKER_TRIANGLE = 'triangle',
-        MARKER_MOON = 'moon',
-        MARKER_SQUARE = 'square',
-        MARKER_X = 'x',
-        MARKER_SKULL = 'skull',
+    -- constants
+    MARKER_REMOVE = 'remove',
+    MARKER_STAR = 'star',
+    MARKER_CIRCLE = 'circle',
+    MARKER_DIAMOND = 'diamond',
+    MARKER_TRIANGLE = 'triangle',
+    MARKER_MOON = 'moon',
+    MARKER_SQUARE = 'square',
+    MARKER_X = 'x',
+    MARKER_SKULL = 'skull',
 
-        -- markers dictionary
-        markers = {
-            remove   = 0,
-            star     = 1,
-            circle   = 2,
-            diamond  = 3,
-            triangle = 4,
-            moon     = 5,
-            square   = 6,
-            x        = 7,
-            skull    = 8,
-        }
+    -- markers dictionary
+    markers = {
+        remove   = 0,
+        star     = 1,
+        circle   = 2,
+        diamond  = 3,
+        triangle = 4,
+        moon     = 5,
+        square   = 6,
+        x        = 7,
+        skull    = 8,
+    }
     }
     Target.__index = Target
     Target.__ = self
