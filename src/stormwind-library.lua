@@ -1,4 +1,4 @@
--- Library version = '0.0.5'
+-- Library version = '0.0.6'
 
 -- import src/Core/Factory.lua
 
@@ -7,3 +7,4 @@
 -- import src/Models/Macro.lua
 
 -- import src/Support/Arr.lua
+-- import src/Support/Str.lua
