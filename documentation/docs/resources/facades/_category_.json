@@ -1,0 +1,7 @@
+{
+  "label": "Facades",
+  "link": {
+    "type": "generated-index",
+    "description": "Facades to ease the connection between addons and the World of Warcraft API."
+  }
+}
