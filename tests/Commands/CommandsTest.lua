@@ -1,18 +1,15 @@
 TestCommand = {}
-    -- @covers Command:setAction()    
     -- @covers Command:setCallback()
-    -- @covers Command:setName()
+    -- @covers Command:setOperation()
     function TestCommand:testChainedSetters()
         local command = __:new('Command')
         
         command
-            :setName('test-name')
-            :setAction('test-action')
             :setCallback('test-callback')
+            :setOperation('test-operation')
 
-        lu.assertEquals('test-name', command.name)
-        lu.assertEquals('test-action', command.action)
         lu.assertEquals('test-callback', command.callback)
+        lu.assertEquals('test-operation', command.operation)
     end
 
     -- @covers Command:__construct()
