@@ -4,7 +4,7 @@ TestMacro = {}
         local macro = __:new('Macro', 'test-macro')
 
         lu.assertNotIsNil(macro)
-        lu.assertEquals(macro.name, 'test-macro')
+        lu.assertEquals('test-macro', macro.name)
     end
 
     -- @covers Macro:setBody()
@@ -13,6 +13,6 @@ TestMacro = {}
 
         macro:setBody('test-body')
 
-        lu.assertEquals(macro.body, 'test-body')
+        lu.assertEquals('test-body', macro.body)
     end
 -- end of TestMacro

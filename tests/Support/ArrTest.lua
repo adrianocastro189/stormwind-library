@@ -2,7 +2,7 @@ TestArr = {}
     -- @covers Arr:get()
     function TestArr:testCanGet()
         local function execution(list, key, default, expectedOutput)
-            lu.assertEquals(__.arr:get(list, key, default), expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:get(list, key, default))
         end
 
         execution({}, 'test', nil, nil)
@@ -35,7 +35,7 @@ TestArr = {}
 
         local result = arr:implode(delimiter, list)
 
-        lu.assertEquals(result, 'a,b,c')
+        lu.assertEquals('a,b,c', result)
     end
 
     -- @covers Arr:implode()
@@ -45,7 +45,7 @@ TestArr = {}
         local text = 'test'
         local result = arr:implode(',', text)
 
-        lu.assertEquals(result, text)
+        lu.assertEquals(text, result)
     end
 
     -- @covers Arr:insertNotInArray()
@@ -53,8 +53,8 @@ TestArr = {}
         local function execution(list, value, expectedBooleanResult, expectedListResult)
             local booleanResult = __.arr:insertNotInArray(list, value)
     
-            lu.assertEquals(booleanResult, expectedBooleanResult)
-            lu.assertEquals(list, expectedListResult)
+            lu.assertEquals(expectedBooleanResult, booleanResult)
+            lu.assertEquals(expectedListResult, list)
         end
 
         execution('a', 'a', false, 'a')
@@ -72,7 +72,7 @@ TestArr = {}
                 return val .. '-' .. i
             end)
     
-            lu.assertEquals(results, expectedOutput)
+            lu.assertEquals(expectedOutput, results)
         end
 
         execution({}, {})
@@ -89,7 +89,7 @@ TestArr = {}
         list['a']['b'] = 'test-initial'
 
         -- sanity checks to make sure the list is consistent
-        lu.assertEquals(arr:get(list, 'a.b'), 'test-initial')
+        lu.assertEquals('test-initial', arr:get(list, 'a.b'))
         lu.assertIsNil(arr:get(list, 'a.c'))
         lu.assertIsNil(arr:get(list, 'x.y.z'))
 
@@ -98,9 +98,9 @@ TestArr = {}
         arr:set(list, 'x.y.z', 'test-with-three-levels')
 
         -- checks if the property 
-        lu.assertEquals(arr:get(list, 'a.c'), 'test-with-set')
-        lu.assertEquals(arr:get(list, 'x.y.z'), 'test-with-three-levels')
-        lu.assertEquals(arr:get(list, 'a.b'), 'test-initial')
+        lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
+        lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
+        lu.assertEquals('test-initial', arr:get(list, 'a.b'))
     end
 
     -- @covers Arr:inArray()
@@ -108,8 +108,8 @@ TestArr = {}
         local function execution(list, value, expectedResult, expectedIndex)
             local result, index = __.arr:inArray(list, value)
             
-            lu.assertEquals(result, expectedResult)
-            lu.assertEquals(index, expectedIndex)
+            lu.assertEquals(expectedResult, result)
+            lu.assertEquals(expectedIndex, index)
         end
 
         execution({}, nil, false, 0)
@@ -158,7 +158,7 @@ TestArr = {}
     
             arr:maybeInitialize(list, key, value)
     
-            lu.assertEquals(arr:get(list, key), expectedValue)
+            lu.assertEquals(expectedValue, arr:get(list, key))
         end
 
         local list = {}
@@ -172,7 +172,7 @@ TestArr = {}
         local function execution(list, key, expectedOutput)
             local output = __.arr:pluck(list, key)
     
-            lu.assertEquals(output, expectedOutput)
+            lu.assertEquals(expectedOutput, output)
         end
 
         execution({}, 'test-key', {})
@@ -189,7 +189,7 @@ TestArr = {}
         local execution = function(list, key, expectedOutput)
             local arr = __.arr
             arr:remove(list, key)
-            lu.assertEquals(list, expectedOutput)
+            lu.assertEquals(expectedOutput, list)
         end
 
         execution({}, 'test', {})

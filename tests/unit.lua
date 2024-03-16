@@ -13,4 +13,6 @@ dofile('./tests/Models/MacroTest.lua')
 dofile('./tests/Support/ArrTest.lua')
 dofile('./tests/Support/StrTest.lua')
 
+lu.ORDER_ACTUAL_EXPECTED=false
+
 os.exit(lu.LuaUnit.run())

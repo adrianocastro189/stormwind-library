@@ -23,7 +23,7 @@ TestTarget = {}
         local target = __.target
 
         local function execution(targetNameOrIndex, expectedIndex)
-            lu.assertEquals(target:getTargetMarkIndex(targetNameOrIndex), expectedIndex)
+            lu.assertEquals(expectedIndex, target:getTargetMarkIndex(targetNameOrIndex))
         end
 
         execution(-1, nil)
@@ -66,7 +66,7 @@ TestTarget = {}
             local target = __.target
             target:mark(markNameOrIndex)
 
-            lu.assertEquals(setRaidTargetInvoked, shouldMark)
+            lu.assertEquals(shouldMark, setRaidTargetInvoked)
         end
 
         execution(-1, false)

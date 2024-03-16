@@ -2,7 +2,7 @@ TestStr = {}
     -- @covers Str:split()
     function TestStr:testCanSplit()
         local function execution(value, separator, expectedOutput)
-            lu.assertEquals(__.str:split(value, separator), expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:split(value, separator))
         end
 
         execution('', '.', {})

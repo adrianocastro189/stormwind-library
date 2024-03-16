@@ -22,6 +22,6 @@ TestFactory = {}
         local mockClassInstance = library:new('MockClass', 'test-name')
 
         lu.assertNotIsNil(mockClassInstance)
-        lu.assertEquals(mockClassInstance.name, 'test-name')
+        lu.assertEquals('test-name', mockClassInstance.name)
     end
 -- end of TestFactory
