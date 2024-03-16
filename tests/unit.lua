@@ -1,8 +1,10 @@
 lu = require('luaunit')
 
 dofile('./dist/stormwind-library.lua')
-function newLibrary() return StormwindLibrary_v0_0_6.new() end
+function newLibrary() return StormwindLibrary_v0_0_7.new() end
     __ = newLibrary()
+
+dofile('./tests/Commands/CommandsHandlerTest.lua')
 
 dofile('./tests/Core/FactoryTest.lua')
 
