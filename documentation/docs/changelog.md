@@ -1,5 +1,7 @@
 # Changelog
 
+## 2024.mm.yy - version 0.0.7-alpha
+
 ## 2024.03.16 - version 0.0.6-alpha
 
 * Add the Str support class
