@@ -24,12 +24,17 @@ library register the command during its initialization.
 point.
 1. After that, each `add(command)` call will map its operation and callback.
 1. When the command is executed in game, the library will have its callback
-triggered along with the arguments. The first argument is considered the 
-operation, so it will determine the proper callback to trigger. This 
-callback is the one exposed by the command object.
-
-:::warning @TODO
-
-* Describe how it handles the other arguments
-
-:::
+triggered along with the argument, which is broken by spaces.
+    * When a command is executed in the game, everything after the command 
+    itself becomes the argument. Example: `/myCommand arg1 arg2 arg3` will 
+    trigger the callback with `arg1 arg2 arg3`.
+    * The Stormwind Library command handler was designed to forward the 
+    arguments like an operating system console where arguments
+    are separated by blank spaces. Arguments that must contain spaces can
+    be wrapped by `"` or `'`. Example: `/myCommand arg1 "arg2 arg3"` will 
+    result in two arguments `{'arg1', 'arg2 arg3'}`.
+1. This list of arguments are divided, and the first argument is considered 
+the command **operation**, so it will determine the proper callback to 
+trigger in the addon. This callback is the one exposed by the command 
+object.
+1. The other arguments (if any) are passed to the operation callback.
