@@ -36,12 +36,9 @@ the first argument is considered the operation, which means something like
 the real command inside the addon. As an example `/myAddonCommand show` and
 `/myAddonCommand hide` are commands with two different operations: **show**
 and **hide**
-
-:::warning @TODO
-
-Complete this guide with the parameters list.
-
-:::
+    * Still, a command callback may accept parameters, so a command like
+    `/myAddonCommand show simpleUi darkMode` will call the **show** callback
+    passing `simpleUi` and `darkMode` arguments
 
 If the addon can handle commands in the proposed way, then it can use the
 resources below to register, listen and trigger callbacks for slash 

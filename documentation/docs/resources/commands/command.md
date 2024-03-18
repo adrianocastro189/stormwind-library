@@ -13,11 +13,11 @@ the game:
 name which will be the one used by the library to forward the command 
 execution
 1. **Callback:** the `setCallback(callback)` expects a function that will be
-executed when the library captures a command.
+executed when the library captures a command. This function may expect
+parameters that will be parsed by the command handler.
 
 :::warning @TODO
 
-* Complete this guide with the parameters list.
 * Complete this guide with the command description.
 
 :::
@@ -32,9 +32,9 @@ any inner list. The addon holds the library instance in a property called
 -- instantiates a command using the library factory
 local command = CustomAddon.library:new('Command')
 
-function command:commandExecution()
+function command:commandExecution(arg1, arg2)
     -- execute any addon code here
-    print('command executed')
+    print('command executed with arg1 = ' .. arg1 .. ', and arg2 = ' .. arg2)
 end
 
 command

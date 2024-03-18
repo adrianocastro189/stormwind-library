@@ -30,22 +30,33 @@ local CommandsHandler = {}
         self.operations[command.operation] = command.callback
     end
 
+    --[[
+    This method is responsible for handling the command that was triggered
+    by the user, parsing the arguments and invoking the callback that was
+    registered for the operation.
+    ]]
     function CommandsHandler:handle(commandArg)
-        local args = self.__.str:split(commandArg or '', ' ')
-
-        if #args < 1 then return end
-
-        -- @TODO: Parse command arguments after the operation
-        self:maybeInvokeCallback(args[1], {})
+        self:maybeInvokeCallback(
+            self:parseOperationAndArguments(
+                self:parseArguments(commandArg)
+            )
+        )
     end
 
+    --[[
+    This method is responsible for invoking the callback that was registered
+    for the operation, if it exists.
+    
+    @codeCoverageIgnore this method's already tested by the handle() test method
+    ]]
     function CommandsHandler:maybeInvokeCallback(operation, args)
+        -- @TODO: Call a default callback if no operation is found <2024.03.18>
         if not operation then return end
 
         local callback = self.operations[operation]
 
         if callback then
-            callback(unpack(args))
+            callback(table.unpack(args))
         end
     end
 
@@ -105,6 +116,36 @@ local CommandsHandler = {}
         return result
     end
 
+    --[[
+    This method selects the first command argument as the operation and the
+    subsequent arguments as the operation arguments.
+
+    Note that args can be empty, so there's no operation and no arguments.
+
+    Still, if the size of args is 1, it means there's an operation and no
+    arguments. If the size is greater than 1, the first argument is the
+    operation and the rest are the arguments.
+    ]]
+    function CommandsHandler:parseOperationAndArguments(args)
+        if not args or #args == 0 then
+            return nil, {}
+        elseif #args == 1 then
+            return args[1], {}
+        else
+            -- the subset of the args table from the second element to the last
+            -- represents the arguments
+            return args[1], {table.unpack(args, 2)}
+        end
+    end
+
+    --[[
+    Register the main Stormwind Library command callback that will then redirect
+    the command to the right operation callback.
+
+    In terms of how the library was designed, this is the only real command
+    handler and serves as a bridge between World of Warcraft command system
+    and the addon itself.
+    ]]
     function CommandsHandler:register()
         if not self.__.addon.command then return end
 
@@ -121,3 +162,6 @@ local CommandsHandler = {}
 -- sets the unique library commands handler instance
 self.commands = CommandsHandler.__construct()
 self.commands:register()
+
+-- allows CommandHandler to be instantiated, very useful for testing
+self:addClass('CommandsHandler', CommandsHandler)
