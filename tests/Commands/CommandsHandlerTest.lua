@@ -13,6 +13,51 @@ TestCommandsHandler = {}
         lu.assertEquals(command, handler.operations['test-operation'])
     end
 
+    -- @covers StormwindLibrary:addHelpOperation()
+    function TestCommandsHandler:testAddHelpOperation()
+        local handler = __:new('CommandsHandler')
+
+        handler:addHelpOperation()
+
+        lu.assertNotNil(handler.operations['help'])
+    end
+
+    -- @covers StormwindLibrary:buildHelpContent()
+    function TestCommandsHandler:testBuildHelpContent()
+        local handler = __:new('CommandsHandler')
+
+        lu.assertEquals('', handler:buildHelpContent())
+
+        local commandA = __
+            :new('Command')
+            :setOperation('test-operation-a')
+            :setDescription('test-callback-a-description')
+
+        local commandB = __
+            :new('Command')
+            :setOperation('test-operation-b')
+            :setDescription('test-callback-b-description')
+
+        local commandC = __
+            :new('Command')
+            :setOperation('test-operation-c')
+
+        local helpCommand = __
+            :new('Command')
+            :setOperation('help')
+
+        handler:add(commandC)
+        handler:add(commandA)
+        handler:add(helpCommand)
+        handler:add(commandB)
+
+        lu.assertEquals(
+[[Available operations:
+test-operation-a - test-callback-a-description
+test-operation-b - test-callback-b-description
+test-operation-c]], handler:buildHelpContent())
+    end
+
     -- @covers StormwindLibrary.commands
     function TestCommandsHandler:testGetCommandsHandler()
         local handler = __.commands

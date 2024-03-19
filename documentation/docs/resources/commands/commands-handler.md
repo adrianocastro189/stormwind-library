@@ -1,9 +1,9 @@
 ---
 sidebar_position: 3
-title: Command Handler
+title: Commands Handler
 ---
 
-The command handler is a class that intercepts all commands registered by an
+The commands handler is a class that intercepts all commands registered by an
 addon. That allows the library to parse arguments and trigger the 
 registered callbacks.
 
@@ -29,7 +29,7 @@ triggered along with the argument, which is broken by spaces.
     * When a command is executed in the game, everything after the command 
     itself becomes the argument. Example: `/myCommand arg1 arg2 arg3` will 
     trigger the callback with `arg1 arg2 arg3`.
-    * The Stormwind Library command handler was designed to forward the 
+    * The Stormwind Library commands handler was designed to forward the 
     arguments like an operating system console where arguments
     are separated by blank spaces. Arguments that must contain spaces can
     be wrapped by `"` or `'`. Example: `/myCommand arg1 "arg2 arg3"` will 
@@ -39,3 +39,12 @@ the command **operation**, so it will determine the proper callback to
 trigger in the addon. This callback is the one exposed by the command 
 object.
 1. The other arguments (if any) are passed to the operation callback.
+
+## The help operation
+
+By default, the commands handler offers a **help** operation that behaves as
+a normal command. It basically prints all the available operations (except for
+the help itself) along with their descriptions.
+
+Addons that must need to override the help operation, simply create a command
+and add it normally, so the default one will be replaced.

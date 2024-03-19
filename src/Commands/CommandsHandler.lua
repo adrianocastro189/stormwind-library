@@ -13,6 +13,7 @@ local CommandsHandler = {}
         local self = setmetatable({}, CommandsHandler)
 
         self.operations = {}
+        self:addHelpOperation()
 
         return self
     end
@@ -28,6 +29,52 @@ local CommandsHandler = {}
     ]]
     function CommandsHandler:add(command)
         self.operations[command.operation] = command
+    end
+
+    --[[
+    This method adds a help operation to the commands handler.
+
+    The help operation is a default operation that can be overridden in
+    case the addon wants to provide a custom help command. For that, just
+    add a command with the operation "help" and a custom callback.
+
+    When the help operation is not provided, a simple help command is
+    printed to the chat frame with the available operations and their
+    descriptions, when available.
+    ]]
+    function CommandsHandler:addHelpOperation()
+        local helpCommand = self.__:new('Command')
+
+        helpCommand:setOperation('help')
+        helpCommand:setDescription('Shows the available operations for this command.')
+        helpCommand:setCallback(function () self:printHelp() end)
+
+        self:add(helpCommand)
+    end
+
+    --[[
+    Builds a help content that lists all available operations and their
+    descriptions.
+    
+    @NOTE: The operations are sorted alphabetically and not in the order they were added.
+    @NOTE: The "help" operation is not included in the help content.
+    
+    @treturn string
+    ]]
+    function CommandsHandler:buildHelpContent()
+        local contentLines = {}
+        local content = self.__.arr:map(self.operations, function (command)
+            if command.operation == 'help' then return end
+
+            table.insert(contentLines, command:getHelpContent())
+        end)
+
+        if #contentLines > 0 then
+            table.sort(contentLines)
+            table.insert(contentLines, 1, 'Available operations:')
+        end
+
+        return self.__.arr:implode('\n', contentLines)
     end
 
     --[[
@@ -137,6 +184,17 @@ local CommandsHandler = {}
             -- represents the arguments
             return args[1], {table.unpack(args, 2)}
         end
+    end
+
+    --[[
+    Prints the help content to the chat frame.
+
+    @codeCoverageIgnore this method just print the result of a method already tested
+    ]]
+    function CommandsHandler:printHelp()
+        local helpContent = self:buildHelpContent()
+
+        if helpContent then print(self:buildHelpContent()) end
     end
 
     --[[

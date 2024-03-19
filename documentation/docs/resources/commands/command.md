@@ -11,12 +11,14 @@ the game:
 
 1. **Operation:** the `setOperation(operation)` expects a string operation
 name which will be the one used by the library to forward the command 
-execution
+execution.
 1. **Callback:** the `setCallback(callback)` expects a function that will be
 executed when the library captures a command. This function may expect
-parameters that will be parsed by the command handler.
+parameters that will be parsed by the commands handler.
 1. **Description:** optional property set with `setDescription(description)`
-that will also store additional information for that command.
+that will also store additional information for that command. When defined,
+the [default help operation](commands-handler#the-help-operation) will print
+it after the operation name.
 
 ## Example
 

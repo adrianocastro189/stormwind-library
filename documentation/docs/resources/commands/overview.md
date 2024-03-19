@@ -45,4 +45,4 @@ resources below to register, listen and trigger callbacks for slash
 commands.
 
 * [Creating and registering a command](command)
-* [How the command handler works](command-handler)
+* [How the commands handler works](commands-handler)
