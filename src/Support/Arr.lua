@@ -34,15 +34,7 @@ local Arr = {}
             return list
         end
 
-        local result = ""
-        local length = #list
-        for i, v in ipairs(list) do
-            result = result .. v
-            if i < length then
-                result = result .. delimiter
-            end
-        end
-        return result
+        return table.concat(list, delimiter)
     end
 
     --[[
