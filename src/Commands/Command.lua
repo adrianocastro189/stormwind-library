@@ -23,6 +23,21 @@ local Command = {}
     end
 
     --[[
+    Returns a human readable help content for the command.
+
+    @treturn string
+    ]]
+    function Command:getHelpContent()
+        local content = self.operation
+
+        if self.description then
+            content = content .. ' - ' .. self.description
+        end
+
+        return content
+    end
+
+    --[[
     Sets the command description.
 
     @return self
