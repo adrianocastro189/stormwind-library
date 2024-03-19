@@ -6,9 +6,11 @@ TestCommand = {}
         
         command
             :setCallback('test-callback')
+            :setDescription('test-description')
             :setOperation('test-operation')
 
         lu.assertEquals('test-callback', command.callback)
+        lu.assertEquals('test-description', command.description)
         lu.assertEquals('test-operation', command.operation)
     end
 

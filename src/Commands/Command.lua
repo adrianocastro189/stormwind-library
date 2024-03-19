@@ -23,6 +23,16 @@ local Command = {}
     end
 
     --[[
+    Sets the command description.
+
+    @return self
+    ]]
+    function Command:setDescription(description)
+        self.description = description
+        return self
+    end
+
+    --[[
     Sets the command operation.
 
     @return self

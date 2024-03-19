@@ -15,12 +15,8 @@ execution
 1. **Callback:** the `setCallback(callback)` expects a function that will be
 executed when the library captures a command. This function may expect
 parameters that will be parsed by the command handler.
-
-:::warning @TODO
-
-* Complete this guide with the command description.
-
-:::
+1. **Description:** optional property set with `setDescription(description)`
+that will also store additional information for that command.
 
 ## Example
 
@@ -38,6 +34,7 @@ function command:commandExecution(arg1, arg2)
 end
 
 command
+    :setDescription('Clears the addon cache')
     :setOperation('clear')
     :setCallback(command.commandExecution)
 
