@@ -27,7 +27,7 @@ local CommandsHandler = {}
     one will replace the first.
     ]]
     function CommandsHandler:add(command)
-        self.operations[command.operation] = command.callback
+        self.operations[command.operation] = command
     end
 
     --[[
@@ -53,7 +53,8 @@ local CommandsHandler = {}
         -- @TODO: Call a default callback if no operation is found <2024.03.18>
         if not operation then return end
 
-        local callback = self.operations[operation]
+        local command = self.operations[operation]
+        local callback = command and command.callback or nil
 
         if callback then
             callback(table.unpack(args))

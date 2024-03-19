@@ -22,7 +22,8 @@ the constructor representing the addon main command. That will make the
 library register the command during its initialization.
 1. The library registers the command associating its own callback at this 
 point.
-1. After that, each `add(command)` call will map its operation and callback.
+1. After that, each `add(command)` call will map its operation and the command
+itself.
 1. When the command is executed in game, the library will have its callback
 triggered along with the argument, which is broken by spaces.
     * When a command is executed in the game, everything after the command 

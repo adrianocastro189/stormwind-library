@@ -10,7 +10,7 @@ TestCommandsHandler = {}
 
         handler:add(command)
 
-        lu.assertEquals('test-callback', handler.operations['test-operation'])
+        lu.assertEquals(command, handler.operations['test-operation'])
     end
 
     -- @covers StormwindLibrary.commands
@@ -41,6 +41,15 @@ TestCommandsHandler = {}
         handler:handle('test-operation arg1 arg2 arg3')
 
         lu.assertEquals({'arg1', 'arg2', 'arg3'}, invokedArgs)
+    end
+
+    --[[
+    @covers StormwindLibrary:handle()
+
+    This test just makes sure an invalid operation won't throw errors
+    ]]
+    function TestCommandsHandler:testHandleWithInvalidOperation()
+        __:new('CommandsHandler'):handle('invalid-operation')
     end
 
     -- @covers StormwindLibrary:parseArguments()
