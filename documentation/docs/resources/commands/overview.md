@@ -46,3 +46,24 @@ commands.
 
 * [Creating and registering a command](command)
 * [How the commands handler works](commands-handler)
+
+## Current limitations
+
+The current command structure has a few limitations that developers need to
+be aware. These limitations can be covered in the future depending on their
+demand and more clarity on how this structure is being used:
+
+1. **Commands must have an operation:** a command can't be created without
+the operation, meaning that `/myAddonCommand` with no arguments won't have
+any effects and won't forward to the addon callbacks.
+    * For cases where the addon needs only one single command, prefer to use
+    a default operation representing what the command opens or runs, examples:
+        * `/myAddonCommand show`
+        * `/myAddonCommand config`
+        * `/myAddonCommand start`
+1. **Arguments can't escape quotes:** when calling commands handled by the
+Stormwind Library, arguments are separated by a space (` `) meaning that
+`/myAddonCommand operation arg1 arg2` will call the operation passing both
+arguments as two Lua variables and it also allows wrapping strings with
+spaces in `""` or `''`. However, until the current version, it's not possible
+to escape quotes in a way that the argument can't contain those characters.
