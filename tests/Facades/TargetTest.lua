@@ -1,5 +1,5 @@
 TestTarget = {}
-    -- @covers StormwindLibrary:getTarget()
+    -- @covers StormwindLibrary.target
     function TestTarget:testGetTargetFacade()
         local target = __.target
 
