@@ -12,6 +12,13 @@ local Output = {}
     function Output.__construct()
         return setmetatable({}, Output)
     end
+
+    --[[
+    Prints a message using the default Lua output resource.
+    ]]
+    function Output:print(message)
+        print(message)
+    end
 -- end of Output
 
 -- sets the unique library output instance

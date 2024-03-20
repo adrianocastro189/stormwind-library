@@ -9,3 +9,13 @@ testing, logging, etc.
 
 The output instance can also be replaced by any addons to forward
 all the produced output.
+
+## Printing
+
+Calling Lua's default `print()` function will work perfectly in any
+addon using the Stormwind Library, however, it's recommended to use
+its default output instance:
+
+```lua
+library.output:print('Content to be printed')
+```
