@@ -35,11 +35,12 @@ Some parameters are **optional** and some are **required**.
 ### command
 
 * **Optional**
+* **Default:** `nil`
 * **Effect:** when initialized, the library will register a command
 that can be executed in game. Please, read the
 [commands documentation](../commands/overview) for reference.
 
 ### name
 
-* **Optional**
+* **Required**
 * **Effect:** the library will store the addon name for multiple purposes.

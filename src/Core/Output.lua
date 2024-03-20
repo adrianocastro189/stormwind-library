@@ -14,6 +14,18 @@ local Output = {}
     end
 
     --[[
+    Formats a standard message with the addon name to be printed.
+
+    @tparam string message
+    ]]
+    function Output:getFormattedMessage(message)
+        return string.format('%s | %s',
+            self.__.addon.name,
+            message
+        )
+    end
+
+    --[[
     Prints a message using the default Lua output resource.
     ]]
     function Output:print(message)

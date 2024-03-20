@@ -206,7 +206,7 @@ local CommandsHandler = {}
     and the addon itself.
     ]]
     function CommandsHandler:register()
-        if not self.__.addon.command then return end
+        if (not SlashCmdList) or (not self.__.addon.command) then return end
 
         local lowercaseCommand = string.lower(self.__.addon.command)
         local uppercaseCommand = string.upper(self.__.addon.command)
