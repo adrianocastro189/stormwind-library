@@ -38,12 +38,9 @@ local Output = {}
     @tparam string message
     ]]
     function Output:getFormattedMessage(message)
-        local coloredAddonName = self:color(self.__.addon.name)
+        local coloredAddonName = self:color(self.__.addon.name .. ' | ')
 
-        return string.format('%s | %s',
-            coloredAddonName,
-            message
-        )
+        return coloredAddonName .. message
     end
 
     --[[
@@ -54,10 +51,15 @@ local Output = {}
     message with the addon name and color it according to the
     primary color from the addon properties.
 
-    @tparam string message
+    This method accepts a string or an array. If an array is passed
+    it will print one line per value.
+
+    @tparam array|string message
     ]]
-    function Output:out(message)
-        self:print(self:getFormattedMessage(message))
+    function Output:out(messages)
+        for i, message in ipairs(self.__.arr:wrap(messages)) do
+            self:print(self:getFormattedMessage(message))
+        end
     end
 
     --[[
