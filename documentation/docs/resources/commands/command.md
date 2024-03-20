@@ -20,11 +20,32 @@ that will also store additional information for that command. When defined,
 the [default help operation](commands-handler#the-help-operation) will print
 it after the operation name.
 
+## Requirements
+
+In order to add commands, the library must be initialized with the `command`
+property. After that, every command instance created in the example below will
+be registered as an operation that will be executed by the registered command.
+
+Read the [Addon Properties](../core/addon-properties) documentation for more
+reference.
+
 ## Example
 
 Imagine an addon that needs to register a **clear** command that will clear
-any inner list. The addon holds the library instance in a property called
-`library`.
+a table. Something like a cache clear. The addon holds the library instance
+in a property called `library`.
+
+First, the library must be initialized with the `command` property:
+
+```lua
+CustomAddon.library = StormwindLibrary.new({
+  command = 'myAddon',
+  -- other properties here
+})
+```
+
+After that, it's possible to register any other commands, called operations,
+as necessary.
 
 ```lua
 -- instantiates a command using the library factory
@@ -42,4 +63,10 @@ command
 
 -- registers the command in the library
 CustomAddon.library.commands:add(command)
+```
+
+In game, running the following line in the chat will execute the command:
+
+```shell
+/myAddon clear
 ```
