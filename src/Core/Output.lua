@@ -47,6 +47,20 @@ local Output = {}
     end
 
     --[[
+    This is the default printing method for the output structure.
+    
+    Although there's a print() method in the output structure, it's
+    recommended to use this method instead, as it will format the
+    message with the addon name and color it according to the
+    primary color from the addon properties.
+
+    @tparam string message
+    ]]
+    function Output:out(message)
+        self:print(self:getFormattedMessage(message))
+    end
+
+    --[[
     Prints a message using the default Lua output resource.
     ]]
     function Output:print(message)

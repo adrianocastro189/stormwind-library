@@ -31,6 +31,16 @@ TestOutput = {}
         lu.assertEquals('colored-TestSuite | test-message', output:getFormattedMessage('test-message'))
     end
 
+    -- @covers Output:out()
+    function TestOutput:testOut()
+        local output = __:new('Output')
+
+        function output:getFormattedMessage(message) return 'formatted-' .. message end
+        function output:print(message) lu.assertEquals('formatted-test-message', message) end
+
+        output:out('test-message')
+    end
+
     -- @covers Output:print()
     function TestOutput:testPrint()
         local originalPrint = print
