@@ -32,15 +32,36 @@ so when showing `command` for example, it means passing a table with
 
 Some parameters are **optional** and some are **required**.
 
+### colors
+
+* **Type**
+  * A table containing the primary and the secondary colors
+  * Colors must be provided as hexadecimal strings
+  ```lua
+  -- ...
+  colors = {
+    primary = 'FFFFFF',
+    secondary = '000000',
+  }
+  -- ...
+  ```
+* **Optional**
+* **Default:** `{}`, indicating there are not default colors
+* **Effect:** Most output messages will use the **primary** color to
+highlight the prefix; the **secondary** color may also be used to
+highlight secondary information.
+
 ### command
 
+* **Type:** string
 * **Optional**
 * **Default:** `nil`
-* **Effect:** when initialized, the library will register a command
+* **Effect:** When initialized, the library will register a command
 that can be executed in game. Please, read the
 [commands documentation](../commands/overview) for reference.
 
 ### name
 
+* **Type:** string
 * **Required**
-* **Effect:** the library will store the addon name for multiple purposes.
+* **Effect:** The library will store the addon name for multiple purposes.

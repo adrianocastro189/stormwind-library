@@ -19,3 +19,25 @@ its default output instance:
 ```lua
 library.output:print('Content to be printed')
 ```
+
+### Coloring strings
+
+When printing content to World of Warcraft chat, it's very common to
+use colors. Those colors have a specific formatting that's hard for 
+humans to read as they mix the hexadecimal color with a couple of other
+characters.
+
+The output structure has a method to easily wrap any string in a
+hexadecimal color that can be called with:
+
+```lua
+-- do not pass the # character
+library.output:color('Content to be printed in white', 'FFFFFF')
+```
+
+The second parameter represents the color in hexadecimal **with no #**,
+but this is an optional parameter. When omitted, the **primary color** set
+in the [addon properties](addon-properties#colors) will be used instead.
+
+And even if no primary color was set, the method will return the original
+input, which is the string with no wrapped color.

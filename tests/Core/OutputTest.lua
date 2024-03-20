@@ -1,4 +1,22 @@
 TestOutput = {}
+    -- @covers Output:color()
+    function TestOutput:testColor()
+        local function execution(value, color, primaryColor, expectedOutput)
+            local originalPrimaryColor = __.addon.colors.primary
+
+            __.addon.colors.primary = primaryColor
+
+            lu.assertEquals(expectedOutput, __.output:color(value, color))
+
+            __.addon.colors.primary = originalPrimaryColor
+        end
+
+        execution('test', nil, nil, 'test')
+        execution('test', nil, 'FFFFFF', '|cfffffffftest|r')
+        execution('test', 'FFFFFF', nil, '|cfffffffftest|r')
+        execution('test', 'FFFFFF', '000000', '|cfffffffftest|r')
+    end
+
     -- @covers Output:__construct()
     function TestOutput:testInstantiate()
         lu.assertNotIsNil(__:new('Output'))
