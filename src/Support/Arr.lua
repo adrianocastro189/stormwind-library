@@ -212,6 +212,24 @@ local Arr = {}
 
         return table.unpack(list, i, j)
     end
+
+    --[[
+    Wraps a value in a table.
+
+    This method is very useful for methods that accept objects and arrays
+    on the same variable. That way, they don't need to check the type, but
+    wrap it and work with an array.
+
+    If the value provided is a table, this method won't result in a
+    bidimensional table, but will return the table itself.
+
+    @treturn array|table
+    ]]
+    function Arr:wrap(value)
+        if type(value) == 'table' then return value end
+
+        return {value}
+    end
 -- end of Arr
 
 self.arr = Arr

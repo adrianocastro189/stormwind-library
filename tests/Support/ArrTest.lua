@@ -198,4 +198,16 @@ TestArr = {}
         execution({1, 2, 3}, 2, {1, 3})
         execution({a = 'a', b = 'b', c = 'c'}, 'a', {a = 'a', b = 'b', c = 'c'})
     end
+
+    -- @covers Arr:wrap()
+    function TestArr:testWrap()
+        local function execution(value, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:wrap(value))
+        end
+
+        execution(nil, {})
+        execution({}, {})
+        execution('test', {'test'})
+        execution({'test'}, {'test'})
+    end
 -- end of TestArr

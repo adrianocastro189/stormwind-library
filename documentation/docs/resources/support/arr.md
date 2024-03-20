@@ -80,6 +80,7 @@ a given key.
 * `Arr:set()` - Sets a value in an array using the dot notation.
 * `Arr:unpack()` - Calls the available `unpack()` method given the running 
 environment.
+* `Arr:wrap()` - Wraps a value in a table.
 
 :::tip Methods args and logic
 
