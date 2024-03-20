@@ -104,7 +104,7 @@ local CommandsHandler = {}
         local callback = command and command.callback or nil
 
         if callback then
-            callback(table.unpack(args))
+            callback(self.__.arr:unpack(args))
         end
     end
 
@@ -182,7 +182,7 @@ local CommandsHandler = {}
         else
             -- the subset of the args table from the second element to the last
             -- represents the arguments
-            return args[1], {table.unpack(args, 2)}
+            return args[1], {self.__.arr:unpack(args, 2)}
         end
     end
 

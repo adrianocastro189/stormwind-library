@@ -195,6 +195,23 @@ local Arr = {}
             current = current[key]
         end
     end
+
+    --[[
+    Calls the available unpack() method given the running environment.
+
+    This method is an important helper because World of Warcraft supports
+    the unpack() function but not table.unpack(). At the same time, some
+    Lua installations have no unpack() but table.unpack().
+
+    @codeCoverageIgnore this method is just a facade to the proper unpack
+                        method and won't be tested given that it's tied to
+                        the running environment
+    ]]
+    function Arr:unpack(list, i, j)
+        if unpack then return unpack(list, i, j) end
+
+        return table.unpack(list, i, j)
+    end
 -- end of Arr
 
 self.arr = Arr
