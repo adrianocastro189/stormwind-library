@@ -38,8 +38,10 @@ local Output = {}
     @tparam string message
     ]]
     function Output:getFormattedMessage(message)
+        local coloredAddonName = self:color(self.__.addon.name)
+
         return string.format('%s | %s',
-            self.__.addon.name,
+            coloredAddonName,
             message
         )
     end

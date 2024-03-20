@@ -20,7 +20,7 @@ its default output instance:
 library.output:print('Content to be printed')
 ```
 
-### Coloring strings
+## Coloring strings
 
 When printing content to World of Warcraft chat, it's very common to
 use colors. Those colors have a specific formatting that's hard for 
