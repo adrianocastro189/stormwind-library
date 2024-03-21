@@ -132,6 +132,7 @@ TestCommandsHandler = {}
         execution({'test', 'with', 'multiple', 'args'}, 'test', {'with', 'multiple', 'args'})
     end
 
+    -- @covers StormwindLibrary:printHelp()
     function TestCommandsHandler:testPrintHelp()
         local function execution(helpContent, shouldOutput)
             local handler = __:new('CommandsHandler')
