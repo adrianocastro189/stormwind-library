@@ -17,6 +17,7 @@ dofile('./tests/Core/OutputTest.lua')
 dofile('./tests/Facades/TargetTest.lua')
 
 dofile('./tests/Models/MacroTest.lua')
+dofile('./tests/Models/RaidMarkerTest.lua')
 
 dofile('./tests/Support/ArrTest.lua')
 dofile('./tests/Support/StrTest.lua')
