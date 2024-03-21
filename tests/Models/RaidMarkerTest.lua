@@ -1,0 +1,3 @@
+TestRaidMarker = {}
+
+-- end of TestRaidMarker
