@@ -14,9 +14,27 @@ local RaidMarker = {}
     --[[
     The raid marker constructor.
     ]]
-    function RaidMarker.__construct()
+    function RaidMarker.__construct(id, name)
         local self = setmetatable({}, RaidMarker)
+
+        self.id = id
+        self.name = name
 
         return self
     end
+
+    --[[
+    Returns a string representation of the raid marker that can
+    be used to print it in the chat output in game.
+    ]]
+    function RaidMarker:getPrintableString()
+        if self.id == 0 then
+            -- the raid marker represented by 0 can't be printed
+            return ''
+        end
+
+        return '\124TInterface\\TargetingFrame\\UI-RaidTargetingIcon_' .. self.id .. ':0\124t'
+    end
 -- end of RaidMarker
+
+self.TEMPORARY_RAID_MARKER = RaidMarker.__construct(1, 'TEMPORARY')
