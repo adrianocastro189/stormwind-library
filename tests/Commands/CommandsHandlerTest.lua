@@ -25,8 +25,9 @@ TestCommandsHandler = {}
     -- @covers StormwindLibrary:buildHelpContent()
     function TestCommandsHandler:testBuildHelpContent()
         local handler = __:new('CommandsHandler')
+        handler.slashCommand = '/test'
 
-        lu.assertEquals('', handler:buildHelpContent())
+        lu.assertEquals({}, handler:buildHelpContent())
 
         local commandA = __
             :new('Command')
@@ -51,11 +52,12 @@ TestCommandsHandler = {}
         handler:add(helpCommand)
         handler:add(commandB)
 
-        lu.assertEquals(
-[[Available operations:
-test-operation-a - test-callback-a-description
-test-operation-b - test-callback-b-description
-test-operation-c]], handler:buildHelpContent())
+        lu.assertEquals({
+            'Available commands:',
+            '/test test-operation-a - test-callback-a-description',
+            '/test test-operation-b - test-callback-b-description',
+            '/test test-operation-c'
+        }, handler:buildHelpContent())
     end
 
     -- @covers StormwindLibrary.commands
@@ -130,6 +132,30 @@ test-operation-c]], handler:buildHelpContent())
         execution({'test', 'with', 'multiple', 'args'}, 'test', {'with', 'multiple', 'args'})
     end
 
+    function TestCommandsHandler:testPrintHelp()
+        local function execution(helpContent, shouldOutput)
+            local handler = __:new('CommandsHandler')
+
+            function handler:buildHelpContent() return helpContent end
+
+            local outputInvoked = false
+
+            local originalOut = __.output.out
+
+            function __.output:out() outputInvoked = true end
+
+            handler:printHelp()
+
+            lu.assertEquals(shouldOutput, outputInvoked)
+
+            __.output.out = originalOut
+        end
+
+        execution(nil, false)
+        execution({}, false)
+        execution({'command-a'}, true)
+    end
+
     -- @covers StormwindLibrary:register()
     function TestCommandsHandler:testRegister()
         local function execution(command, expectedGlobalSlashCommandIndex, expectedSlashCommand, expectedSlashCmdListIndex)
@@ -141,16 +167,19 @@ test-operation-c]], handler:buildHelpContent())
             SlashCmdList = {}
             __.addon.command = command
 
+            lu.assertIsNil(__.commands.slashCommand)
+
             __.commands:register()
 
             if expectedGlobalSlashCommandIndex then
                 lu.assertNotIsNil(__.arr:get(_G, expectedGlobalSlashCommandIndex))
                 lu.assertEquals(expectedSlashCommand, _G[expectedGlobalSlashCommandIndex])
+                lu.assertEquals(expectedSlashCommand, __.commands.slashCommand)
                 lu.assertIsFunction(SlashCmdList[expectedSlashCmdListIndex])
             end
 
             -- restore the command after the test
-            __.addon.command = command
+            __.addon.command = currentCommand
             SlashCmdList = currentSlashCmdList
         end
 
