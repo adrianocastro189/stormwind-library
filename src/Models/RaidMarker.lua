@@ -40,4 +40,17 @@ local RaidMarker = {}
 -- collection of raid markers exposed to the library
 self.raidMarkers = {}
 
-self.TEMPORARY_RAID_MARKER = RaidMarker.__construct(1, 'TEMPORARY')
+for name, id in pairs({
+    remove   = 0,
+    star     = 1,
+    circle   = 2,
+    diamond  = 3,
+    triangle = 4,
+    moon     = 5,
+    square   = 6,
+    x        = 7,
+    skull    = 8,
+}) do
+    self.raidMarkers[id]   = RaidMarker.__construct(id, name)
+    self.raidMarkers[name] = self.raidMarkers[id]
+end
