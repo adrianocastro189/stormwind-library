@@ -25,9 +25,9 @@ running:
 library.output:out('Content to be printed')
 ```
 
-Will produce **[red]**MyAddon**[red]** - Content to be printed, where
-**[red]** is just a placeholder to represent the red color in the game's
-chat.
+Will produce:
+
+**<span style={{ color: 'red' }}>MyAddon |</span> Content to be printed**
 
 If the addon needs to print a non-formatted message, then it should use
 `output:print()` instead. Read the section below for more information.
