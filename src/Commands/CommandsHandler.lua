@@ -59,22 +59,24 @@ local CommandsHandler = {}
     @NOTE: The operations are sorted alphabetically and not in the order they were added.
     @NOTE: The "help" operation is not included in the help content.
     
-    @treturn string
+    @treturn array<string>
     ]]
     function CommandsHandler:buildHelpContent()
         local contentLines = {}
-        local content = self.__.arr:map(self.operations, function (command)
+        self.__.arr:map(self.operations, function (command)
             if command.operation == 'help' then return end
 
-            table.insert(contentLines, command:getHelpContent())
+            local fullCommand = self.slashCommand .. ' ' .. command:getHelpContent()
+
+            table.insert(contentLines, fullCommand)
         end)
 
         if #contentLines > 0 then
             table.sort(contentLines)
-            table.insert(contentLines, 1, 'Available operations:')
+            table.insert(contentLines, 1, 'Available commands:')
         end
 
-        return self.__.arr:implode('\n', contentLines)
+        return contentLines
     end
 
     --[[
@@ -188,13 +190,11 @@ local CommandsHandler = {}
 
     --[[
     Prints the help content to the chat frame.
-
-    @codeCoverageIgnore this method just print the result of a method already tested
     ]]
     function CommandsHandler:printHelp()
         local helpContent = self:buildHelpContent()
 
-        if helpContent then print(self:buildHelpContent()) end
+        if helpContent and (#helpContent > 0) then self.__.output:out(helpContent) end
     end
 
     --[[
@@ -206,12 +206,15 @@ local CommandsHandler = {}
     and the addon itself.
     ]]
     function CommandsHandler:register()
-        if not self.__.addon.command then return end
+        if (not SlashCmdList) or (not self.__.addon.command) then return end
 
         local lowercaseCommand = string.lower(self.__.addon.command)
         local uppercaseCommand = string.upper(self.__.addon.command)
 
-        _G['SLASH_' .. uppercaseCommand .. '1'] = '/' .. lowercaseCommand
+        -- stores a global reference to the addon command
+        self.slashCommand = '/' .. lowercaseCommand
+
+        _G['SLASH_' .. uppercaseCommand .. '1'] = self.slashCommand
         SlashCmdList[uppercaseCommand] = function (args)
             self:handle(args)
         end
