@@ -3,6 +3,7 @@
 ## 2024.mm.yy - version 0.0.7-alpha
 
 * Add the CommandsHandler class to allow addons to register commands
+* Add the Output class to replace print() calls
 * Allow passing addon properties to the library
 
 ## 2024.03.16 - version 0.0.6-alpha
