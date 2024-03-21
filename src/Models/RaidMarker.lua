@@ -37,4 +37,7 @@ local RaidMarker = {}
     end
 -- end of RaidMarker
 
+-- collection of raid markers exposed to the library
+self.raidMarkers = {}
+
 self.TEMPORARY_RAID_MARKER = RaidMarker.__construct(1, 'TEMPORARY')
