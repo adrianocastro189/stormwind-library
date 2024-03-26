@@ -19,7 +19,21 @@ local Events = {}
         -- the list of library listeners to World of Warcraft events
         self.originalListeners = {}
 
+        self:createFrame()
+
         return self
+    end
+
+    --[[
+    Creates the events frame, which will be responsible for capturing
+    all World of Warcraft events and forwarding them to the library
+    handlers.
+    ]]
+    function Events:createFrame()
+        self.eventsFrame = CreateFrame('Frame')
+        self.eventsFrame:SetScript('OnEvent', function (source, event, ...)
+            self:handleOriginal(source, event, ...)
+        end)
     end
 
     --[[

@@ -22,6 +22,7 @@ TestEvents = {}
         local events = __.events
 
         lu.assertNotIsNil(events)
+        lu.assertNotIsNil(events.eventsFrame)
         lu.assertIsTable(events.originalListeners)
     end
 -- end of TestEvents

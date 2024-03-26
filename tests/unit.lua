@@ -1,5 +1,17 @@
 lu = require('luaunit')
 
+-- World of Warcraft Mocks
+-- @TODO: Move this to a separate file <2024.03.26>
+CreateFrame = function ()
+    local mockFrame = {}
+    mockFrame.SetScript = function (self, event, callback)
+        self.event = event
+        self.callback = callback
+    end
+    return mockFrame
+end
+-- End
+
 dofile('./dist/stormwind-library.lua')
 StormwindLibrary = StormwindLibrary_v0_0_7
 function newLibrary() return StormwindLibrary.new({
