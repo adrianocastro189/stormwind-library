@@ -3,11 +3,12 @@ lu = require('luaunit')
 -- World of Warcraft Mocks
 -- @TODO: Move this to a separate file <2024.03.26>
 CreateFrame = function ()
-    local mockFrame = {}
-    mockFrame.SetScript = function (self, event, callback)
-        self.event = event
-        self.callback = callback
-    end
+    local mockFrame = {
+        ['events'] = {},
+        ['scripts'] = {},
+    }
+    mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
+    mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
     return mockFrame
 end
 -- End

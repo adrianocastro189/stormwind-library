@@ -43,6 +43,21 @@ local Events = {}
     end
 
     --[[
+    Sets the Events Frame to listen to a specific event and also store the
+    handler callback to be called when the event is triggered.
+
+    It's important to mention that addons shouldn't care about this
+    method, which is an internal method to the Events class.
+
+    @tparam string event The World of Warcraft event to listen to
+    @tparam function callback The callback to be called when the event is triggered
+    ]]
+    function Events:listenOriginal(event, callback)
+        self.eventsFrame:RegisterEvent(event)
+        self.originalListeners[event] = callback
+    end
+
+    --[[
     This is the main event handler method, which will capture all
     subscribed World of Warcraft events and forwards them to the library
     handlers that will later notify other subscribers.

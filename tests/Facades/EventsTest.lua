@@ -1,5 +1,14 @@
 TestEvents = {}
-    -- @covers Events:handleOriginal
+    -- @covers Events:createFrame()
+    function TestEvents:testCreateFrame()
+        local events = __:new('Events')
+
+        lu.assertNotIsNil(events.eventsFrame)
+        lu.assertNotIsNil(events.eventsFrame.scripts['OnEvent'])
+        lu.assertIsFunction(events.eventsFrame.scripts['OnEvent'])
+    end
+
+    -- @covers Events:handleOriginal()
     function TestEvents:testHandleOriginal()
         local events = __:new('Events')
 
@@ -27,5 +36,17 @@ TestEvents = {}
         lu.assertIsTable(events.eventStates)
         lu.assertIsTable(events.listeners)
         lu.assertIsTable(events.originalListeners)
+    end
+
+    -- @covers Events:listenOriginal()
+    function TestEvents:testListenOriginal()
+        local events = __:new('Events')
+
+        local callback = function () end
+
+        events:listenOriginal('test-event', callback)
+
+        lu.assertEquals(callback, events.originalListeners['test-event'])
+        lu.assertTrue(__.arr:inArray(events.eventsFrame.events, 'test-event'))
     end
 -- end of TestEvents
