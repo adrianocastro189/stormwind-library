@@ -28,6 +28,7 @@ dofile('./tests/Core/FactoryTest.lua')
 dofile('./tests/Core/OutputTest.lua')
 
 dofile('./tests/Facades/EventsTest.lua')
+dofile('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
 dofile('./tests/Facades/TargetTest.lua')
 
 dofile('./tests/Models/MacroTest.lua')
