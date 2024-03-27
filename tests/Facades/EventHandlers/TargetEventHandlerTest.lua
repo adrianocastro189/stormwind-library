@@ -7,7 +7,17 @@ TestTargetEventHandler = {}
     end
 
     -- @covers Events.eventStates.playerHadTarget
-    function TestTargetEventHandler:testEventState()
+    function TestTargetEventHandler:testEventStates()
         lu.assertIsFalse(__.events.eventStates['playerHadTarget'])
+    end
+
+    -- @covers TargetEventHandler.lua
+    function TestTargetEventHandler:testPlayerTargetChangeIsBeingWatched()
+        lu.assertIsFunction(__.events.originalListeners['PLAYER_TARGET_CHANGED'])
+    end
+
+    -- @covers Events:playerTargetChangedListener()
+    function TestTargetEventHandler:testPlayerTargetChangedListener()
+        
     end
 -- end of TestTargetEventHandler
