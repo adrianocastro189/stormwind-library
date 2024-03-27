@@ -5,4 +5,9 @@ TestTargetEventHandler = {}
         lu.assertEquals('PLAYER_TARGET_CHANGED', __.events.EVENT_NAME_PLAYER_TARGET_CHANGED)
         lu.assertEquals('PLAYER_TARGET_CLEAR', __.events.EVENT_NAME_PLAYER_TARGET_CLEAR)
     end
+
+    -- @covers Events.eventStates.playerHadTarget
+    function TestTargetEventHandler:testEventState()
+        lu.assertIsFalse(__.events.eventStates['playerHadTarget'])
+    end
 -- end of TestTargetEventHandler
