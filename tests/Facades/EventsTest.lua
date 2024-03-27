@@ -23,6 +23,9 @@ TestEvents = {}
 
         lu.assertNotIsNil(events)
         lu.assertNotIsNil(events.eventsFrame)
+
+        lu.assertIsTable(events.eventStates)
+        lu.assertIsTable(events.listeners)
         lu.assertIsTable(events.originalListeners)
     end
 -- end of TestEvents

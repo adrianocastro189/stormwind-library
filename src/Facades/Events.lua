@@ -16,6 +16,12 @@ local Events = {}
     function Events.__construct()
         local self = setmetatable({}, Events)
 
+        -- a set of properties to store the current state of the events
+        self.eventStates = {}
+
+        -- the list of addon listeners to Stormwind Library events
+        self.listeners = {}
+
         -- the list of library listeners to World of Warcraft events
         self.originalListeners = {}
 
