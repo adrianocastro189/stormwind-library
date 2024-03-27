@@ -1,5 +1,18 @@
 lu = require('luaunit')
 
+-- World of Warcraft Mocks
+-- @TODO: Move this to a separate file <2024.03.26>
+CreateFrame = function ()
+    local mockFrame = {
+        ['events'] = {},
+        ['scripts'] = {},
+    }
+    mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
+    mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
+    return mockFrame
+end
+-- End
+
 dofile('./dist/stormwind-library.lua')
 StormwindLibrary = StormwindLibrary_v0_0_7
 function newLibrary() return StormwindLibrary.new({
@@ -14,6 +27,7 @@ dofile('./tests/Core/AddonPropertiesTest.lua')
 dofile('./tests/Core/FactoryTest.lua')
 dofile('./tests/Core/OutputTest.lua')
 
+dofile('./tests/Facades/EventsTest.lua')
 dofile('./tests/Facades/TargetTest.lua')
 
 dofile('./tests/Models/MacroTest.lua')
