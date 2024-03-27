@@ -11,6 +11,7 @@
 -- import src/Commands/CommandsHandler.lua
 
 -- import src/Facades/Events.lua
+-- import src/Facades/EventHandlers/PlayerLoginEventHandler.lua
 -- import src/Facades/Target.lua
 
 -- import src/Models/Macro.lua

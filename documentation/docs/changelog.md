@@ -3,6 +3,7 @@
 ## 2024.mm.yy - version 0.0.7-alpha
 
 * Add the Events facade class to serve as a way to improve event handling
+    * Listen to `PLAYER_LOGIN`
 * Add the CommandsHandler class to allow addons to register commands
 * Add the Output class to replace print() calls
 * Add the RaidMarker model class and the library's possible marker instances
