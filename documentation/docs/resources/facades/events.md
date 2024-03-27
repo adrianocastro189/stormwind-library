@@ -94,9 +94,17 @@ The library handlers are the callbacks registered to handle World of
 Warcraft events.
 
 They're created in the `src/Facades/EventHandlers` folder and will
-basically create a callback function, which most of the times will be part
-of the `Events` class and call the `Events:listenOriginal()` method, 
-passing the **World of Warcraft event name** and this callback.
+basically use an anonymous function or create a callback function, which
+most of the times will be part of the `Events` class and call the
+`Events:listenOriginal()` method, passing the **World of Warcraft event
+name** and this callback.
+
+:::note The listener suffix
+
+When attaching a method to the Events class, use the `listener` suffix as
+a convention to indicate that the method is a listener.
+
+:::
 
 The callback implementation performs all the necessary logic to handle the
 event, like setting flags, states, etc, and then calls the `Events:notify()`
