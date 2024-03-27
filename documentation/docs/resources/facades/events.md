@@ -59,9 +59,28 @@ the code more readable.
 #### `PLAYER_LOGIN`
 
 * **Constant:** `library.events.EVENT_NAME_PLAYER_LOGIN`
-* **Payload:** No arguments are sent with this event
+* **Payload:** No data is sent with this event
 * **Description:** This event is the same as the World of Warcraft event
 called `PLAYER_LOGIN`.
+
+#### `PLAYER_TARGET`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_TARGET`
+* **Payload:** No data is sent with this event
+* **Description:** Triggered when a player targets a unit but had no
+target before.
+
+#### `PLAYER_TARGET_CHANGED`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_TARGET_CHANGED`
+* **Payload:** No data is sent with this event
+* **Description:** Triggered when a player changes its current target.
+
+#### `PLAYER_TARGET_CLEAR`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_TARGET_CLEAR`
+* **Payload:** No data is sent with this event
+* **Description:** Triggered when a player clears the target.
 
 ## How does this facade works
 
