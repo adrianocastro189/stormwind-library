@@ -60,4 +60,18 @@ TestEvents = {}
         lu.assertEquals(callback, events.originalListeners['test-event'])
         lu.assertTrue(__.arr:inArray(events.eventsFrame.events, 'test-event'))
     end
+
+    -- @covers Events:notify()
+    function TestEvents:testNotify()
+        local events = __:new('Events')
+
+        local callbackInvoked = false
+        local callback = function (param) callbackInvoked = param end
+
+        events:listen('test-event', callback)
+
+        events:notify('test-event', 'test-arg')
+
+        lu.assertEquals('test-arg', callbackInvoked)
+    end
 -- end of TestEvents

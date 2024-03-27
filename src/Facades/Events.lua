@@ -87,6 +87,19 @@ local Events = {}
         self.eventsFrame:RegisterEvent(event)
         self.originalListeners[event] = callback
     end
+
+    --[[
+    Notifies all listeners of a specific event.
+    ]]
+    function Events:notify(event, ...)
+        local params = ...
+
+        local listeners = self.__.arr:get(self.listeners, event, {})
+
+        self.__.arr:map(listeners, function (listener)
+            listener(params)
+        end)
+    end
 -- end of Events
 
 self.events = self:new('Events')
