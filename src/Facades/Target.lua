@@ -8,6 +8,7 @@ like setting the target marker.
 local Target = {}
     Target.__index = Target
     Target.__ = self
+    self:addClass('Target', Target)
 
     --[[
     Target constructor.
@@ -136,4 +137,4 @@ local Target = {}
 -- end of Target
 
 -- sets the unique library target instance
-self.target = Target.__construct()
+self.target = self:new('Target')

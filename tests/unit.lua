@@ -18,24 +18,38 @@ StormwindLibrary = StormwindLibrary_v0_0_7
 function newLibrary() return StormwindLibrary.new({
     name = 'TestSuite'
 }) end
-__ = newLibrary()
 
-dofile('./tests/Commands/CommandsTest.lua')
-dofile('./tests/Commands/CommandsHandlerTest.lua')
+--[[
+This allows the library to be reloaded between tests, which is useful when
+mocking it on tests could affect the results of other tests.
 
-dofile('./tests/Core/AddonPropertiesTest.lua')
-dofile('./tests/Core/FactoryTest.lua')
-dofile('./tests/Core/OutputTest.lua')
+@NOTE: LuaUnit provides a setUp() method that could be used to reset the
+       library before each test, but it wasn't working properly.
 
-dofile('./tests/Facades/EventsTest.lua')
-dofile('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
-dofile('./tests/Facades/TargetTest.lua')
+@TODO: Use LuaUnit's setUp() method to reset the library before each test <2024.03.27>
+]]
+function runTests(file)
+    __ = newLibrary()
+    dofile(file)
+end
 
-dofile('./tests/Models/MacroTest.lua')
-dofile('./tests/Models/RaidMarkerTest.lua')
+runTests('./tests/Commands/CommandsTest.lua')
+runTests('./tests/Commands/CommandsHandlerTest.lua')
 
-dofile('./tests/Support/ArrTest.lua')
-dofile('./tests/Support/StrTest.lua')
+runTests('./tests/Core/AddonPropertiesTest.lua')
+runTests('./tests/Core/FactoryTest.lua')
+runTests('./tests/Core/OutputTest.lua')
+
+runTests('./tests/Facades/EventsTest.lua')
+runTests('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
+runTests('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
+runTests('./tests/Facades/TargetTest.lua')
+
+runTests('./tests/Models/MacroTest.lua')
+runTests('./tests/Models/RaidMarkerTest.lua')
+
+runTests('./tests/Support/ArrTest.lua')
+runTests('./tests/Support/StrTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false
 
