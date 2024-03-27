@@ -1,6 +1,6 @@
 # Events
 
-The Events Facade is an important class in the Stormwind Library, as it
+The Events facade is an important class in the Stormwind Library, as it
 is responsible for capturing all World of Warcraft events and forwarding
 them to the library handlers.
 
