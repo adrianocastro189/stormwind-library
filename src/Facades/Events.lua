@@ -90,6 +90,9 @@ local Events = {}
 
     --[[
     Notifies all listeners of a specific event.
+
+    This method should be called by event handlers to notify all listeners
+    of a specific Stormwind Library event.
     ]]
     function Events:notify(event, ...)
         local params = ...
