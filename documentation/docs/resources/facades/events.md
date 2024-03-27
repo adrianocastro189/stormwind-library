@@ -44,10 +44,24 @@ end)
 
 ### Available events
 
-The following events are available in the Stormwind Library:
+Stormwind Library event names have constants to avoid typos and to make it
+easier to track their usage.
 
-* `@TODO: List the first events here <2024.03.26>`
-* _(To be defined)_
+Every handler should register one or more event names to the main Events
+class, which means the facade instance can be inspected to check which
+events can be watched.
+
+These are the available Stormwind Library events to be listened by addons
+with the `Events:listen(event, callback)` method. It's advisable to use
+the constants defined in the Stormwind Library to avoid typos and to make
+the code more readable.
+
+#### `PLAYER_LOGIN`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_LOGIN`
+* **Payload:** No arguments are sent with this event
+* **Description:** This event is the same as the World of Warcraft event
+called `PLAYER_LOGIN`.
 
 ## How does this facade works
 
