@@ -38,6 +38,17 @@ TestEvents = {}
         lu.assertIsTable(events.originalListeners)
     end
 
+    -- @covers Events:listen()
+    function TestEvents:testListen()
+        local events = __:new('Events')
+
+        local callback = function () end
+
+        events:listen('test-event', callback)
+
+        lu.assertEquals(callback, events.listeners['test-event'][1])
+    end
+
     -- @covers Events:listenOriginal()
     function TestEvents:testListenOriginal()
         local events = __:new('Events')
