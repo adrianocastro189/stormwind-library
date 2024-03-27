@@ -1,0 +1,7 @@
+{
+  "label": "Commands",
+  "link": {
+    "type": "generated-index",
+    "description": "Resources for easy slash command register for addons."
+  }
+}

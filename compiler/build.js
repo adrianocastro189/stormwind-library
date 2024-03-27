@@ -108,7 +108,7 @@ if (${library}) then return end
 ${library} = {}
 ${library}.__index = ${library}
 
-function ${library}.new()
+function ${library}.new(props)
     local self = setmetatable({}, ${library})
     ${this.fileContent}
     return self
