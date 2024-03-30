@@ -34,15 +34,7 @@ local Arr = {}
             return list
         end
 
-        local result = ""
-        local length = #list
-        for i, v in ipairs(list) do
-            result = result .. v
-            if i < length then
-                result = result .. delimiter
-            end
-        end
-        return result
+        return table.concat(list, delimiter)
     end
 
     --[[
@@ -202,6 +194,41 @@ local Arr = {}
             -- sets the "pointer" for the next iteration
             current = current[key]
         end
+    end
+
+    --[[
+    Calls the available unpack() method given the running environment.
+
+    This method is an important helper because World of Warcraft supports
+    the unpack() function but not table.unpack(). At the same time, some
+    Lua installations have no unpack() but table.unpack().
+
+    @codeCoverageIgnore this method is just a facade to the proper unpack
+                        method and won't be tested given that it's tied to
+                        the running environment
+    ]]
+    function Arr:unpack(list, i, j)
+        if unpack then return unpack(list, i, j) end
+
+        return table.unpack(list, i, j)
+    end
+
+    --[[
+    Wraps a value in a table.
+
+    This method is very useful for methods that accept objects and arrays
+    on the same variable. That way, they don't need to check the type, but
+    wrap it and work with an array.
+
+    If the value provided is a table, this method won't result in a
+    bidimensional table, but will return the table itself.
+
+    @treturn array|table
+    ]]
+    function Arr:wrap(value)
+        if type(value) == 'table' then return value end
+
+        return {value}
     end
 -- end of Arr
 
