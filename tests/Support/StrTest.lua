@@ -1,8 +1,10 @@
 TestStr = {}
     -- @covers Str:isEmpty()
+    -- @covers Str:isNotEmpty()
     function TestStr:testIsEmpty()
         local function execution(value, expectedOutput)
             lu.assertEquals(expectedOutput, __.str:isEmpty(value))
+            lu.assertEquals(not expectedOutput, __.str:isNotEmpty(value))
         end
 
         execution(nil, true)

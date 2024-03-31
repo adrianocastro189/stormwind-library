@@ -24,6 +24,19 @@ local Str = {}
     end
 
     --[[
+    Determines whether a string is not empty.
+
+    This function is the opposite of Str:isEmpty.
+
+    @tparam string value
+
+    @treturn bool
+    ]]
+    function Str:isNotEmpty(value)
+        return not self:isEmpty(value)
+    end
+
+    --[[
     Replaces all occurrences of a substring in a string with another
     substring.
 
