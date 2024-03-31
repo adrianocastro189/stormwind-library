@@ -14,7 +14,7 @@ end
 -- End
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v0_0_7
+StormwindLibrary = StormwindLibrary_v0_0_8
 function newLibrary() return StormwindLibrary.new({
     name = 'TestSuite'
 }) end
