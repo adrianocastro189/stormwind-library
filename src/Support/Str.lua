@@ -5,6 +5,25 @@ local Str = {}
     Str.__index = Str
 
     --[[
+    Determines whether a string is empty or not.
+
+    By empty, it means that the string is nil, has no characters, or has only
+    whitespace characters. This last case is important because a string with
+    only whitespace characters is not considered empty by Lua's standards,
+    but it is by this function's standards.
+
+    If a method shouldn't consider a string with only whitespace characters
+    as empty, please do not use this function.
+        
+    @tparam string value
+
+    @treturn bool
+    ]]
+    function Str:isEmpty(value)
+        return value == nil or (string.len(self:trim(value)) == 0)
+    end
+
+    --[[
     Replaces all occurrences of a substring in a string with another
     substring.
 

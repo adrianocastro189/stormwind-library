@@ -1,4 +1,18 @@
 TestStr = {}
+    -- @covers Str:isEmpty()
+    function TestStr:testIsEmpty()
+        local function execution(value, expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:isEmpty(value))
+        end
+
+        execution(nil, true)
+        execution('', true)
+        execution(' ', true)
+        execution('a', false)
+        execution(' a', false)
+        execution('a ', false)
+    end
+
     -- @covers Str:replaceAll()
     function TestStr:testReplaceAll()
         local function execution(value, find, replace, expectedOutput)
