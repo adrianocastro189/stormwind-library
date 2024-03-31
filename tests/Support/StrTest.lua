@@ -32,4 +32,24 @@ TestStr = {}
         execution('test-a.test-b.test-c', '.', {'test-a', 'test-b', 'test-c'})
         execution('test-a test-b test-c', ' ', {'test-a', 'test-b', 'test-c'})
     end
+
+    -- @covers Str:trim()
+    function TestStr:testTrim()
+        local function execution(value, expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:trim(value))
+        end
+
+        execution(nil, nil)
+        execution('', '')
+        execution(' ', '')
+        execution('  ', '')
+        execution('    ', '')
+        execution('a', 'a')
+        execution(' a', 'a')
+        execution('a ', 'a')
+        execution(' a ', 'a')
+        execution('  a  ', 'a')
+        execution('  a b  ', 'a b')
+        execution('  a  b  ', 'a  b')
+    end
 -- end of TestStr

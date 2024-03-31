@@ -37,6 +37,17 @@ local Str = {}
         end
         return values
     end
+
+    --[[
+    Removes all whitespace from the beginning and end of a string.
+
+    @tparam string value
+
+    @treturn string
+    ]]
+    function Str:trim(value)
+        return value and value:gsub("^%s*(.-)%s*$", "%1") or value
+    end
 -- end of Str
 
 self.str = Str
