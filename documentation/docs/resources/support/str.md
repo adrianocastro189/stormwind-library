@@ -16,6 +16,8 @@ reference.
 * `Str:isNotEmpty()` - Determines whether a string is not empty.
     * Read the `Str:isEmpty()` documentation above for clarification about
     what this library considers when checking if a string is empty.
+* `Str:isWrappedBy()` - Determines whether a string is wrapped by a prefix 
+and a suffix.
 * `Str:replaceAll()` - Replaces all occurrences of a substring in a string 
 with another substring.
 * `Str:split()` - Splits a string in a table by breaking it where the separator is found.

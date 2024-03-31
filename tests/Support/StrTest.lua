@@ -15,6 +15,25 @@ TestStr = {}
         execution('a ', false)
     end
 
+    -- @covers Str:isWrappedBy()
+    function TestStr:testIsWrappedBy()
+        local function execution(value, wrapper, endWrapper, expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:isWrappedBy(value, wrapper, endWrapper))
+        end
+
+        execution('<a>', '<', '>', true)
+        execution('(a>', '(', ')', false)
+        execution('"a"', '"', nil, true)
+        execution("'a'", "'", nil, true)
+        execution('"a', '"', nil, false)
+        execution('a', '', nil, false)
+
+        -- edge cases
+        execution('a', 'a', nil, false)
+        execution('', '', '', false)
+    end
+
+
     -- @covers Str:replaceAll()
     function TestStr:testReplaceAll()
         local function execution(value, find, replace, expectedOutput)

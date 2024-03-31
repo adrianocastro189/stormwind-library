@@ -37,6 +37,31 @@ local Str = {}
     end
 
     --[[
+    Determines whether a string is wrapped by a prefix and a suffix.
+
+    This function is useful to determine if a string is wrapped by a pair of
+    strings, like quotes, parentheses, brackets, etc.
+
+    The third parameter is optional. If it is not provided, the function will
+    assume that the prefix and suffix are the same.
+
+    @tparam string value
+    @tparam string wrapper
+    @tparam string endWrapper, optional
+
+    @treturn bool
+    ]]
+    function Str:isWrappedBy(value, wrapper, --[[optional]] endWrapper)
+        endWrapper = endWrapper or wrapper
+
+        if value == wrapper then
+            return false
+        end
+
+        return value:sub(1, #wrapper) == wrapper and value:sub(-#endWrapper) == endWrapper
+    end
+
+    --[[
     Replaces all occurrences of a substring in a string with another
     substring.
 
