@@ -45,6 +45,10 @@ local Str = {}
     The third parameter is optional. If it is not provided, the function will
     assume that the prefix and suffix are the same.
 
+    Finally, this function will return true if the string contains only the
+    prefix and suffix, like "", "()", "[]", etc. That would mean that an
+    empty string is considered wrapped by something.
+
     @tparam string value
     @tparam string wrapper
     @tparam string endWrapper, optional

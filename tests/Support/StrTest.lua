@@ -23,8 +23,10 @@ TestStr = {}
 
         execution('<a>', '<', '>', true)
         execution('(a>', '(', ')', false)
+        execution('""', '"', nil, true)
         execution('"a"', '"', nil, true)
         execution("'a'", "'", nil, true)
+        execution("''", "'", nil, true)
         execution('"a', '"', nil, false)
         execution('a', '', nil, false)
 
