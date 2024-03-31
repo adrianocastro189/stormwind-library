@@ -51,14 +51,14 @@ local Str = {}
 
     @treturn bool
     ]]
-    function Str:isWrappedBy(value, wrapper, --[[optional]] endWrapper)
+    function Str:isWrappedBy(value, wrapper, endWrapper)
         endWrapper = endWrapper or wrapper
 
-        if value == wrapper then
-            return false
-        end
-
-        return value:sub(1, #wrapper) == wrapper and value:sub(-#endWrapper) == endWrapper
+        return
+            (value ~= nil) and
+            (wrapper ~= nil) and
+            (value ~= wrapper) and
+            (value:sub(1, #wrapper) == wrapper and value:sub(-#endWrapper) == endWrapper)
     end
 
     --[[

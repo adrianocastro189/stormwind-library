@@ -31,6 +31,9 @@ TestStr = {}
         -- edge cases
         execution('a', 'a', nil, false)
         execution('', '', '', false)
+        execution(nil, '', '', false)
+        execution('', nil, '', false)
+        execution(nil, nil, nil, false)
     end
 
 
