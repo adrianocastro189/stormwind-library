@@ -9,4 +9,4 @@ reference.
 
 ## Methods
 
-* `Bool:____()` - Description
+* `Bool:isTrue()` - Determines whether a value represents true or not.
