@@ -21,7 +21,7 @@ anything else **shouldn't be considered false.** Consumers of this
 class can use `isTrue()` to determine if a value represents a true
 value, but using a `isFalse()` method would be a bit inconsistent.
 That said, instead of having a `isFalse()` method, consumers can
-use the not operator to determine if a value is false, which
+use the `not` operator to determine if a value is false, which
 makes the code more readable, like: if this value is not true,
 then do something.
 
