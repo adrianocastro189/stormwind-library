@@ -38,6 +38,31 @@ TestStr = {}
         execution(nil, nil, nil, false)
     end
 
+    -- @covers Str:removeWrappers()
+    function TestStr:testRemoveWrappers()
+        local function execution(value, wrapper, endWrapper, expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:removeWrappers(value, wrapper, endWrapper))
+        end
+
+        execution('<a>', '<', '>', 'a')
+        execution('_(a)_', '_(', ')_', 'a')
+        execution('""', '"', nil, '')
+        execution('"a"', '"', nil, 'a')
+        execution("'a'", "'", nil, 'a')
+        execution("''", "'", nil, '')
+        execution('"a', '"', nil, '"a')
+        execution('a', '', nil, 'a')
+
+        -- won't remove internal wrappers
+        execution('"a"b"c"', '"', nil, 'a"b"c')
+
+        -- edge cases
+        execution('a', 'a', nil, 'a')
+        execution('', '', '', '')
+        execution(nil, '', '', nil)
+        execution('', nil, '', '')
+        execution(nil, nil, nil, nil)
+    end
 
     -- @covers Str:replaceAll()
     function TestStr:testReplaceAll()

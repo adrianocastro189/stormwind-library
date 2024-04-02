@@ -66,6 +66,28 @@ local Str = {}
     end
 
     --[[
+    Removes the wrapping strings from a string.
+
+    This function is useful to remove quotes, parentheses, brackets, etc,
+    from a string.
+
+    Similarly to Str:isWrappedBy, the third parameter is optional. If it is
+    not provided, the function will assume that the prefix and suffix are
+    the same.
+
+    @tparam string value
+    @tparam string wrapper
+    @tparam string endWrapper, optional
+
+    @treturn string
+    ]]
+    function Str:removeWrappers(value, wrapper, endWrapper)
+        return self:isWrappedBy(value, wrapper, endWrapper)
+            and value:sub(#wrapper + 1, -#(endWrapper or wrapper) - 1)
+            or value
+    end
+
+    --[[
     Replaces all occurrences of a substring in a string with another
     substring.
 
