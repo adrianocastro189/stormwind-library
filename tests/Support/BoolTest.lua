@@ -22,5 +22,6 @@ TestBool = {}
         lu.assertFalse(bool:isTrue("false"))
         lu.assertFalse(bool:isTrue(false))
         lu.assertFalse(bool:isTrue("no"))
+        lu.assertFalse(bool:isTrue(nil))
     end
 -- end of TestBool
