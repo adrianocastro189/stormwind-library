@@ -1,6 +1,7 @@
 -- Library version = '0.0.8'
 
 -- import src/Support/Arr.lua
+-- import src/Support/Bool.lua
 -- import src/Support/Str.lua
 
 -- import src/Core/AddonProperties.lua

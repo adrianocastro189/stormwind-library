@@ -49,6 +49,7 @@ runTests('./tests/Models/MacroTest.lua')
 runTests('./tests/Models/RaidMarkerTest.lua')
 
 runTests('./tests/Support/ArrTest.lua')
+runTests('./tests/Support/BoolTest.lua')
 runTests('./tests/Support/StrTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false
