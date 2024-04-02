@@ -2,6 +2,9 @@
 
 ## yyyy.mm.dd - version 0.0.8-alpha
 
+* Add a new support class to handle bool values
+* Add new support methods to Str
+
 ## 2024.03.29 - version 0.0.7-alpha
 
 * Add the Events facade class to serve as a way to improve event handling
