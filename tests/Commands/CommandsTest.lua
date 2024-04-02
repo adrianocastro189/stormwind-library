@@ -1,4 +1,4 @@
-TestCommand = {}
+TestCommand = BaseTestClass:new()
     -- @covers Command:setCallback()
     -- @covers Command:setDescription()
     -- @covers Command:setOperation()

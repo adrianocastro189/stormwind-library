@@ -1,4 +1,4 @@
-TestMacro = {}
+TestMacro = BaseTestClass:new()
     -- @covers Macro:__construct()
     function TestMacro:testInstantiate()
         local macro = __:new('Macro', 'test-macro')

@@ -1,4 +1,4 @@
-TestAddonProperties = {}
+TestAddonProperties = BaseTestClass:new()
     -- @covers AddonProperties.lua
     function TestAddonProperties:testPropertiesAreSet()
         local library = StormwindLibrary.new({

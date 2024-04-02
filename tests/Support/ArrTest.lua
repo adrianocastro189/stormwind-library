@@ -1,4 +1,4 @@
-TestArr = {}
+TestArr = BaseTestClass:new()
     -- @covers Arr:get()
     function TestArr:testCanGet()
         local function execution(list, key, default, expectedOutput)

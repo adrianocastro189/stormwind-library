@@ -1,4 +1,4 @@
-TestBool = {}
+TestBool = BaseTestClass:new()
     -- @covers StormwindLibrary.bool
     function TestBool:testBoolInstanceIsSet()
         local bool = __.bool

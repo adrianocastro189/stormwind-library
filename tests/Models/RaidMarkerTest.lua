@@ -1,4 +1,4 @@
-TestRaidMarker = {}
+TestRaidMarker = BaseTestClass:new()
     -- @covers RaidMarker::getPrintableString()
     function TestRaidMarker:testGetPrintableString()
         lu.assertEquals('\124TInterface\\TargetingFrame\\UI-RaidTargetingIcon_8:0\124t', __.raidMarkers['skull']:getPrintableString())

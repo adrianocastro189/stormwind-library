@@ -1,4 +1,4 @@
-TestTargetEventHandler = {}
+TestTargetEventHandler = BaseTestClass:new()
     -- @covers TargetEventHandler.lua
     function TestTargetEventHandler:testEventNamesAreSet()
         lu.assertEquals('PLAYER_TARGET', __.events.EVENT_NAME_PLAYER_TARGET)
@@ -19,8 +19,6 @@ TestTargetEventHandler = {}
     -- @covers Events:playerTargetChangedListener()
     function TestTargetEventHandler:testPlayerTargetChangedListener()
         local function execution(playerHadTarget, playerHasTarget, expectedEvent, expectedPlayerHadTargetState)
-            __ = newLibrary()
-
             local targetMock = __:new('Target')
             targetMock.hasTarget = function() return playerHasTarget end
             __.target = targetMock
