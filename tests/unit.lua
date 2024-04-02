@@ -14,10 +14,30 @@ end
 -- End
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v0_0_8
-function newLibrary() return StormwindLibrary.new({
-    name = 'TestSuite'
-}) end
+
+--[[
+This is a base test class that sets up the library before each test.
+
+Every test class should inherit from this class to have the library set up
+before each test. That way, mocking the library on tests won't affect the
+results of other tests.
+
+The setUp() method is expected to be called before each test.
+]]
+BaseTestClass = {
+    new = function(self)
+        local instance = {}
+        setmetatable(instance, self)
+        self.__index = self
+        return instance
+    end,
+    
+    setUp = function()
+        __ = StormwindLibrary_v0_0_8.new({
+            name = 'TestSuite'
+        })
+    end
+}
 
 --[[
 This allows the library to be reloaded between tests, which is useful when
