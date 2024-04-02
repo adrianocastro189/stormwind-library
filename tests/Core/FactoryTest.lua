@@ -4,7 +4,7 @@ TestFactory = BaseTestClass:new()
     @covers Factory:addClass()
     @covers Factory:new()
     ]]
-    function TestFactory:testCanInstantiateClasses()
+    function TestFactory:testClassInstantiation()
         local MockClass = {}
         MockClass.__index = MockClass
 
