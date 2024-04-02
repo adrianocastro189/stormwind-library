@@ -1,4 +1,4 @@
-TestOutput = {}
+TestOutput = BaseTestClass:new()
     -- @covers Output:color()
     function TestOutput:testColor()
         local function execution(value, color, primaryColor, expectedOutput)

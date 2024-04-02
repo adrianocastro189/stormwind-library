@@ -1,4 +1,4 @@
-TestCommandsHandler = {}
+TestCommandsHandler = BaseTestClass:new()
     -- @covers StormwindLibrary:add()
     function TestCommandsHandler:testAdd()
         local handler = __.commands

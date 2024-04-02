@@ -1,4 +1,4 @@
-TestStr = {}
+TestStr = BaseTestClass:new()
     -- @covers Str:isEmpty()
     -- @covers Str:isNotEmpty()
     function TestStr:testIsEmpty()

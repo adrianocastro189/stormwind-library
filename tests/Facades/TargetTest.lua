@@ -1,4 +1,4 @@
-TestTarget = {}
+TestTarget = BaseTestClass:new()
     -- @covers StormwindLibrary.target
     function TestTarget:testGetTargetFacade()
         local target = __.target

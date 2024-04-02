@@ -4,6 +4,7 @@
 
 * Add a new support class to handle bool values
 * Add new support methods to Str
+* Reset the library instance for each test method for better mocking and less garbage between test cases
 
 ## 2024.03.29 - version 0.0.7-alpha
 
