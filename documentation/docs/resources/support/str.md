@@ -16,6 +16,7 @@ reference.
 * `Str:isNotEmpty()` - Determines whether a string is not empty.
     * Read the `Str:isEmpty()` documentation above for clarification about
     what this library considers when checking if a string is empty.
+* `Str:isQuoted()` - Determines whether a string is quoted by " or '.
 * `Str:isWrappedBy()` - Determines whether a string is wrapped by a prefix 
 and a suffix.
 * `Str:removeWrappers()` - Removes the wrapping strings from a string.

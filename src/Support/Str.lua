@@ -37,6 +37,17 @@ local Str = {}
     end
 
     --[[
+    Determines whether a string is quoted by " or '.
+
+    @tparam string value
+
+    @treturn bool
+    ]]
+    function Str:isQuoted(value)
+        return self:isWrappedBy(value, '"') or self:isWrappedBy(value, "'")
+    end
+
+    --[[
     Determines whether a string is wrapped by a prefix and a suffix.
 
     This function is useful to determine if a string is wrapped by a pair of

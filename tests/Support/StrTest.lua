@@ -15,6 +15,27 @@ TestStr = BaseTestClass:new()
         execution('a ', false)
     end
 
+    -- @covers Str:isQuoted()
+    function TestStr:testIsQuoted()
+        local function execution(value, expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:isQuoted(value))
+        end
+
+        execution(nil, false)
+        execution('', false)
+        execution(' ', false)
+        execution('a', false)
+        
+        execution('"a"', true)
+        execution("'a'", true)
+        
+        execution('""', true)
+        execution("''", true)
+        
+        execution('"a', false)
+        execution('a"', false)
+    end
+
     -- @covers Str:isWrappedBy()
     function TestStr:testIsWrappedBy()
         local function execution(value, wrapper, endWrapper, expectedOutput)
