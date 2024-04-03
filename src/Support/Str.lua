@@ -37,6 +37,17 @@ local Str = {}
     end
 
     --[[
+    Determines whether a string is quoted by " or '.
+
+    @tparam string value
+
+    @treturn bool
+    ]]
+    function Str:isQuoted(value)
+        return self:isWrappedBy(value, '"') or self:isWrappedBy(value, "'")
+    end
+
+    --[[
     Determines whether a string is wrapped by a prefix and a suffix.
 
     This function is useful to determine if a string is wrapped by a pair of
@@ -63,6 +74,26 @@ local Str = {}
             (wrapper ~= nil) and
             (value ~= wrapper) and
             (value:sub(1, #wrapper) == wrapper and value:sub(-#endWrapper) == endWrapper)
+    end
+
+    --[[
+    Removes quotes from a string.
+
+    This method can't simply call removeWrappers twice for " or ', because
+    the string could be wrapped by one type of quote and contain the other
+    type inside it, so it first checks which type of quote is wrapping the
+    string and then removes it.
+
+    @tparam string value
+
+    @treturn string
+    ]]
+    function Str:removeQuotes(value)
+        if self:isWrappedBy(value, '"') then
+            return self:removeWrappers(value, '"')
+        end
+
+        return self:removeWrappers(value, "'")
     end
 
     --[[
