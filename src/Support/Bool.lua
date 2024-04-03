@@ -28,7 +28,9 @@ local Bool = {}
     @treturn bool
     ]]
     function Bool:isTrue(value)
-        return self.__.arr:inArray({1, "1", "true", true, "yes"}, value)
+        -- it returns just the first inArray result, as the second value is the index
+        -- which makes no sense in this context
+        return self.__.arr:inArray({1, "1", "true", true, "yes"}, value)[1]
     end
 -- end of Bool
 
