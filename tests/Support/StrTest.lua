@@ -59,6 +59,29 @@ TestStr = BaseTestClass:new()
         execution(nil, nil, nil, false)
     end
 
+    -- @covers Str:removeQuotes()
+    function TestStr:testRemoveQuotes()
+        local function execution(value, expectedOutput)
+            lu.assertEquals(expectedOutput, __.str:removeQuotes(value))
+        end
+
+        execution(nil, nil)
+        execution('', '')
+        execution(' ', ' ')
+        execution('a', 'a')
+        
+        execution('"a"', 'a')
+        execution("'a'", 'a')
+        execution('""', '')
+        execution("''", '')
+
+        -- quoted quotes
+        execution('"\'\'"', "''")
+        execution("'\"\"'", '""')
+        execution('"\'a\'"', "'a'")
+        execution("'\"a\"'", '"a"')
+    end
+
     -- @covers Str:removeWrappers()
     function TestStr:testRemoveWrappers()
         local function execution(value, wrapper, endWrapper, expectedOutput)

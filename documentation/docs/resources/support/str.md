@@ -19,6 +19,11 @@ reference.
 * `Str:isQuoted()` - Determines whether a string is quoted by " or '.
 * `Str:isWrappedBy()` - Determines whether a string is wrapped by a prefix 
 and a suffix.
+* `Str:removeQuotes()` - Removes quotes from a string.
+    * Addons shouldn't call `removeWrappers` twice for `"` and `'`, because
+    the string could be wrapped by one type of quote and contain the other
+    type inside it, so `removeQuotes` method first checks which type of 
+    quote is wrapping the string and then removes it.
 * `Str:removeWrappers()` - Removes the wrapping strings from a string.
 * `Str:replaceAll()` - Replaces all occurrences of a substring in a string 
 with another substring.
