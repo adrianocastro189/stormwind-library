@@ -1,6 +1,13 @@
-TestArr = {}
+TestArr = BaseTestClass:new()
+    -- @covers Arr
+    function TestArr:testArrInstanceIsSet()
+        local arr = __.arr
+
+        lu.assertNotIsNil(arr)
+    end
+
     -- @covers Arr:get()
-    function TestArr:testCanGet()
+    function TestArr:testGet()
         local function execution(list, key, default, expectedOutput)
             lu.assertEquals(expectedOutput, __.arr:get(list, key, default))
         end
@@ -19,15 +26,8 @@ TestArr = {}
         execution(listWithNestedKeys, 'test-a.test-b.test-c', nil, 'test')
     end
 
-    -- @covers Arr
-    function TestArr:testCanGetInstance()
-        local arr = __.arr
-
-        lu.assertNotIsNil(arr)
-    end
-
     -- @covers Arr:implode()
-    function TestArr:testCanImplode()
+    function TestArr:testImplode()
         local arr = __.arr
 
         local delimiter = ','
@@ -39,68 +39,13 @@ TestArr = {}
     end
 
     -- @covers Arr:implode()
-    function TestArr:testCanImplodeWithNonList()
+    function TestArr:testImplodeWithNonList()
         local arr = __.arr
 
         local text = 'test'
         local result = arr:implode(',', text)
 
         lu.assertEquals(text, result)
-    end
-
-    -- @covers Arr:insertNotInArray()
-    function TestArr:testCanInsertNotInArray()
-        local function execution(list, value, expectedBooleanResult, expectedListResult)
-            local booleanResult = __.arr:insertNotInArray(list, value)
-    
-            lu.assertEquals(expectedBooleanResult, booleanResult)
-            lu.assertEquals(expectedListResult, list)
-        end
-
-        execution('a', 'a', false, 'a')
-        execution({}, 'a', true, {'a'})
-        execution({'a'}, 'a', false, {'a'})
-        execution({'a'}, 'b', true, {'a', 'b'})
-    end
-
-    -- @covers Arr:map()
-    function TestArr:testCanMap()
-        local function execution(list, expectedOutput)
-            local arr = __.arr
-    
-            local results = __.arr:map(list, function (val, i)
-                return val .. '-' .. i
-            end)
-    
-            lu.assertEquals(expectedOutput, results)
-        end
-
-        execution({}, {})
-        execution({'test', 'test', 'test'}, {'test-1', 'test-2', 'test-3'})
-        execution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {['a'] = 'a-a', ['b'] = 'b-b', ['c'] = 'c-c'})
-    end
-
-    -- @covers Arr:set()
-    function TestArr:testCanSet()
-        local arr = __.arr
-
-        local list = {}
-        list['a'] = {}
-        list['a']['b'] = 'test-initial'
-
-        -- sanity checks to make sure the list is consistent
-        lu.assertEquals('test-initial', arr:get(list, 'a.b'))
-        lu.assertIsNil(arr:get(list, 'a.c'))
-        lu.assertIsNil(arr:get(list, 'x.y.z'))
-
-        -- sets a couple of properties
-        arr:set(list, 'a.c', 'test-with-set')
-        arr:set(list, 'x.y.z', 'test-with-three-levels')
-
-        -- checks if the property 
-        lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
-        lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
-        lu.assertEquals('test-initial', arr:get(list, 'a.b'))
     end
 
     -- @covers Arr:inArray()
@@ -136,6 +81,21 @@ TestArr = {}
         execution({objectA, objectB}, objectB, true, 2)
     end
 
+    -- @covers Arr:insertNotInArray()
+    function TestArr:testInsertNotInArray()
+        local function execution(list, value, expectedBooleanResult, expectedListResult)
+            local booleanResult = __.arr:insertNotInArray(list, value)
+    
+            lu.assertEquals(expectedBooleanResult, booleanResult)
+            lu.assertEquals(expectedListResult, list)
+        end
+
+        execution('a', 'a', false, 'a')
+        execution({}, 'a', true, {'a'})
+        execution({'a'}, 'a', false, {'a'})
+        execution({'a'}, 'b', true, {'a', 'b'})
+    end
+
     -- @covers Arr:isArray()
     function TestArr:testIsArray()
         local arr = __.arr
@@ -149,6 +109,23 @@ TestArr = {}
         local tableWithStringKeys = {}
         arr:set(tableWithStringKeys, 'a.b.c', 'test')
         lu.assertIsFalse(arr:isArray(tableWithStringKeys))
+    end
+
+    -- @covers Arr:map()
+    function TestArr:testMap()
+        local function execution(list, expectedOutput)
+            local arr = __.arr
+    
+            local results = __.arr:map(list, function (val, i)
+                return val .. '-' .. i
+            end)
+    
+            lu.assertEquals(expectedOutput, results)
+        end
+
+        execution({}, {})
+        execution({'test', 'test', 'test'}, {'test-1', 'test-2', 'test-3'})
+        execution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {['a'] = 'a-a', ['b'] = 'b-b', ['c'] = 'c-c'})
     end
 
     -- @covers Arr:maybeInitialize()
@@ -197,6 +174,29 @@ TestArr = {}
         execution({'a', 'b', 'c'}, 'a', {'b', 'c'})
         execution({1, 2, 3}, 2, {1, 3})
         execution({a = 'a', b = 'b', c = 'c'}, 'a', {a = 'a', b = 'b', c = 'c'})
+    end
+
+    -- @covers Arr:set()
+    function TestArr:testSet()
+        local arr = __.arr
+
+        local list = {}
+        list['a'] = {}
+        list['a']['b'] = 'test-initial'
+
+        -- sanity checks to make sure the list is consistent
+        lu.assertEquals('test-initial', arr:get(list, 'a.b'))
+        lu.assertIsNil(arr:get(list, 'a.c'))
+        lu.assertIsNil(arr:get(list, 'x.y.z'))
+
+        -- sets a couple of properties
+        arr:set(list, 'a.c', 'test-with-set')
+        arr:set(list, 'x.y.z', 'test-with-three-levels')
+
+        -- checks if the property 
+        lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
+        lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
+        lu.assertEquals('test-initial', arr:get(list, 'a.b'))
     end
 
     -- @covers Arr:wrap()

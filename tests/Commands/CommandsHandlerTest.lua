@@ -1,4 +1,4 @@
-TestCommandsHandler = {}
+TestCommandsHandler = BaseTestClass:new()
     -- @covers StormwindLibrary:add()
     function TestCommandsHandler:testAdd()
         local handler = __.commands
@@ -141,15 +141,11 @@ TestCommandsHandler = {}
 
             local outputInvoked = false
 
-            local originalOut = __.output.out
-
             function __.output:out() outputInvoked = true end
 
             handler:printHelp()
 
             lu.assertEquals(shouldOutput, outputInvoked)
-
-            __.output.out = originalOut
         end
 
         execution(nil, false)
@@ -160,8 +156,6 @@ TestCommandsHandler = {}
     -- @covers StormwindLibrary:register()
     function TestCommandsHandler:testRegister()
         local function execution(command, expectedGlobalSlashCommandIndex, expectedSlashCommand, expectedSlashCmdListIndex)
-            -- save the current data to restore them after the test
-            local currentCommand = __.addon.command
             local currentSlashCmdList = SlashCmdList 
 
             -- mocks the properties for this test
@@ -179,8 +173,6 @@ TestCommandsHandler = {}
                 lu.assertIsFunction(SlashCmdList[expectedSlashCmdListIndex])
             end
 
-            -- restore the command after the test
-            __.addon.command = currentCommand
             SlashCmdList = currentSlashCmdList
         end
 

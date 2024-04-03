@@ -14,42 +14,57 @@ end
 -- End
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v0_0_7
-function newLibrary() return StormwindLibrary.new({
-    name = 'TestSuite'
-}) end
+StormwindLibrary = StormwindLibrary_v0_0_8
 
 --[[
-This allows the library to be reloaded between tests, which is useful when
-mocking it on tests could affect the results of other tests.
+This is a base test class that sets up the library before each test.
 
-@NOTE: LuaUnit provides a setUp() method that could be used to reset the
-       library before each test, but it wasn't working properly.
+Every test class should inherit from this class to have the library set up
+before each test. That way, mocking the library on tests won't affect the
+results of other tests.
 
-@TODO: Use LuaUnit's setUp() method to reset the library before each test <2024.03.27>
+The setUp() method is expected to be called before each test.
 ]]
-function runTests(file)
-    __ = newLibrary()
-    dofile(file)
-end
+BaseTestClass = {
+    new = function(self)
+        local instance = {}
+        setmetatable(instance, self)
+        self.__index = self
+        return instance
+    end,
+    
+    setUp = function()
+        __ = StormwindLibrary.new({
+            name = 'TestSuite'
+        })
+    end,
 
-runTests('./tests/Commands/CommandsTest.lua')
-runTests('./tests/Commands/CommandsHandlerTest.lua')
+    -- guarantees that every test class inherits from this class by forcing
+    -- the global library usages to throw an error if it's not set, so
+    -- tests that miss inheriting from this class will fail
+    tearDown = function()
+        __ = nil
+    end,
+}
 
-runTests('./tests/Core/AddonPropertiesTest.lua')
-runTests('./tests/Core/FactoryTest.lua')
-runTests('./tests/Core/OutputTest.lua')
+dofile('./tests/Commands/CommandsTest.lua')
+dofile('./tests/Commands/CommandsHandlerTest.lua')
 
-runTests('./tests/Facades/EventsTest.lua')
-runTests('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
-runTests('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
-runTests('./tests/Facades/TargetTest.lua')
+dofile('./tests/Core/AddonPropertiesTest.lua')
+dofile('./tests/Core/FactoryTest.lua')
+dofile('./tests/Core/OutputTest.lua')
 
-runTests('./tests/Models/MacroTest.lua')
-runTests('./tests/Models/RaidMarkerTest.lua')
+dofile('./tests/Facades/EventsTest.lua')
+dofile('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
+dofile('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
+dofile('./tests/Facades/TargetTest.lua')
 
-runTests('./tests/Support/ArrTest.lua')
-runTests('./tests/Support/StrTest.lua')
+dofile('./tests/Models/MacroTest.lua')
+dofile('./tests/Models/RaidMarkerTest.lua')
+
+dofile('./tests/Support/ArrTest.lua')
+dofile('./tests/Support/BoolTest.lua')
+dofile('./tests/Support/StrTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false
 

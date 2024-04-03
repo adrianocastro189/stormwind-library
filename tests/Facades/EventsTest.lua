@@ -1,4 +1,4 @@
-TestEvents = {}
+TestEvents = BaseTestClass:new()
     -- @covers Events:createFrame()
     function TestEvents:testCreateFrame()
         local events = __:new('Events')

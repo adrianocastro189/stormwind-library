@@ -1,10 +1,10 @@
-TestFactory = {}
+TestFactory = BaseTestClass:new()
     --[[
     @covers Factory.classes
     @covers Factory:addClass()
     @covers Factory:new()
     ]]
-    function TestFactory:testCanInstantiateClasses()
+    function TestFactory:testClassInstantiation()
         local MockClass = {}
         MockClass.__index = MockClass
 
@@ -14,7 +14,9 @@ TestFactory = {}
             return self
         end
 
-        local library = newLibrary()
+        local library = StormwindLibrary.new({
+            name = 'test-library'
+        })
         library:addClass('MockClass', MockClass)
 
         lu.assertNotIsNil(library.classes)
