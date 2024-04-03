@@ -1,6 +1,6 @@
 # Changelog
 
-## yyyy.mm.dd - version 0.0.8-alpha
+## 2024.04.03 - version 0.0.8-alpha
 
 * Add a new support class to handle bool values
 * Add new support methods to Str
