@@ -2,6 +2,8 @@
 
 ## yyyy.mm.dd - version 1.0.0
 
+* Add code documentation with [ldoc](https://github.com/lunarmodules/ldoc)
+
 ## 2024.04.03 - version 0.0.8-alpha
 
 * Add a new support class to handle bool values
