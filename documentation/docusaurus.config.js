@@ -120,7 +120,7 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Stormwind Library. Built with Docusaurus.`,
       },
       prism: {
-        additionalLanguages: ['lua'],
+        additionalLanguages: ['json', 'lua'],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
