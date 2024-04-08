@@ -1,10 +1,16 @@
---[[
+--[[--
 The Str support class contains helper functions to manipulate strings.
+
+@classmod Str
+
+@usage
+    -- library is an instance of the Stormwind Library
+    library.str
 ]]
 local Str = {}
     Str.__index = Str
 
-    --[[
+    --[[--
     Determines whether a string is empty or not.
 
     By empty, it means that the string is nil, has no characters, or has only
@@ -15,39 +21,51 @@ local Str = {}
     If a method shouldn't consider a string with only whitespace characters
     as empty, please do not use this function.
         
-    @tparam string value
+    @tparam string value the string to be checked
 
-    @treturn bool
+    @treturn boolean whether the string is empty or not
+
+    @usage
+        local value = "  "
+        library.str:isEmpty(value) -- true
     ]]
     function Str:isEmpty(value)
         return value == nil or (string.len(self:trim(value)) == 0)
     end
 
-    --[[
+    --[[--
     Determines whether a string is not empty.
 
     This function is the opposite of Str:isEmpty.
 
-    @tparam string value
+    @tparam string value the string to be checked
 
-    @treturn bool
+    @treturn boolean whether the string is not empty
+
+    @usage
+        local value = "  "
+        library.str:isNotEmpty(value) -- false
     ]]
     function Str:isNotEmpty(value)
         return not self:isEmpty(value)
     end
 
-    --[[
+    --[[--
     Determines whether a string is quoted by " or '.
 
-    @tparam string value
+    @tparam string value the string to be checked
 
-    @treturn bool
+    @treturn boolean whether the string is quoted or not
+
+    @usage
+        local value = "'quoted'"
+        library.str:isQuoted(value) -- true
     ]]
     function Str:isQuoted(value)
         return self:isWrappedBy(value, '"') or self:isWrappedBy(value, "'")
     end
 
-    --[[
+    --[[--
     Determines whether a string is wrapped by a prefix and a suffix.
 
     This function is useful to determine if a string is wrapped by a pair of
@@ -60,11 +78,16 @@ local Str = {}
     prefix and suffix, like "", "()", "[]", etc. That would mean that an
     empty string is considered wrapped by something.
 
-    @tparam string value
-    @tparam string wrapper
-    @tparam string endWrapper, optional
+    @tparam string value the string to be checked
+    @tparam string wrapper the prefix of the wrapping
+    @tparam ?string endWrapper the suffix of the wrapping, will assume
+                    wrapper if not provided
 
-    @treturn bool
+    @treturn boolean whether the string is wrapped by the prefix and suffix
+
+    @usage
+        local value = "'quoted'"
+        library.str:isWrappedBy(value, "'") -- true
     ]]
     function Str:isWrappedBy(value, wrapper, endWrapper)
         endWrapper = endWrapper or wrapper
@@ -76,7 +99,7 @@ local Str = {}
             (value:sub(1, #wrapper) == wrapper and value:sub(-#endWrapper) == endWrapper)
     end
 
-    --[[
+    --[[--
     Removes quotes from a string.
 
     This method can't simply call removeWrappers twice for " or ', because
@@ -84,9 +107,13 @@ local Str = {}
     type inside it, so it first checks which type of quote is wrapping the
     string and then removes it.
 
-    @tparam string value
+    @tparam string value the string to be checked
 
-    @treturn string
+    @treturn string the string without quotes
+
+    @usage
+        local value = "'quoted'"
+        library.str:removeQuotes(value) -- quoted
     ]]
     function Str:removeQuotes(value)
         if self:isWrappedBy(value, '"') then
@@ -96,7 +123,7 @@ local Str = {}
         return self:removeWrappers(value, "'")
     end
 
-    --[[
+    --[[--
     Removes the wrapping strings from a string.
 
     This function is useful to remove quotes, parentheses, brackets, etc,
@@ -106,11 +133,16 @@ local Str = {}
     not provided, the function will assume that the prefix and suffix are
     the same.
 
-    @tparam string value
-    @tparam string wrapper
-    @tparam string endWrapper, optional
+    @tparam string value the string to be checked
+    @tparam string wrapper the prefix of the wrapping
+    @tparam ?string endWrapper the suffix of the wrapping, will assume
+                wrapper if not provided
 
-    @treturn string
+    @treturn string the string without the prefix and suffix
+
+    @usage
+        local value = "'quoted'"
+        library.str:removeWrappers(value, "'") -- quoted
     ]]
     function Str:removeWrappers(value, wrapper, endWrapper)
         return self:isWrappedBy(value, wrapper, endWrapper)
@@ -118,7 +150,7 @@ local Str = {}
             or value
     end
 
-    --[[
+    --[[--
     Replaces all occurrences of a substring in a string with another
     substring.
 
@@ -128,21 +160,31 @@ local Str = {}
     accept characters like ".", "(", "[", etc, that would be interpreted as
     regular expressions metacharacters.
 
-    @tparam string value
-    @tparam string find
-    @tparam string replace
+    @tparam string value the subject string to have the replacements
+    @tparam string find the substring to be replaced
+    @tparam string replace the substring to replace the find substring
+
+    @treturn string the string after the replacements
+
+    @usage
+        local value = "Hello, world!"
+        library.str:replaceAll(value, "world", "Lua") -- Hello, Lua!
     ]]
     function Str:replaceAll(value, find, replace)
         return (value:gsub(find:gsub("[%(%)%.%+%-%*%?%[%]%^%$%%]", "%%%1"), replace))
     end
 
-    --[[
+    --[[--
     Splits a string in a table by breaking it where the separator is found.
 
-    @tparam string value
-    @tparam string separator
+    @tparam string value the string to be split
+    @tparam string separator the separator to split the string
 
-    @treturn table
+    @treturn table a table with the split strings
+
+    @usage
+        local value = "Hello, world!"
+        library.str:split(value, ", ") -- { "Hello", "world!" }
     ]]
     function Str:split(value, separator)
         local values = {}
@@ -152,12 +194,16 @@ local Str = {}
         return values
     end
 
-    --[[
+    --[[--
     Removes all whitespace from the beginning and end of a string.
 
-    @tparam string value
+    @tparam string value the string to be trimmed
 
-    @treturn string
+    @treturn string the string without whitespace at the beginning and end
+
+    @usage
+        local value = "  Hello, world!  "
+        library.str:trim(value) -- "Hello, world!"
     ]]
     function Str:trim(value)
         return value and value:gsub("^%s*(.-)%s*$", "%1") or value
