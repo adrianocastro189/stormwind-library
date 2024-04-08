@@ -55,3 +55,31 @@ just run the `ldoc` command in the root folder of this project.
    environment variable
 1. Now you should be able to run the `ldoc` command from your command line
    and generate the documentation files
+
+## Documentation standards
+
+The documentation standards are based on the
+[LDoc manual](https://lunarmodules.github.io/ldoc/manual/manual.md.html).
+
+However, there are some rules that are not covered by the manual, so
+these are a couple of standards that are used in the Stormwind Library
+Lua doc blocks:
+
+1. Class and methods blocks use the `--[[--` doc block style.
+1. The `@classmod` tag is used to define the class name.
+1. The `@usage` tag should be used to show examples of how to use the class
+   and methods. Those can be idented with 4 spaces, just like a code block.
+1. **Types**
+   * Prefer the usage of `@tparam` and `@treturn` tags to define the types.
+      * Don't use a `.` at the end of the setence, unless it has 2 or more
+        phrases.
+   * Prefer `integer` over `number` when the value must be an integer.
+   * Prefer `boolean` over `bool`.
+   * Use `any` when the type is not defined.
+
+:::tip This section is a work in progress
+
+This section will be fed with more information as the library grows and
+standards become more clear.
+
+:::
