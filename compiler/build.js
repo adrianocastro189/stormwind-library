@@ -103,6 +103,8 @@ class StormwindLibrary {
         const library = `StormwindLibrary_v${this.getVersionInSnakeCase()}`;
 
         return `
+--- Stormwind Library
+-- @module stormwind-library
 if (${library}) then return end
         
 ${library} = {}

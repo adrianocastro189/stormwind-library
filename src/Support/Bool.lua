@@ -1,12 +1,18 @@
---[[
+--[[--
 The Bool support class contains helper functions to manipulate boolean
 values.
+
+@classmod Bool
+
+@usage
+    -- library is an instance of the Stormwind Library
+    library.bool
 ]]
 local Bool = {}
     Bool.__index = Bool
     Bool.__ = self
 
-    --[[
+    --[[--
     Determines whether a value represents true or not.
 
     This method checks if a value is in a range of possible values that
@@ -23,9 +29,20 @@ local Bool = {}
            makes the code more readable, like: if this value is not true,
            then do something.
 
-    @tparam mixed value
+    @tparam integer|string|boolean value the value to be checked
 
-    @treturn bool
+    @treturn boolean whether the value represents a true value or not
+
+    @usage
+        -- library is an instance of the Stormwind Library
+        library.bool:isTrue("yes") -- true
+        library.bool:isTrue("no")  -- false
+        library.bool:isTrue("1")   -- true
+        library.bool:isTrue("0")   -- false
+        library.bool:isTrue(1)     -- true
+        library.bool:isTrue(0)     -- false
+        library.bool:isTrue(true)  -- true
+        library.bool:isTrue(false) -- false
     ]]
     function Bool:isTrue(value)
         local inArray, index = self.__.arr:inArray({1, "1", "true", true, "yes"}, value)
