@@ -22,6 +22,20 @@ TestTarget = BaseTestClass:new()
         lu.assertNotIsNil(target)
     end
 
+    -- @covers Target:isMarked()
+    function TestTarget:testIsMarked()
+        local execution = function(mark, expectedIsMarked)
+            local target = __.target
+
+            target.getMark = function() return mark end
+
+            lu.assertEquals(expectedIsMarked, target:isMarked())
+        end
+
+        execution(nil, false)
+        execution(__.raidMarkers[1], true)
+    end
+
     -- @covers Target:mark()
     function TestTarget:testMark()
         -- allows restoring the original SetRaidTarget function if needed

@@ -105,6 +105,17 @@ local Target = {}
     end
 
     --[[
+    Determines whether the target is marked or not.
+
+    A marked target is a target that has a raid marker on it.
+
+    @treturn boolean
+    ]]
+    function Target:isMarked()
+        return nil ~= self:getMark()
+    end
+
+    --[[
     Determines whether the target is taggable or not.
 
     In Classic World of Warcraft, a taggable enemy is an enemy is an enemy that
