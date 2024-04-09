@@ -30,6 +30,17 @@ TestOutput = BaseTestClass:new()
         lu.assertEquals('colored-TestSuite | test-message', output:getFormattedMessage('test-message'))
     end
 
+    -- @covers Output:isTestingMode()
+    function TestOutput:testIsTestingMode()
+        local output = __:new('Output')
+
+        lu.assertFalse(output:isTestingMode())
+
+        output:setTestingMode()
+
+        lu.assertTrue(output:isTestingMode())
+    end
+
     -- @covers Output:out()
     function TestOutput:testOut()
         local output = __:new('Output')

@@ -30,7 +30,7 @@ local Output = {}
     @tparam string color
     @treturn string
     ]]
-    function Output:color(value, --[[optional]] color)
+    function Output:color(value, color)
         color = color or self.__.addon.colors.primary
 
         return color and string.gsub('\124cff' .. string.lower(color) .. '{0}\124r', '{0}', value) or value
@@ -45,6 +45,15 @@ local Output = {}
         local coloredAddonName = self:color(self.__.addon.name .. ' | ')
 
         return coloredAddonName .. message
+    end
+
+    --[[
+    Determines whether the output structure is in testing mode.
+
+    @treturn boolean
+    ]]
+    function Output:isTestingMode()
+        return self.mode == 'test'
     end
 
     --[[
