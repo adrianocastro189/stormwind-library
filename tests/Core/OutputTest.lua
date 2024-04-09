@@ -55,4 +55,13 @@ TestOutput = BaseTestClass:new()
 
         lu.assertEquals('test', printedMessage)
     end
+
+    -- @covers Output:setTestingMode()
+    function TestOutput:testSetTestingMode()
+        lu.assertEquals('out', __.output.mode)
+
+        __.output:setTestingMode()
+
+        lu.assertEquals('test', __.output.mode)
+    end
 -- end of TestOutput

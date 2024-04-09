@@ -72,6 +72,14 @@ local Output = {}
     function Output:print(message)
         print(message)
     end
+
+    --[[
+    Sets the output mode to 'test', changing the state of the output
+    structure to be used in tests.
+    ]]
+    function Output:setTestingMode()
+        self.mode = 'test'
+    end
 -- end of Output
 
 -- sets the unique library output instance
