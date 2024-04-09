@@ -15,7 +15,10 @@ TestOutput = BaseTestClass:new()
 
     -- @covers Output:__construct()
     function TestOutput:testInstantiate()
-        lu.assertNotIsNil(__:new('Output'))
+        local instance = __:new('Output')
+
+        lu.assertNotNil(instance)
+        lu.assertEquals('out', instance.mode)
     end
 
     -- @covers Output:getFormattedMessage()

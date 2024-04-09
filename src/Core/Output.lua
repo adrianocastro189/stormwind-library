@@ -10,7 +10,11 @@ local Output = {}
     Output constructor.
     ]]
     function Output.__construct()
-        return setmetatable({}, Output)
+        local self = setmetatable({}, Output)
+
+        self.mode = 'out'
+
+        return self
     end
 
     --[[
