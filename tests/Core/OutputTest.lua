@@ -103,12 +103,14 @@ TestOutput = BaseTestClass:new()
 
     -- @covers Output:setTestingMode()
     function TestOutput:testSetTestingMode()
-        lu.assertEquals('out', __.output.mode)
-        lu.assertIsNil(__.output.history)
+        local output = __:new('Output')
 
-        __.output:setTestingMode()
+        lu.assertEquals('out', output.mode)
+        lu.assertIsNil(output.history)
 
-        lu.assertEquals('test', __.output.mode)
-        lu.assertEquals({}, __.output.history)
+        output:setTestingMode()
+
+        lu.assertEquals('test', output.mode)
+        lu.assertEquals({}, output.history)
     end
 -- end of TestOutput

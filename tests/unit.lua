@@ -37,6 +37,7 @@ BaseTestClass = {
         __ = StormwindLibrary.new({
             name = 'TestSuite'
         })
+        __.output:setTestingMode()
     end,
 
     -- guarantees that every test class inherits from this class by forcing
