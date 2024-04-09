@@ -48,6 +48,17 @@ local Target = {}
     end
 
     --[[
+    Gets the target raid marker in the target, if any.
+
+    @treturn RaidMarker|nil
+    ]]
+    function Target:getMark()
+        local mark = GetRaidTargetIndex('target')
+
+        return mark and self.__.raidMarkers[mark] or nil
+    end
+
+    --[[
     Gets the maximum health of the specified unit.
 
     In the World of Warcraft API, the UnitHealthMax function is used to

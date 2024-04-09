@@ -1,4 +1,20 @@
 TestTarget = BaseTestClass:new()
+    -- @covers Target:getMark()
+    function TestTarget:testGetMark()
+        local execution = function(raidTargetIndex, expectedMark)
+            GetRaidTargetIndex = function(unit)
+                return raidTargetIndex
+            end
+
+            local target = __.target
+
+            lu.assertEquals(expectedMark, target:getMark())
+        end
+
+        execution(nil, nil)
+        execution(8, __.raidMarkers.skull)
+    end
+
     -- @covers StormwindLibrary.target
     function TestTarget:testGetTargetFacade()
         local target = __.target
