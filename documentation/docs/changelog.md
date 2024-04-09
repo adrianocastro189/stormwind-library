@@ -4,6 +4,7 @@
 
 * Add code documentation with [ldoc](https://github.com/lunarmodules/ldoc)
 * Add Target methods to get the target current raid mark
+* Allow the Output class to be switched to test mode
 
 ## 2024.04.03 - version 0.0.8-alpha
 
