@@ -3,6 +3,7 @@
 ## yyyy.mm.dd - version 1.0.0
 
 * Add code documentation with [ldoc](https://github.com/lunarmodules/ldoc)
+* Add Target methods to get the target current raid mark
 
 ## 2024.04.03 - version 0.0.8-alpha
 
