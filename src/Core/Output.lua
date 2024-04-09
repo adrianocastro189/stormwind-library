@@ -88,6 +88,22 @@ local Output = {}
     end
 
     --[[
+    Determines whether a message was printed in the output structure with
+    the out() method.
+
+    This method must be used only in test environments and if
+    self:setTestingMode() was called before self:out() calls, otherwise
+    it will always return false.
+
+    @tparam string message
+
+    @treturn boolean
+    ]]
+    function Output:printed(message)
+        return self.__.arr:inArray(self.history or {}, message)
+    end
+
+    --[[
     Sets the output mode to 'test', changing the state of the output
     structure to be used in tests.
     ]]

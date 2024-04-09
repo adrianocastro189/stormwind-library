@@ -85,6 +85,22 @@ TestOutput = BaseTestClass:new()
         lu.assertEquals('test', printedMessage)
     end
 
+    -- @covers Output:printed()
+    function TestOutput:testPrinted()
+        local output = __:new('Output')
+
+        lu.assertIsFalse(output:printed('test-message'))
+
+        output:setTestingMode()
+
+        output:out('test-message-a')
+        output:out('test-message-b')
+
+        lu.assertTrue(output:printed('test-message-a'))
+        lu.assertTrue(output:printed('test-message-b'))
+        lu.assertIsFalse(output:printed('test-message-c'))
+    end
+
     -- @covers Output:setTestingMode()
     function TestOutput:testSetTestingMode()
         lu.assertEquals('out', __.output.mode)
