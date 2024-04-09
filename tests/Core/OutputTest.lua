@@ -45,10 +45,28 @@ TestOutput = BaseTestClass:new()
     function TestOutput:testOut()
         local output = __:new('Output')
 
+        local printedMessage = nil
+
         function output:getFormattedMessage(message) return 'formatted-' .. message end
-        function output:print(message) lu.assertEquals('formatted-test-message', message) end
+        function output:print(message) printedMessage = message end
 
         output:out('test-message')
+
+        lu.assertEquals('formatted-test-message', printedMessage)
+        lu.assertIsNil(output.history)
+    end
+
+    -- @covers Output:out()
+    function TestOutput:testOutInTestingMode()
+        local output = __:new('Output')
+
+        function output:print(message) error('this method should not be called') end
+
+        output:setTestingMode()
+
+        output:out('test-message')
+
+        lu.assertEquals({'test-message'}, output.history)
     end
 
     -- @covers Output:print()

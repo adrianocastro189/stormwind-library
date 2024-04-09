@@ -71,6 +71,11 @@ local Output = {}
     ]]
     function Output:out(messages)
         for i, message in ipairs(self.__.arr:wrap(messages)) do
+            if self:isTestingMode() then
+                table.insert(self.history, message)
+                return
+            end
+
             self:print(self:getFormattedMessage(message))
         end
     end
