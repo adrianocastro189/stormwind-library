@@ -78,6 +78,7 @@ local Output = {}
     structure to be used in tests.
     ]]
     function Output:setTestingMode()
+        self.history = {}
         self.mode = 'test'
     end
 -- end of Output
