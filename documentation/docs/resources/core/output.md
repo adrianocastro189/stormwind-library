@@ -75,3 +75,30 @@ in the [addon properties](addon-properties#colors) will be used instead.
 
 And even if no primary color was set, the method will return the original
 input, which is the string with no wrapped color.
+
+## Testing mode
+
+This class has a test mode that allows the output to be easily tested
+instead of printing the messages to the system output. That way, unit test
+cases don't need to mock the `print()` function nor the output structure.
+
+Although Output was designed to allow replacing the `print()` function
+when necessary, it's safe to say that almost every addon will use the
+`out()` function directly so lots of repeated code can be avoided by using 
+this structure in testing mode.
+
+To set the library output in test mode, you can use the setTestingMode()
+method like this:
+
+```lua
+library.output:setTestingMode()
+```
+
+After that, you can use the printed() method to check if a message was
+printed in the output structure.
+
+```lua
+library.output:out('Hello, World of Warcraft!')
+
+lu.assertTrue(library.output:printed('Hello, World of Warcraft!'))
+```

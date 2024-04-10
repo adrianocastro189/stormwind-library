@@ -1,4 +1,4 @@
--- Library version = '0.0.8'
+-- Library version = '1.0.0'
 
 -- import src/Support/Arr.lua
 -- import src/Support/Bool.lua

@@ -14,7 +14,7 @@ end
 -- End
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v0_0_8
+StormwindLibrary = StormwindLibrary_v1_0_0
 
 --[[
 This is a base test class that sets up the library before each test.
@@ -37,6 +37,7 @@ BaseTestClass = {
         __ = StormwindLibrary.new({
             name = 'TestSuite'
         })
+        __.output:setTestingMode()
     end,
 
     -- guarantees that every test class inherits from this class by forcing

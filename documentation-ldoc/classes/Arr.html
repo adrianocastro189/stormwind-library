@@ -1,0 +1,639 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>Arr</strong></li>
+  <li><a href="../classes/Bool.html">Bool</a></li>
+  <li><a href="../classes/Str.html">Str</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Arr</code></h1>
+<p>The Arr class contains helper functions to manipulate arrays.</p>
+<p></p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">-- library is an instance of the Stormwind Library
+library.arr
+</pre>
+    </ul>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#arr:get">arr:get (list, key, default)</a></td>
+	<td class="summary">Gets a value in an array using the dot notation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:implode">arr:implode (delimiter, list)</a></td>
+	<td class="summary">Combines the elements of a table into a single string, separated by
+    a specified delimiter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:inArray">arr:inArray (list, value)</a></td>
+	<td class="summary">Determines whether a value is in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:insertNotInArray">arr:insertNotInArray (list, value)</a></td>
+	<td class="summary">Inserts a value in an array if it's not in the array yet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:isArray">arr:isArray (value)</a></td>
+	<td class="summary">Determines whether the value is an array or not.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:map">arr:map (list, callback)</a></td>
+	<td class="summary">Iterates over the list values and calls the callback function in the
+    second argument for each of them.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:maybeInitialize">arr:maybeInitialize (list, key, initialValue)</a></td>
+	<td class="summary">Initializes a value in a table if it's not initialized yet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:pluck">arr:pluck (list, key)</a></td>
+	<td class="summary">Extracts a list of values from a list of objects based on a given key.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:remove">arr:remove (list, value)</a></td>
+	<td class="summary">Removes a value from an indexed array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:set">arr:set (list, key, value)</a></td>
+	<td class="summary">Sets a value using arrays dot notation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:unpack">arr:unpack (list, i, j)</a></td>
+	<td class="summary">Calls the available unpack() method given the running environment.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#arr:wrap">arr:wrap (value)</a></td>
+	<td class="summary">Wraps a value in a table.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "arr:get"></a>
+    <strong>arr:get (list, key, default)</strong>
+    </dt>
+    <dd>
+    Gets a value in an array using the dot notation.
+
+    With the dot notation search, it's possible to query a value in a
+    multidimensional array by passing a single string containing keys
+    separated by dot.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the table containing the value to be retrieved
+        </li>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         a dot notation key to be used in the search
+        </li>
+        <li><span class="parameter">default</span>
+            <span class="types">optional <span class="type">any</span></span>
+         the default value to be returned if the key is not found
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any</span> or <span class="type">nil</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {a = {b = {c = <span class="number">1</span>}}}
+<span class="keyword">local</span> value = library.arr:<span class="function-name">get</span>(list, <span class="string">'a.b.c'</span>)
+<span class="comment">-- value = 1</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:implode"></a>
+    <strong>arr:implode (delimiter, list)</strong>
+    </dt>
+    <dd>
+    Combines the elements of a table into a single string, separated by
+    a specified delimiter.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">delimiter</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the delimiter used to separate the elements in the resulting string
+        </li>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the table containing elements to be combined into a string
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="keyword">local</span> combined = library.arr:<span class="function-name">implode</span>(<span class="string">', '</span>, list)
+<span class="comment">-- combined = '1, 2, 3'</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:inArray"></a>
+    <strong>arr:inArray (list, value)</strong>
+    </dt>
+    <dd>
+    Determines whether a value is in an array.
+<p>    If so, returns true and the index, false and 0 otherwise.
+<p>    Class instances can also be checked in this method, not only primitive
+    types, as long as they implement the __eq method.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the array to be checked
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be checked
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        whether the value is in the array</li>
+        <li>
+           <span class="types"><span class="type">integer</span></span>
+        the index of the value in the array</li>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>}
+<span class="keyword">local</span> found, index = library.arr:<span class="function-name">inArray</span>(list, <span class="string">'b'</span>)
+<span class="comment">-- found = true, index = 2</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:insertNotInArray"></a>
+    <strong>arr:insertNotInArray (list, value)</strong>
+    </dt>
+    <dd>
+    Inserts a value in an array if it's not in the array yet.
+<p>    It's important to mention that this method only works for arrays with
+    numeric indexes. After all, if using string keys, there's no need to check,
+    but only setting and replacing the value.
+<p>    Class instances can also be passed as the value, not only primitive types,
+    as long as they implement the __eq method.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the array to have the value inserted
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be inserted
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the value was inserted or not
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="string">'a'</span>, <span class="string">'b'</span>}
+<span class="keyword">local</span> inserted = library.arr:<span class="function-name">insertNotInArray</span>(list, <span class="string">'c'</span>)
+<span class="comment">-- list = {'a', 'b', 'c'}, inserted = true</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:isArray"></a>
+    <strong>arr:isArray (value)</strong>
+    </dt>
+    <dd>
+    Determines whether the value is an array or not.
+<p>    The function checks whether the parameter passed is a table in Lua.
+    If it is, it iterates over the table's key-value pairs, examining each key
+    to determine if it is numeric. If all keys are numeric, indicating an
+    array-like structure, the function returns true; otherwise, it returns
+    false.
+<p>    This strategy leverages Lua's type checking and table iteration
+    capabilities to ascertain whether the input value qualifies as an array.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be checked
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> value = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="keyword">local</span> isArray = library.arr:<span class="function-name">isArray</span>(value)
+<span class="comment">-- isArray = true
+</span>
+value = {a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>}
+isArray = library.arr:<span class="function-name">isArray</span>(value)
+<span class="comment">-- isArray = false</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:map"></a>
+    <strong>arr:map (list, callback)</strong>
+    </dt>
+    <dd>
+    Iterates over the list values and calls the callback function in the
+    second argument for each of them.
+<p>    The callback function must be a function that accepts (val) or (val, i)
+    where val is the object in the interaction and i it's index.
+<p>    This method accepts arrays and tables.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the list to be iterated
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         the function to be called for each item in the list
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        the list with the callback results
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="keyword">local</span> results = library.arr:<span class="function-name">map</span>(list, <span class="keyword">function</span>(val) <span class="keyword">return</span> val * <span class="number">2</span> <span class="keyword">end</span>)
+<span class="comment">-- results = {2, 4, 6}</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:maybeInitialize"></a>
+    <strong>arr:maybeInitialize (list, key, initialValue)</strong>
+    </dt>
+    <dd>
+    Initializes a value in a table if it's not initialized yet.
+<p>    The key accepts a dot notation key just like get() and set().
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the table to have the value initialized
+        </li>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the key to be initialized
+        </li>
+        <li><span class="parameter">initialValue</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be set if the key is not initialized
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {}
+library.arr:<span class="function-name">maybeInitialize</span>(list, <span class="string">'a.b.c'</span>, <span class="number">1</span>)
+<span class="comment">-- list = {a = {b = {c = 1}}}</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:pluck"></a>
+    <strong>arr:pluck (list, key)</strong>
+    </dt>
+    <dd>
+    Extracts a list of values from a list of objects based on a given key.
+<p>    It's important to mention that nil values won't be returned in the
+    resulted list. Which means: objects that have no property or when their
+    properties are nil, the values won't be returned. That said, a list with n
+    items can return a smaller list.
+<p>    The key accepts a dot notation key just like get() and set().
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the list of objects to have the values extracted
+        </li>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the key to be extracted from the objects
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        the list of values extracted from the objects
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {{a = <span class="number">1</span>}, {a = <span class="number">2</span>}, {a = <span class="number">3</span>}}
+<span class="keyword">local</span> values = library.arr:<span class="function-name">pluck</span>(list, <span class="string">'a'</span>)
+<span class="comment">-- values = {1, 2, 3}</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:remove"></a>
+    <strong>arr:remove (list, value)</strong>
+    </dt>
+    <dd>
+    Removes a value from an indexed array.
+<p>    Tables with non numeric keys won't be affected by this method.
+<p>    The value must be the value to be removed and not the index.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the array to have the value removed
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be removed
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the value was removed or not
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="keyword">local</span> removed = library.arr:<span class="function-name">remove</span>(list, <span class="number">2</span>)
+<span class="comment">-- list = {1, 3}, removed = true</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:set"></a>
+    <strong>arr:set (list, key, value)</strong>
+    </dt>
+    <dd>
+    Sets a value using arrays dot notation.
+<p>    It will basically iterate over the keys separated by "." and create
+    the missing indexes, finally setting the last key with the value in
+    the args list.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the table to have the value set
+        </li>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the key to be set
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be set
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {}
+library.arr:<span class="function-name">set</span>(list, <span class="string">'a.b.c'</span>, <span class="number">1</span>)
+<span class="comment">-- list is now {a = {b = {c = 1}}}</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:unpack"></a>
+    <strong>arr:unpack (list, i, j)</strong>
+    </dt>
+    <dd>
+    Calls the available unpack() method given the running environment.
+<p>    This method is an important helper because World of Warcraft supports
+    the unpack() function but not table.unpack(). At the same time, some
+    Lua installations have no unpack() but table.unpack().
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the list to be unpacked
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types">optional <span class="type">integer</span></span>
+         the initial index
+        </li>
+        <li><span class="parameter">j</span>
+            <span class="types">optional <span class="type">integer</span></span>
+         the final index
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any...</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="keyword">local</span> a, b, c = library.arr:<span class="function-name">unpack</span>(list)
+<span class="comment">-- a = 1, b = 2, c = 3</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "arr:wrap"></a>
+    <strong>arr:wrap (value)</strong>
+    </dt>
+    <dd>
+    Wraps a value in a table.
+<p>    This method is very useful for methods that accept objects and arrays
+    on the same variable. That way, they don't need to check the type, but
+    wrap it and work with an array.
+<p>    If the value provided is a table, this method won't result in a
+    bidimensional table, but will return the table itself.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         the value to be wrapped
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> value = <span class="number">1</span>
+<span class="keyword">local</span> wrapped = library.arr:<span class="function-name">wrap</span>(value)
+<span class="comment">-- wrapped = {1}</span></pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-04-08 16:31:46 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

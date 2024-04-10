@@ -62,30 +62,5 @@ reaching the last key.
 
 ## Methods
 
-* `Arr:get()` - Gets a value in an array using the dot notation.
-* `Arr:implode()` - Combines the elements of a table into a single string,
-separated by a specified delimiter.
-* `Arr:inArray()` - Determines whether a value is in an array.
-* `Arr:insertNotInArray()` - Inserts a value in an array if it's not in the 
-array yet.
-* `Arr:isArray()` - Determines whether the value is an array indexed by 
-numeric keys or not, by returning false if the table has string keys
-* `Arr:map()` - Iterates over the list values and calls the callback
-function in the second argument for each of them.
-* `Arr:maybeInitialize()` - Initializes a value in a table if it's not 
-initialized yet.
-* `Arr:pluck()` - Extracts a list of values from a list of objects based on 
-a given key.
-* `Arr:remove()` - Removes a value from an indexed array.
-* `Arr:set()` - Sets a value in an array using the dot notation.
-* `Arr:unpack()` - Calls the available `unpack()` method given the running 
-environment.
-* `Arr:wrap()` - Wraps a value in a table.
-
-:::tip Methods args and logic
-
-For more information about valid input for the methods above, please refer
-to the `Arr.lua` file itself as it contains a brief explanation over every
-method for parameters and the logic behind them.
-
-:::
+Please, refer to the [technical documentation](../../library-structure/luadocs#generated-docs)
+to get more information about this class and its methods.
