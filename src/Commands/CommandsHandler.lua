@@ -45,6 +45,8 @@ local CommandsHandler = {}
     When the help operation is not provided, a simple help command is
     printed to the chat frame with the available operations and their
     descriptions, when available.
+
+    @local
     ]]
     function CommandsHandler:addHelpOperation()
         local helpCommand = self.__:new('Command')
@@ -63,6 +65,8 @@ local CommandsHandler = {}
     @NOTE: The operations are sorted alphabetically and not in the order they were added.
     @NOTE: The "help" operation is not included in the help content.
     
+    @local
+
     @treturn table[string] A list of strings with the help content
     ]]
     function CommandsHandler:buildHelpContent()
@@ -88,6 +92,8 @@ local CommandsHandler = {}
     by the user, parsing the arguments and invoking the callback that was
     registered for the operation.
 
+    @local
+
     @tparam string commandArg The full command argument
     ]]
     function CommandsHandler:handle(commandArg)
@@ -103,6 +109,8 @@ local CommandsHandler = {}
     for the operation, if it exists.
     
     @codeCoverageIgnore this method's already tested by the handle() test method
+
+    @local
 
     @tparam string operation The operation that was triggered
     @tparam table args The arguments that were passed to the operation
@@ -141,6 +149,8 @@ local CommandsHandler = {}
     handling with regular expression. This is something that should be
     revisited in the future and when updated, make sure
     TestCommandsHandler:testGetCommandsHandler() tests pass.
+
+    @local
 
     @tparam string input The full command argument
 
@@ -189,6 +199,8 @@ local CommandsHandler = {}
     arguments. If the size is greater than 1, the first argument is the
     operation and the rest are the arguments.
 
+    @local
+
     @tparam table[string] args The arguments that were passed to the operation
 
     @treturn[1] string The operation that was triggered
@@ -208,6 +220,8 @@ local CommandsHandler = {}
 
     --[[--
     Prints the help content to the chat frame.
+
+    @local
     ]]
     function CommandsHandler:printHelp()
         local helpContent = self:buildHelpContent()
@@ -222,6 +236,8 @@ local CommandsHandler = {}
     In terms of how the library was designed, this is the only real command
     handler and serves as a bridge between World of Warcraft command system
     and the addon itself.
+
+    @local
     ]]
     function CommandsHandler:register()
         if (not SlashCmdList) or (not self.__.addon.command) then return end
