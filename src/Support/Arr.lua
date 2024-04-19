@@ -1,7 +1,7 @@
 --[[--
 The Arr class contains helper functions to manipulate arrays.
 
-@classmod Arr
+@classmod Support.Arr
 
 @usage
     -- library is an instance of the Stormwind Library

@@ -2,7 +2,7 @@
 The commands handler provides resources for easy command registration,
 listening and triggering.
 
-@classmod CommandsHandler
+@classmod Commands.CommandsHandler
 ]]
 local CommandsHandler = {}
     CommandsHandler.__index = CommandsHandler

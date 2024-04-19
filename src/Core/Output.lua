@@ -2,7 +2,7 @@
 The output structure controls everything that can be printed
 in the Stormwind Library and also by the addons.
 
-@classmod Output
+@classmod Core.Output
 ]]
 local Output = {}
     Output.__index = Output

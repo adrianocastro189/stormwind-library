@@ -1,7 +1,7 @@
 --[[--
 The Str support class contains helper functions to manipulate strings.
 
-@classmod Str
+@classmod Support.Str
 
 @usage
     -- library is an instance of the Stormwind Library

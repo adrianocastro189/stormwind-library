@@ -10,7 +10,7 @@ Commands in the Stormwind Library are structured in two parts being:
 That said, a command called myAddonCommand that shows its settings screen
 in dark mode would be executed with /myAddonCommand show darkMode.
 
-@classmod Command
+@classmod Commands.Command
 ]]
 local Command = {}
     Command.__index = Command
