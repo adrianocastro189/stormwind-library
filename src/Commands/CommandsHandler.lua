@@ -1,12 +1,14 @@
---[[
+--[[--
 The commands handler provides resources for easy command registration,
 listening and triggering.
+
+@classmod CommandsHandler
 ]]
 local CommandsHandler = {}
     CommandsHandler.__index = CommandsHandler
     CommandsHandler.__ = self
 
-    --[[
+    --[[--
     CommandsHandler constructor.
     ]]
     function CommandsHandler.__construct()
@@ -18,7 +20,7 @@ local CommandsHandler = {}
         return self
     end
 
-    --[[
+    --[[--
     Adds a command that will be handled by the library.
 
     The command must have an operation and a callback.
@@ -26,12 +28,14 @@ local CommandsHandler = {}
     It's important to mention that calling this method with two commands
     sharing the same operation won't stack two callbacks, but the second
     one will replace the first.
+
+    @tparam Command command
     ]]
     function CommandsHandler:add(command)
         self.operations[command.operation] = command
     end
 
-    --[[
+    --[[--
     This method adds a help operation to the commands handler.
 
     The help operation is a default operation that can be overridden in
@@ -52,14 +56,14 @@ local CommandsHandler = {}
         self:add(helpCommand)
     end
 
-    --[[
+    --[[--
     Builds a help content that lists all available operations and their
     descriptions.
     
     @NOTE: The operations are sorted alphabetically and not in the order they were added.
     @NOTE: The "help" operation is not included in the help content.
     
-    @treturn array<string>
+    @treturn table[string] A list of strings with the help content
     ]]
     function CommandsHandler:buildHelpContent()
         local contentLines = {}
@@ -79,10 +83,12 @@ local CommandsHandler = {}
         return contentLines
     end
 
-    --[[
+    --[[--
     This method is responsible for handling the command that was triggered
     by the user, parsing the arguments and invoking the callback that was
     registered for the operation.
+
+    @tparam string commandArg The full command argument
     ]]
     function CommandsHandler:handle(commandArg)
         self:maybeInvokeCallback(
@@ -92,11 +98,14 @@ local CommandsHandler = {}
         )
     end
 
-    --[[
+    --[[--
     This method is responsible for invoking the callback that was registered
     for the operation, if it exists.
     
     @codeCoverageIgnore this method's already tested by the handle() test method
+
+    @tparam string operation The operation that was triggered
+    @tparam table args The arguments that were passed to the operation
     ]]
     function CommandsHandler:maybeInvokeCallback(operation, args)
         -- @TODO: Call a default callback if no operation is found <2024.03.18>
@@ -110,7 +119,7 @@ local CommandsHandler = {}
         end
     end
 
-    --[[
+    --[[--
     This function is responsible for breaking the full argument word that's
     sent by World of Warcraft to the command callback.
 
@@ -132,6 +141,10 @@ local CommandsHandler = {}
     handling with regular expression. This is something that should be
     revisited in the future and when updated, make sure
     TestCommandsHandler:testGetCommandsHandler() tests pass.
+
+    @tparam string input The full command argument
+
+    @treturn table[string] A list of strings representing the arguments
     ]]
     function CommandsHandler:parseArguments(input)
         if not input then return {} end
@@ -166,7 +179,7 @@ local CommandsHandler = {}
         return result
     end
 
-    --[[
+    --[[--
     This method selects the first command argument as the operation and the
     subsequent arguments as the operation arguments.
 
@@ -175,6 +188,11 @@ local CommandsHandler = {}
     Still, if the size of args is 1, it means there's an operation and no
     arguments. If the size is greater than 1, the first argument is the
     operation and the rest are the arguments.
+
+    @tparam table[string] args The arguments that were passed to the operation
+
+    @treturn[1] string The operation that was triggered
+    @treturn[1] table[string] The arguments that were passed to the operation
     ]]
     function CommandsHandler:parseOperationAndArguments(args)
         if not args or #args == 0 then
@@ -188,7 +206,7 @@ local CommandsHandler = {}
         end
     end
 
-    --[[
+    --[[--
     Prints the help content to the chat frame.
     ]]
     function CommandsHandler:printHelp()
@@ -197,7 +215,7 @@ local CommandsHandler = {}
         if helpContent and (#helpContent > 0) then self.__.output:out(helpContent) end
     end
 
-    --[[
+    --[[--
     Register the main Stormwind Library command callback that will then redirect
     the command to the right operation callback.
 
