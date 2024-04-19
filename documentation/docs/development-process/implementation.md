@@ -20,6 +20,11 @@ its instance is referenced
    dofile('./dist/stormwind-library.lua')
    StormwindLibrary = StormwindLibrary_vx_y_0
    ```
+1. Open the `documentation\docs\changelog.md` file and add a new line with the new version 
+number and a placeholder release date
+   ```markdown
+   ## yyyy.mm.dd - version x.y.0
+   ```
 1. Build the library and run the unit tests to make sure nothing is broken
 1. Commit the changes with a message like `Bump version to x.y.0` and push the branch to the 
 repository
