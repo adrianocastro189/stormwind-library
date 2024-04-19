@@ -39,9 +39,12 @@
 
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><a href="../classes/Arr.html">Arr</a></li>
-  <li><a href="../classes/Bool.html">Bool</a></li>
-  <li><strong>Str</strong></li>
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><strong>Support.Str</strong></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -52,7 +55,7 @@
 
 <div id="content">
 
-<h1>Class <code>Str</code></h1>
+<h1>Class <code>Support.Str</code></h1>
 <p>The Str support class contains helper functions to manipulate strings.</p>
 <p></p>
     <h3>Usage:</h3>
@@ -66,40 +69,40 @@ library.str
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#str:isEmpty">str:isEmpty (value)</a></td>
+	<td class="name" nowrap><a href="#support.str:isEmpty">support.str:isEmpty (value)</a></td>
 	<td class="summary">Determines whether a string is empty or not.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:isNotEmpty">str:isNotEmpty (value)</a></td>
+	<td class="name" nowrap><a href="#support.str:isNotEmpty">support.str:isNotEmpty (value)</a></td>
 	<td class="summary">Determines whether a string is not empty.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:isQuoted">str:isQuoted (value)</a></td>
+	<td class="name" nowrap><a href="#support.str:isQuoted">support.str:isQuoted (value)</a></td>
 	<td class="summary">Determines whether a string is quoted by " or '.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:isWrappedBy">str:isWrappedBy (value, wrapper, endWrapper)</a></td>
+	<td class="name" nowrap><a href="#support.str:isWrappedBy">support.str:isWrappedBy (value, wrapper, endWrapper)</a></td>
 	<td class="summary">Determines whether a string is wrapped by a prefix and a suffix.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:removeQuotes">str:removeQuotes (value)</a></td>
+	<td class="name" nowrap><a href="#support.str:removeQuotes">support.str:removeQuotes (value)</a></td>
 	<td class="summary">Removes quotes from a string.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:removeWrappers">str:removeWrappers (value, wrapper, endWrapper)</a></td>
+	<td class="name" nowrap><a href="#support.str:removeWrappers">support.str:removeWrappers (value, wrapper, endWrapper)</a></td>
 	<td class="summary">Removes the wrapping strings from a string.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:replaceAll">str:replaceAll (value, find, replace)</a></td>
+	<td class="name" nowrap><a href="#support.str:replaceAll">support.str:replaceAll (value, find, replace)</a></td>
 	<td class="summary">Replaces all occurrences of a substring in a string with another
     substring.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:split">str:split (value, separator)</a></td>
+	<td class="name" nowrap><a href="#support.str:split">support.str:split (value, separator)</a></td>
 	<td class="summary">Splits a string in a table by breaking it where the separator is found.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#str:trim">str:trim (value)</a></td>
+	<td class="name" nowrap><a href="#support.str:trim">support.str:trim (value)</a></td>
 	<td class="summary">Removes all whitespace from the beginning and end of a string.</td>
 	</tr>
 </table>
@@ -112,8 +115,8 @@ library.str
 
     <dl class="function">
     <dt>
-    <a name = "str:isEmpty"></a>
-    <strong>str:isEmpty (value)</strong>
+    <a name = "support.str:isEmpty"></a>
+    <strong>support.str:isEmpty (value)</strong>
     </dt>
     <dd>
     Determines whether a string is empty or not.
@@ -151,8 +154,8 @@ library.str:<span class="function-name">isEmpty</span>(value) <span class="comme
 
 </dd>
     <dt>
-    <a name = "str:isNotEmpty"></a>
-    <strong>str:isNotEmpty (value)</strong>
+    <a name = "support.str:isNotEmpty"></a>
+    <strong>support.str:isNotEmpty (value)</strong>
     </dt>
     <dd>
     Determines whether a string is not empty.
@@ -185,8 +188,8 @@ library.str:<span class="function-name">isNotEmpty</span>(value) <span class="co
 
 </dd>
     <dt>
-    <a name = "str:isQuoted"></a>
-    <strong>str:isQuoted (value)</strong>
+    <a name = "support.str:isQuoted"></a>
+    <strong>support.str:isQuoted (value)</strong>
     </dt>
     <dd>
     Determines whether a string is quoted by " or '.
@@ -217,8 +220,8 @@ library.str:<span class="function-name">isQuoted</span>(value) <span class="comm
 
 </dd>
     <dt>
-    <a name = "str:isWrappedBy"></a>
-    <strong>str:isWrappedBy (value, wrapper, endWrapper)</strong>
+    <a name = "support.str:isWrappedBy"></a>
+    <strong>support.str:isWrappedBy (value, wrapper, endWrapper)</strong>
     </dt>
     <dd>
     Determines whether a string is wrapped by a prefix and a suffix.
@@ -267,8 +270,8 @@ library.str:<span class="function-name">isWrappedBy</span>(value, <span class="s
 
 </dd>
     <dt>
-    <a name = "str:removeQuotes"></a>
-    <strong>str:removeQuotes (value)</strong>
+    <a name = "support.str:removeQuotes"></a>
+    <strong>support.str:removeQuotes (value)</strong>
     </dt>
     <dd>
     Removes quotes from a string.
@@ -304,8 +307,8 @@ library.str:<span class="function-name">removeQuotes</span>(value) <span class="
 
 </dd>
     <dt>
-    <a name = "str:removeWrappers"></a>
-    <strong>str:removeWrappers (value, wrapper, endWrapper)</strong>
+    <a name = "support.str:removeWrappers"></a>
+    <strong>support.str:removeWrappers (value, wrapper, endWrapper)</strong>
     </dt>
     <dd>
     Removes the wrapping strings from a string.
@@ -352,8 +355,8 @@ library.str:<span class="function-name">removeWrappers</span>(value, <span class
 
 </dd>
     <dt>
-    <a name = "str:replaceAll"></a>
-    <strong>str:replaceAll (value, find, replace)</strong>
+    <a name = "support.str:replaceAll"></a>
+    <strong>support.str:replaceAll (value, find, replace)</strong>
     </dt>
     <dd>
     Replaces all occurrences of a substring in a string with another
@@ -399,8 +402,8 @@ library.str:<span class="function-name">replaceAll</span>(value, <span class="st
 
 </dd>
     <dt>
-    <a name = "str:split"></a>
-    <strong>str:split (value, separator)</strong>
+    <a name = "support.str:split"></a>
+    <strong>support.str:split (value, separator)</strong>
     </dt>
     <dd>
     Splits a string in a table by breaking it where the separator is found.
@@ -435,8 +438,8 @@ library.str:<span class="function-name">split</span>(value, <span class="string"
 
 </dd>
     <dt>
-    <a name = "str:trim"></a>
-    <strong>str:trim (value)</strong>
+    <a name = "support.str:trim"></a>
+    <strong>support.str:trim (value)</strong>
     </dt>
     <dd>
     Removes all whitespace from the beginning and end of a string.
@@ -473,7 +476,7 @@ library.str:<span class="function-name">trim</span>(value) <span class="comment"
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-04-08 16:31:46 </i>
+<i style="float:right;">Last updated 2024-04-19 15:38:21 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

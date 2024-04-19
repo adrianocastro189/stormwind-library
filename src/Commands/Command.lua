@@ -1,4 +1,4 @@
---[[
+--[[--
 The command class represents a command in game that can be executed with
 /commandName.
 
@@ -9,23 +9,25 @@ Commands in the Stormwind Library are structured in two parts being:
 
 That said, a command called myAddonCommand that shows its settings screen
 in dark mode would be executed with /myAddonCommand show darkMode.
+
+@classmod Commands.Command
 ]]
 local Command = {}
     Command.__index = Command
     Command.__ = self
     self:addClass('Command', Command)
 
-    --[[
+    --[[--
     Command constructor.
     ]]
     function Command.__construct()
         return setmetatable({}, Command)
     end
 
-    --[[
+    --[[--
     Returns a human readable help content for the command.
 
-    @treturn string
+    @treturn string a human readable help content for the command
     ]]
     function Command:getHelpContent()
         local content = self.operation
@@ -37,8 +39,10 @@ local Command = {}
         return content
     end
 
-    --[[
+    --[[--
     Sets the command description.
+
+    @tparam string description the command description that will be shown in the help content
 
     @return self
     ]]
@@ -47,8 +51,11 @@ local Command = {}
         return self
     end
 
-    --[[
+    --[[--
     Sets the command operation.
+
+    @tparam string operation the command operation that will be used to trigger the command
+    callback
 
     @return self
     ]]
@@ -57,8 +64,10 @@ local Command = {}
         return self
     end
 
-    --[[
+    --[[--
     Sets the command callback.
+
+    @tparam function callback the callback that will be executed when the command is triggered
 
     @return self
     ]]
