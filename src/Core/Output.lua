@@ -58,7 +58,10 @@ local Output = {}
         dd(someVariable, { key = 'value' })
     ]]
     function Output:dd(...)
-        print('\n\n\27[32m-dd-\n')
+        -- @TODO: Replace this once the Environment class is implemented <2024.04.21>
+        local inGame = os == nil
+
+        if not inGame then print('\n\n\27[32m-dd-\n') end
 
         local function printTable(t, indent, printedTables)
             indent = indent or 0
@@ -90,12 +93,11 @@ local Output = {}
             end
         end
 
-        print('\n-end of dd-')
-
         -- this prevents os.exit() being called inside the game and also allows
         -- dd() to be tested
-        if os == nil or lu == nil then return end
-            
+        if inGame then return end
+        
+        print('\n-end of dd-')
         lu.unregisterCurrentSuite()
         os.exit(1)
     end
