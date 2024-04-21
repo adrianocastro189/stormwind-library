@@ -183,6 +183,7 @@ local Output = {}
 
 -- sets the unique library output instance
 self.output = Output.__construct()
+self.dd = self.output.dd
 
 -- allows Output to be instantiated, very useful for testing
 self:addClass('Output', Output)
