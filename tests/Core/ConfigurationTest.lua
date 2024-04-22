@@ -13,7 +13,15 @@ TestConfiguration = BaseTestClass:new()
     function TestConfiguration:testConfig()
         local arg1, arg2 = nil, nil
 
+        __.isConfigEnabled = function() return false end
+
+        lu.assertIsNil(__:config('test-property', 'default-value'))
+
+        __.configuration = __:new('Configuration', {})
+
         function __.configuration:handle(...) arg1, arg2 = ... end
+
+        __.isConfigEnabled = function() return true end
 
         __:config('test-property', 'default-value')
 
@@ -196,6 +204,9 @@ TestConfiguration = BaseTestClass:new()
     -- @covers StormwindLibrary:isConfigEnabled()
     function TestConfiguration:testIsConfigEnabled()
         local function execution(instance, expectedOutput)
+            -- @TODO: Remove this method once the library offers a structure
+            --        to execute callbacks when it's loaded <2024.04.22>
+            __.maybeInitializeConfiguration = function() end
             __.configuration = instance
 
             lu.assertEquals(expectedOutput, __:isConfigEnabled())
@@ -205,9 +216,26 @@ TestConfiguration = BaseTestClass:new()
         execution({}, true)
     end
 
-    -- @covers StormwindLibrary.configuration
-    function TestConfiguration:testLibraryInstanceIsSet()
-        lu.assertNotIsNil(__.configuration)
+    -- @covers StormwindLibrary:maybeInitializeConfiguration()
+    function TestConfiguration:testMaybeInitializeConfiguration()
+        local function execution(addonDataPropertyName, configuration, globalDataTable, expectedConfiguration)
+            __.configuration = configuration
+            __.addon.data = addonDataPropertyName
+            if globalDataTable then _G[addonDataPropertyName] = globalDataTable end
+
+            __:maybeInitializeConfiguration()
+
+            lu.assertEquals(expectedConfiguration, __.configuration)
+        end
+
+        execution(nil, nil, nil, nil)
+        execution('test-data', nil, nil, __:new('Configuration', {}))
+
+        local addonData = {['test-key'] = 'test-value'}
+        execution('test-data', nil, addonData, __:new('Configuration', addonData))
+
+        local configuration = __:new('Configuration', {'test-configuration'})
+        execution('test-data', configuration, nil, configuration)
     end
 
     -- @covers Configuration:set()

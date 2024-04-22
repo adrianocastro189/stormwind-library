@@ -134,10 +134,6 @@ local Configuration = {}
 
 self:addClass('Configuration', Configuration)
 
--- @TODO: Initialize the configuration instance with the addon's saved
---        variable property <2024.04.22>
-self.configuration = {}
-
 --[[
 Gets, sets or initializes a configuration property by a dot notation key.
 
@@ -151,6 +147,8 @@ Configuration class that's internally handled by Configuration:handle().
 @see Configuration.handle
 ]]
 function self:config(...)
+    if not self:isConfigEnabled() then return nil end
+
     return self.configuration:handle(...)
 end
 
@@ -164,5 +162,24 @@ variable property in the TOC file passed to the library constructor.
 @treturn bool True if the configuration is enabled, false otherwise
 --]]
 function self:isConfigEnabled()
+    -- @TODO: Remove this method once the library offers a structure to
+    --        execute callbacks when it's loaded <2024.04.22>
+    self:maybeInitializeConfiguration()
+
     return self.configuration ~= nil
+end
+
+--[[
+May initialize the addon configuration if it's not set yet.
+
+@TODO: Remove this method once the library offers a structure to execute
+       callbacks when it's loaded <2024.04.22>
+]]
+function self:maybeInitializeConfiguration()
+    local key = self.addon.data
+    if key and (self.configuration == nil) then
+        -- initializes the addon data if it's not set yet
+        _G[key] = self.arr:get(_G, key, {})
+        self.configuration = self:new('Configuration', _G[key])
+    end
 end
