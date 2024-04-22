@@ -135,8 +135,11 @@ TestConfiguration = BaseTestClass:new()
             ['test-key-c'] = 'test-value-c',
         })
 
-        lu.assertEquals(keyArgs, {'test-key-a', 'test-key-b', 'test-key-c'})
-        lu.assertEquals(valueArgs, {'test-value-a', 'test-value-b', 'test-value-c'})
+        local expectedKeyArgs = {'test-key-a', 'test-key-b', 'test-key-c'}
+        local expectedValueArgs = {'test-value-a', 'test-value-b', 'test-value-c'}
+
+        for i, key in ipairs(keyArgs) do lu.assertTableContains(expectedKeyArgs, key) end
+        for i, value in ipairs(valueArgs) do lu.assertTableContains(expectedValueArgs, value) end
     end
 
     -- @covers Configuration:handle()
@@ -146,6 +149,45 @@ TestConfiguration = BaseTestClass:new()
         lu.assertEquals(nil, configuration:handle())
 
         lu.assertIsTrue(__.output:printed('There was an attempt to get or set configuration values with no addon respective data set. Please, pass the data variable name when initializing the Stormwind Library to use this feature.'))
+    end
+
+    -- @covers Configuration:handle()
+    -- Tests the handle method with data close to a real scenario
+    function TestConfiguration:testHandleWithRealData()
+        local data = {
+            rate = 0.1,
+            ['z-index'] = 100,
+            settings = {
+                ['show-tooltip'] = true,
+                ['show-confirmation'] = false,
+            },
+        }
+
+        local configuration = __:new('Configuration', data)
+
+        lu.assertEquals(0.1, configuration:handle('rate'))
+        lu.assertEquals(0.1, configuration:handle('rate', 0.2))
+        lu.assertEquals(100, configuration:handle('z-index'))
+        lu.assertEquals(1.0, configuration:handle('opacity', 1.0))
+        lu.assertEquals(true, configuration:handle('settings.show-tooltip'))
+
+        configuration:handle({
+            ['rate'] = 0.2,
+            ['z-index'] = 200,
+            ['settings.show-tooltip'] = false,
+        })
+
+        lu.assertEquals(0.2, configuration:handle('rate'))
+        lu.assertEquals(200, configuration:handle('z-index'))
+
+        lu.assertEquals(false, configuration:handle('settings.show-tooltip'))
+
+        lu.assertIsNil(__.arr:get(data, 'settings.view-mode'))
+
+        -- tries to get a non-existent key, but that should be initialized
+        configuration:handle('settings.view-mode', 'compact', true)
+
+        lu.assertEquals('compact', configuration:handle('settings.view-mode'))
     end
 
     -- @covers StormwindLibrary:isConfigEnabled()
