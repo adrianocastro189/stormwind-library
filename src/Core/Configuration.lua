@@ -1,6 +1,6 @@
 --[[--
 The Configuration class is responsible for managing the addon's
-configuration, settings, options, and anything else that can be persisted
+configurations, settings, options, and anything else that can be persisted
 in the table used by the game client to store saved variables.
 
 It provides methods to easily access and manipulate the configuration
@@ -51,7 +51,7 @@ local Configuration = {}
                  key does not exist
     
     @usage
-        library.configuration:get('test-property', 'default-value')
+        library.configuration:get('test.property', 'default-value')
     ]]
     function Configuration:get(key, default)
         -- @TODO: Implement this method <2024.04.22>
@@ -71,6 +71,9 @@ local Configuration = {}
 
     @treturn any The configuration property value or the default value if the
                  key does not exist
+
+    @usage
+        library.configuration:getOrInitialize('test.property', 'default-value')
     --]]
     function Configuration:getOrInitialize(key, default)
         -- @TODO: Implement this method <2024.04.22>
@@ -98,6 +101,9 @@ local Configuration = {}
 
     @tparam string key The dot notation key to be used to set the configuration property
     @tparam any value The value to be set in the configuration property
+
+    @usage
+        library.configuration:set('test.property', 'new-value')
     --]]
     function Configuration:set(key, value)      
         -- @TODO: Implement this method <2024.04.22>
