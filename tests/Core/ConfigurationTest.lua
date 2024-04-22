@@ -19,6 +19,11 @@ TestConfiguration = BaseTestClass:new()
         -- @TODO: Implement this test <2024.04.22>
     end
 
+    -- @covers Configuration:handle()
+    function TestConfiguration:testHandle()
+        -- @TODO: Implement this test <2024.04.22>
+    end
+
     -- @covers Configuration:set()
     function TestConfiguration:testSet()
         -- @TODO: Implement this test <2024.04.22>

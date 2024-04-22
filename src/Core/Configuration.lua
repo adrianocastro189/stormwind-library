@@ -77,6 +77,19 @@ local Configuration = {}
     end
 
     --[[--
+    The handle method is used forward the configuration operation coming
+    from the library config() method.
+
+    This method should not be called directly. It is used internally by the
+    library to handle the configuration operations.
+
+    @local
+    ]]
+    function Configuration:handle(...)
+        -- @TODO: Implement this method <2024.04.22>
+    end
+
+    --[[--
     Sets a configuration property by a dot notation key.
 
     This will update the configuration property with the new value. If the key
