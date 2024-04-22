@@ -86,6 +86,7 @@ local Configuration = {}
     @local
     ]]
     function Configuration:handle(...)
+        -- @TODO: Document param possibilities <2024.04.22>
         -- @TODO: Implement this method <2024.04.22>
     end
 
@@ -108,3 +109,19 @@ self:addClass('Configuration', Configuration)
 -- @TODO: Initialize the configuration instance with the addon's saved
 --        variable property <2024.04.22>
 self.configuration = {}
+
+--[[
+Gets, sets or initializes a configuration property by a dot notation key.
+
+This is the only method that should be used to handle the addon
+configuration, unless the addon needs to have multiple configuration
+instances.
+
+config() is a proxy method that forwards the configuration operation to the
+Configuration class that's internally handled by Configuration:handle().
+
+@see Configuration.handle
+]]
+function self:config(...)
+    return self.configuration:handle(...)
+end

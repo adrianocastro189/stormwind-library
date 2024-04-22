@@ -9,6 +9,18 @@ TestConfiguration = BaseTestClass:new()
         lu.assertEquals(instance.data, savedVariable)
     end
 
+    -- @covers StormwindLibrary:config()
+    function TestConfiguration:testConfig()
+        local arg1, arg2 = nil, nil
+
+        function __.configuration:handle(...) arg1, arg2 = ... end
+
+        __:config('test-property', 'default-value')
+
+        lu.assertEquals(arg1, 'test-property')
+        lu.assertEquals(arg2, 'default-value')
+    end
+
     -- @covers Configuration:get()
     function TestConfiguration:testGet()
         -- @TODO: Implement this test <2024.04.22>
