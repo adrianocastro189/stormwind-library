@@ -91,8 +91,10 @@ local Configuration = {}
     @local
     ]]
     function Configuration:handle(...)
-        -- @TODO: Document param possibilities <2024.04.22>
-        -- @TODO: Implement this method <2024.04.22>
+        if self.data == nil then
+            self.__.output:out('There was an attempt to get or set configuration values with no addon respective data set. Please, pass the data variable name when initializing the Stormwind Library to use this feature.')
+            return nil
+        end
     end
 
     --[[--

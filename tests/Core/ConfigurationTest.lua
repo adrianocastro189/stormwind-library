@@ -72,7 +72,22 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers Configuration:handle()
     function TestConfiguration:testHandle()
-        -- @TODO: Implement this test <2024.04.22>
+        local function execution(data, expectedOutput, ...)
+            local configuration = __:new('Configuration', data)
+
+            lu.assertEquals(expectedOutput, configuration:handle(...))
+        end
+
+        execution(nil, nil)
+    end
+
+    -- @covers Configuration:handle()
+    function TestConfiguration:testHandleWithNoData()
+        local configuration = __:new('Configuration')
+
+        lu.assertEquals(nil, configuration:handle())
+
+        lu.assertIsTrue(__.output:printed('There was an attempt to get or set configuration values with no addon respective data set. Please, pass the data variable name when initializing the Stormwind Library to use this feature.'))
     end
 
     -- @covers StormwindLibrary:isConfigEnabled()
