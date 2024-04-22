@@ -48,7 +48,7 @@ local config = library:new('Configuration', configTable)
 
 The example above works for any table, but as mentioned, it's recommended to
 pass the saved variables table to the Configuration constructor, that way, 
-when a configuration or setting is changed, it will be automatically be saved
+when a configuration or setting is changed, it will be automatically saved
 when the game is closed or reloaded.
 
 So, based on the TOC file below...
@@ -95,7 +95,8 @@ local __ = StormwindLibrary.new({
 After that, the `config(...)` method will be available to access the
 configuration properties in the following combination of parameters:
 
-1. `config('dot.notation.ket')` - retrieves the value of the key
+1. `config('dot.notation.key')` - retrieves the value of the key or `nil` if
+the key is not found
 1. `config('dot.notation.key', defaultValue)` - retrieves the value of the key
 or the default value if the key is not found
 1. `config('dot.notation.key', defaultValue, true)` - retrieves the value of 
