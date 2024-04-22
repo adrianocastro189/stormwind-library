@@ -188,6 +188,9 @@ TestConfiguration = BaseTestClass:new()
         configuration:handle('settings.view-mode', 'compact', true)
 
         lu.assertEquals('compact', configuration:handle('settings.view-mode'))
+
+        -- any invalid call should return nil
+        lu.assertIsNil(configuration:handle(1))
     end
 
     -- @covers StormwindLibrary:isConfigEnabled()
