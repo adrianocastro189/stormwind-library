@@ -6,7 +6,7 @@ TestConfiguration = BaseTestClass:new()
         local instance = __:new('Configuration', savedVariable)
 
         lu.assertNotNil(instance)
-        lu.assertEquals(instance.data, savedVariable)
+        lu.assertEquals(savedVariable, instance.data)
     end
 
     -- @covers StormwindLibrary:config()
@@ -17,8 +17,8 @@ TestConfiguration = BaseTestClass:new()
 
         __:config('test-property', 'default-value')
 
-        lu.assertEquals(arg1, 'test-property')
-        lu.assertEquals(arg2, 'default-value')
+        lu.assertEquals('test-property', arg1)
+        lu.assertEquals('default-value', arg2)
     end
 
     -- @covers Configuration:get()
@@ -34,10 +34,10 @@ TestConfiguration = BaseTestClass:new()
 
         local result = __:new('Configuration', data):get('test-key', 'test-default')
 
-        lu.assertEquals(result, 'test-get-result')
-        lu.assertEquals(listArg, data)
-        lu.assertEquals(keyArg, 'test-key')
-        lu.assertEquals(defaultValueArg, 'test-default')
+        lu.assertEquals('test-get-result', result)
+        lu.assertEquals(data, listArg)
+        lu.assertEquals('test-key', keyArg)
+        lu.assertEquals('test-default', defaultValueArg)
     end
 
     -- @covers Configuration:getOrInitialize()
@@ -62,12 +62,12 @@ TestConfiguration = BaseTestClass:new()
 
         local result = instance:getOrInitialize('test-key', 'test-default')
 
-        lu.assertEquals(result, 'test-get-result')
-        lu.assertEquals(miListArg, data)
-        lu.assertEquals(miKeyArg, 'test-key')
-        lu.assertEquals(miInitialValueArg, 'test-default')
-        lu.assertEquals(getKeyArg, 'test-key')
-        lu.assertEquals(getDefaultValueArg, 'test-default')
+        lu.assertEquals('test-get-result', result)
+        lu.assertEquals(data, miListArg)
+        lu.assertEquals('test-key', miKeyArg)
+        lu.assertEquals('test-default', miInitialValueArg)
+        lu.assertEquals('test-key', getKeyArg)
+        lu.assertEquals('test-default', getDefaultValueArg)
     end
 
     -- @covers Configuration:handle()
@@ -84,8 +84,8 @@ TestConfiguration = BaseTestClass:new()
 
             configuration:handle(arg1, arg2, arg3)
 
-            lu.assertEquals(keyArg, shouldCallGetOrInitialize and arg1 or nil)
-            lu.assertEquals(defaultValueArg, shouldCallGetOrInitialize and arg2 or nil)
+            lu.assertEquals(shouldCallGetOrInitialize and arg1 or nil, keyArg)
+            lu.assertEquals(shouldCallGetOrInitialize and arg2 or nil, defaultValueArg)
         end
 
         execution('test', nil, nil, false)
@@ -110,8 +110,8 @@ TestConfiguration = BaseTestClass:new()
 
             configuration:handle(arg1, arg2)
 
-            lu.assertEquals(keyArg, arg1)
-            lu.assertEquals(defaultValueArg, arg2)
+            lu.assertEquals(arg1, keyArg)
+            lu.assertEquals(arg2, defaultValueArg)
         end
 
         execution('test', nil)
@@ -221,8 +221,8 @@ TestConfiguration = BaseTestClass:new()
 
         instance:set('test-key', 'test-value')
 
-        lu.assertEquals(setListArg, data)
-        lu.assertEquals(setKeyArg, 'test-key')
-        lu.assertEquals(setValueArg, 'test-value')
+        lu.assertEquals(data, setListArg)
+        lu.assertEquals('test-key', setKeyArg)
+        lu.assertEquals('test-value', setValueArg)
     end
 -- end of TestConfiguration
