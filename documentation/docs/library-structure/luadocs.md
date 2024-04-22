@@ -78,6 +78,9 @@ when they should not be used outside the class.
    * Prefer the usage of `@tparam` and `@treturn` tags to define the types.
       * Don't use a `.` at the end of the setence, unless it has 2 or more
         phrases.
+      * Prefer to not break lines, even if the line is longer than the current
+        sizes as observed in other classes, unless it's really necessary by
+        being too long or having multiple phrases.
    * Prefer `integer` over `number` when the value must be an integer.
    * Prefer `boolean` over `bool`.
    * Use `any` when the type is not defined.
