@@ -71,28 +71,6 @@ TestConfiguration = BaseTestClass:new()
     end
 
     -- @covers Configuration:handle()
-    function TestConfiguration:testHandleToGetValues()
-        local function execution(arg1, arg2)
-            local keyArg, defaultValueArg = nil, nil
-
-            local configuration = __:new('Configuration', {})
-
-            function configuration:get(key, defaultValue)
-                keyArg = key
-                defaultValueArg = defaultValue
-            end
-
-            configuration:handle(arg1, arg2)
-
-            lu.assertEquals(keyArg, arg1)
-            lu.assertEquals(defaultValueArg, arg2)
-        end
-
-        execution('test', nil)
-        execution('test', 'default-value')
-    end
-
-    -- @covers Configuration:handle()
     function TestConfiguration:testHandleToGetOrInitializeValues()
         local function execution(arg1, arg2, arg3, shouldCallGetOrInitialize)
             local keyArg, defaultValueArg = nil, nil
@@ -116,6 +94,49 @@ TestConfiguration = BaseTestClass:new()
         execution('test', 'default', 'no', false)
         execution('test', 'default', true, true)
         execution('test', 'default', 'yes', true)
+    end
+
+    -- @covers Configuration:handle()
+    function TestConfiguration:testHandleToGetValues()
+        local function execution(arg1, arg2)
+            local keyArg, defaultValueArg = nil, nil
+
+            local configuration = __:new('Configuration', {})
+
+            function configuration:get(key, defaultValue)
+                keyArg = key
+                defaultValueArg = defaultValue
+            end
+
+            configuration:handle(arg1, arg2)
+
+            lu.assertEquals(keyArg, arg1)
+            lu.assertEquals(defaultValueArg, arg2)
+        end
+
+        execution('test', nil)
+        execution('test', 'default-value')
+    end
+
+    -- @covers Configuration:handle()
+    function TestConfiguration:testHandleToSet()
+        local configuration = __:new('Configuration', {})
+
+        local keyArgs, valueArgs = {}, {}
+
+        function configuration:set(key, value)
+            table.insert(keyArgs, key)
+            table.insert(valueArgs, value)
+        end
+
+        configuration:handle({
+            ['test-key-a'] = 'test-value-a',
+            ['test-key-b'] = 'test-value-b',
+            ['test-key-c'] = 'test-value-c',
+        })
+
+        lu.assertEquals(keyArgs, {'test-key-a', 'test-key-b', 'test-key-c'})
+        lu.assertEquals(valueArgs, {'test-value-a', 'test-value-b', 'test-value-c'})
     end
 
     -- @covers Configuration:handle()

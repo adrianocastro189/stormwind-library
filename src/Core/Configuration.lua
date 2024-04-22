@@ -105,6 +105,14 @@ local Configuration = {}
                 return self:get(arg1, arg2)
             end
         end
+
+        if type(arg1) == 'table' then
+            self.__.arr:each(arg1, function(value, key)
+                self:set(key, value)
+            end)
+        end
+
+        return nil
     end
 
     --[[--
