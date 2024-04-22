@@ -44,6 +44,10 @@ TestArr = BaseTestClass:new()
         listWithNestedKeys['test-a']['test-b'] = {}
         listWithNestedKeys['test-a']['test-b']['test-c'] = 'test'
         execution(listWithNestedKeys, 'test-a.test-b.test-c', nil, 'test')
+
+        local listWithFalseValue = {}
+        listWithFalseValue['test'] = false
+        execution(listWithFalseValue, 'test', nil, false)
     end
 
     -- @covers Arr:implode()
@@ -208,15 +212,18 @@ TestArr = BaseTestClass:new()
         lu.assertEquals('test-initial', arr:get(list, 'a.b'))
         lu.assertIsNil(arr:get(list, 'a.c'))
         lu.assertIsNil(arr:get(list, 'x.y.z'))
+        lu.assertIsNil(arr:get(list, 'f'))
 
         -- sets a couple of properties
         arr:set(list, 'a.c', 'test-with-set')
         arr:set(list, 'x.y.z', 'test-with-three-levels')
+        arr:set(list, 'f', false)
 
         -- checks if the property 
         lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
         lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
         lu.assertEquals('test-initial', arr:get(list, 'a.b'))
+        lu.assertEquals(false, arr:get(list, 'f'))
     end
 
     -- @covers Arr:wrap()

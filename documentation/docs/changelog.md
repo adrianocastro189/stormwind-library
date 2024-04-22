@@ -8,6 +8,8 @@ the Commands structure, and to Output
 * Add the Configurations class to handle addon configurations and settings
 * Add the library getClass() method to allow addons to retrieve a class 
 structure instead of instantiating it, useful for class inheritance
+* Fix Arr:get() to return false values instead of considering them nil and
+return the default value erroneously
 
 ## 2024.04.10 - version 1.0.0
 
