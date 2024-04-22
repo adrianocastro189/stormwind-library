@@ -2,8 +2,9 @@
 
 ## yyyy.mm.dd - version 1.1.0
 
-* Add more Lua Doc blocks covering the library structure: to all classes in the Commands 
-structure, and to Output
+* Add more Lua Doc blocks covering the library structure: to all classes in 
+the Commands structure, and to Output
+* Add a "dump and die" method to the Output class to improve debugging
 
 ## 2024.04.10 - version 1.0.0
 

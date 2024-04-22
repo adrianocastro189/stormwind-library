@@ -38,6 +38,8 @@ BaseTestClass = {
             name = 'TestSuite'
         })
         __.output:setTestingMode()
+
+        dd = __.output.dd
     end,
 
     -- guarantees that every test class inherits from this class by forcing
