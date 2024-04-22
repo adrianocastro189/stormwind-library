@@ -1,8 +1,16 @@
 TestConfiguration = BaseTestClass:new()
     -- @covers Configuration:__construct()
     function TestConfiguration:testConstruct()
-        local instance = __:new('Configuration')
+        local savedVariable = {['test-property'] = 'test-value'}
+
+        local instance = __:new('Configuration', savedVariable)
 
         lu.assertNotNil(instance)
+        lu.assertEquals(instance.data, {})
+    end
+
+    -- @covers Configuration:get()
+    function TestConfiguration:testGet()
+        -- @TODO: Implement this test <2024.04.22>
     end
 -- end of TestConfiguration
