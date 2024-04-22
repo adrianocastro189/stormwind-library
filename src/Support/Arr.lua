@@ -55,15 +55,16 @@ local Arr = {}
     ]]
     function Arr:get(list, key, default)
         local keys = self.__.str:split(key, '.')
-        local current = list[keys[1]]
+        local current = list
     
-        for i = 2, #keys do
-            -- this is necessary to avoid considering falsy values as nil
-            if type(current) ~= 'nil' then current = current[keys[i]] else current = nil end
+        for i = 1, #keys do
+            current = current and current[keys[i]]
+            if current == nil then
+                return default
+            end
         end
     
-        -- this is necessary to avoid considering falsy values as nil
-        if type(current) ~= 'nil' then return current else return default end
+        return current
     end
 
     --[[--
