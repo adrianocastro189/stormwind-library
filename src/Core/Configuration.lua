@@ -44,11 +44,11 @@ local Configuration = {}
     Gets a configuration property by a dot notation key or returns a default
     value if the key does not exist.
 
-    @tparam string key The dot notation key to be used to retrieve the configuration property.
-    @tparam any default The default value to be returned if the key does not exist.
+    @tparam string key The dot notation key to be used to retrieve the configuration property
+    @tparam any default The default value to be returned if the key does not exist
 
     @treturn any The configuration property value or the default value if the
-                 key does not exist.
+                 key does not exist
     
     @usage
         library.configuration:get('test-property', 'default-value')
@@ -66,11 +66,11 @@ local Configuration = {}
 
     @see Configuration.get
 
-    @tparam string key The dot notation key to be used to retrieve the configuration property.
-    @tparam any default The default value to be returned if the key does not exist.
+    @tparam string key The dot notation key to be used to retrieve the configuration property
+    @tparam any default The default value to be returned if the key does not exist
 
     @treturn any The configuration property value or the default value if the
-                 key does not exist.
+                 key does not exist
     --]]
     function Configuration:getOrInitialize(key, default)
         -- @TODO: Implement this method <2024.04.22>
@@ -96,8 +96,8 @@ local Configuration = {}
     This will update the configuration property with the new value. If the key
     does not exist, it will be created.
 
-    @tparam string key The dot notation key to be used to set the configuration property.
-    @tparam any value The value to be set in the configuration property.
+    @tparam string key The dot notation key to be used to set the configuration property
+    @tparam any value The value to be set in the configuration property
     --]]
     function Configuration:set(key, value)      
         -- @TODO: Implement this method <2024.04.22>
@@ -124,4 +124,17 @@ Configuration class that's internally handled by Configuration:handle().
 ]]
 function self:config(...)
     return self.configuration:handle(...)
+end
+
+--[[
+Determines whether the addon configuration is enabled.
+
+To be enabled, the addon must have a configuration instance created, which
+is instantiated by the library when the addon is loaded if it has a saved
+variable property in the TOC file passed to the library constructor.
+
+@treturn bool True if the configuration is enabled, false otherwise
+--]]
+function self:isConfigEnabled()
+    return self.configuration ~= nil
 end

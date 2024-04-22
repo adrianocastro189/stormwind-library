@@ -36,6 +36,18 @@ TestConfiguration = BaseTestClass:new()
         -- @TODO: Implement this test <2024.04.22>
     end
 
+    -- @covers StormwindLibrary:isConfigEnabled()
+    function TestConfiguration:testIsConfigEnabled()
+        local function execution(instance, expectedOutput)
+            __.configuration = instance
+
+            lu.assertEquals(expectedOutput, __:isConfigEnabled())
+        end
+
+        execution(nil, false)
+        execution({}, true)
+    end
+
     -- @covers StormwindLibrary.configuration
     function TestConfiguration:testLibraryInstanceIsSet()
         lu.assertNotIsNil(__.configuration)
