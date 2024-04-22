@@ -58,18 +58,12 @@ local Arr = {}
         local current = list[keys[1]]
     
         for i = 2, #keys do
-            if type(current) ~= 'nil' then
-                current = current[keys[i]]
-            else
-                current = nil
-            end
+            -- this is necessary to avoid considering falsy values as nil
+            if type(current) ~= 'nil' then current = current[keys[i]] else current = nil end
         end
     
-        if type(current) ~= 'nil' then
-            return current
-        else
-            return default
-        end
+        -- this is necessary to avoid considering falsy values as nil
+        if type(current) ~= 'nil' then return current else return default end
     end
 
     --[[--
