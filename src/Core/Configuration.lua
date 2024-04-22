@@ -104,3 +104,7 @@ local Configuration = {}
 -- end of Configuration
 
 self:addClass('Configuration', Configuration)
+
+-- @TODO: Initialize the configuration instance with the addon's saved
+--        variable property <2024.04.22>
+self.configuration = {}

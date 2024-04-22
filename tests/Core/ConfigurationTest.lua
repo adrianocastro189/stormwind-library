@@ -6,7 +6,7 @@ TestConfiguration = BaseTestClass:new()
         local instance = __:new('Configuration', savedVariable)
 
         lu.assertNotNil(instance)
-        lu.assertEquals(instance.data, {})
+        lu.assertEquals(instance.data, savedVariable)
     end
 
     -- @covers Configuration:get()
@@ -22,6 +22,11 @@ TestConfiguration = BaseTestClass:new()
     -- @covers Configuration:handle()
     function TestConfiguration:testHandle()
         -- @TODO: Implement this test <2024.04.22>
+    end
+
+    -- @covers StormwindLibrary.configuration
+    function TestConfiguration:testLibraryInstanceIsSet()
+        lu.assertNotIsNil(__.configuration)
     end
 
     -- @covers Configuration:set()
