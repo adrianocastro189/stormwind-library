@@ -40,3 +40,24 @@ Now, it's possible to instantiate `MyClass` with:
 -- stormwindLibrary is the library instance created in an addon
 local instance = stormwindLibrary:new('MyClass', 'Any name')
 ```
+
+## Class inheritance
+
+To allow class inheritance, instead of calling the `new()` method directly, 
+it's possible to retrieve a class structure with the `getClass()` method. That
+way, a class can inherit another one by using any inheritance strategy, like setting the meta table.
+
+Example:
+
+```lua
+-- imagine that this is a class in the library or in another addon
+local MyClass = {}
+MyClass.__index = MyClass
+self:addClass('MyClass', MyClass)
+
+-- then to inherit from MyClass, get the class structure with:
+myClassStructure = library:getClass('MyClass')
+-- and then inherit from it using your preferred way to work with inheritance
+-- in Lua, like the setmetatable function
+setmetatable(MyNewClass, myClassStructure)
+```
