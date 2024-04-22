@@ -42,7 +42,7 @@ local Configuration = {}
     key does not exist.
 
     @tparam string key The key to be used to retrieve the configuration property.
-    @param any default The default value to be returned if the key does not exist.
+    @tparam any default The default value to be returned if the key does not exist.
 
     @treturn any The configuration property value or the default value if the
                  key does not exist.
@@ -51,6 +51,25 @@ local Configuration = {}
         library.configuration:get('test-property', 'default-value')
     ]]
     function Configuration:get(key, default)
+        -- @TODO: Implement this method <2024.04.22>
+    end
+
+    --[[--
+    Gets a configuration property by a key or initializes it with a default
+    value if the key does not exist.
+
+    This method is similar to the get() method, but it also initializes the
+    property with the default value if the key does not exist.
+
+    @see Configuration.get
+
+    @tparam string key The key to be used to retrieve the configuration property.
+    @tparam any default The default value to be returned if the key does not exist.
+
+    @treturn any The configuration property value or the default value if the
+                 key does not exist.
+    --]]
+    function Configuration:getOrInitialize(key, default)
         -- @TODO: Implement this method <2024.04.22>
     end
 -- end of Configuration

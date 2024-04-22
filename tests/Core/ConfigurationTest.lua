@@ -13,4 +13,9 @@ TestConfiguration = BaseTestClass:new()
     function TestConfiguration:testGet()
         -- @TODO: Implement this test <2024.04.22>
     end
+
+    -- @covers Configuration:getOrInitialize()
+    function TestConfiguration:testGetOrInitialize()
+        -- @TODO: Implement this test <2024.04.22>
+    end
 -- end of TestConfiguration
