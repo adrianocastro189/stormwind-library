@@ -6,6 +6,8 @@
 
 -- import src/Core/AddonProperties.lua
 -- import src/Core/Factory.lua
+
+-- import src/Core/Configuration.lua
 -- import src/Core/Output.lua
 
 -- import src/Commands/Command.lua
