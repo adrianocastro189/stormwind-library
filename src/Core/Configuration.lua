@@ -108,7 +108,7 @@ local Configuration = {}
         library.configuration:set('test.property', 'new-value')
     --]]
     function Configuration:set(key, value)      
-        -- @TODO: Implement this method <2024.04.22>
+        self.__.arr:set(self.data, key, value)
     end
 -- end of Configuration
 

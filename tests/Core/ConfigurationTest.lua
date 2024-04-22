@@ -94,6 +94,20 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers Configuration:set()
     function TestConfiguration:testSet()
-        -- @TODO: Implement this test <2024.04.22>
+        local setListArg, setKeyArg, setValueArg = nil, nil, nil
+
+        function __.arr:set(list, key, value)
+            setListArg, setKeyArg, setValueArg = list, key, value
+        end
+
+        local data = {'test-data'}
+
+        local instance = __:new('Configuration', data)
+
+        instance:set('test-key', 'test-value')
+
+        lu.assertEquals(setListArg, data)
+        lu.assertEquals(setKeyArg, 'test-key')
+        lu.assertEquals(setValueArg, 'test-value')
     end
 -- end of TestConfiguration
