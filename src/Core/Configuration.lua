@@ -54,7 +54,7 @@ local Configuration = {}
         library.configuration:get('test.property', 'default-value')
     ]]
     function Configuration:get(key, default)
-        -- @TODO: Implement this method <2024.04.22>
+        return self.__.arr:get(self.data, key, default)
     end
 
     --[[--

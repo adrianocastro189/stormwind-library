@@ -23,7 +23,21 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers Configuration:get()
     function TestConfiguration:testGet()
-        -- @TODO: Implement this test <2024.04.22>
+        local listArg, keyArg, defaultValueArg = nil, nil, nil
+
+        function __.arr:get(list, key, default)
+            listArg, keyArg, defaultValueArg = list, key, default
+            return 'test-get-result'
+        end
+
+        local data = {'test-data'}
+
+        local result = __:new('Configuration', data):get('test-key', 'test-default')
+
+        lu.assertEquals(result, 'test-get-result')
+        lu.assertEquals(listArg, data)
+        lu.assertEquals(keyArg, 'test-key')
+        lu.assertEquals(defaultValueArg, 'test-default')
     end
 
     -- @covers Configuration:getOrInitialize()
