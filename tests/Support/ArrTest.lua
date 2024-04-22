@@ -6,6 +6,26 @@ TestArr = BaseTestClass:new()
         lu.assertNotIsNil(arr)
     end
 
+    -- @covers Arr:each()
+    function TestArr:testEach()
+        local function execution(list, expectedOutput)
+            local results = {}
+            __.arr:each(list, function (val, i)
+                table.insert(results, val .. '-' .. i)
+            end)
+    
+            -- can't use lu.assertEquals because the order of the elements is not
+            -- guaranteed by the each function
+            for i, v in ipairs(expectedOutput) do
+                lu.assertTableContains(results, v)
+            end
+        end
+
+        execution({}, {})
+        execution({'test', 'test', 'test'}, {'test-1', 'test-2', 'test-3'})
+        execution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {'a-a', 'b-b', 'c-c'})
+    end
+
     -- @covers Arr:get()
     function TestArr:testGet()
         local function execution(list, key, default, expectedOutput)

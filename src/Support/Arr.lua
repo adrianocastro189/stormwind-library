@@ -12,6 +12,30 @@ local Arr = {}
     Arr.__ = self
 
     --[[--
+    Iterates over the list values and calls the callback function in the
+    second argument for each of them.
+
+    The callback function must be a function that accepts (val) or (val, i)
+    where val is the object in the interaction and i it's index.
+
+    This method accepts arrays and tables.
+
+    If you need to store the results of the callback, use the Arr:map() method.
+
+    @see Arr.map
+
+    @tparam table list the list to be iterated
+    @tparam function callback the function to be called for each item in the list
+
+    @usage
+        local list = {1, 2, 3}
+        local results = library.arr:map(list, function(val) print(val * 2) end)
+    ]]
+    function Arr:each(list, callback)
+        for i, val in pairs(list) do callback(val, i) end
+    end
+
+    --[[--
     Gets a value in an array using the dot notation.
     
     With the dot notation search, it's possible to query a value in a
@@ -159,7 +183,8 @@ local Arr = {}
 
     --[[--
     Iterates over the list values and calls the callback function in the
-    second argument for each of them.
+    second argument for each of them, storing the results in a new list to
+    be returned.
 
     The callback function must be a function that accepts (val) or (val, i)
     where val is the object in the interaction and i it's index.
