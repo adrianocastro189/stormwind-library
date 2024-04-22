@@ -61,3 +61,12 @@ myClassStructure = library:getClass('MyClass')
 -- in Lua, like the setmetatable function
 setmetatable(MyNewClass, myClassStructure)
 ```
+
+:::warning Parent class constructor limitations
+
+Due to how class instantiation works in the Stormwind Library, the parent 
+class constructor can be a bit tricky to call. The best way to do it is to
+not use this structure if you need that or override the `__construct()` method
+in the child class by doing the same thing as the parent class constructor.
+
+:::
