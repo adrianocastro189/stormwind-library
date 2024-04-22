@@ -42,7 +42,32 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers Configuration:getOrInitialize()
     function TestConfiguration:testGetOrInitialize()
-        -- @TODO: Implement this test <2024.04.22>
+        -- in this context, mi stands to "maybe initialize"
+        local miListArg, miKeyArg, miInitialValueArg = nil, nil, nil
+        local getKeyArg, getDefaultValueArg = nil, nil
+
+        function __.arr:maybeInitialize(list, key, initialValue)
+            miListArg, miKeyArg, miInitialValueArg = list, key, initialValue
+        end
+
+        local data = {'test-data'}
+
+        local instance = __:new('Configuration', data)
+
+        function instance:get(key, defaultValue)
+            getKeyArg, getDefaultValueArg = key, defaultValue
+
+            return 'test-get-result'
+        end
+
+        local result = instance:getOrInitialize('test-key', 'test-default')
+
+        lu.assertEquals(result, 'test-get-result')
+        lu.assertEquals(miListArg, data)
+        lu.assertEquals(miKeyArg, 'test-key')
+        lu.assertEquals(miInitialValueArg, 'test-default')
+        lu.assertEquals(getKeyArg, 'test-key')
+        lu.assertEquals(getDefaultValueArg, 'test-default')
     end
 
     -- @covers Configuration:handle()
