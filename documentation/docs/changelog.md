@@ -2,9 +2,11 @@
 
 ## yyyy.mm.dd - version 1.1.0
 
+* Add a "dump and die" method to the Output class to improve debugging
 * Add more Lua Doc blocks covering the library structure: to all classes in 
 the Commands structure, and to Output
-* Add a "dump and die" method to the Output class to improve debugging
+* Add the library getClass() method to allow addons to retrieve a class 
+structure instead of instantiating it, useful for class inheritance
 
 ## 2024.04.10 - version 1.0.0
 
