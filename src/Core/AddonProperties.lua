@@ -2,6 +2,7 @@
 Sets the addon properties.
 
 Allowed properties = {
+    data: table, optional
     colors: table, optional
         primary: string, optional
         secondary: string, optional
@@ -12,6 +13,7 @@ Allowed properties = {
 self.addon = {}
 
 self.addon.colors  = self.arr:get(props or {}, 'colors', {})
+self.addon.data    = self.arr:get(props or {}, 'data')
 self.addon.command = self.arr:get(props or {}, 'command')
 self.addon.name    = self.arr:get(props or {}, 'name')
 

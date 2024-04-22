@@ -6,6 +6,7 @@ TestAddonProperties = BaseTestClass:new()
                 primary = 'test-primary-color',
                 secondary = 'test-secondary-color'
             },
+            data = { test = 'data' },
             command = 'test-command',
             name = 'TestSuite'
         })
@@ -14,6 +15,7 @@ TestAddonProperties = BaseTestClass:new()
         lu.assertEquals('test-secondary-color', library.addon.colors.secondary)
         lu.assertEquals('test-command', library.addon.command)
         lu.assertEquals('TestSuite', library.addon.name)
+        lu.assertEquals({ test = 'data' }, library.addon.data)
     end
 
     -- @covers AddonProperties.lua

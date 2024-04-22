@@ -34,7 +34,8 @@ Some parameters are **optional** and some are **required**.
 
 ### data
 
-* **Type:** string
+* **Type:** string, that must be informed as a string, not the table variable
+itself, given that the library will access it with `_G`
 * **Optional**
 * **Default:** `nil`
 * **Effect:** The library will automatically create a [configuration](configuration)
