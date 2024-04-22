@@ -71,14 +71,51 @@ TestConfiguration = BaseTestClass:new()
     end
 
     -- @covers Configuration:handle()
-    function TestConfiguration:testHandle()
-        local function execution(data, expectedOutput, ...)
-            local configuration = __:new('Configuration', data)
+    function TestConfiguration:testHandleToGetValues()
+        local function execution(arg1, arg2)
+            local keyArg, defaultValueArg = nil, nil
 
-            lu.assertEquals(expectedOutput, configuration:handle(...))
+            local configuration = __:new('Configuration', {})
+
+            function configuration:get(key, defaultValue)
+                keyArg = key
+                defaultValueArg = defaultValue
+            end
+
+            configuration:handle(arg1, arg2)
+
+            lu.assertEquals(keyArg, arg1)
+            lu.assertEquals(defaultValueArg, arg2)
         end
 
-        execution(nil, nil)
+        execution('test', nil)
+        execution('test', 'default-value')
+    end
+
+    -- @covers Configuration:handle()
+    function TestConfiguration:testHandleToGetOrInitializeValues()
+        local function execution(arg1, arg2, arg3, shouldCallGetOrInitialize)
+            local keyArg, defaultValueArg = nil, nil
+
+            local configuration = __:new('Configuration', {})
+
+            function configuration:getOrInitialize(key, defaultValue)
+                keyArg = key
+                defaultValueArg = defaultValue
+            end
+
+            configuration:handle(arg1, arg2, arg3)
+
+            lu.assertEquals(keyArg, shouldCallGetOrInitialize and arg1 or nil)
+            lu.assertEquals(defaultValueArg, shouldCallGetOrInitialize and arg2 or nil)
+        end
+
+        execution('test', nil, nil, false)
+        execution('test', 'default', nil, false)
+        execution('test', 'default', false, false)
+        execution('test', 'default', 'no', false)
+        execution('test', 'default', true, true)
+        execution('test', 'default', 'yes', true)
     end
 
     -- @covers Configuration:handle()
