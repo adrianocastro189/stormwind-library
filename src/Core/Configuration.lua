@@ -54,7 +54,7 @@ local Configuration = {}
         library.configuration:get('test.property', 'default-value')
     ]]
     function Configuration:get(key, default)
-        -- @TODO: Implement this method <2024.04.22>
+        return self.__.arr:get(self.data, key, default)
     end
 
     --[[--
@@ -76,7 +76,9 @@ local Configuration = {}
         library.configuration:getOrInitialize('test.property', 'default-value')
     --]]
     function Configuration:getOrInitialize(key, default)
-        -- @TODO: Implement this method <2024.04.22>
+        self.__.arr:maybeInitialize(self.data, key, default)
+
+        return self:get(key, default)
     end
 
     --[[--
@@ -106,7 +108,7 @@ local Configuration = {}
         library.configuration:set('test.property', 'new-value')
     --]]
     function Configuration:set(key, value)      
-        -- @TODO: Implement this method <2024.04.22>
+        self.__.arr:set(self.data, key, value)
     end
 -- end of Configuration
 

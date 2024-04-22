@@ -23,12 +23,51 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers Configuration:get()
     function TestConfiguration:testGet()
-        -- @TODO: Implement this test <2024.04.22>
+        local listArg, keyArg, defaultValueArg = nil, nil, nil
+
+        function __.arr:get(list, key, default)
+            listArg, keyArg, defaultValueArg = list, key, default
+            return 'test-get-result'
+        end
+
+        local data = {'test-data'}
+
+        local result = __:new('Configuration', data):get('test-key', 'test-default')
+
+        lu.assertEquals(result, 'test-get-result')
+        lu.assertEquals(listArg, data)
+        lu.assertEquals(keyArg, 'test-key')
+        lu.assertEquals(defaultValueArg, 'test-default')
     end
 
     -- @covers Configuration:getOrInitialize()
     function TestConfiguration:testGetOrInitialize()
-        -- @TODO: Implement this test <2024.04.22>
+        -- in this context, mi stands to "maybe initialize"
+        local miListArg, miKeyArg, miInitialValueArg = nil, nil, nil
+        local getKeyArg, getDefaultValueArg = nil, nil
+
+        function __.arr:maybeInitialize(list, key, initialValue)
+            miListArg, miKeyArg, miInitialValueArg = list, key, initialValue
+        end
+
+        local data = {'test-data'}
+
+        local instance = __:new('Configuration', data)
+
+        function instance:get(key, defaultValue)
+            getKeyArg, getDefaultValueArg = key, defaultValue
+
+            return 'test-get-result'
+        end
+
+        local result = instance:getOrInitialize('test-key', 'test-default')
+
+        lu.assertEquals(result, 'test-get-result')
+        lu.assertEquals(miListArg, data)
+        lu.assertEquals(miKeyArg, 'test-key')
+        lu.assertEquals(miInitialValueArg, 'test-default')
+        lu.assertEquals(getKeyArg, 'test-key')
+        lu.assertEquals(getDefaultValueArg, 'test-default')
     end
 
     -- @covers Configuration:handle()
@@ -55,6 +94,20 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers Configuration:set()
     function TestConfiguration:testSet()
-        -- @TODO: Implement this test <2024.04.22>
+        local setListArg, setKeyArg, setValueArg = nil, nil, nil
+
+        function __.arr:set(list, key, value)
+            setListArg, setKeyArg, setValueArg = list, key, value
+        end
+
+        local data = {'test-data'}
+
+        local instance = __:new('Configuration', data)
+
+        instance:set('test-key', 'test-value')
+
+        lu.assertEquals(setListArg, data)
+        lu.assertEquals(setKeyArg, 'test-key')
+        lu.assertEquals(setValueArg, 'test-value')
     end
 -- end of TestConfiguration
