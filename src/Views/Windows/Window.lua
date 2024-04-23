@@ -54,6 +54,8 @@ local Window = {}
 
         self.window = self:createFrame()
 
+        self:createTitleBar()
+
         return self.window
     end
 
@@ -83,6 +85,35 @@ local Window = {}
         frame:SetResizable(true)
 
         return frame
+    end
+
+    --[[--
+    Creates a title bar that contains a title and a close button.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the createFrame() method.
+
+    @local
+
+    @treturn table The title bar frame created by CreateFrame
+    ]]
+    function Window:createTitleBar()
+        local frame = CreateFrame('Frame', nil, self.window, 'BackdropTemplate')
+
+        frame:SetPoint('TOPLEFT', self.window, 'TOPLEFT', 0, 0)
+        frame:SetPoint('TOPRIGHT', self.window, 'TOPRIGHT', 0, 0)
+        frame:SetHeight(35)
+        frame:SetBackdrop({
+            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            edgeFile = '',
+            edgeSize = 4,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        })
+        frame:SetBackdropColor(0, 0, 0, .8)
+
+        self.titleBar = frame
+
+        return self.titleBar
     end
 
     --[[--

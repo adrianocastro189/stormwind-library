@@ -13,16 +13,19 @@ TestWindow = BaseTestClass:new()
     -- @covers Window:create()
     function TestWindow:testCreate()
         local function execution(existingWindow, shouldCallCreateFrame)
+            local createTitleBarInvoked = false
+            local createFrameInvoked = false
+
             local instance = __:new('Window', 'test-id')
+            instance.createFrame = function() createFrameInvoked = true end
+            instance.createTitleBar = function() createTitleBarInvoked = true end
+            
             instance.window = existingWindow
-
-            local createFrameCalled = false
-
-            instance.createFrame = function() createFrameCalled = true end
 
             instance:create()
 
-            lu.assertEquals(shouldCallCreateFrame, createFrameCalled)
+            lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
+            lu.assertEquals(shouldCallCreateFrame, createTitleBarInvoked)
         end
 
         execution(nil, true)
@@ -46,6 +49,39 @@ TestWindow = BaseTestClass:new()
         lu.assertTrue(result.movable)
         lu.assertTrue(result.mouseEnabled)
         lu.assertTrue(result.resizable)
+    end
+
+    -- @covers Window:createTitleBar()
+    function TestWindow:testCreateTitleBar()
+        local instance = __:new('Window', 'test-id')
+        instance.window = {'test-window'}
+
+        lu.assertIsNil(instance.titleBar)
+
+        local result = instance:createTitleBar()
+
+        lu.assertEquals({
+            relativeFrame = instance.window,
+            relativePoint = 'TOPLEFT',
+            xOfs = 0,
+            yOfs = 0
+        }, result.points['TOPLEFT'])
+        lu.assertEquals({
+            relativeFrame = instance.window,
+            relativePoint = 'TOPRIGHT',
+            xOfs = 0,
+            yOfs = 0
+        }, result.points['TOPRIGHT'])
+        lu.assertEquals(35, result.height)
+        lu.assertEquals({
+            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            edgeFile = '',
+            edgeSize = 4,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        }, result.backdrop)
+        lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+
+        lu.assertNotIsNil(instance.titleBar)
     end
 
     -- @covers Window:getWindow()
