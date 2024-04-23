@@ -46,13 +46,12 @@ its initialization.
 
 ## Class recipe
 
-Use the recipe below to create new models.
+Use the recipe below to create new classes.
 
-This is an example of a simple class with a property called `name` and
-a simple method.
+This is an example of a simple class with no properties.
 
 ```lua
---[[
+--[[--
 Class description.
 ]]
 local ClassName = {}
@@ -60,26 +59,28 @@ local ClassName = {}
     ClassName.__ = self
     self:addClass('ClassName', ClassName)
 
-    --[[
+    --[[--
     ClassName constructor.
-
-    @tparam string name the ClassName's name
     ]]
-    function ClassName.__construct(name)
+    function ClassName.__construct()
         local self = setmetatable({}, ClassName)
 
-        self.name = name
+        -- add properties here
 
         return self
     end
-
-    --[[
-    Function description
-
-    @treturn boolean
-    ]]
-    function ClassName:modelFunction()
-        return 'something'
-    end
 -- end of ClassName
+```
+
+And this is an example of the first test class version for the class above:
+
+```lua
+TestClassName = BaseTestClass:new()
+    -- @covers ClassName:__construct()
+    function TestClassName:testConstruct()
+        local instance = __:new('ClassName', --[[ args here ]])
+
+        lu.assertNotNil(instance)
+    end
+-- end of TestClassName
 ```
