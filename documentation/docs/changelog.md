@@ -3,6 +3,8 @@
 ## yyyy.mm.dd - version 1.1.0
 
 * Add a "dump and die" method to the Output class to improve debugging
+* Add a new property to initialize the library that allows addons to have a 
+class managing configurations and settings with facades to Arr
 * Add more Lua Doc blocks covering the library structure: to all classes in 
 the Commands structure, and to Output
 * Add the Configuration class to handle addon configurations and settings
