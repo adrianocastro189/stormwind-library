@@ -2,13 +2,21 @@ lu = require('luaunit')
 
 -- World of Warcraft Mocks
 -- @TODO: Move this to a separate file <2024.03.26>
-CreateFrame = function ()
+CreateFrame = function (...)
     local mockFrame = {
         ['events'] = {},
         ['scripts'] = {},
     }
     mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
     mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
+
+    mockFrame.SetBackdrop = function (self, backdrop) self.backdrop = backdrop end
+    mockFrame.SetBackdropColor = function (self, r, g, b, a) self.backdropColor = { r, g, b, a } end
+    mockFrame.SetBackdropBorderColor = function (self, r, g, b, a) self.backdropBorderColor = { r, g, b, a } end
+    mockFrame.SetMovable = function (self, movable) self.movable = movable end
+    mockFrame.EnableMouse = function (self, enable) self.mouseEnabled = enable end
+    mockFrame.SetResizable = function (self, resizable) self.resizable = resizable end
+    
     return mockFrame
 end
 -- End

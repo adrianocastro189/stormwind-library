@@ -10,6 +10,44 @@ TestWindow = BaseTestClass:new()
         lu.assertTrue(instance.firstVisibility)
     end
 
+    -- @covers Window:create()
+    function TestWindow:testCreate()
+        local function execution(existingWindow, shouldCallCreateFrame)
+            local instance = __:new('Window', 'test-id')
+            instance.window = existingWindow
+
+            local createFrameCalled = false
+
+            instance.createFrame = function() createFrameCalled = true end
+
+            instance:create()
+
+            lu.assertEquals(shouldCallCreateFrame, createFrameCalled)
+        end
+
+        execution(nil, true)
+        execution({}, false)
+    end
+
+    -- @covers Window:createFrame()
+    function TestWindow:testCreateFrame()
+        local instance = __:new('Window', 'test-id')
+
+        local result = instance:createFrame()
+
+        lu.assertEquals({
+            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            edgeFile = '',
+            edgeSize = 4,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        }, result.backdrop)
+        lu.assertEquals({ 0, 0, 0, .5 }, result.backdropColor)
+        lu.assertEquals({ 0, 0, 0, 1 }, result.backdropBorderColor)
+        lu.assertTrue(result.movable)
+        lu.assertTrue(result.mouseEnabled)
+        lu.assertTrue(result.resizable)
+    end
+
     -- @covers Window:setFirstPosition()
     function TestWindow:testSetFirstPosition()
         local instance = __:new('Window', 'test-id')

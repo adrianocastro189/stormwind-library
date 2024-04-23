@@ -45,6 +45,47 @@ local Window = {}
     end
 
     --[[--
+    Creates the window frame if it doesn't exist yet.
+
+    @treturn table The window frame created by CreateFrame
+    ]]
+    function Window:create()
+        if self.window then return self.window end
+
+        self.window = self:createFrame()
+
+        return self.window
+    end
+
+    --[[--
+    This is just a facade method to call World of Warcraft's CreateFrame.
+
+    @local
+
+    @see Views.Windows.Window.create
+
+    @treturn table The window frame created by CreateFrame
+    ]]
+    function Window:createFrame()
+        local frame = CreateFrame('Frame', nil, UIParent, 'BackdropTemplate')
+
+        frame:SetBackdrop({
+            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            edgeFile = '',
+            edgeSize = 4,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        })
+
+        frame:SetBackdropColor(0, 0, 0, .5)
+        frame:SetBackdropBorderColor(0, 0, 0, 1)
+        frame:SetMovable(true)
+        frame:EnableMouse(true)
+        frame:SetResizable(true)
+
+        return frame
+    end
+
+    --[[--
     Sets the window's first position.
 
     The first position is the position that the window will have when it's
