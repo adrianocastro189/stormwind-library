@@ -295,6 +295,18 @@ local Window = {}
     end
 
     --[[--
+    Determines if the window is persisting its state.
+
+    A window is considered to be persisting its state if it has an id and the
+    library is created with a configuration set.
+
+    @treturn boolean true if the window is persisting its state, false otherwise
+    ]]
+    function Window:isPersistingState()
+        return self.__.str:isNotEmpty(self.id) and self.__:isConfigEnabled()
+    end
+
+    --[[--
     Sets the window's first position.
 
     The first position is the position that the window will have when it's

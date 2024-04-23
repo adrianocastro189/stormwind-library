@@ -285,6 +285,22 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance.window, result)
     end
 
+    -- @covers Window:isPersistingState()
+    function TestWindow:testIsPersistingState()
+        local function execution(id, libraryHasConfigEnabled, expectedResult)
+            local instance = __:new('Window', id)
+            instance.__.isConfigEnabled = function() return libraryHasConfigEnabled end
+
+            lu.assertEquals(expectedResult, instance:isPersistingState())
+        end
+
+        execution('test-id', true, true)
+        execution('test-id', false, false)
+        execution(nil, true, false)
+        execution(nil, false, false)
+        execution('', true, false)
+    end
+
     -- @covers Window:setFirstPosition()
     function TestWindow:testSetFirstPosition()
         local instance = __:new('Window', 'test-id')
