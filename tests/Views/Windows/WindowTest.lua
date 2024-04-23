@@ -13,6 +13,7 @@ TestWindow = BaseTestClass:new()
     -- @covers Window:create()
     function TestWindow:testCreate()
         local function execution(existingWindow, shouldCallCreateFrame)
+            local createContentFrameInvoked = false
             local createFooterInvoked = false
             local createFrameInvoked = false
             local createScrollbarInvoked = false
@@ -22,6 +23,7 @@ TestWindow = BaseTestClass:new()
             local setWindowVisibilityOnCreationInvoked = false
 
             local instance = __:new('Window', 'test-id')
+            instance.createContentFrame = function() createContentFrameInvoked = true end
             instance.createFooter = function() createFooterInvoked = true end
             instance.createFrame = function() createFrameInvoked = true end
             instance.createScrollbar = function() createScrollbarInvoked = true end
@@ -34,6 +36,7 @@ TestWindow = BaseTestClass:new()
 
             instance:create()
 
+            lu.assertEquals(shouldCallCreateFrame, createContentFrameInvoked)
             lu.assertEquals(shouldCallCreateFrame, createFooterInvoked)
             lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
             lu.assertEquals(shouldCallCreateFrame, createScrollbarInvoked)
@@ -65,6 +68,25 @@ TestWindow = BaseTestClass:new()
         }, result.points['RIGHT'])
 
         lu.assertEquals(instance.closeButton, result)
+    end
+
+    -- @covers Window:createContentFrame
+    function TestWindow:testCreateContentFrame()
+        local setScrollChildArg = nil
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.scrollbar = CreateFrame()
+        instance.scrollbar.GetWidth = function() return 10 end
+        instance.scrollbar.GetHeight = function() return 10 end
+        instance.scrollbar.SetScrollChild = function(self, contentFrame) setScrollChildArg = contentFrame end
+
+        local result = instance:createContentFrame()
+
+        lu.assertEquals(10, result.width)
+        lu.assertEquals(10, result.height)
+        lu.assertEquals(instance.contentFrame, setScrollChildArg)
+        lu.assertEquals(instance.contentFrame, result)
     end
 
     -- @covers Window:createFooter()

@@ -57,6 +57,7 @@ local Window = {}
         self:createTitleBar()
         self:createFooter()
         self:createScrollbar()
+        self:createContentFrame()
         self:setWindowPositionOnCreation()
         self:setWindowSizeOnCreation()
         self:setWindowVisibilityOnCreation()
@@ -82,6 +83,26 @@ local Window = {}
         self.closeButton = button
 
         return self.closeButton
+    end
+
+    --[[--
+    Creates the content frame, where the window's content will be placed.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+    @local
+
+    @treturn table The content frame created by CreateFrame
+    ]]
+    function Window:createContentFrame()
+        local contentFrame = CreateFrame('Frame', nil, self.scrollbar)
+        contentFrame:SetSize(self.scrollbar:GetWidth(), self.scrollbar:GetHeight())
+        self.scrollbar:SetScrollChild(contentFrame)
+
+        self.contentFrame = contentFrame
+
+        return self.contentFrame
     end
 
     --[[--
