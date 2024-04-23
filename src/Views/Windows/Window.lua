@@ -284,6 +284,27 @@ local Window = {}
     end
 
     --[[--
+    Gets the property key used by the window instance to persist its state
+    using the library configuration instance.
+
+    A property key is a result of the concatenation of a static prefix, this
+    window's id, and the key parameter.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by the addon.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn string The property key used by the window instance to persist
+                    its state using the library configuration instance
+    ]]
+    function Window:getPropertyKey(key)
+        return 'windows.' .. self.id .. '.' .. key
+    end
+
+    --[[--
     Gets the window's frame instance.
 
     This method has effect only after Window:create() is called.

@@ -272,6 +272,13 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance.titleText, result)
     end
 
+    -- @covers Window:getPropertyKey()
+    function TestWindow:testGetPropertyKey()
+        local instance = __:new('Window', 'test-id')
+
+        lu.assertEquals('windows.test-id.test-key', instance:getPropertyKey('test-key'))
+    end
+
     -- @covers Window:getWindow()
     function TestWindow:testGetWindow()
         local instance = __:new('Window', 'test-id')
