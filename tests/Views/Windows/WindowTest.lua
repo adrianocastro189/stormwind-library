@@ -32,6 +32,26 @@ TestWindow = BaseTestClass:new()
         execution({}, false)
     end
 
+    -- @covers Window:createCloseButton()
+    function TestWindow:testCreateCloseButton()
+        local instance = __:new('Window', 'test-id')
+
+        instance.titleBar, instance.window = CreateFrame(), CreateFrame()
+
+        lu.assertIsNil(instance.closeButton)
+
+        local result = instance:createCloseButton()
+
+        lu.assertEquals({
+            relativeFrame = instance.titleBar,
+            relativePoint = 'RIGHT',
+            xOfs = -5,
+            yOfs = 0
+        }, result.points['RIGHT'])
+
+        lu.assertNotIsNil(instance.closeButton)
+    end
+
     -- @covers Window:createFrame()
     function TestWindow:testCreateFrame()
         local instance = __:new('Window', 'test-id')
@@ -54,8 +74,10 @@ TestWindow = BaseTestClass:new()
     -- @covers Window:createTitleBar()
     function TestWindow:testCreateTitleBar()
         local createTitleTextInvoked = false
+        local createCloseButtonInvoked = false
 
         local instance = __:new('Window', 'test-id')
+        instance.createCloseButton = function() createCloseButtonInvoked = true end
         instance.createTitleText = function() createTitleTextInvoked = true end
         instance.window = {'test-window'}
 
@@ -83,6 +105,7 @@ TestWindow = BaseTestClass:new()
             insets = { left = 4, right = 4, top = 4, bottom = 4 },
         }, result.backdrop)
         lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+        lu.assertIsTrue(createCloseButtonInvoked)
         lu.assertIsTrue(createTitleTextInvoked)
 
         lu.assertNotIsNil(instance.titleBar)

@@ -60,6 +60,26 @@ local Window = {}
     end
 
     --[[--
+    Creates a close button in the title bar.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the createTitleBar() method.
+
+    @local
+
+    @treturn table The button created by CreateFrame
+    ]]
+    function Window:createCloseButton()
+        local button = CreateFrame('Button', nil, self.titleBar, 'UIPanelCloseButton')
+        button:SetPoint('RIGHT', self.titleBar, 'RIGHT', -5, 0)
+        button:SetScript('OnClick', function() self.window:Hide() end)
+
+        self.closeButton = button
+
+        return self.closeButton
+    end
+
+    --[[--
     This is just a facade method to call World of Warcraft's CreateFrame.
 
     @local
@@ -113,6 +133,7 @@ local Window = {}
 
         self.titleBar = frame
 
+        self:createCloseButton()
         self:createTitleText()
 
         return self.titleBar
@@ -126,7 +147,7 @@ local Window = {}
 
     @local
 
-    @treturn table The title bar frame created by CreateFrame
+    @treturn table The title text frame created by CreateFrame
     ]]
     function Window:createTitleText()
         local frame = self.titleBar:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
