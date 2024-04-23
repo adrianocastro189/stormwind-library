@@ -15,10 +15,12 @@ TestWindow = BaseTestClass:new()
         local function execution(existingWindow, shouldCallCreateFrame)
             local createTitleBarInvoked = false
             local createFrameInvoked = false
+            local createFooterInvoked = false
 
             local instance = __:new('Window', 'test-id')
             instance.createFrame = function() createFrameInvoked = true end
             instance.createTitleBar = function() createTitleBarInvoked = true end
+            instance.createFooter = function() createFooterInvoked = true end
             
             instance.window = existingWindow
 
@@ -26,6 +28,7 @@ TestWindow = BaseTestClass:new()
 
             lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
             lu.assertEquals(shouldCallCreateFrame, createTitleBarInvoked)
+            lu.assertEquals(shouldCallCreateFrame, createFooterInvoked)
         end
 
         execution(nil, true)
@@ -49,7 +52,41 @@ TestWindow = BaseTestClass:new()
             yOfs = 0
         }, result.points['RIGHT'])
 
-        lu.assertNotIsNil(instance.closeButton)
+        lu.assertEquals(instance.closeButton, result)
+    end
+
+    -- @covers Window:createFooter()
+    function TestWindow:testCreateFooter()
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = CreateFrame()
+
+        lu.assertIsNil(instance.footer)
+
+        local result = instance:createFooter()
+
+        lu.assertEquals({
+            relativeFrame = instance.window,
+            relativePoint = 'BOTTOMLEFT',
+            xOfs = 0,
+            yOfs = 0
+        }, result.points['BOTTOMLEFT'])
+        lu.assertEquals({
+            relativeFrame = instance.window,
+            relativePoint = 'BOTTOMRIGHT',
+            xOfs = 0,
+            yOfs = 0
+        }, result.points['BOTTOMRIGHT'])
+        lu.assertEquals(35, result.height)
+        lu.assertEquals({
+            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            edgeFile = '',
+            edgeSize = 4,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        }, result.backdrop)
+        lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+
+        lu.assertEquals(instance.footer, result)
     end
 
     -- @covers Window:createFrame()
@@ -108,7 +145,7 @@ TestWindow = BaseTestClass:new()
         lu.assertIsTrue(createCloseButtonInvoked)
         lu.assertIsTrue(createTitleTextInvoked)
 
-        lu.assertNotIsNil(instance.titleBar)
+        lu.assertEquals(instance.titleBar, result)
     end
 
     -- @covers Window:createTitleText()
@@ -133,7 +170,7 @@ TestWindow = BaseTestClass:new()
         }, titleTextFrame.points['LEFT'])
         lu.assertEquals('test-title', titleTextFrame.text)
 
-        lu.assertNotIsNil(instance.titleText)
+        lu.assertEquals(instance.titleText, result)
     end
 
     -- @covers Window:getWindow()

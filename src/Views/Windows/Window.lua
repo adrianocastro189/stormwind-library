@@ -55,6 +55,7 @@ local Window = {}
         self.window = self:createFrame()
 
         self:createTitleBar()
+        self:createFooter()
 
         return self.window
     end
@@ -77,6 +78,34 @@ local Window = {}
         self.closeButton = button
 
         return self.closeButton
+    end
+
+    --[[--
+    Creates a footer bar that contains a resize button.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the createFrame() method.
+
+    @local
+
+    @treturn table The footer bar frame created by CreateFrame
+    ]]
+    function Window:createFooter()
+        local frame = CreateFrame('Frame', nil, self.window, 'BackdropTemplate')
+        frame:SetPoint('BOTTOMLEFT', self.window, 'BOTTOMLEFT', 0, 0)
+        frame:SetPoint('BOTTOMRIGHT', self.window, 'BOTTOMRIGHT', 0, 0)
+        frame:SetHeight(35)
+        frame:SetBackdrop({
+            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            edgeFile = '',
+            edgeSize = 4,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        })
+        frame:SetBackdropColor(0, 0, 0, .8)
+
+        self.footer = frame
+
+        return self.footer
     end
 
     --[[--
