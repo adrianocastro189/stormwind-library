@@ -128,12 +128,16 @@ local Window = {}
             edgeSize = 4,
             insets = { left = 4, right = 4, top = 4, bottom = 4 },
         })
-
         frame:SetBackdropColor(0, 0, 0, .5)
         frame:SetBackdropBorderColor(0, 0, 0, 1)
         frame:SetMovable(true)
         frame:EnableMouse(true)
         frame:SetResizable(true)
+        frame:SetScript("OnSizeChanged", function(target)
+            local width, height = target:GetWidth(), target:GetHeight()    
+            if width < 100 then target:SetWidth(100) end  
+            if height < 100 then target:SetHeight(100) end
+        end)
 
         return frame
     end
