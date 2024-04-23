@@ -57,8 +57,10 @@ TestWindow = BaseTestClass:new()
 
     -- @covers Window:createFooter()
     function TestWindow:testCreateFooter()
-        local instance = __:new('Window', 'test-id')
+        local createResizeButtonInvoked = false
 
+        local instance = __:new('Window', 'test-id')
+        instance.createResizeButton = function() createResizeButtonInvoked = true end
         instance.window = CreateFrame()
 
         lu.assertIsNil(instance.footer)
@@ -85,6 +87,7 @@ TestWindow = BaseTestClass:new()
             insets = { left = 4, right = 4, top = 4, bottom = 4 },
         }, result.backdrop)
         lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+        lu.assertIsTrue(createResizeButtonInvoked)
 
         lu.assertEquals(instance.footer, result)
     end
@@ -106,6 +109,30 @@ TestWindow = BaseTestClass:new()
         lu.assertTrue(result.movable)
         lu.assertTrue(result.mouseEnabled)
         lu.assertTrue(result.resizable)
+    end
+
+    -- @covers Window:createResizeButton()
+    function TestWindow:testCreateResizeButton()
+        local instance = __:new('Window', 'test-id')
+
+        instance.footer, instance.window = CreateFrame(), CreateFrame()
+
+        lu.assertIsNil(instance.resizeButton)
+
+        local result = instance:createResizeButton()
+
+        lu.assertEquals({
+            relativeFrame = instance.footer,
+            relativePoint = 'RIGHT',
+            xOfs = -10,
+            yOfs = 0
+        }, result.points['RIGHT'])
+        lu.assertEquals(20, result.width)
+        lu.assertEquals(20, result.height)
+        lu.assertEquals('Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up', result.normalTexture)
+        lu.assertEquals('Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight', result.highlightTexture)
+
+        lu.assertEquals(instance.resizeButton, result)
     end
 
     -- @covers Window:createTitleBar()

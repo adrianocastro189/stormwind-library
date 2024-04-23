@@ -105,6 +105,8 @@ local Window = {}
 
         self.footer = frame
 
+        self:createResizeButton()
+
         return self.footer
     end
 
@@ -134,6 +136,38 @@ local Window = {}
         frame:SetResizable(true)
 
         return frame
+    end
+
+    --[[--
+    Creates a resize button in the footer bar.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the createFooter() method.
+
+    @local
+
+    @treturn table The button created by CreateFrame
+    ]]
+    function Window:createResizeButton()
+        local button = CreateFrame('Button', nil, self.footer)
+        button:SetPoint('RIGHT', self.footer, 'RIGHT', -10, 0)
+        button:SetSize(20, 20)
+        button:SetNormalTexture('Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up')
+        button:SetHighlightTexture('Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight')
+        button:SetScript('OnMouseDown', function(mouse, mouseButton)
+            if mouseButton == 'LeftButton' then
+                self.window:StartSizing('BOTTOMRIGHT')
+                mouse:GetHighlightTexture():Hide()
+            end
+        end)
+        button:SetScript('OnMouseUp', function(mouse)
+            self.window:StopMovingOrSizing()
+            mouse:GetHighlightTexture():Show()
+        end)
+
+        self.resizeButton = button
+
+        return self.resizeButton
     end
 
     --[[--
