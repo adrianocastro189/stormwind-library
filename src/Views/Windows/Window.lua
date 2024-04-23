@@ -36,8 +36,8 @@ local Window = {}
     function Window.__construct(id)
         local self = setmetatable({}, Window)
 
-        self.firstPosition = { point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }
-        self.firstSize = { width = 128, height = 128 }
+        self.firstPosition = {point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0}
+        self.firstSize = {width = 128, height = 128}
         self.firstVisibility = true
         self.id = id
 
@@ -124,7 +124,7 @@ local Window = {}
             bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
             edgeFile = '',
             edgeSize = 4,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+            insets = {left = 4, right = 4, top = 4, bottom = 4},
         })
         frame:SetBackdropColor(0, 0, 0, .8)
 
@@ -151,7 +151,7 @@ local Window = {}
             bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
             edgeFile = '',
             edgeSize = 4,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+            insets = {left = 4, right = 4, top = 4, bottom = 4},
         })
         frame:SetBackdropColor(0, 0, 0, .5)
         frame:SetBackdropBorderColor(0, 0, 0, 1)
@@ -241,7 +241,7 @@ local Window = {}
             bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
             edgeFile = '',
             edgeSize = 4,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+            insets = {left = 4, right = 4, top = 4, bottom = 4},
         })
         frame:SetBackdropColor(0, 0, 0, .8)
         frame:SetScript('OnMouseDown', function(mouse, mouseButton)
@@ -310,7 +310,7 @@ local Window = {}
     @treturn Views.Windows.Window The window instance, for method chaining
 
     @usage
-        window:setFirstSize({ point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 })
+        window:setFirstSize({point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0})
     ]]
     function Window:setFirstPosition(position)
         self.firstPosition = position
@@ -329,7 +329,7 @@ local Window = {}
     @treturn Views.Windows.Window The window instance, for method chaining
 
     @usage
-        window:setFirstSize({ width = 200, height = 100 })
+        window:setFirstSize({width = 200, height = 100})
     ]]
     function Window:setFirstSize(size)
         self.firstSize = size
