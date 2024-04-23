@@ -16,11 +16,15 @@ TestWindow = BaseTestClass:new()
             local createTitleBarInvoked = false
             local createFrameInvoked = false
             local createFooterInvoked = false
+            local setWindowPositionOnCreationInvoked = false
+            local setWindowSizeOnCreationInvoked = false
 
             local instance = __:new('Window', 'test-id')
             instance.createFrame = function() createFrameInvoked = true end
             instance.createTitleBar = function() createTitleBarInvoked = true end
             instance.createFooter = function() createFooterInvoked = true end
+            instance.setWindowPositionOnCreation = function() setWindowPositionOnCreationInvoked = true end
+            instance.setWindowSizeOnCreation = function() setWindowSizeOnCreationInvoked = true end
             
             instance.window = existingWindow
 
@@ -29,6 +33,8 @@ TestWindow = BaseTestClass:new()
             lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
             lu.assertEquals(shouldCallCreateFrame, createTitleBarInvoked)
             lu.assertEquals(shouldCallCreateFrame, createFooterInvoked)
+            lu.assertEquals(shouldCallCreateFrame, setWindowPositionOnCreationInvoked)
+            lu.assertEquals(shouldCallCreateFrame, setWindowSizeOnCreationInvoked)
         end
 
         execution(nil, true)
@@ -251,5 +257,26 @@ TestWindow = BaseTestClass:new()
 
         lu.assertEquals('test-title', instance.title)
         lu.assertEquals(instance, result)
+    end
+
+    -- @covers Window:setWindowPositionOnCreation()
+    function TestWindow:testSetWindowPositionOnCreation()
+        local instance = __:new('Window', 'test-id')
+        instance.firstPosition = {
+            point = 'TOP',
+            relativePoint = 'TOP',
+            xOfs = 10,
+            yOfs = 10
+        }
+        instance.window = CreateFrame()
+
+        instance:setWindowPositionOnCreation()
+
+        lu.assertEquals({
+            relativeFrame = nil,
+            relativePoint = 'TOP',
+            xOfs = 10,
+            yOfs = 10
+        }, instance.window.points['TOP'])
     end
 -- end of TestWindow
