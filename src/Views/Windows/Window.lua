@@ -43,4 +43,18 @@ local Window = {}
 
         return self
     end
+
+    --[[
+    Sets the window title.
+
+    The window title will be displayed in the title bar, the same one that
+    users can click and drag to move the window.
+
+    @param string title The window title
+    @return Window The window instance, for method chaining
+    ]]
+    function Window:setTitle(title)
+        self.title = title
+        return self
+    end
 -- end of Window

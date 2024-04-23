@@ -9,4 +9,14 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals({ point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }, instance.firstPosition)
         lu.assertTrue(instance.firstVisibility)
     end
+
+    -- @covers Window:setTitle()
+    function TestWindow:testSetTitle()
+        local instance = __:new('Window', 'test-id')
+        
+        local result = instance:setTitle('test-title')
+
+        lu.assertEquals('test-title', instance.title)
+        lu.assertEquals(instance, result)
+    end
 -- end of TestWindow
