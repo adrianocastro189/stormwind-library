@@ -87,7 +87,7 @@ local Window = {}
     Creates a footer bar that contains a resize button.
 
     This method shouldn't be called directly. It's considered a complement
-    to the createFrame() method.
+    to the create() method.
 
     @local
 
@@ -181,7 +181,7 @@ local Window = {}
     Creates a title bar that contains a title and a close button.
 
     This method shouldn't be called directly. It's considered a complement
-    to the createFrame() method.
+    to the create() method.
 
     @local
 
