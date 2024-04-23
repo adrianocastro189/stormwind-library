@@ -30,6 +30,16 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance, result)
     end
 
+    -- @covers Window:setFirstVisibility()
+    function TestWindow:testSetFirstVisibility()
+        local instance = __:new('Window', 'test-id')
+        
+        local result = instance:setFirstVisibility(false)
+
+        lu.assertFalse(instance.firstVisibility)
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Window:setTitle()
     function TestWindow:testSetTitle()
         local instance = __:new('Window', 'test-id')

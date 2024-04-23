@@ -87,6 +87,25 @@ local Window = {}
     end
 
     --[[--
+    Sets the window's first visibility.
+
+    The first visibility is the visibility that the window will have when
+    it's first created. If the player hides the window and this window is
+    persisting its state, this property will be ignored.
+
+    @tparam boolean visibility The first visibility state
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+
+    @usage
+        window:setFirstVisibility(false)
+    ]]
+    function Window:setFirstVisibility(visibility)
+        self.firstVisibility = visibility
+        return self
+    end
+
+    --[[--
     Sets the window title.
 
     The window title will be displayed in the title bar, the same one that
