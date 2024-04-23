@@ -58,6 +58,7 @@ local Window = {}
         self:createFooter()
         self:setWindowPositionOnCreation()
         self:setWindowSizeOnCreation()
+        self:setWindowVisibilityOnCreation()
 
         return self.window
     end
@@ -343,7 +344,7 @@ local Window = {}
         self.window:SetPoint(self.firstPosition.point, nil, self.firstPosition.relativePoint, self.firstPosition.xOfs, self.firstPosition.yOfs)
     end
 
-        --[[--
+    --[[--
     Sets the window size on creation.
 
     This method is called when the window is created, and it sets the window
@@ -357,5 +358,26 @@ local Window = {}
     ]]
     function Window:setWindowSizeOnCreation()
         self.window:SetSize(self.firstSize.width, self.firstSize.height)
+    end
+
+    --[[--
+    Sets the window visibility on creation.
+
+    This method is called when the window is created, and it sets the window
+    visibility to the first state set by the developer or the persisted
+    state if it's found.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+    @local
+    ]]
+    function Window:setWindowVisibilityOnCreation()
+        if self.firstVisibility then
+            self.window:Show()
+            return
+        end
+
+        self.window:Hide()
     end
 -- end of Window

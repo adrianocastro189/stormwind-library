@@ -18,6 +18,7 @@ TestWindow = BaseTestClass:new()
             local createFooterInvoked = false
             local setWindowPositionOnCreationInvoked = false
             local setWindowSizeOnCreationInvoked = false
+            local setWindowVisibilityOnCreationInvoked = false
 
             local instance = __:new('Window', 'test-id')
             instance.createFrame = function() createFrameInvoked = true end
@@ -25,6 +26,7 @@ TestWindow = BaseTestClass:new()
             instance.createFooter = function() createFooterInvoked = true end
             instance.setWindowPositionOnCreation = function() setWindowPositionOnCreationInvoked = true end
             instance.setWindowSizeOnCreation = function() setWindowSizeOnCreationInvoked = true end
+            instance.setWindowVisibilityOnCreation = function() setWindowVisibilityOnCreationInvoked = true end
             
             instance.window = existingWindow
 
@@ -35,6 +37,7 @@ TestWindow = BaseTestClass:new()
             lu.assertEquals(shouldCallCreateFrame, createFooterInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowPositionOnCreationInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowSizeOnCreationInvoked)
+            lu.assertEquals(shouldCallCreateFrame, setWindowVisibilityOnCreationInvoked)
         end
 
         execution(nil, true)
@@ -278,5 +281,25 @@ TestWindow = BaseTestClass:new()
             xOfs = 10,
             yOfs = 10
         }, instance.window.points['TOP'])
+    end
+
+    -- @covers Window:setWindowVisibilityOnCreation()
+    function TestWindow:testSetWindowVisibilityOnCreation()
+        local function execution(firstVisibility, shouldCallShow, shouldCallHide)
+            local instance = __:new('Window', 'test-id')
+            instance.firstVisibility = firstVisibility
+            instance.window = CreateFrame()
+
+            instance.window.showInvoked = false
+            instance.window.hideInvoked = false
+    
+            instance:setWindowVisibilityOnCreation()
+    
+            lu.assertEquals(shouldCallShow, instance.window.showInvoked)
+            lu.assertEquals(shouldCallHide, instance.window.hideInvoked)
+        end
+
+        execution(true, true, false)
+        execution(false, false, true)
     end
 -- end of TestWindow

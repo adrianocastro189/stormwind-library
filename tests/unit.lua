@@ -8,6 +8,7 @@ CreateFrame = function (...)
         ['scripts'] = {},
     }
     
+    mockFrame.Hide = function (self) self.hideInvoked = true end
     mockFrame.EnableMouse = function (self, enable) self.mouseEnabled = enable end
     mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
     mockFrame.SetBackdrop = function (self, backdrop) self.backdrop = backdrop end
@@ -31,6 +32,7 @@ CreateFrame = function (...)
     mockFrame.SetSize = function (self, width, height) self.width = width self.height = height end
     mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
     mockFrame.SetText = function (self, text) self.text = text end
+    mockFrame.Show = function (self) self.showInvoked = true end
 
     return mockFrame
 end
