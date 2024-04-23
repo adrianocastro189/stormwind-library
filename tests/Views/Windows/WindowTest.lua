@@ -53,7 +53,10 @@ TestWindow = BaseTestClass:new()
 
     -- @covers Window:createTitleBar()
     function TestWindow:testCreateTitleBar()
+        local createTitleTextInvoked = false
+
         local instance = __:new('Window', 'test-id')
+        instance.createTitleText = function() createTitleTextInvoked = true end
         instance.window = {'test-window'}
 
         lu.assertIsNil(instance.titleBar)
@@ -80,8 +83,34 @@ TestWindow = BaseTestClass:new()
             insets = { left = 4, right = 4, top = 4, bottom = 4 },
         }, result.backdrop)
         lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+        lu.assertIsTrue(createTitleTextInvoked)
 
         lu.assertNotIsNil(instance.titleBar)
+    end
+
+    -- @covers Window:createTitleText()
+    function TestWindow:testCreateTitleText()
+        local instance = __:new('Window', 'test-id')
+        
+        local titleTextFrame = CreateFrame()
+        instance.title = 'test-title'
+        instance.titleBar = {
+            CreateFontString = function() return titleTextFrame end
+        }
+
+        lu.assertIsNil(instance.titleText)
+
+        local result = instance:createTitleText()
+
+        lu.assertEquals({
+            relativeFrame = instance.titleBar,
+            relativePoint = 'LEFT',
+            xOfs = 10,
+            yOfs = 0
+        }, titleTextFrame.points['LEFT'])
+        lu.assertEquals('test-title', titleTextFrame.text)
+
+        lu.assertNotIsNil(instance.titleText)
     end
 
     -- @covers Window:getWindow()

@@ -27,6 +27,7 @@ CreateFrame = function (...)
     end
     mockFrame.SetResizable = function (self, resizable) self.resizable = resizable end
     mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
+    mockFrame.SetText = function (self, text) self.text = text end
 
     return mockFrame
 end

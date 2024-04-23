@@ -113,7 +113,29 @@ local Window = {}
 
         self.titleBar = frame
 
+        self:createTitleText()
+
         return self.titleBar
+    end
+
+    --[[--
+    Creates the title text in the title bar.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the createTitleBar() method.
+
+    @local
+
+    @treturn table The title bar frame created by CreateFrame
+    ]]
+    function Window:createTitleText()
+        local frame = self.titleBar:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
+        frame:SetPoint('LEFT', self.titleBar, 'LEFT', 10, 0)
+        frame:SetText(self.title)
+
+        self.titleText = frame
+
+        return self.titleText
     end
 
     --[[--
