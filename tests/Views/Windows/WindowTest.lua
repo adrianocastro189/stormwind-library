@@ -5,8 +5,8 @@ TestWindow = BaseTestClass:new()
 
         lu.assertNotNil(instance)
         lu.assertEquals('test-id', instance.id)
-        lu.assertEquals({ width = 128, height = 128 }, instance.firstSize)
-        lu.assertEquals({ point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }, instance.firstPosition)
+        lu.assertEquals({width = 128, height = 128}, instance.firstSize)
+        lu.assertEquals({point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0}, instance.firstPosition)
         lu.assertTrue(instance.firstVisibility)
     end
 
@@ -118,9 +118,9 @@ TestWindow = BaseTestClass:new()
             bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
             edgeFile = '',
             edgeSize = 4,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+            insets = {left = 4, right = 4, top = 4, bottom = 4},
         }, result.backdrop)
-        lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+        lu.assertEquals({0, 0, 0, .8}, result.backdropColor)
         lu.assertIsTrue(createResizeButtonInvoked)
 
         lu.assertEquals(instance.footer, result)
@@ -136,10 +136,10 @@ TestWindow = BaseTestClass:new()
             bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
             edgeFile = '',
             edgeSize = 4,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+            insets = {left = 4, right = 4, top = 4, bottom = 4},
         }, result.backdrop)
-        lu.assertEquals({ 0, 0, 0, .5 }, result.backdropColor)
-        lu.assertEquals({ 0, 0, 0, 1 }, result.backdropBorderColor)
+        lu.assertEquals({0, 0, 0, .5}, result.backdropColor)
+        lu.assertEquals({0, 0, 0, 1}, result.backdropBorderColor)
         lu.assertTrue(result.movable)
         lu.assertTrue(result.mouseEnabled)
         lu.assertTrue(result.resizable)
@@ -238,9 +238,9 @@ TestWindow = BaseTestClass:new()
             bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
             edgeFile = '',
             edgeSize = 4,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+            insets = {left = 4, right = 4, top = 4, bottom = 4},
         }, result.backdrop)
-        lu.assertEquals({ 0, 0, 0, .8 }, result.backdropColor)
+        lu.assertEquals({0, 0, 0, .8}, result.backdropColor)
         lu.assertIsTrue(createCloseButtonInvoked)
         lu.assertIsTrue(createTitleTextInvoked)
 
@@ -289,9 +289,9 @@ TestWindow = BaseTestClass:new()
     function TestWindow:testSetFirstPosition()
         local instance = __:new('Window', 'test-id')
         
-        local result = instance:setFirstPosition({ point = 'TOP', relativePoint = 'TOP', xOfs = 10, yOfs = 10 })
+        local result = instance:setFirstPosition({point = 'TOP', relativePoint = 'TOP', xOfs = 10, yOfs = 10})
 
-        lu.assertEquals({ point = 'TOP', relativePoint = 'TOP', xOfs = 10, yOfs = 10 }, instance.firstPosition)
+        lu.assertEquals({point = 'TOP', relativePoint = 'TOP', xOfs = 10, yOfs = 10}, instance.firstPosition)
         lu.assertEquals(instance, result)
     end
 
@@ -299,9 +299,9 @@ TestWindow = BaseTestClass:new()
     function TestWindow:testSetFirstSize()
         local instance = __:new('Window', 'test-id')
         
-        local result = instance:setFirstSize({ width = 200, height = 100 })
+        local result = instance:setFirstSize({width = 200, height = 100})
 
-        lu.assertEquals({ width = 200, height = 100 }, instance.firstSize)
+        lu.assertEquals({width = 200, height = 100}, instance.firstSize)
         lu.assertEquals(instance, result)
     end
 
