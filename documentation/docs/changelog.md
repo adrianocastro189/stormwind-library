@@ -5,7 +5,7 @@
 * Add a "dump and die" method to the Output class to improve debugging
 * Add more Lua Doc blocks covering the library structure: to all classes in 
 the Commands structure, and to Output
-* Add the Configurations class to handle addon configurations and settings
+* Add the Configuration class to handle addon configurations and settings
 * Add the library getClass() method to allow addons to retrieve a class 
 structure instead of instantiating it, useful for class inheritance
 * Fix Arr:get() to return false values instead of considering them nil and
