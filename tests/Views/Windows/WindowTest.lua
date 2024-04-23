@@ -5,5 +5,7 @@ TestWindow = BaseTestClass:new()
 
         lu.assertNotNil(instance)
         lu.assertEquals(instance.id, 'test-id')
+        lu.assertEquals(instance.firstSize.width, 128)
+        lu.assertEquals(instance.firstSize.height, 128)
     end
 -- end of TestWindow
