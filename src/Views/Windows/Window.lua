@@ -51,6 +51,10 @@ local Window = {}
     first created. If the player moves the window and this window is
     persisting its state, this property will be ignored.
 
+    Because this class represents a window that's not tied to any specific
+    frame, the relativeTo parameter will be omitted. The window will always
+    be created with a nil relativeTo parameter.
+
     @tparam table position The position table, with the keys point, relativePoint, xOfs, and yOfs
 
     @treturn Views.Windows.Window The window instance, for method chaining
