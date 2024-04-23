@@ -45,6 +45,25 @@ local Window = {}
     end
 
     --[[--
+    Sets the window's first position.
+
+    The first position is the position that the window will have when it's
+    first created. If the player moves the window and this window is
+    persisting its state, this property will be ignored.
+
+    @tparam table position The position table, with the keys point, relativePoint, xOfs, and yOfs
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+
+    @usage
+        window:setFirstSize({ point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 })
+    ]]
+    function Window:setFirstPosition(position)
+        self.firstPosition = position
+        return self
+    end
+
+    --[[--
     Sets the window's first size.
 
     The first size is the size that the window will have when it's first
@@ -53,7 +72,7 @@ local Window = {}
 
     @tparam table size The size table, with the keys width and height
 
-    @return Window The window instance, for method chaining
+    @treturn Views.Windows.Window The window instance, for method chaining
 
     @usage
         window:setFirstSize({ width = 200, height = 100 })
@@ -63,14 +82,14 @@ local Window = {}
         return self
     end
 
-    --[[
+    --[[--
     Sets the window title.
 
     The window title will be displayed in the title bar, the same one that
     users can click and drag to move the window.
 
     @param string title The window title
-    @return Window The window instance, for method chaining
+    @treturn Views.Windows.Window The window instance, for method chaining
 
     @usage
         window:setTitle('My Window Title')

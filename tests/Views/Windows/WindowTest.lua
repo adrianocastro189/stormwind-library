@@ -10,6 +10,16 @@ TestWindow = BaseTestClass:new()
         lu.assertTrue(instance.firstVisibility)
     end
 
+    -- @covers Window:setFirstPosition()
+    function TestWindow:testSetFirstPosition()
+        local instance = __:new('Window', 'test-id')
+        
+        local result = instance:setFirstPosition({ point = 'TOP', relativePoint = 'TOP', xOfs = 10, yOfs = 10 })
+
+        lu.assertEquals({ point = 'TOP', relativePoint = 'TOP', xOfs = 10, yOfs = 10 }, instance.firstPosition)
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Window:setFirstSize()
     function TestWindow:testSetFirstSize()
         local instance = __:new('Window', 'test-id')
