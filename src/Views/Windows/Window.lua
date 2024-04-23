@@ -44,6 +44,25 @@ local Window = {}
         return self
     end
 
+    --[[--
+    Sets the window's first size.
+
+    The first size is the size that the window will have when it's first
+    created. If the player resizes the window and this window is persisting
+    its state, this property will be ignored.
+
+    @tparam table size The size table, with the keys width and height
+
+    @return Window The window instance, for method chaining
+
+    @usage
+        window:setFirstSize({ width = 200, height = 100 })
+    ]]
+    function Window:setFirstSize(size)
+        self.firstSize = size
+        return self
+    end
+
     --[[
     Sets the window title.
 
@@ -52,6 +71,9 @@ local Window = {}
 
     @param string title The window title
     @return Window The window instance, for method chaining
+
+    @usage
+        window:setTitle('My Window Title')
     ]]
     function Window:setTitle(title)
         self.title = title

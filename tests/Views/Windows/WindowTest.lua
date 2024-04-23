@@ -10,6 +10,16 @@ TestWindow = BaseTestClass:new()
         lu.assertTrue(instance.firstVisibility)
     end
 
+    -- @covers Window:setFirstSize()
+    function TestWindow:testSetFirstSize()
+        local instance = __:new('Window', 'test-id')
+        
+        local result = instance:setFirstSize({ width = 200, height = 100 })
+
+        lu.assertEquals({ width = 200, height = 100 }, instance.firstSize)
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Window:setTitle()
     function TestWindow:testSetTitle()
         local instance = __:new('Window', 'test-id')
