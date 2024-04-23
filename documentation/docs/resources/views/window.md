@@ -53,20 +53,21 @@ local window = library
 Although the code above uses some default values, it shows how to set the
 window title, position, size, and initial visibility.
 
-Now, look at `id` parameter passed to the `Window` constructor. This id is 
-used to persist the window state between interface reloads and that's 
-automatically done by the library. However, for that to work, the window id 
-must be unique, and the library must be instantiated with the `data` property
-([read more about that here](../core/addon-properties#data)).
+## Window persistent state
 
-## Window states
+On the example above, look at `id` parameter passed to the `Window` 
+constructor. This id is used to persist the window state between interface 
+reloads and that's automatically done by the library. However, for that to 
+work, the window id must be unique, and the library must be instantiated with the `data` property ([read more about that here](../core/addon-properties#data)).
 
-Based on the example above, in case the addon passes the `data` property to 
-the library initialization, it will have a
-[configuration manager](../core/configuration) that will store the window
-size, position, visibility, etc, between interface reloads.
+In case the addon passes the `data` property to the library initialization, 
+it will have a [configuration manager](../core/configuration) that will store 
+the window size, position, visibility, etc, between interface reloads.
 
 That's why most of the setters start with `setFirst` instead of just `set`.
 Because that means the library will use the first value set to the window for
 its initial state. After that, the window state will be managed by the
-library configuration manager.
+library configuration manager. Which means, at the moment a player moves, 
+resizes, close, etc, the window, it will save its state in a saved variable
+managed by the library configuration instance and once the frame is shown 
+again, the "first values" will be ignored and the ones saved will be used.
