@@ -48,6 +48,19 @@ TestWindow = BaseTestClass:new()
         lu.assertTrue(result.resizable)
     end
 
+    -- @covers Window:getWindow()
+    function TestWindow:testGetWindow()
+        local instance = __:new('Window', 'test-id')
+
+        lu.assertIsNil(instance:getWindow())
+
+        instance.window = {'test-window'}
+
+        local result = instance:getWindow()
+
+        lu.assertEquals(instance.window, result)
+    end
+
     -- @covers Window:setFirstPosition()
     function TestWindow:testSetFirstPosition()
         local instance = __:new('Window', 'test-id')

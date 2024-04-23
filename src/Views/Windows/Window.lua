@@ -86,6 +86,17 @@ local Window = {}
     end
 
     --[[--
+    Gets the window's frame instance.
+
+    This method has effect only after Window:create() is called.
+
+    @treturn table The window frame instance
+    ]]
+    function Window:getWindow()
+        return self.window
+    end
+
+    --[[--
     Sets the window's first position.
 
     The first position is the position that the window will have when it's
