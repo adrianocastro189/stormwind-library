@@ -25,9 +25,18 @@ local Window = {}
 
     --[[--
     Window constructor.
+
+    When built with an id and the library is created with the data property,
+    the window will be capable to persist its position, size, and other user
+    preferences.
+
+    @param string id The window identifier, which is used mostly to persist
+                     information about the window, like its position and size
     ]]
-    function Window.__construct()
+    function Window.__construct(id)
         local self = setmetatable({}, Window)
+
+        self.id = id
 
         return self
     end
