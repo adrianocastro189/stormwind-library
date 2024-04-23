@@ -4,8 +4,8 @@ TestWindow = BaseTestClass:new()
         local instance = __:new('Window', 'test-id')
 
         lu.assertNotNil(instance)
-        lu.assertEquals(instance.id, 'test-id')
-        lu.assertEquals(instance.firstSize.width, 128)
-        lu.assertEquals(instance.firstSize.height, 128)
+        lu.assertEquals('test-id', instance.id)
+        lu.assertEquals({ width = 128, height = 128 }, instance.firstSize)
+        lu.assertEquals({ point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }, instance.firstPosition)
     end
 -- end of TestWindow

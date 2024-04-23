@@ -36,6 +36,7 @@ local Window = {}
     function Window.__construct(id)
         local self = setmetatable({}, Window)
 
+        self.firstPosition = { point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }
         self.firstSize = { width = 128, height = 128 }
         self.id = id
 
