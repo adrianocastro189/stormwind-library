@@ -70,6 +70,8 @@ dofile('./tests/Support/ArrTest.lua')
 dofile('./tests/Support/BoolTest.lua')
 dofile('./tests/Support/StrTest.lua')
 
+dofile('./tests/Views/Windows/WindowTest.lua')
+
 lu.ORDER_ACTUAL_EXPECTED=false
 
 os.exit(lu.LuaUnit.run())
