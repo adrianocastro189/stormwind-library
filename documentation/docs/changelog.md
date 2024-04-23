@@ -10,6 +10,8 @@ the Commands structure, and to Output
 * Add the Configuration class to handle addon configurations and settings
 * Add the library getClass() method to allow addons to retrieve a class 
 structure instead of instantiating it, useful for class inheritance
+* Add the reusable Window class that allows addons to create windows with
+basic features
 * Fix Arr:get() to return false values instead of considering them nil and
 return the default value erroneously
 
