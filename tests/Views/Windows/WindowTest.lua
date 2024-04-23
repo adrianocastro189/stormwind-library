@@ -7,5 +7,6 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals('test-id', instance.id)
         lu.assertEquals({ width = 128, height = 128 }, instance.firstSize)
         lu.assertEquals({ point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }, instance.firstPosition)
+        lu.assertTrue(instance.firstVisibility)
     end
 -- end of TestWindow

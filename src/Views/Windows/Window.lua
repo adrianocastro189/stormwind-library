@@ -38,6 +38,7 @@ local Window = {}
 
         self.firstPosition = { point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0 }
         self.firstSize = { width = 128, height = 128 }
+        self.firstVisibility = true
         self.id = id
 
         return self
