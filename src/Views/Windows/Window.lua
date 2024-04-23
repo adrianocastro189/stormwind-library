@@ -56,6 +56,7 @@ local Window = {}
 
         self:createTitleBar()
         self:createFooter()
+        self:createScrollbar()
         self:setWindowPositionOnCreation()
         self:setWindowSizeOnCreation()
         self:setWindowVisibilityOnCreation()
@@ -136,7 +137,7 @@ local Window = {}
         frame:SetMovable(true)
         frame:EnableMouse(true)
         frame:SetResizable(true)
-        frame:SetScript("OnSizeChanged", function(target)
+        frame:SetScript('OnSizeChanged', function(target)
             local width, height = target:GetWidth(), target:GetHeight()    
             if width < 100 then target:SetWidth(100) end  
             if height < 100 then target:SetHeight(100) end
@@ -178,6 +179,28 @@ local Window = {}
     end
 
     --[[--
+    Creates a scrollbar to the window's content area.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+    @local
+
+    @treturn table The scrollbar frame created by CreateFrame
+    ]]
+    function Window:createScrollbar()
+        local scrollbar = CreateFrame('ScrollFrame', nil, self.window, 'UIPanelScrollFrameTemplate')
+        scrollbar:SetPoint('TOP', self.titleBar, 'BOTTOM', 0, -5)
+        scrollbar:SetPoint('BOTTOM', self.footer, 'TOP', 0, 5)
+        scrollbar:SetPoint('LEFT', self.window, 'LEFT', 5, 0)
+        scrollbar:SetPoint('RIGHT', self.window, 'RIGHT', -35, 0)
+
+        self.scrollbar = scrollbar
+
+        return self.scrollbar
+    end
+
+    --[[--
     Creates a title bar that contains a title and a close button.
 
     This method shouldn't be called directly. It's considered a complement
@@ -200,13 +223,13 @@ local Window = {}
             insets = { left = 4, right = 4, top = 4, bottom = 4 },
         })
         frame:SetBackdropColor(0, 0, 0, .8)
-        frame:SetScript("OnMouseDown", function(mouse, mouseButton)
-            if mouseButton == "LeftButton" then
+        frame:SetScript('OnMouseDown', function(mouse, mouseButton)
+            if mouseButton == 'LeftButton' then
                 self.window:StartMoving()
             end
         end)
-        frame:SetScript("OnMouseUp", function(mouse, mouseButton)
-            if mouseButton == "LeftButton" then
+        frame:SetScript('OnMouseUp', function(mouse, mouseButton)
+            if mouseButton == 'LeftButton' then
                 self.window:StopMovingOrSizing()
             end
         end)

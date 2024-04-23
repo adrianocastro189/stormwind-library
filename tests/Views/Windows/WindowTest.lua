@@ -13,17 +13,19 @@ TestWindow = BaseTestClass:new()
     -- @covers Window:create()
     function TestWindow:testCreate()
         local function execution(existingWindow, shouldCallCreateFrame)
-            local createTitleBarInvoked = false
-            local createFrameInvoked = false
             local createFooterInvoked = false
+            local createFrameInvoked = false
+            local createScrollbarInvoked = false
+            local createTitleBarInvoked = false
             local setWindowPositionOnCreationInvoked = false
             local setWindowSizeOnCreationInvoked = false
             local setWindowVisibilityOnCreationInvoked = false
 
             local instance = __:new('Window', 'test-id')
-            instance.createFrame = function() createFrameInvoked = true end
-            instance.createTitleBar = function() createTitleBarInvoked = true end
             instance.createFooter = function() createFooterInvoked = true end
+            instance.createFrame = function() createFrameInvoked = true end
+            instance.createScrollbar = function() createScrollbarInvoked = true end
+            instance.createTitleBar = function() createTitleBarInvoked = true end
             instance.setWindowPositionOnCreation = function() setWindowPositionOnCreationInvoked = true end
             instance.setWindowSizeOnCreation = function() setWindowSizeOnCreationInvoked = true end
             instance.setWindowVisibilityOnCreation = function() setWindowVisibilityOnCreationInvoked = true end
@@ -32,9 +34,10 @@ TestWindow = BaseTestClass:new()
 
             instance:create()
 
-            lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
-            lu.assertEquals(shouldCallCreateFrame, createTitleBarInvoked)
             lu.assertEquals(shouldCallCreateFrame, createFooterInvoked)
+            lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
+            lu.assertEquals(shouldCallCreateFrame, createScrollbarInvoked)
+            lu.assertEquals(shouldCallCreateFrame, createTitleBarInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowPositionOnCreationInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowSizeOnCreationInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowVisibilityOnCreationInvoked)
@@ -142,6 +145,44 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals('Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight', result.highlightTexture)
 
         lu.assertEquals(instance.resizeButton, result)
+    end
+
+    -- @covers Window:createScrollbar()
+    function TestWindow:testCreateScrollbar()
+        local instance = __:new('Window', 'test-id')
+
+        instance.footer = CreateFrame()
+        instance.titleBar = CreateFrame()
+        instance.window = CreateFrame()
+
+        local result = instance:createScrollbar()
+
+        lu.assertEquals({
+            relativeFrame = instance.titleBar,
+            relativePoint = 'BOTTOM',
+            xOfs = 0,
+            yOfs = -5,
+        }, result.points['TOP'])
+        lu.assertEquals({
+            relativeFrame = instance.footer,
+            relativePoint = 'TOP',
+            xOfs = 0,
+            yOfs = 5,
+        }, result.points['BOTTOM'])
+        lu.assertEquals({
+            relativeFrame = instance.window,
+            relativePoint = 'LEFT',
+            xOfs = 5,
+            yOfs = 0,
+        }, result.points['LEFT'])
+        lu.assertEquals({
+            relativeFrame = instance.window,
+            relativePoint = 'RIGHT',
+            xOfs = -35,
+            yOfs = 0,
+        }, result.points['RIGHT'])
+
+        lu.assertEquals(instance.scrollbar, result)
     end
 
     -- @covers Window:createTitleBar()
