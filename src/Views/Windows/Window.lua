@@ -78,7 +78,9 @@ local Window = {}
     function Window:createCloseButton()
         local button = CreateFrame('Button', nil, self.titleBar, 'UIPanelCloseButton')
         button:SetPoint('RIGHT', self.titleBar, 'RIGHT', -5, 0)
-        button:SetScript('OnClick', function() self.window:Hide() end)
+        button:SetScript('OnClick', function()
+            self:setVisibility(false)
+        end)
 
         self.closeButton = button
 
@@ -452,6 +454,26 @@ local Window = {}
     ]]
     function Window:setTitle(title)
         self.title = title
+        return self
+    end
+
+    --[[--
+    Sets the window visibility.
+
+    This is the method to be called by addons to show or hide the window,
+    instead of the local show() and hide(), considering that it not only
+    controls the window visibility but also persists the state if the window
+    is persisting its state.
+
+    @tparam boolean visible The visibility state
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    --]]
+    function Window:setVisibility(visible)
+        if visible then self:show() else self:hide() end
+
+        if self:isPersistingState() then self:setProperty('visibility', visible) end
+
         return self
     end
 

@@ -411,6 +411,40 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance, result)
     end
 
+    -- @covers Window:setVisibility()
+    function TestWindow:testSetVisibility()
+        local function execution(visibility, isPersistingState, shouldCallShow, shouldCallHide, shouldCallSetProperty)
+            local hideInvoked, setPropertyInvoked, showInvoked = false, false, false
+            
+            local instance = __:new('Window', 'test-id')
+
+            instance.isPersistingState = function() return isPersistingState end
+
+            instance.window = {}
+            instance.window.Hide = function() hideInvoked = true end
+            instance.window.Show = function() showInvoked = true end
+            instance.setProperty = function() setPropertyInvoked = true end
+
+            instance:setVisibility(visibility)
+
+            lu.assertEquals(shouldCallShow, showInvoked)
+            lu.assertEquals(shouldCallHide, hideInvoked)
+            lu.assertEquals(shouldCallSetProperty, setPropertyInvoked)
+        end
+
+        -- visible and persisting state
+        execution(true, true, true, false, true)
+
+        -- visible and not persisting state
+        execution(true, false, true, false, false)
+
+        -- not visible and persisting state
+        execution(false, true, false, true, true)
+
+        -- not visible and not persisting state
+        execution(false, false, false, true, false)
+    end
+
     -- @covers Window:setWindowPositionOnCreation()
     function TestWindow:testSetWindowPositionOnCreation()
         local function execution(firstPosition, storedPosition, isPersistingState, expectedPosition)
