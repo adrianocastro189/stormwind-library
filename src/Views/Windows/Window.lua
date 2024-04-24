@@ -78,7 +78,9 @@ local Window = {}
     function Window:createCloseButton()
         local button = CreateFrame('Button', nil, self.titleBar, 'UIPanelCloseButton')
         button:SetPoint('RIGHT', self.titleBar, 'RIGHT', -5, 0)
-        button:SetScript('OnClick', function() self.window:Hide() end)
+        button:SetScript('OnClick', function()
+            self:setVisibility(false)
+        end)
 
         self.closeButton = button
 
@@ -335,6 +337,20 @@ local Window = {}
     end
 
     --[[--
+    Hides the window.
+
+    This is just a facade method to call the Hide method on the window frame.
+    However, it shouldn't be used by addons as an internal method. Use
+    setVisibility(false) instead.
+
+    @local
+    @see Views.Windows.Window.setVisibility
+    ]]
+    function Window:hide()
+        self.window:Hide()
+    end
+
+    --[[--
     Determines if the window is persisting its state.
 
     A window is considered to be persisting its state if it has an id and the
@@ -442,6 +458,26 @@ local Window = {}
     end
 
     --[[--
+    Sets the window visibility.
+
+    This is the method to be called by addons to show or hide the window,
+    instead of the local show() and hide(), considering that it not only
+    controls the window visibility but also persists the state if the window
+    is persisting its state.
+
+    @tparam boolean visible The visibility state
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    --]]
+    function Window:setVisibility(visible)
+        if visible then self:show() else self:hide() end
+
+        if self:isPersistingState() then self:setProperty('visibility', visible) end
+
+        return self
+    end
+
+    --[[--
     Sets the window position on creation.
 
     This method is called when the window is created, and it sets the window
@@ -508,12 +544,35 @@ local Window = {}
     @local
     ]]
     function Window:setWindowVisibilityOnCreation()
-        if self.firstVisibility then
-            self.window:Show()
-            return
+        local visibility = self.firstVisibility
+
+        if self:isPersistingState() then
+            local storedVisibility = self:getProperty('visibility')
+
+            -- these conditionals are necessary so Lua doesn't consider falsy values
+            -- as false, but as nil
+            if storedVisibility ~= nil then
+                visibility = self.__.bool:isTrue(storedVisibility)
+            else
+                visibility = self.firstVisibility
+            end
         end
 
-        self.window:Hide()
+        self:setVisibility(visibility)
+    end
+
+    --[[--
+    Shows the window.
+
+    This is just a facade method to call the Show method on the window frame.
+    However, it shouldn't be used by addons as an internal method. Use
+    setVisibility(true) instead.
+
+    @local
+    @see Views.Windows.Window.setVisibility
+    ]]
+    function Window:show()
+        self.window:Show()
     end
 
     --[[--
