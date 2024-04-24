@@ -454,7 +454,21 @@ local Window = {}
     @local
     ]]
     function Window:setWindowPositionOnCreation()
-        self.window:SetPoint(self.firstPosition.point, nil, self.firstPosition.relativePoint, self.firstPosition.xOfs, self.firstPosition.yOfs)
+        local point = self.firstPosition.point
+        local relativeTo = self.firstPosition.relativeTo
+        local relativePoint = self.firstPosition.relativePoint
+        local xOfs = self.firstPosition.xOfs
+        local yOfs = self.firstPosition.yOfs
+
+        if self:isPersistingState() then
+            point = self:getProperty('position.point') or point
+            relativeTo = self:getProperty('position.relativeTo') or relativeTo
+            relativePoint = self:getProperty('position.relativePoint') or relativePoint
+            xOfs = self:getProperty('position.xOfs') or xOfs
+            yOfs = self:getProperty('position.yOfs') or yOfs
+        end
+
+        self.window:SetPoint(point, relativeTo, relativePoint, xOfs, yOfs)
     end
 
     --[[--

@@ -394,23 +394,93 @@ TestWindow = BaseTestClass:new()
 
     -- @covers Window:setWindowPositionOnCreation()
     function TestWindow:testSetWindowPositionOnCreation()
-        local instance = __:new('Window', 'test-id')
-        instance.firstPosition = {
-            point = 'TOP',
-            relativePoint = 'TOP',
-            xOfs = 10,
-            yOfs = 10
-        }
-        instance.window = CreateFrame()
+        local function execution(firstPosition, storedPosition, isPersistingState, expectedPosition)
+            local pointArg, relativeToArg, relativePointArg, xOfsArg, yOfsArg = nil, nil, nil, nil, nil
 
-        instance:setWindowPositionOnCreation()
+            local instance = __:new('Window', 'test-id')
+            instance.firstPosition = firstPosition
+            instance.window = {}
 
-        lu.assertEquals({
-            relativeFrame = nil,
-            relativePoint = 'TOP',
-            xOfs = 10,
-            yOfs = 10
-        }, instance.window.points['TOP'])
+            instance.window.SetPoint = function(self, point, relativeTo, relativePoint, xOfs, yOfs)
+                pointArg = point
+                relativeToArg = relativeTo
+                relativePointArg = relativePoint
+                xOfsArg = xOfs
+                yOfsArg = yOfs
+            end
+
+            instance.isPersistingState = function() return isPersistingState end
+            instance.getProperty = function(self, key) return storedPosition and storedPosition[key:match(".*%.(.*)")] or nil end
+
+            instance:setWindowPositionOnCreation()
+
+            lu.assertEquals(expectedPosition.point, pointArg)
+            lu.assertEquals(expectedPosition.relativeTo, relativeToArg)
+            lu.assertEquals(expectedPosition.relativePoint, relativePointArg)
+            lu.assertEquals(expectedPosition.xOfs, xOfsArg)
+            lu.assertEquals(expectedPosition.yOfs, yOfsArg)
+        end
+        
+        -- not persisting state
+        execution(
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            },
+            nil,
+            false,
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            }
+        )
+
+        -- persisting state with no stored values
+        execution(
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            },
+            nil,
+            true,
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            }
+        )
+
+        -- persisting state with stored values
+        execution(
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            },
+            {
+                point = 'BOTTOM',
+                relativeTo = 'UIParent',
+                relativePoint = 'BOTTOM',
+                xOfs = 20,
+                yOfs = 20,
+            },
+            true,
+            {
+                point = 'BOTTOM',
+                relativeTo = 'UIParent',
+                relativePoint = 'BOTTOM',
+                xOfs = 20,
+                yOfs = 20,
+            }
+        )
     end
 
     -- @covers Window:setWindowSizeOnCreation()
