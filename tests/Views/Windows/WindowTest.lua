@@ -455,8 +455,33 @@ TestWindow = BaseTestClass:new()
             'position.relativeTo',
             'position.relativePoint',
             'position.xOfs',
-            'position.yOfs'},
-        keyArgs)
+            'position.yOfs',
+        }, keyArgs)
         lu.assertEquals({'CENTER', 'CENTER', 0, 0}, valueArgs)
+    end
+
+    -- @covers Window:storeWindowSize()
+    function TestWindow:testStoreWindowSize()
+        local keyArgs, valueArgs = {}, {}
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.window.GetWidth = function() return 1 end
+        instance.window.GetHeight = function() return 2 end
+        instance.isPersistingState = function() return true end
+
+        function instance:setProperty(key, value)
+            table.insert(keyArgs, key)
+            table.insert(valueArgs, value)
+        end
+
+        instance:storeWindowSize()
+
+        lu.assertEquals({
+            'size.height',
+            'size.width',
+        }, keyArgs)
+        lu.assertEquals({2, 1}, valueArgs)
     end
 -- end of TestWindow

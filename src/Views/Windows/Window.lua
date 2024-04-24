@@ -159,9 +159,11 @@ local Window = {}
         frame:EnableMouse(true)
         frame:SetResizable(true)
         frame:SetScript('OnSizeChanged', function(target)
-            local width, height = target:GetWidth(), target:GetHeight()    
-            if width < 100 then target:SetWidth(100) end  
+            local width, height = target:GetWidth(), target:GetHeight()
+            if width < 100 then target:SetWidth(100) end
             if height < 100 then target:SetHeight(100) end
+
+            self:storeWindowSize()
         end)
 
         return frame
@@ -511,5 +513,23 @@ local Window = {}
         self:setProperty('position.relativePoint', relativePoint)
         self:setProperty('position.xOfs', xOfs)
         self:setProperty('position.yOfs', yOfs)
+    end
+
+    --[[--
+    Stores the window's size in the configuration instance if the window is
+    persisting its state.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    ]]
+    function Window:storeWindowSize()
+        if not self:isPersistingState() then return end
+
+        local width, height = self.window:GetWidth(), self.window:GetHeight()
+
+        self:setProperty('size.height', height)
+        self:setProperty('size.width', width)
     end
 -- end of Window
