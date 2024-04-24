@@ -47,10 +47,10 @@ local Window = {}
     --[[--
     Creates the window frame if it doesn't exist yet.
 
-    @treturn table The window frame created by CreateFrame
+    @treturn Views.Windows.Window The window instance, for method chaining
     ]]
     function Window:create()
-        if self.window then return self.window end
+        if self.window then return self end
 
         self.window = self:createFrame()
 
@@ -62,7 +62,7 @@ local Window = {}
         self:setWindowSizeOnCreation()
         self:setWindowVisibilityOnCreation()
 
-        return self.window
+        return self
     end
 
     --[[--
@@ -252,6 +252,7 @@ local Window = {}
         frame:SetScript('OnMouseUp', function(mouse, mouseButton)
             if mouseButton == 'LeftButton' then
                 self.window:StopMovingOrSizing()
+                self:storeWindowPoint()
             end
         end)
 
@@ -489,5 +490,26 @@ local Window = {}
         end
 
         self.window:Hide()
+    end
+
+    --[[--
+    Stores the window's point in the configuration instance if the window is
+    persisting its state.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    ]]
+    function Window:storeWindowPoint()
+        if not self:isPersistingState() then return end
+
+        local point, relativeTo, relativePoint, xOfs, yOfs = self.window:GetPoint()
+
+        self:setProperty('position.point', point)
+        self:setProperty('position.relativeTo', relativeTo)
+        self:setProperty('position.relativePoint', relativePoint)
+        self:setProperty('position.xOfs', xOfs)
+        self:setProperty('position.yOfs', yOfs)
     end
 -- end of Window

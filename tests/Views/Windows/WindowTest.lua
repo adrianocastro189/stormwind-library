@@ -432,4 +432,31 @@ TestWindow = BaseTestClass:new()
         execution(true, true, false)
         execution(false, false, true)
     end
+
+    -- @covers Window:storeWindowPoint()
+    function TestWindow:testStoreWindowPoint()
+        local keyArgs, valueArgs = {}, {}
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.window.GetPoint = function() return 'CENTER', nil, 'CENTER', 0, 0 end
+        instance.isPersistingState = function() return true end
+
+        function instance:setProperty(key, value)
+            table.insert(keyArgs, key)
+            table.insert(valueArgs, value)
+        end
+
+        instance:storeWindowPoint()
+
+        lu.assertEquals({
+            'position.point',
+            'position.relativeTo',
+            'position.relativePoint',
+            'position.xOfs',
+            'position.yOfs'},
+        keyArgs)
+        lu.assertEquals({'CENTER', 'CENTER', 0, 0}, valueArgs)
+    end
 -- end of TestWindow
