@@ -47,10 +47,10 @@ local Window = {}
     --[[--
     Creates the window frame if it doesn't exist yet.
 
-    @treturn table The window frame created by CreateFrame
+    @treturn Views.Windows.Window The window instance, for method chaining
     ]]
     function Window:create()
-        if self.window then return self.window end
+        if self.window then return self end
 
         self.window = self:createFrame()
 
@@ -62,7 +62,7 @@ local Window = {}
         self:setWindowSizeOnCreation()
         self:setWindowVisibilityOnCreation()
 
-        return self.window
+        return self
     end
 
     --[[--
@@ -159,9 +159,11 @@ local Window = {}
         frame:EnableMouse(true)
         frame:SetResizable(true)
         frame:SetScript('OnSizeChanged', function(target)
-            local width, height = target:GetWidth(), target:GetHeight()    
-            if width < 100 then target:SetWidth(100) end  
+            local width, height = target:GetWidth(), target:GetHeight()
+            if width < 100 then target:SetWidth(100) end
             if height < 100 then target:SetHeight(100) end
+
+            self:storeWindowSize()
         end)
 
         return frame
@@ -252,6 +254,7 @@ local Window = {}
         frame:SetScript('OnMouseUp', function(mouse, mouseButton)
             if mouseButton == 'LeftButton' then
                 self.window:StopMovingOrSizing()
+                self:storeWindowPoint()
             end
         end)
 
@@ -284,6 +287,43 @@ local Window = {}
     end
 
     --[[--
+    Gets a window property using the library configuration instance.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn any The property value
+    ]]
+    function Window:getProperty(key)
+        return self.__:config(self:getPropertyKey(key))
+    end
+
+    --[[--
+    Gets the property key used by the window instance to persist its state
+    using the library configuration instance.
+
+    A property key is a result of the concatenation of a static prefix, this
+    window's id, and the key parameter.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn string The property key used by the window instance to persist
+                    its state using the library configuration instance
+    ]]
+    function Window:getPropertyKey(key)
+        return 'windows.' .. self.id .. '.' .. key
+    end
+
+    --[[--
     Gets the window's frame instance.
 
     This method has effect only after Window:create() is called.
@@ -292,6 +332,18 @@ local Window = {}
     ]]
     function Window:getWindow()
         return self.window
+    end
+
+    --[[--
+    Determines if the window is persisting its state.
+
+    A window is considered to be persisting its state if it has an id and the
+    library is created with a configuration set.
+
+    @treturn boolean true if the window is persisting its state, false otherwise
+    ]]
+    function Window:isPersistingState()
+        return self.__.str:isNotEmpty(self.id) and self.__:isConfigEnabled()
     end
 
     --[[--
@@ -356,6 +408,23 @@ local Window = {}
     end
 
     --[[--
+    Sets a window property using the library configuration instance.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    
+    @tparam string key The property key
+    @param any value The property value
+    ]]
+    function Window:setProperty(key, value)
+        self.__:config({
+            [self:getPropertyKey(key)] = value
+        })
+    end
+
+    --[[--
     Sets the window title.
 
     The window title will be displayed in the title bar, the same one that
@@ -385,7 +454,21 @@ local Window = {}
     @local
     ]]
     function Window:setWindowPositionOnCreation()
-        self.window:SetPoint(self.firstPosition.point, nil, self.firstPosition.relativePoint, self.firstPosition.xOfs, self.firstPosition.yOfs)
+        local point = self.firstPosition.point
+        local relativeTo = self.firstPosition.relativeTo
+        local relativePoint = self.firstPosition.relativePoint
+        local xOfs = self.firstPosition.xOfs
+        local yOfs = self.firstPosition.yOfs
+
+        if self:isPersistingState() then
+            point = self:getProperty('position.point') or point
+            relativeTo = self:getProperty('position.relativeTo') or relativeTo
+            relativePoint = self:getProperty('position.relativePoint') or relativePoint
+            xOfs = self:getProperty('position.xOfs') or xOfs
+            yOfs = self:getProperty('position.yOfs') or yOfs
+        end
+
+        self.window:SetPoint(point, relativeTo, relativePoint, xOfs, yOfs)
     end
 
     --[[--
@@ -401,7 +484,15 @@ local Window = {}
     @local
     ]]
     function Window:setWindowSizeOnCreation()
-        self.window:SetSize(self.firstSize.width, self.firstSize.height)
+        local w = self.firstSize.width
+        local h = self.firstSize.height
+
+        if self:isPersistingState() then
+            h = self:getProperty('size.height') or h
+            w = self:getProperty('size.width')  or w
+        end
+
+        self.window:SetSize(w, h)
     end
 
     --[[--
@@ -423,5 +514,44 @@ local Window = {}
         end
 
         self.window:Hide()
+    end
+
+    --[[--
+    Stores the window's point in the configuration instance if the window is
+    persisting its state.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    ]]
+    function Window:storeWindowPoint()
+        if not self:isPersistingState() then return end
+
+        local point, relativeTo, relativePoint, xOfs, yOfs = self.window:GetPoint()
+
+        self:setProperty('position.point', point)
+        self:setProperty('position.relativeTo', relativeTo)
+        self:setProperty('position.relativePoint', relativePoint)
+        self:setProperty('position.xOfs', xOfs)
+        self:setProperty('position.yOfs', yOfs)
+    end
+
+    --[[--
+    Stores the window's size in the configuration instance if the window is
+    persisting its state.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    ]]
+    function Window:storeWindowSize()
+        if not self:isPersistingState() then return end
+
+        local width, height = self.window:GetWidth(), self.window:GetHeight()
+
+        self:setProperty('size.height', height)
+        self:setProperty('size.width', width)
     end
 -- end of Window

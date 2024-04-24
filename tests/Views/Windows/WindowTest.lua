@@ -272,6 +272,37 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance.titleText, result)
     end
 
+    -- @covers Window:getProperty()
+    function TestWindow:testGetProperty()
+        local configArg = nil
+        local getPropertyKeyArg = nil
+
+        local instance = __:new('Window', 'test-id')
+
+        function instance.__:config(key)
+            configArg = key
+            return 'test-value'
+        end
+
+        function instance:getPropertyKey(key)
+            getPropertyKeyArg = key
+            return 'test-key'
+        end
+
+        local result = instance:getProperty('test')
+        
+        lu.assertEquals('test', getPropertyKeyArg)
+        lu.assertEquals('test-key', configArg)
+        lu.assertEquals('test-value', result)
+    end
+
+    -- @covers Window:getPropertyKey()
+    function TestWindow:testGetPropertyKey()
+        local instance = __:new('Window', 'test-id')
+
+        lu.assertEquals('windows.test-id.test-key', instance:getPropertyKey('test-key'))
+    end
+
     -- @covers Window:getWindow()
     function TestWindow:testGetWindow()
         local instance = __:new('Window', 'test-id')
@@ -283,6 +314,22 @@ TestWindow = BaseTestClass:new()
         local result = instance:getWindow()
 
         lu.assertEquals(instance.window, result)
+    end
+
+    -- @covers Window:isPersistingState()
+    function TestWindow:testIsPersistingState()
+        local function execution(id, libraryHasConfigEnabled, expectedResult)
+            local instance = __:new('Window', id)
+            instance.__.isConfigEnabled = function() return libraryHasConfigEnabled end
+
+            lu.assertEquals(expectedResult, instance:isPersistingState())
+        end
+
+        execution('test-id', true, true)
+        execution('test-id', false, false)
+        execution(nil, true, false)
+        execution(nil, false, false)
+        execution('', true, false)
     end
 
     -- @covers Window:setFirstPosition()
@@ -315,6 +362,26 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance, result)
     end
 
+    -- @covers Window:setProperty()
+    function TestWindow:testSetProperty()
+        local configArg = nil
+        local getPropertyKeyArg = nil
+
+        local instance = __:new('Window', 'test-id')
+
+        function instance.__:config(arg) configArg = arg end
+
+        function instance:getPropertyKey(key)
+            getPropertyKeyArg = key
+            return 'test-key'
+        end
+
+        instance:setProperty('test', 'test-value')
+        
+        lu.assertEquals('test', getPropertyKeyArg)
+        lu.assertEquals({['test-key'] = 'test-value'}, configArg)
+    end
+
     -- @covers Window:setTitle()
     function TestWindow:testSetTitle()
         local instance = __:new('Window', 'test-id')
@@ -327,23 +394,126 @@ TestWindow = BaseTestClass:new()
 
     -- @covers Window:setWindowPositionOnCreation()
     function TestWindow:testSetWindowPositionOnCreation()
-        local instance = __:new('Window', 'test-id')
-        instance.firstPosition = {
-            point = 'TOP',
-            relativePoint = 'TOP',
-            xOfs = 10,
-            yOfs = 10
-        }
-        instance.window = CreateFrame()
+        local function execution(firstPosition, storedPosition, isPersistingState, expectedPosition)
+            local pointArg, relativeToArg, relativePointArg, xOfsArg, yOfsArg = nil, nil, nil, nil, nil
 
-        instance:setWindowPositionOnCreation()
+            local instance = __:new('Window', 'test-id')
+            instance.firstPosition = firstPosition
+            instance.window = {}
 
-        lu.assertEquals({
-            relativeFrame = nil,
-            relativePoint = 'TOP',
-            xOfs = 10,
-            yOfs = 10
-        }, instance.window.points['TOP'])
+            instance.window.SetPoint = function(self, point, relativeTo, relativePoint, xOfs, yOfs)
+                pointArg = point
+                relativeToArg = relativeTo
+                relativePointArg = relativePoint
+                xOfsArg = xOfs
+                yOfsArg = yOfs
+            end
+
+            instance.isPersistingState = function() return isPersistingState end
+            instance.getProperty = function(self, key) return storedPosition and storedPosition[key:match(".*%.(.*)")] or nil end
+
+            instance:setWindowPositionOnCreation()
+
+            lu.assertEquals(expectedPosition.point, pointArg)
+            lu.assertEquals(expectedPosition.relativeTo, relativeToArg)
+            lu.assertEquals(expectedPosition.relativePoint, relativePointArg)
+            lu.assertEquals(expectedPosition.xOfs, xOfsArg)
+            lu.assertEquals(expectedPosition.yOfs, yOfsArg)
+        end
+        
+        -- not persisting state
+        execution(
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            },
+            nil,
+            false,
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            }
+        )
+
+        -- persisting state with no stored values
+        execution(
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            },
+            nil,
+            true,
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            }
+        )
+
+        -- persisting state with stored values
+        execution(
+            {
+                point = 'TOP',
+                relativePoint = 'TOP',
+                xOfs = 10,
+                yOfs = 10,
+            },
+            {
+                point = 'BOTTOM',
+                relativeTo = 'UIParent',
+                relativePoint = 'BOTTOM',
+                xOfs = 20,
+                yOfs = 20,
+            },
+            true,
+            {
+                point = 'BOTTOM',
+                relativeTo = 'UIParent',
+                relativePoint = 'BOTTOM',
+                xOfs = 20,
+                yOfs = 20,
+            }
+        )
+    end
+
+    -- @covers Window:setWindowSizeOnCreation()
+    function TestWindow:testSetWindowSizeOnCreation()
+        local function execution(firstSizeW, firstSizeH, storedW, storedH, isPersistingState, expectedW, expectedH)
+            local widthArg, heightArg = nil, nil
+
+            local instance = __:new('Window', 'test-id')
+            instance.firstSize = {width = firstSizeW, height = firstSizeH}
+            instance.window = {}
+
+            instance.window.SetSize = function(self, width, height)
+                widthArg = width
+                heightArg = height
+            end
+
+            instance.isPersistingState = function() return isPersistingState end
+            instance.getProperty = function(self, key) return key == 'size.width' and storedW or storedH end
+
+            instance:setWindowSizeOnCreation()
+
+            lu.assertEquals(expectedW, widthArg)
+            lu.assertEquals(expectedH, heightArg)
+        end
+
+        -- not persisting state
+        execution(100, 110, 200, 210, false, 100, 110)
+
+        -- persisting state with no stored values
+        execution(100, 110, nil, nil, true, 100, 110)
+
+        -- persisting state with stored values
+        execution(100, 110, 200, 210, true, 200, 210)
     end
 
     -- @covers Window:setWindowVisibilityOnCreation()
@@ -364,5 +534,74 @@ TestWindow = BaseTestClass:new()
 
         execution(true, true, false)
         execution(false, false, true)
+    end
+
+    -- @covers Window:storeWindowPoint()
+    -- @covers Window:storeWindowSize()
+    function TestWindow:testStoreMethodsArentCalledIfNotPersistingState()
+        local setPropertyInvoked = false
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.isPersistingState = function() return false end
+        function instance:setProperty() setPropertyInvoked = true end
+
+        instance:storeWindowPoint()
+        instance:storeWindowSize()
+
+        lu.assertIsFalse(setPropertyInvoked)
+    end
+
+    -- @covers Window:storeWindowPoint()
+    function TestWindow:testStoreWindowPoint()
+        local keyArgs, valueArgs = {}, {}
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.window.GetPoint = function() return 'CENTER', nil, 'CENTER', 0, 0 end
+        instance.isPersistingState = function() return true end
+
+        function instance:setProperty(key, value)
+            table.insert(keyArgs, key)
+            table.insert(valueArgs, value)
+        end
+
+        instance:storeWindowPoint()
+
+        lu.assertEquals({
+            'position.point',
+            'position.relativeTo',
+            'position.relativePoint',
+            'position.xOfs',
+            'position.yOfs',
+        }, keyArgs)
+        lu.assertEquals({'CENTER', 'CENTER', 0, 0}, valueArgs)
+    end
+
+    -- @covers Window:storeWindowSize()
+    function TestWindow:testStoreWindowSize()
+        local keyArgs, valueArgs = {}, {}
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.window.GetWidth = function() return 1 end
+        instance.window.GetHeight = function() return 2 end
+        instance.isPersistingState = function() return true end
+
+        function instance:setProperty(key, value)
+            table.insert(keyArgs, key)
+            table.insert(valueArgs, value)
+        end
+
+        instance:storeWindowSize()
+
+        lu.assertEquals({
+            'size.height',
+            'size.width',
+        }, keyArgs)
+        lu.assertEquals({2, 1}, valueArgs)
     end
 -- end of TestWindow
