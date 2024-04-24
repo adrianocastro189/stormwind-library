@@ -544,12 +544,21 @@ local Window = {}
     @local
     ]]
     function Window:setWindowVisibilityOnCreation()
-        if self.firstVisibility then
-            self.window:Show()
-            return
+        local visibility = self.firstVisibility
+
+        if self:isPersistingState() then
+            local storedVisibility = self:getProperty('visibility')
+
+            -- these conditionals are necessary so Lua doesn't consider falsy values
+            -- as false, but as nil
+            if storedVisibility ~= nil then
+                visibility = self.__.bool:isTrue(storedVisibility)
+            else
+                visibility = self.firstVisibility
+            end
         end
 
-        self.window:Hide()
+        self:setVisibility(visibility)
     end
 
     --[[--

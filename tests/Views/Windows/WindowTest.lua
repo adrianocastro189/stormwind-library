@@ -571,22 +571,37 @@ TestWindow = BaseTestClass:new()
 
     -- @covers Window:setWindowVisibilityOnCreation()
     function TestWindow:testSetWindowVisibilityOnCreation()
-        local function execution(firstVisibility, shouldCallShow, shouldCallHide)
+        local function execution(firstVisibility, storedVisibility, isPersistingState, expectedVisibility)
+            local setVisibilityArg = nil
+            
             local instance = __:new('Window', 'test-id')
             instance.firstVisibility = firstVisibility
-            instance.window = CreateFrame()
-
-            instance.window.showInvoked = false
-            instance.window.hideInvoked = false
+            instance.isPersistingState = function() return isPersistingState end
+            instance.getProperty = function() return storedVisibility end
+            instance.setVisibility = function(self, visibility) setVisibilityArg = visibility end
     
             instance:setWindowVisibilityOnCreation()
-    
-            lu.assertEquals(shouldCallShow, instance.window.showInvoked)
-            lu.assertEquals(shouldCallHide, instance.window.hideInvoked)
+
+            lu.assertEquals(expectedVisibility, setVisibilityArg)
         end
 
-        execution(true, true, false)
-        execution(false, false, true)
+        -- initially visible and not persisting state
+        execution(true, nil, false, true)
+
+        -- initially visible and persisting state with no stored value
+        execution(true, nil, true, true)
+
+        -- initially visible and persisting state with stored value
+        execution(true, false, true, false)
+
+        -- initially not visible and not persisting state
+        execution(false, nil, false, false)
+
+        -- initially not visible and persisting state with no stored value
+        execution(false, nil, true, false)
+
+        -- initially not visible and persisting state with stored value
+        execution(false, true, true, true)
     end
 
     -- @covers Window:storeWindowPoint()
