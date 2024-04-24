@@ -279,8 +279,6 @@ TestWindow = BaseTestClass:new()
 
         local instance = __:new('Window', 'test-id')
 
-        instance.window = {'test-window'}
-
         function instance.__:config(key)
             configArg = key
             return 'test-value'
@@ -362,6 +360,26 @@ TestWindow = BaseTestClass:new()
 
         lu.assertFalse(instance.firstVisibility)
         lu.assertEquals(instance, result)
+    end
+
+    -- @covers Window:setProperty()
+    function TestWindow:testSetProperty()
+        local configArg = nil
+        local getPropertyKeyArg = nil
+
+        local instance = __:new('Window', 'test-id')
+
+        function instance.__:config(arg) configArg = arg end
+
+        function instance:getPropertyKey(key)
+            getPropertyKeyArg = key
+            return 'test-key'
+        end
+
+        instance:setProperty('test', 'test-value')
+        
+        lu.assertEquals('test', getPropertyKeyArg)
+        lu.assertEquals({['test-key'] = 'test-value'}, configArg)
     end
 
     -- @covers Window:setTitle()

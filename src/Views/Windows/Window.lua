@@ -290,6 +290,10 @@ local Window = {}
     state. It's not meant to be called by addons.
 
     @local
+
+    @tparam string key The property key
+
+    @treturn any The property value
     ]]
     function Window:getProperty(key)
         return self.__:config(self:getPropertyKey(key))
@@ -398,6 +402,23 @@ local Window = {}
     function Window:setFirstVisibility(visibility)
         self.firstVisibility = visibility
         return self
+    end
+
+    --[[--
+    Sets a window property using the library configuration instance.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    
+    @tparam string key The property key
+    @param any value The property value
+    ]]
+    function Window:setProperty(key, value)
+        self.__:config({
+            [self:getPropertyKey(key)] = value
+        })
     end
 
     --[[--
