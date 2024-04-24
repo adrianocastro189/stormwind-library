@@ -284,6 +284,18 @@ local Window = {}
     end
 
     --[[--
+    Gets a window property using the library configuration instance.
+
+    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+    @local
+    ]]
+    function Window:getProperty(key)
+        return self.__:config(self:getPropertyKey(key))
+    end
+
+    --[[--
     Gets the property key used by the window instance to persist its state
     using the library configuration instance.
 
@@ -291,7 +303,7 @@ local Window = {}
     window's id, and the key parameter.
 
     This method is used internally by the library to persist the window's
-    state. It's not meant to be called by the addon.
+    state. It's not meant to be called by addons.
 
     @local
 
