@@ -316,6 +316,25 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance.window, result)
     end
 
+    -- @covers Window:hide()
+    -- @covers Window:show()
+    function TestWindow:testHideAndShowFacades()
+        local hideInvoked = false
+        local showInvoked = false
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.window.Hide = function() hideInvoked = true end
+        instance.window.Show = function() showInvoked = true end
+
+        instance:hide()
+        instance:show()
+
+        lu.assertIsTrue(hideInvoked)
+        lu.assertIsTrue(showInvoked)
+    end
+
     -- @covers Window:isPersistingState()
     function TestWindow:testIsPersistingState()
         local function execution(id, libraryHasConfigEnabled, expectedResult)

@@ -335,6 +335,20 @@ local Window = {}
     end
 
     --[[--
+    Hides the window.
+
+    This is just a facade method to call the Hide method on the window frame.
+    However, it shouldn't be used by addons as an internal method. Use
+    setVisibility(false) instead.
+
+    @local
+    @see Views.Windows.Window.setVisibility
+    ]]
+    function Window:hide()
+        self.window:Hide()
+    end
+
+    --[[--
     Determines if the window is persisting its state.
 
     A window is considered to be persisting its state if it has an id and the
@@ -514,6 +528,20 @@ local Window = {}
         end
 
         self.window:Hide()
+    end
+
+    --[[--
+    Shows the window.
+
+    This is just a facade method to call the Show method on the window frame.
+    However, it shouldn't be used by addons as an internal method. Use
+    setVisibility(true) instead.
+
+    @local
+    @see Views.Windows.Window.setVisibility
+    ]]
+    function Window:show()
+        self.window:Show()
     end
 
     --[[--
