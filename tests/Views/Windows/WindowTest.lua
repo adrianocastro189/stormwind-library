@@ -434,6 +434,23 @@ TestWindow = BaseTestClass:new()
     end
 
     -- @covers Window:storeWindowPoint()
+    -- @covers Window:storeWindowSize()
+    function TestWindow:testStoreMethodsArentCalledIfNotPersistingState()
+        local setPropertyInvoked = false
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.window = {}
+        instance.isPersistingState = function() return false end
+        function instance:setProperty() setPropertyInvoked = true end
+
+        instance:storeWindowPoint()
+        instance:storeWindowSize()
+
+        lu.assertIsFalse(setPropertyInvoked)
+    end
+
+    -- @covers Window:storeWindowPoint()
     function TestWindow:testStoreWindowPoint()
         local keyArgs, valueArgs = {}, {}
 
