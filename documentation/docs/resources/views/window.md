@@ -53,6 +53,30 @@ local window = library
 Although the code above uses some default values, it shows how to set the
 window title, position, size, and initial visibility.
 
+## Showing and hiding the window
+
+In the World of Warcraft API, frames have the `Show()` and `Hide()` methods to
+control the frame visibility. Although the `Window` class has the same 
+methods, they're used internally as the class exposes the `setVisibility()`
+method that accepts a boolean value to show or hide the window.
+
+Addons should use the `setVisibility()` method to show or hide the window as
+they persist the window visible state between interface reloads. In other 
+words, if users close the window, the library will save this state and when 
+the game interface is reloaded, the window will be hidden.
+
+```lua
+-- consider a window instance created by
+local window = library:new('Window', 'my-window-id')
+
+-- hides the window
+window:setVisibility(false)
+
+-- shows the window
+window:setVisibility(true)
+```
+
+
 ## Window persistent state
 
 On the example above, look at `id` parameter passed to the `Window` 
