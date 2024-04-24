@@ -470,7 +470,15 @@ local Window = {}
     @local
     ]]
     function Window:setWindowSizeOnCreation()
-        self.window:SetSize(self.firstSize.width, self.firstSize.height)
+        local w = self.firstSize.width
+        local h = self.firstSize.height
+
+        if self:isPersistingState() then
+            h = self:getProperty('size.height') or h
+            w = self:getProperty('size.width')  or w
+        end
+
+        self.window:SetSize(w, h)
     end
 
     --[[--

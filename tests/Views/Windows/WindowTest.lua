@@ -413,6 +413,39 @@ TestWindow = BaseTestClass:new()
         }, instance.window.points['TOP'])
     end
 
+    -- @covers Window:setWindowSizeOnCreation()
+    function TestWindow:testSetWindowSizeOnCreation()
+        local function execution(firstSizeW, firstSizeH, storedW, storedH, isPersistingState, expectedW, expectedH)
+            local widthArg, heightArg = nil, nil
+
+            local instance = __:new('Window', 'test-id')
+            instance.firstSize = {width = firstSizeW, height = firstSizeH}
+            instance.window = {}
+
+            instance.window.SetSize = function(self, width, height)
+                widthArg = width
+                heightArg = height
+            end
+
+            instance.isPersistingState = function() return isPersistingState end
+            instance.getProperty = function(self, key) return key == 'size.width' and storedW or storedH end
+
+            instance:setWindowSizeOnCreation()
+
+            lu.assertEquals(expectedW, widthArg)
+            lu.assertEquals(expectedH, heightArg)
+        end
+
+        -- not persisting state
+        execution(100, 110, 200, 210, false, 100, 110)
+
+        -- persisting state with no stored values
+        execution(100, 110, nil, nil, true, 100, 110)
+
+        -- persisting state with stored values
+        execution(100, 110, 200, 210, true, 200, 210)
+    end
+
     -- @covers Window:setWindowVisibilityOnCreation()
     function TestWindow:testSetWindowVisibilityOnCreation()
         local function execution(firstVisibility, shouldCallShow, shouldCallHide)
