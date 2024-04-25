@@ -41,6 +41,8 @@ local Window = {}
         self.firstVisibility = true
         self.id = id
 
+        self.contentChildren = {}
+
         return self
     end
 
@@ -56,11 +58,13 @@ local Window = {}
 
         self:createTitleBar()
         self:createFooter()
-        self:createScrollbar()
-        self:createContentFrame()
+
         self:setWindowPositionOnCreation()
         self:setWindowSizeOnCreation()
         self:setWindowVisibilityOnCreation()
+
+        self:createScrollbar()
+        self:createContentFrame()
 
         return self
     end
@@ -103,6 +107,12 @@ local Window = {}
         self.scrollbar:SetScrollChild(contentFrame)
 
         self.contentFrame = contentFrame
+
+        -- this is necessary to make the content frame width follow
+        -- the scrollbar width
+        self.scrollbar:SetScript('OnSizeChanged', function(target)
+            self.contentFrame:SetWidth(target:GetWidth())
+        end)
 
         return self.contentFrame
     end
@@ -360,6 +370,30 @@ local Window = {}
     ]]
     function Window:isPersistingState()
         return self.__.str:isNotEmpty(self.id) and self.__:isConfigEnabled()
+    end
+
+    --[[--
+    Positions the content children frames inside the content frame.
+
+    This is an internal method and it shouldn't be called by addons.
+
+    @local
+    --]]
+    function Window:positionContentChildFrames()
+        -- sets the first relative frame the content frame itself
+        -- but after the first child, the relative frame will be the last
+        local lastRelativeTo = self.contentFrame
+        local totalChildrenHeight = 0
+
+        for _, child in ipairs(self.contentChildren) do
+            child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
+            child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
+
+            lastRelativeTo = child
+            totalChildrenHeight = totalChildrenHeight + child:GetHeight()
+        end
+
+        self.contentFrame:SetHeight(totalChildrenHeight)
     end
 
     --[[--

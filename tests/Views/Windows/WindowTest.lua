@@ -351,6 +351,34 @@ TestWindow = BaseTestClass:new()
         execution('', true, false)
     end
 
+    -- @covers Window:positionContentChildFrames()
+    function TestWindow:testPositionContentChildFrames()
+        local contentFrameHeight, pointsA, pointsB = nil, {}, {}
+
+        local childFrameA = {
+            GetHeight = function() return 10 end,
+            SetPoint = function(self, ...) table.insert(pointsA, {...}) end
+        }
+        local childFrameB = {
+            GetHeight = function() return 20 end,
+            SetPoint = function(self, ...) table.insert(pointsB, {...}) end
+        }
+
+        local instance = __:new('Window')
+        instance.contentFrame = {
+            SetHeight = function(self, height) contentFrameHeight = height end,
+        }
+        instance.contentChildren = {childFrameA, childFrameB}
+
+        instance:positionContentChildFrames()
+
+        lu.assertEquals(30, contentFrameHeight)
+        lu.assertEquals({'TOPLEFT', instance.contentFrame, 'TOPLEFT', 0, 0}, pointsA[1])
+        lu.assertEquals({'TOPRIGHT', instance.contentFrame, 'TOPRIGHT', 0, 0}, pointsA[2])
+        lu.assertEquals({'TOPLEFT', childFrameA, 'BOTTOMLEFT', 0, 0}, pointsB[1])
+        lu.assertEquals({'TOPRIGHT', childFrameA, 'BOTTOMRIGHT', 0, 0}, pointsB[2])
+    end
+
     -- @covers Window:setFirstPosition()
     function TestWindow:testSetFirstPosition()
         local instance = __:new('Window', 'test-id')
