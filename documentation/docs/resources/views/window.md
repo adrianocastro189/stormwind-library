@@ -75,7 +75,75 @@ window:setVisibility(false)
 -- shows the window
 window:setVisibility(true)
 ```
+## Adding content to the window
 
+One of the motivations to create the Window class was to provide an easy way
+to add content that was also wrapped by a vertical scroll bar in case it's
+big enough to overflow the window.
+
+That said, the class has a `setContent()` method that accepts a table of 
+frames that will be **automatically positioned** in the content area from top
+to bottom and width that's bound to the window width.
+
+That way, addons can add frames to the window content without worrying about
+positioning them as long as they pass the frames in the right order and 
+respect a few rules. Let's call them "inner frames".
+
+1. Regardless of where the inner frames are created, they must have
+`window.contentFrame` as the parent frame.
+1. Inner frames shouldn't be created with a width as they'll occupy the whole 
+content area width. **Consider them blocks that will be stacked vertically!**
+1. The addon must be responsible for hiding the inner frames in case it must
+update the whole content area. The library doesn't manage the inner frames
+(**at least in the current version**).
+
+:::info Free inner frames layout
+
+_What if my addon needs to add inner frames freely that don't behave as 
+blocks?_
+
+It's totally possible, as
+the `contentFrame` is a public property of the `Window` class and can be used
+to position frames. The `setContent()` method is just a helper to add frames
+as blocks, but it's not mandatory to use it.
+
+:::
+
+See this example on how to add inner frames that behave as blocks to the
+window content area:
+
+```lua
+local window = library:new('Window', 'my-window-id')
+    -- :chained method as described above
+    :create()
+
+local settingsBlock = CreateFrame('Frame', nil, window.contentFrame, "BackdropTemplate")
+settingsBlock:SetHeight(35)
+settingsBlock:SetBackdrop(...)
+settingsBlock:SetBackdropColor(...)
+-- any other visual settings method calls
+
+local optionsBlock = CreateFrame('Frame', nil, window.contentFrame, "BackdropTemplate")
+optionsBlock:SetHeight(100)
+-- any other visual settings method calls
+
+local notesBlock = ...
+
+-- this will add the blocks to the window content area where each block will
+-- occupy the whole width and be stacked vertically
+window:setContent({ settingsBlock, optionsBlock, notesBlock })
+```
+
+:::note Keep an eye on this documentation
+
+The philosophy behind the library is to grow organically based on addons
+demands and developers feedback.
+
+It's most likely that the `Window` class will have more features in the future
+and this documentation will be updated to reflect those changes. Make sure to
+check the [changelog](../../changelog) frequently to see what's new.
+
+:::
 
 ## Window persistent state
 
