@@ -66,6 +66,8 @@ local Window = {}
         self:createScrollbar()
         self:createContentFrame()
 
+        self:positionContentChildFrames()
+
         return self
     end
 
@@ -394,6 +396,42 @@ local Window = {}
         end
 
         self.contentFrame:SetHeight(totalChildrenHeight)
+    end
+
+    --[[--
+    Sets the window's content, which is a table of frames.
+
+    The Stormwind Library Window was designed to accept a list of frames to
+    compose its content. When create() is called, a content frame wrapped by
+    a vertical scrollbar is created, but the content frame is empty.
+
+    This method is used to populate the content frame with the frames passed
+    in the frames parameter. The frames then will be positioned sequentially
+    from top to bottom, with the first frame being positioned at the top and
+    the last frame at the bottom. Their width will be the same as the content
+    frame's width and will grow horizontally to the right if the whole
+    window is resized.
+
+    Please, read the library documentation for more information on how to
+    work with the frames inside the window's content.
+
+    @tparam table frames The list of frames to be placed inside the content frame
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+
+    @usage
+        local frameA = CreateFrame(...)
+        local frameB = CreateFrame(...)
+        local frameC = CreateFrame(...)
+
+        window:setContent({frameA, frameB, frameC})
+    ]]
+    function Window:setContent(frames)
+        self.contentChildren = frames
+
+        if self.contentFrame then self:positionContentChildFrames() end
+
+        return self
     end
 
     --[[--
