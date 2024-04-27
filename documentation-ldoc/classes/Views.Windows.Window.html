@@ -1,0 +1,977 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><strong>Views.Windows.Window</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Views.Windows.Window</code></h1>
+<p>The Window class is the base class for all windows in the library.</p>
+<p>
+<p>A window in this context is a standard frame that makes use of the World of
+Warcraft CreateFrame function, but with some additional features: a title
+bar that can move the window, a close button, a resize button at the bottom,
+a content area with a scroll bar, plus a few other.
+<p>The motivation behind this class is to provide a simple way to create
+windows, considering that the CreateFrame function is a bit cumbersome to
+use, and that the standard window features can be enough for most addons.
+<p>It's necessary to note that this class is not as flexible as the CreateFrame
+function, and that it's not meant to replace it. It's just a simple way to
+create a basic window with some standard features. And if the addon developer
+needs more flexibility, it's possible to extend this class to override some
+methods and add new features.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createCloseButton">views.windows.window.createCloseButton ()</a></td>
+	<td class="summary">Creates a close button in the title bar.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createContentFrame">views.windows.window.createContentFrame ()</a></td>
+	<td class="summary">Creates the content frame, where the window's content will be placed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createFooter">views.windows.window.createFooter ()</a></td>
+	<td class="summary">Creates a footer bar that contains a resize button.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createFrame">views.windows.window.createFrame ()</a></td>
+	<td class="summary">This is just a facade method to call World of Warcraft's CreateFrame.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createResizeButton">views.windows.window.createResizeButton ()</a></td>
+	<td class="summary">Creates a resize button in the footer bar.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createScrollbar">views.windows.window.createScrollbar ()</a></td>
+	<td class="summary">Creates a scrollbar to the window's content area.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createTitleBar">views.windows.window.createTitleBar ()</a></td>
+	<td class="summary">Creates a title bar that contains a title and a close button.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.createTitleText">views.windows.window.createTitleText ()</a></td>
+	<td class="summary">Creates the title text in the title bar.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.getProperty">views.windows.window.getProperty (key)</a></td>
+	<td class="summary">Gets a window property using the library configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.getPropertyKey">views.windows.window.getPropertyKey (key)</a></td>
+	<td class="summary">Gets the property key used by the window instance to persist its state
+    using the library configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.hide">views.windows.window.hide ()</a></td>
+	<td class="summary">Hides the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.positionContentChildFrames">views.windows.window.positionContentChildFrames ()</a></td>
+	<td class="summary">Positions the content children frames inside the content frame.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.setProperty">views.windows.window.setProperty (key, any)</a></td>
+	<td class="summary">Sets a window property using the library configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.setWindowPositionOnCreation">views.windows.window.setWindowPositionOnCreation ()</a></td>
+	<td class="summary">Sets the window position on creation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.setWindowSizeOnCreation">views.windows.window.setWindowSizeOnCreation ()</a></td>
+	<td class="summary">Sets the window size on creation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.setWindowVisibilityOnCreation">views.windows.window.setWindowVisibilityOnCreation ()</a></td>
+	<td class="summary">Sets the window visibility on creation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.show">views.windows.window.show ()</a></td>
+	<td class="summary">Shows the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.storeWindowPoint">views.windows.window.storeWindowPoint ()</a></td>
+	<td class="summary">Stores the window's point in the configuration instance if the window is
+    persisting its state.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window.storeWindowSize">views.windows.window.storeWindowSize ()</a></td>
+	<td class="summary">Stores the window's size in the configuration instance if the window is
+    persisting its state.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:create">views.windows.window:create ()</a></td>
+	<td class="summary">Creates the window frame if it doesn't exist yet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:getWindow">views.windows.window:getWindow ()</a></td>
+	<td class="summary">Gets the window's frame instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:isPersistingState">views.windows.window:isPersistingState ()</a></td>
+	<td class="summary">Determines if the window is persisting its state.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setContent">views.windows.window:setContent (frames)</a></td>
+	<td class="summary">Sets the window's content, which is a table of frames.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setFirstPosition">views.windows.window:setFirstPosition (position)</a></td>
+	<td class="summary">Sets the window's first position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setFirstSize">views.windows.window:setFirstSize (size)</a></td>
+	<td class="summary">Sets the window's first size.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setFirstVisibility">views.windows.window:setFirstVisibility (visibility)</a></td>
+	<td class="summary">Sets the window's first visibility.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setTitle">views.windows.window:setTitle (string)</a></td>
+	<td class="summary">Sets the window title.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setVisibility">views.windows.window:setVisibility (visible)</a></td>
+	<td class="summary">Sets the window visibility.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:__construct">views.windows.window:__construct (string)</a></td>
+	<td class="summary">Window constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "views.windows.window.createCloseButton"></a>
+    <strong>views.windows.window.createCloseButton ()</strong>
+    </dt>
+    <dd>
+    Creates a close button in the title bar.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the createTitleBar() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The button created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createContentFrame"></a>
+    <strong>views.windows.window.createContentFrame ()</strong>
+    </dt>
+    <dd>
+    Creates the content frame, where the window's content will be placed.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The content frame created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createFooter"></a>
+    <strong>views.windows.window.createFooter ()</strong>
+    </dt>
+    <dd>
+    Creates a footer bar that contains a resize button.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The footer bar frame created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createFrame"></a>
+    <strong>views.windows.window.createFrame ()</strong>
+    </dt>
+    <dd>
+    This is just a facade method to call World of Warcraft's CreateFrame.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The window frame created by CreateFrame
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Views.Windows.Window.html#views.windows.window:create">Views.Windows.Window.create</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createResizeButton"></a>
+    <strong>views.windows.window.createResizeButton ()</strong>
+    </dt>
+    <dd>
+    Creates a resize button in the footer bar.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the createFooter() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The button created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createScrollbar"></a>
+    <strong>views.windows.window.createScrollbar ()</strong>
+    </dt>
+    <dd>
+    Creates a scrollbar to the window's content area.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The scrollbar frame created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createTitleBar"></a>
+    <strong>views.windows.window.createTitleBar ()</strong>
+    </dt>
+    <dd>
+    Creates a title bar that contains a title and a close button.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The title bar frame created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.createTitleText"></a>
+    <strong>views.windows.window.createTitleText ()</strong>
+    </dt>
+    <dd>
+    Creates the title text in the title bar.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the createTitleBar() method.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The title text frame created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.getProperty"></a>
+    <strong>views.windows.window.getProperty (key)</strong>
+    </dt>
+    <dd>
+    Gets a window property using the library configuration instance.
+<p>    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any</span></span>
+        The property value
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.getPropertyKey"></a>
+    <strong>views.windows.window.getPropertyKey (key)</strong>
+    </dt>
+    <dd>
+    Gets the property key used by the window instance to persist its state
+    using the library configuration instance.
+<p>    A property key is a result of the concatenation of a static prefix, this
+    window's id, and the key parameter.
+<p>    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The property key used by the window instance to persist
+                    its state using the library configuration instance
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.hide"></a>
+    <strong>views.windows.window.hide ()</strong>
+    </dt>
+    <dd>
+    Hides the window.
+<p>    This is just a facade method to call the Hide method on the window frame.
+    However, it shouldn't be used by addons as an internal method. Use
+    setVisibility(false) instead.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Views.Windows.Window.html#views.windows.window:setVisibility">Views.Windows.Window.setVisibility</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.positionContentChildFrames"></a>
+    <strong>views.windows.window.positionContentChildFrames ()</strong>
+    </dt>
+    <dd>
+    Positions the content children frames inside the content frame.
+<p>    This is an internal method and it shouldn't be called by addons.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.setProperty"></a>
+    <strong>views.windows.window.setProperty (key, any)</strong>
+    </dt>
+    <dd>
+    Sets a window property using the library configuration instance.
+<p>    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+        <li><span class="parameter">any</span>
+         value The property value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.setWindowPositionOnCreation"></a>
+    <strong>views.windows.window.setWindowPositionOnCreation ()</strong>
+    </dt>
+    <dd>
+    Sets the window position on creation.
+<p>    This method is called when the window is created, and it sets the window
+    position to the first position set by the developer or the persisted
+    position if it's found.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.setWindowSizeOnCreation"></a>
+    <strong>views.windows.window.setWindowSizeOnCreation ()</strong>
+    </dt>
+    <dd>
+    Sets the window size on creation.
+<p>    This method is called when the window is created, and it sets the window
+    size to the first size set by the developer or the persisted size if it's
+    found.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.setWindowVisibilityOnCreation"></a>
+    <strong>views.windows.window.setWindowVisibilityOnCreation ()</strong>
+    </dt>
+    <dd>
+    Sets the window visibility on creation.
+<p>    This method is called when the window is created, and it sets the window
+    visibility to the first state set by the developer or the persisted
+    state if it's found.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.show"></a>
+    <strong>views.windows.window.show ()</strong>
+    </dt>
+    <dd>
+    Shows the window.
+<p>    This is just a facade method to call the Show method on the window frame.
+    However, it shouldn't be used by addons as an internal method. Use
+    setVisibility(true) instead.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Views.Windows.Window.html#views.windows.window:setVisibility">Views.Windows.Window.setVisibility</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.storeWindowPoint"></a>
+    <strong>views.windows.window.storeWindowPoint ()</strong>
+    </dt>
+    <dd>
+    Stores the window's point in the configuration instance if the window is
+    persisting its state.
+<p>    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window.storeWindowSize"></a>
+    <strong>views.windows.window.storeWindowSize ()</strong>
+    </dt>
+    <dd>
+    Stores the window's size in the configuration instance if the window is
+    persisting its state.
+<p>    This method is used internally by the library to persist the window's
+    state. It's not meant to be called by addons.
+
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "views.windows.window:create"></a>
+    <strong>views.windows.window:create ()</strong>
+    </dt>
+    <dd>
+    Creates the window frame if it doesn't exist yet.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:getWindow"></a>
+    <strong>views.windows.window:getWindow ()</strong>
+    </dt>
+    <dd>
+    Gets the window's frame instance.
+<p>    This method has effect only after Window:create() is called.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The window frame instance
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:isPersistingState"></a>
+    <strong>views.windows.window:isPersistingState ()</strong>
+    </dt>
+    <dd>
+    Determines if the window is persisting its state.
+<p>    A window is considered to be persisting its state if it has an id and the
+    library is created with a configuration set.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if the window is persisting its state, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setContent"></a>
+    <strong>views.windows.window:setContent (frames)</strong>
+    </dt>
+    <dd>
+    Sets the window's content, which is a table of frames.
+<p>    The Stormwind Library Window was designed to accept a list of frames to
+    compose its content. When create() is called, a content frame wrapped by
+    a vertical scrollbar is created, but the content frame is empty.
+<p>    This method is used to populate the content frame with the frames passed
+    in the frames parameter. The frames then will be positioned sequentially
+    from top to bottom, with the first frame being positioned at the top and
+    the last frame at the bottom. Their width will be the same as the content
+    frame's width and will grow horizontally to the right if the whole
+    window is resized.
+<p>    Please, read the library documentation for more information on how to
+    work with the frames inside the window's content.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">frames</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The list of frames to be placed inside the content frame
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> frameA = <span class="function-name">CreateFrame</span>(...)
+<span class="keyword">local</span> frameB = <span class="function-name">CreateFrame</span>(...)
+<span class="keyword">local</span> frameC = <span class="function-name">CreateFrame</span>(...)
+
+window:<span class="function-name">setContent</span>({frameA, frameB, frameC})</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setFirstPosition"></a>
+    <strong>views.windows.window:setFirstPosition (position)</strong>
+    </dt>
+    <dd>
+    Sets the window's first position.
+<p>    The first position is the position that the window will have when it's
+    first created. If the player moves the window and this window is
+    persisting its state, this property will be ignored.
+<p>    Because this class represents a window that's not tied to any specific
+    frame, the relativeTo parameter will be omitted. The window will always
+    be created with a nil relativeTo parameter.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">position</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The position table, with the keys point, relativePoint, xOfs, and yOfs
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">window:<span class="function-name">setFirstSize</span>({point = <span class="string">'CENTER'</span>, relativePoint = <span class="string">'CENTER'</span>, xOfs = <span class="number">0</span>, yOfs = <span class="number">0</span>})</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setFirstSize"></a>
+    <strong>views.windows.window:setFirstSize (size)</strong>
+    </dt>
+    <dd>
+    Sets the window's first size.
+<p>    The first size is the size that the window will have when it's first
+    created. If the player resizes the window and this window is persisting
+    its state, this property will be ignored.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The size table, with the keys width and height
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">window:<span class="function-name">setFirstSize</span>({width = <span class="number">200</span>, height = <span class="number">100</span>})</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setFirstVisibility"></a>
+    <strong>views.windows.window:setFirstVisibility (visibility)</strong>
+    </dt>
+    <dd>
+    Sets the window's first visibility.
+<p>    The first visibility is the visibility that the window will have when
+    it's first created. If the player hides the window and this window is
+    persisting its state, this property will be ignored.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">visibility</span>
+            <span class="types"><span class="type">boolean</span></span>
+         The first visibility state
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">window:<span class="function-name">setFirstVisibility</span>(<span class="keyword">false</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setTitle"></a>
+    <strong>views.windows.window:setTitle (string)</strong>
+    </dt>
+    <dd>
+    Sets the window title.
+<p>    The window title will be displayed in the title bar, the same one that
+    users can click and drag to move the window.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+         title The window title
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">window:<span class="function-name">setTitle</span>(<span class="string">'My Window Title'</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setVisibility"></a>
+    <strong>views.windows.window:setVisibility (visible)</strong>
+    </dt>
+    <dd>
+    Sets the window visibility.
+<p>    This is the method to be called by addons to show or hide the window,
+    instead of the local show() and hide(), considering that it not only
+    controls the window visibility but also persists the state if the window
+    is persisting its state.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">visible</span>
+            <span class="types"><span class="type">boolean</span></span>
+         The visibility state
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "views.windows.window:__construct"></a>
+    <strong>views.windows.window:__construct (string)</strong>
+    </dt>
+    <dd>
+    Window constructor.
+<p>    When built with an id and the library is created with the data property,
+    the window will be capable to persist its position, size, and other user
+    preferences.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+         id The window identifier, which is used mostly to persist
+                     information about the window, like its position and size
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-04-27 16:27:57 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
