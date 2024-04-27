@@ -18,6 +18,7 @@ CreateFrame = function (...)
     mockFrame.SetHighlightTexture = function (self, texture) self.highlightTexture = texture end
     mockFrame.SetMovable = function (self, movable) self.movable = movable end
     mockFrame.SetNormalTexture = function (self, texture) self.normalTexture = texture end
+    mockFrame.SetParent = function (self, parent) self.parent = parent end
     mockFrame.SetPoint = function (self, point, relativeFrame, relativePoint, xOfs, yOfs)
         self.points = self.points or {}
 

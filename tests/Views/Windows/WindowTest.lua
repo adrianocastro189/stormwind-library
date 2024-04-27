@@ -360,10 +360,12 @@ TestWindow = BaseTestClass:new()
 
         local childFrameA = {
             GetHeight = function() return 10 end,
+            SetParent = function(self, parent) self.parent = parent end,
             SetPoint = function(self, ...) table.insert(pointsA, {...}) end
         }
         local childFrameB = {
             GetHeight = function() return 20 end,
+            SetParent = function(self, parent) self.parent = parent end,
             SetPoint = function(self, ...) table.insert(pointsB, {...}) end
         }
 
@@ -380,6 +382,7 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals({'TOPRIGHT', instance.contentFrame, 'TOPRIGHT', 0, 0}, pointsA[2])
         lu.assertEquals({'TOPLEFT', childFrameA, 'BOTTOMLEFT', 0, 0}, pointsB[1])
         lu.assertEquals({'TOPRIGHT', childFrameA, 'BOTTOMRIGHT', 0, 0}, pointsB[2])
+        lu.assertEquals(instance.contentFrame, childFrameA.parent)
     end
 
     -- @covers Window:setContent()

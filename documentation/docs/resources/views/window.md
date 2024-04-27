@@ -89,8 +89,6 @@ That way, addons can add frames to the window content without worrying about
 positioning them as long as they pass the frames in the right order and 
 respect a few rules. Let's call them "inner frames".
 
-1. Regardless of where the inner frames are created, they must have
-`window.contentFrame` as the parent frame.
 1. Inner frames shouldn't be created with a width as they'll occupy the whole 
 content area width. **Consider them blocks that will be stacked vertically!**
 1. The addon must be responsible for hiding the inner frames in case it must

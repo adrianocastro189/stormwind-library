@@ -388,6 +388,7 @@ local Window = {}
         local totalChildrenHeight = 0
 
         for _, child in ipairs(self.contentChildren) do
+            child:SetParent(self.contentFrame)
             child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
             child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
 
