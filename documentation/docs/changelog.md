@@ -1,6 +1,6 @@
 # Changelog
 
-## yyyy.mm.dd - version 1.1.0
+## 2024.04.25 - version 1.1.0
 
 * Add a "dump and die" method to the Output class to improve debugging
 * Add a new property to initialize the library that allows addons to have a 
