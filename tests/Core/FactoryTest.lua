@@ -2,6 +2,7 @@ TestFactory = BaseTestClass:new()
     --[[
     @covers Factory.classes
     @covers Factory:addClass()
+    @covers Factory:getClass()
     @covers Factory:new()
     ]]
     function TestFactory:testClassInstantiation()
@@ -20,6 +21,7 @@ TestFactory = BaseTestClass:new()
         library:addClass('MockClass', MockClass)
 
         lu.assertNotIsNil(library.classes)
+        lu.assertEquals(MockClass, library:getClass('MockClass'))
 
         local mockClassInstance = library:new('MockClass', 'test-name')
 

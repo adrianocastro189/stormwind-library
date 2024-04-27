@@ -39,9 +39,14 @@
 
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><strong>Arr</strong></li>
-  <li><a href="../classes/Bool.html">Bool</a></li>
-  <li><a href="../classes/Str.html">Str</a></li>
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><strong>Support.Arr</strong></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -52,7 +57,7 @@
 
 <div id="content">
 
-<h1>Class <code>Arr</code></h1>
+<h1>Class <code>Support.Arr</code></h1>
 <p>The Arr class contains helper functions to manipulate arrays.</p>
 <p></p>
     <h3>Usage:</h3>
@@ -66,53 +71,59 @@ library.arr
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#arr:get">arr:get (list, key, default)</a></td>
-	<td class="summary">Gets a value in an array using the dot notation.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#arr:implode">arr:implode (delimiter, list)</a></td>
-	<td class="summary">Combines the elements of a table into a single string, separated by
-    a specified delimiter.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#arr:inArray">arr:inArray (list, value)</a></td>
-	<td class="summary">Determines whether a value is in an array.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#arr:insertNotInArray">arr:insertNotInArray (list, value)</a></td>
-	<td class="summary">Inserts a value in an array if it's not in the array yet.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#arr:isArray">arr:isArray (value)</a></td>
-	<td class="summary">Determines whether the value is an array or not.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#arr:map">arr:map (list, callback)</a></td>
+	<td class="name" nowrap><a href="#support.arr:each">support.arr:each (list, callback)</a></td>
 	<td class="summary">Iterates over the list values and calls the callback function in the
     second argument for each of them.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#arr:maybeInitialize">arr:maybeInitialize (list, key, initialValue)</a></td>
+	<td class="name" nowrap><a href="#support.arr:get">support.arr:get (list, key, default)</a></td>
+	<td class="summary">Gets a value in an array using the dot notation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.arr:implode">support.arr:implode (delimiter, list)</a></td>
+	<td class="summary">Combines the elements of a table into a single string, separated by
+    a specified delimiter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.arr:inArray">support.arr:inArray (list, value)</a></td>
+	<td class="summary">Determines whether a value is in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.arr:insertNotInArray">support.arr:insertNotInArray (list, value)</a></td>
+	<td class="summary">Inserts a value in an array if it's not in the array yet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.arr:isArray">support.arr:isArray (value)</a></td>
+	<td class="summary">Determines whether the value is an array or not.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.arr:map">support.arr:map (list, callback)</a></td>
+	<td class="summary">Iterates over the list values and calls the callback function in the
+    second argument for each of them, storing the results in a new list to
+    be returned.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.arr:maybeInitialize">support.arr:maybeInitialize (list, key, initialValue)</a></td>
 	<td class="summary">Initializes a value in a table if it's not initialized yet.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#arr:pluck">arr:pluck (list, key)</a></td>
+	<td class="name" nowrap><a href="#support.arr:pluck">support.arr:pluck (list, key)</a></td>
 	<td class="summary">Extracts a list of values from a list of objects based on a given key.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#arr:remove">arr:remove (list, value)</a></td>
+	<td class="name" nowrap><a href="#support.arr:remove">support.arr:remove (list, value)</a></td>
 	<td class="summary">Removes a value from an indexed array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#arr:set">arr:set (list, key, value)</a></td>
+	<td class="name" nowrap><a href="#support.arr:set">support.arr:set (list, key, value)</a></td>
 	<td class="summary">Sets a value using arrays dot notation.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#arr:unpack">arr:unpack (list, i, j)</a></td>
+	<td class="name" nowrap><a href="#support.arr:unpack">support.arr:unpack (list, i, j)</a></td>
 	<td class="summary">Calls the available unpack() method given the running environment.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#arr:wrap">arr:wrap (value)</a></td>
+	<td class="name" nowrap><a href="#support.arr:wrap">support.arr:wrap (value)</a></td>
 	<td class="summary">Wraps a value in a table.</td>
 	</tr>
 </table>
@@ -125,8 +136,48 @@ library.arr
 
     <dl class="function">
     <dt>
-    <a name = "arr:get"></a>
-    <strong>arr:get (list, key, default)</strong>
+    <a name = "support.arr:each"></a>
+    <strong>support.arr:each (list, callback)</strong>
+    </dt>
+    <dd>
+    Iterates over the list values and calls the callback function in the
+    second argument for each of them.
+<p>    The callback function must be a function that accepts (val) or (val, i)
+    where val is the object in the interaction and i it's index.
+<p>    This method accepts arrays and tables.
+<p>    If you need to store the results of the callback, use the Arr:map() method.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the list to be iterated
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         the function to be called for each item in the list
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Support.Arr.html#support.arr:map">Arr.map</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> list = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="keyword">local</span> results = library.arr:<span class="function-name">map</span>(list, <span class="keyword">function</span>(val) <span class="global">print</span>(val * <span class="number">2</span>) <span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "support.arr:get"></a>
+    <strong>support.arr:get (list, key, default)</strong>
     </dt>
     <dd>
     Gets a value in an array using the dot notation.
@@ -171,8 +222,8 @@ library.arr
 
 </dd>
     <dt>
-    <a name = "arr:implode"></a>
-    <strong>arr:implode (delimiter, list)</strong>
+    <a name = "support.arr:implode"></a>
+    <strong>support.arr:implode (delimiter, list)</strong>
     </dt>
     <dd>
     Combines the elements of a table into a single string, separated by
@@ -210,8 +261,8 @@ library.arr
 
 </dd>
     <dt>
-    <a name = "arr:inArray"></a>
-    <strong>arr:inArray (list, value)</strong>
+    <a name = "support.arr:inArray"></a>
+    <strong>support.arr:inArray (list, value)</strong>
     </dt>
     <dd>
     Determines whether a value is in an array.
@@ -254,8 +305,8 @@ library.arr
 
 </dd>
     <dt>
-    <a name = "arr:insertNotInArray"></a>
-    <strong>arr:insertNotInArray (list, value)</strong>
+    <a name = "support.arr:insertNotInArray"></a>
+    <strong>support.arr:insertNotInArray (list, value)</strong>
     </dt>
     <dd>
     Inserts a value in an array if it's not in the array yet.
@@ -297,8 +348,8 @@ library.arr
 
 </dd>
     <dt>
-    <a name = "arr:isArray"></a>
-    <strong>arr:isArray (value)</strong>
+    <a name = "support.arr:isArray"></a>
+    <strong>support.arr:isArray (value)</strong>
     </dt>
     <dd>
     Determines whether the value is an array or not.
@@ -341,12 +392,13 @@ isArray = library.arr:<span class="function-name">isArray</span>(value)
 
 </dd>
     <dt>
-    <a name = "arr:map"></a>
-    <strong>arr:map (list, callback)</strong>
+    <a name = "support.arr:map"></a>
+    <strong>support.arr:map (list, callback)</strong>
     </dt>
     <dd>
     Iterates over the list values and calls the callback function in the
-    second argument for each of them.
+    second argument for each of them, storing the results in a new list to
+    be returned.
 <p>    The callback function must be a function that accepts (val) or (val, i)
     where val is the object in the interaction and i it's index.
 <p>    This method accepts arrays and tables.
@@ -383,8 +435,8 @@ isArray = library.arr:<span class="function-name">isArray</span>(value)
 
 </dd>
     <dt>
-    <a name = "arr:maybeInitialize"></a>
-    <strong>arr:maybeInitialize (list, key, initialValue)</strong>
+    <a name = "support.arr:maybeInitialize"></a>
+    <strong>support.arr:maybeInitialize (list, key, initialValue)</strong>
     </dt>
     <dd>
     Initializes a value in a table if it's not initialized yet.
@@ -420,8 +472,8 @@ library.arr:<span class="function-name">maybeInitialize</span>(list, <span class
 
 </dd>
     <dt>
-    <a name = "arr:pluck"></a>
-    <strong>arr:pluck (list, key)</strong>
+    <a name = "support.arr:pluck"></a>
+    <strong>support.arr:pluck (list, key)</strong>
     </dt>
     <dd>
     Extracts a list of values from a list of objects based on a given key.
@@ -463,8 +515,8 @@ library.arr:<span class="function-name">maybeInitialize</span>(list, <span class
 
 </dd>
     <dt>
-    <a name = "arr:remove"></a>
-    <strong>arr:remove (list, value)</strong>
+    <a name = "support.arr:remove"></a>
+    <strong>support.arr:remove (list, value)</strong>
     </dt>
     <dd>
     Removes a value from an indexed array.
@@ -503,8 +555,8 @@ library.arr:<span class="function-name">maybeInitialize</span>(list, <span class
 
 </dd>
     <dt>
-    <a name = "arr:set"></a>
-    <strong>arr:set (list, key, value)</strong>
+    <a name = "support.arr:set"></a>
+    <strong>support.arr:set (list, key, value)</strong>
     </dt>
     <dd>
     Sets a value using arrays dot notation.
@@ -542,8 +594,8 @@ library.arr:<span class="function-name">set</span>(list, <span class="string">'a
 
 </dd>
     <dt>
-    <a name = "arr:unpack"></a>
-    <strong>arr:unpack (list, i, j)</strong>
+    <a name = "support.arr:unpack"></a>
+    <strong>support.arr:unpack (list, i, j)</strong>
     </dt>
     <dd>
     Calls the available unpack() method given the running environment.
@@ -587,8 +639,8 @@ library.arr:<span class="function-name">set</span>(list, <span class="string">'a
 
 </dd>
     <dt>
-    <a name = "arr:wrap"></a>
-    <strong>arr:wrap (value)</strong>
+    <a name = "support.arr:wrap"></a>
+    <strong>support.arr:wrap (value)</strong>
     </dt>
     <dd>
     Wraps a value in a table.
@@ -632,7 +684,7 @@ library.arr:<span class="function-name">set</span>(list, <span class="string">'a
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-04-08 16:31:46 </i>
+<i style="float:right;">Last updated 2024-04-27 16:27:57 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

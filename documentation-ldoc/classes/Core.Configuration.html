@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><strong>Core.Configuration</strong></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Core.Configuration</code></h1>
+<p>The Configuration class is responsible for managing the addon's
+configurations, settings, options, and anything else that can be persisted
+in the table used by the game client to store saved variables.</p>
+<p>
+<p>It provides methods to easily access and manipulate the configuration
+properties. That reduces the need to pollute the addon code with sanity
+checks, index initializations, etc.
+<p>All the configuration keys in this class can be accessed using the dot
+notation, similar to the how the Arr class works.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.configuration.handle">core.configuration.handle (...)</a></td>
+	<td class="summary">The handle method is used forward the configuration operation coming
+    from the library config() method.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.configuration:get">core.configuration:get (key, default)</a></td>
+	<td class="summary">Gets a configuration property by a dot notation key or returns a default
+    value if the key does not exist.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.configuration:getOrInitialize">core.configuration:getOrInitialize (key, default)</a></td>
+	<td class="summary">Gets a configuration property by a dot notation key or initializes it
+    with a default value if the key does not exist.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.configuration:set">core.configuration:set (key, value)</a></td>
+	<td class="summary">Sets a configuration property by a dot notation key.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.configuration:__construct">core.configuration:__construct (savedVariable)</a></td>
+	<td class="summary">Configuration constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "core.configuration.handle"></a>
+    <strong>core.configuration.handle (...)</strong>
+    </dt>
+    <dd>
+    The handle method is used forward the configuration operation coming
+    from the library config() method.
+<p>    This method should not be called directly. It is used internally by the
+    library to handle the configuration operations.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.configuration:get"></a>
+    <strong>core.configuration:get (key, default)</strong>
+    </dt>
+    <dd>
+    Gets a configuration property by a dot notation key or returns a default
+    value if the key does not exist.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The dot notation key to be used to retrieve the configuration property
+        </li>
+        <li><span class="parameter">default</span>
+            <span class="types"><span class="type">any</span></span>
+         The default value to be returned if the key does not exist
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any</span></span>
+         The configuration property value or the default value if the
+                 key does not exist
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">library.configuration:<span class="function-name">get</span>(<span class="string">'test.property'</span>, <span class="string">'default-value'</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "core.configuration:getOrInitialize"></a>
+    <strong>core.configuration:getOrInitialize (key, default)</strong>
+    </dt>
+    <dd>
+    Gets a configuration property by a dot notation key or initializes it
+    with a default value if the key does not exist.
+<p>    This method is similar to the get() method, but it also initializes the
+    property with the default value if the key does not exist.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The dot notation key to be used to retrieve the configuration property
+        </li>
+        <li><span class="parameter">default</span>
+            <span class="types"><span class="type">any</span></span>
+         The default value to be returned if the key does not exist
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any</span></span>
+         The configuration property value or the default value if the
+                 key does not exist
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Core.Configuration.html#core.configuration:get">Configuration.get</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">library.configuration:<span class="function-name">getOrInitialize</span>(<span class="string">'test.property'</span>, <span class="string">'default-value'</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "core.configuration:set"></a>
+    <strong>core.configuration:set (key, value)</strong>
+    </dt>
+    <dd>
+    Sets a configuration property by a dot notation key.
+<p>    This will update the configuration property with the new value. If the key
+    does not exist, it will be created.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The dot notation key to be used to set the configuration property
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         The value to be set in the configuration property
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">library.configuration:<span class="function-name">set</span>(<span class="string">'test.property'</span>, <span class="string">'new-value'</span>)</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.configuration:__construct"></a>
+    <strong>core.configuration:__construct (savedVariable)</strong>
+    </dt>
+    <dd>
+    Configuration constructor.
+<p>    The configuration instance expects a table with the configuration data
+    which is also referenced in the TOC file. That way, each instance of this
+    class will handle a saved variable.
+<p>    Stormwind Library will automatically create an instance of this class
+    when the addon is loaded in case a table is referenced in the addon's
+    properties, however, if the addon needs to have multiple configurations,
+    one instance of this class should be created for each table.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">savedVariable</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The configuration data to be used by the addon.
+            This table instance must be the same one referenced in
+            the TOC SavedVariables property.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-04-27 16:27:57 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

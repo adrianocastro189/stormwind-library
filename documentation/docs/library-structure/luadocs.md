@@ -66,13 +66,21 @@ these are a couple of standards that are used in the Stormwind Library
 Lua doc blocks:
 
 1. Class and methods blocks use the `--[[--` doc block style.
-1. The `@classmod` tag is used to define the class name.
+1. The `@classmod` tag is used to define the class name and due to how the library is 
+structured, the class "namespace" or "module" need to be placed before the class name separated 
+by a dot, e.g. `Support.Arr`. That way the documentation will be generated in a more organized 
+way.
+1. Use `@local` when methods should be considered **private** or **protected**, in other words,
+when they should not be used outside the class.
 1. The `@usage` tag should be used to show examples of how to use the class
    and methods. Those can be idented with 4 spaces, just like a code block.
 1. **Types**
    * Prefer the usage of `@tparam` and `@treturn` tags to define the types.
       * Don't use a `.` at the end of the setence, unless it has 2 or more
         phrases.
+      * Prefer to not break lines, even if the line is longer than the current
+        sizes as observed in other classes, unless it's really necessary by
+        being too long or having multiple phrases.
    * Prefer `integer` over `number` when the value must be an integer.
    * Prefer `boolean` over `bool`.
    * Use `any` when the type is not defined.
@@ -91,7 +99,7 @@ The technical documentation for the Stormwind library is generated in the
 
 ```shell
 # this command must be run from the ./dist folder
-ldoc stormwind-library.lua -d ../documentation-ldoc -v --multimodule
+ldoc stormwind-library.lua -d ../documentation-ldoc -c ../config.ld -v --multimodule --all
 ```
 
 As of now, the generated documentation is being pushed to the repository,

@@ -1,4 +1,4 @@
--- Library version = '1.0.0'
+-- Library version = '1.1.0'
 
 -- import src/Support/Arr.lua
 -- import src/Support/Bool.lua
@@ -6,6 +6,8 @@
 
 -- import src/Core/AddonProperties.lua
 -- import src/Core/Factory.lua
+
+-- import src/Core/Configuration.lua
 -- import src/Core/Output.lua
 
 -- import src/Commands/Command.lua
@@ -18,3 +20,5 @@
 
 -- import src/Models/Macro.lua
 -- import src/Models/RaidMarker.lua
+
+-- import src/Views/Windows/Window.lua

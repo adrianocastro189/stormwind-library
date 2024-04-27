@@ -6,6 +6,26 @@ TestArr = BaseTestClass:new()
         lu.assertNotIsNil(arr)
     end
 
+    -- @covers Arr:each()
+    function TestArr:testEach()
+        local function execution(list, expectedOutput)
+            local results = {}
+            __.arr:each(list, function (val, i)
+                table.insert(results, val .. '-' .. i)
+            end)
+    
+            -- can't use lu.assertEquals because the order of the elements is not
+            -- guaranteed by the each function
+            for i, v in ipairs(expectedOutput) do
+                lu.assertTableContains(results, v)
+            end
+        end
+
+        execution({}, {})
+        execution({'test', 'test', 'test'}, {'test-1', 'test-2', 'test-3'})
+        execution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {'a-a', 'b-b', 'c-c'})
+    end
+
     -- @covers Arr:get()
     function TestArr:testGet()
         local function execution(list, key, default, expectedOutput)
@@ -24,6 +44,10 @@ TestArr = BaseTestClass:new()
         listWithNestedKeys['test-a']['test-b'] = {}
         listWithNestedKeys['test-a']['test-b']['test-c'] = 'test'
         execution(listWithNestedKeys, 'test-a.test-b.test-c', nil, 'test')
+
+        local listWithFalseValue = {}
+        listWithFalseValue['test'] = false
+        execution(listWithFalseValue, 'test', nil, false)
     end
 
     -- @covers Arr:implode()
@@ -188,15 +212,18 @@ TestArr = BaseTestClass:new()
         lu.assertEquals('test-initial', arr:get(list, 'a.b'))
         lu.assertIsNil(arr:get(list, 'a.c'))
         lu.assertIsNil(arr:get(list, 'x.y.z'))
+        lu.assertIsNil(arr:get(list, 'f'))
 
         -- sets a couple of properties
         arr:set(list, 'a.c', 'test-with-set')
         arr:set(list, 'x.y.z', 'test-with-three-levels')
+        arr:set(list, 'f', false)
 
         -- checks if the property 
         lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
         lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
         lu.assertEquals('test-initial', arr:get(list, 'a.b'))
+        lu.assertEquals(false, arr:get(list, 'f'))
     end
 
     -- @covers Arr:wrap()

@@ -2,7 +2,7 @@
 The Bool support class contains helper functions to manipulate boolean
 values.
 
-@classmod Bool
+@classmod Support.Bool
 
 @usage
     -- library is an instance of the Stormwind Library

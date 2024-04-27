@@ -33,9 +33,14 @@ class StormwindLibrary {
      * @param {string} filePath 
      */
     importFile = (filePath) => {
-        const fileContent = fs.readFileSync(`../${filePath}`, 'utf8');
+        let fileContent = fs.readFileSync(`../${filePath}`, 'utf8');
 
-        // replace the file content import line with the file contents
+        // adds a new line to avoid having the last comment in a file to be just before the
+        // first comment in the imported file, resulting in a single comment block and messing
+        // up the Lua Doc generation.
+        fileContent += '\n';
+
+        // replaces the file content import line with the file contents
         this.fileContent = this.fileContent.replace(`-- import ${filePath}`, fileContent);
     }
 

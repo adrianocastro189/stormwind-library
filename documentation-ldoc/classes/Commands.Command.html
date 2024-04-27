@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>Commands.Command</strong></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Commands.Command</code></h1>
+<p>The command class represents a command in game that can be executed with
+/commandName.</p>
+<p>
+<p>Commands in the Stormwind Library are structured in two parts being:
+<p>1. The command operation
+2. The command arguments
+<p>That said, a command called myAddonCommand that shows its settings screen
+in dark mode would be executed with /myAddonCommand show darkMode.
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:getHelpContent">commands.command:getHelpContent ()</a></td>
+	<td class="summary">Returns a human readable help content for the command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:setCallback">commands.command:setCallback (callback)</a></td>
+	<td class="summary">Sets the command callback.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:setDescription">commands.command:setDescription (description)</a></td>
+	<td class="summary">Sets the command description.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:setOperation">commands.command:setOperation (operation)</a></td>
+	<td class="summary">Sets the command operation.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:__construct">commands.command:__construct ()</a></td>
+	<td class="summary">Command constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "commands.command:getHelpContent"></a>
+    <strong>commands.command:getHelpContent ()</strong>
+    </dt>
+    <dd>
+    Returns a human readable help content for the command.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        a human readable help content for the command
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.command:setCallback"></a>
+    <strong>commands.command:setCallback (callback)</strong>
+    </dt>
+    <dd>
+    Sets the command callback.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         the callback that will be executed when the command is triggered
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.command:setDescription"></a>
+    <strong>commands.command:setDescription (description)</strong>
+    </dt>
+    <dd>
+    Sets the command description.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">description</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the command description that will be shown in the help content
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.command:setOperation"></a>
+    <strong>commands.command:setOperation (operation)</strong>
+    </dt>
+    <dd>
+    Sets the command operation.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">operation</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the command operation that will be used to trigger the command
+    callback
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "commands.command:__construct"></a>
+    <strong>commands.command:__construct ()</strong>
+    </dt>
+    <dd>
+    Command constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-04-27 16:27:57 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

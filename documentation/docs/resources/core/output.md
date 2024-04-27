@@ -102,3 +102,32 @@ library.output:out('Hello, World of Warcraft!')
 
 lu.assertTrue(library.output:printed('Hello, World of Warcraft!'))
 ```
+
+## Dump and dying - dd()
+
+The `Output:dd()` method is inspired by PHP Laravel's `dd()` function and 
+offers a quick way to dump a variable and stop the execution of the script.
+It's intended to be used for debugging purposes only.
+
+Once called with one or more variables, it will print the variable structure
+using the standard `print()`, which **can't be replaced** like the 
+`Output:print()` method, considering that `dd()` is intended for debugging
+purposes only.
+
+This method is also prepared to avoid circular references and won't break if
+a table has a reference to itself. However, it still deserves lots of 
+improvements that will be implemented by demand.
+
+Finally, `dd()` can be used in game as well, however, the chat frame has a
+line limit that can be reached if the dumped variable is too big, so its usage
+is recommended for small tables and variables and mostly for local testing.
+
+```lua
+local myTable = { key = 'value' }
+
+-- this will print the table and stop the execution
+library.output:dd(myTable)
+
+-- it's also possible to use the dd() method in the library global scope
+library:dd(myTable)
+```

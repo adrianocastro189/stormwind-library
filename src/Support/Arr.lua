@@ -1,7 +1,7 @@
 --[[--
 The Arr class contains helper functions to manipulate arrays.
 
-@classmod Arr
+@classmod Support.Arr
 
 @usage
     -- library is an instance of the Stormwind Library
@@ -10,6 +10,30 @@ The Arr class contains helper functions to manipulate arrays.
 local Arr = {}
     Arr.__index = Arr
     Arr.__ = self
+
+    --[[--
+    Iterates over the list values and calls the callback function in the
+    second argument for each of them.
+
+    The callback function must be a function that accepts (val) or (val, i)
+    where val is the object in the interaction and i it's index.
+
+    This method accepts arrays and tables.
+
+    If you need to store the results of the callback, use the Arr:map() method.
+
+    @see Arr.map
+
+    @tparam table list the list to be iterated
+    @tparam function callback the function to be called for each item in the list
+
+    @usage
+        local list = {1, 2, 3}
+        local results = library.arr:map(list, function(val) print(val * 2) end)
+    ]]
+    function Arr:each(list, callback)
+        for i, val in pairs(list) do callback(val, i) end
+    end
 
     --[[--
     Gets a value in an array using the dot notation.
@@ -31,11 +55,16 @@ local Arr = {}
     ]]
     function Arr:get(list, key, default)
         local keys = self.__.str:split(key, '.')
-        local current = list[keys[1]]
-
-        for i = 2, #keys do current = current and current[keys[i]] or nil end
-
-        return current or default
+        local current = list
+    
+        for i = 1, #keys do
+            current = current and current[keys[i]]
+            if current == nil then
+                return default
+            end
+        end
+    
+        return current
     end
 
     --[[--
@@ -159,7 +188,8 @@ local Arr = {}
 
     --[[--
     Iterates over the list values and calls the callback function in the
-    second argument for each of them.
+    second argument for each of them, storing the results in a new list to
+    be returned.
 
     The callback function must be a function that accepts (val) or (val, i)
     where val is the object in the interaction and i it's index.

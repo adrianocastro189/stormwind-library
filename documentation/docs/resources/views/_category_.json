@@ -1,0 +1,7 @@
+{
+  "label": "Views",
+  "link": {
+    "type": "generated-index",
+    "description": "Windows, frames, buttons, and other reusable components to support addons GUIs."
+  }
+}
