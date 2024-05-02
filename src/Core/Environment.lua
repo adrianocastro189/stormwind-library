@@ -22,6 +22,25 @@ local Environment = {}
     Environment.__ = self
 
     --[[--
+    Constants for the available clients and test suite.
+
+    @table constants
+    @field CLIENT_CLASSIC     The current World of Warcraft Classic client,
+                              which includes TBC, WotLK, and Cataclysm, etc
+    @field CLIENT_CLASSIC_ERA Classic SoD, Hardcore, and any other clients
+                              that have no expansions
+    @field CLIENT_RETAIL      The current World of Warcraft Retail client
+    @field TEST_SUITE         The unit test suite, that executes locally
+                              without any World of Warcraft client
+    ]]
+    Environment.constants = self.arr:freeze({
+        CLIENT_CLASSIC     = 'classic',
+        CLIENT_CLASSIC_ERA = 'classic-era',
+        CLIENT_RETAIL      = 'retail',
+        TEST_SUITE         = 'test-suite',
+    })
+
+    --[[--
     Environment constructor.
     ]]
     function Environment.__construct()
