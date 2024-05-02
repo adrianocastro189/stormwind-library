@@ -60,6 +60,10 @@ BaseTestClass = {
     end,
     
     setUp = function()
+        -- this makes the Environment class to return the proper client flavor when
+        -- running this test suite
+        _G['TEST_ENVIRONMENT'] = true
+
         __ = StormwindLibrary.new({
             name = 'TestSuite'
         })

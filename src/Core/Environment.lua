@@ -48,19 +48,35 @@ local Environment = {}
     end
 
     --[[--
-    Gets the current client flavor.
+    Gets the current client flavor, determined by the current TOC version.
 
     The client flavor is a string that represents the current World of
     Warcraft client and mapped to the constants.CLIENT_* values.
 
-    It's determined by the current TOC version.
+    If the addon is running in a test suite, create the TEST_ENVIRONMENT
+    global variable and set it to true before instantiating the library so
+    this method can return the proper value.
 
     @see Environment.constants
 
     @treturn string The current client flavor
     ]]
     function Environment:getClientFlavor()
-    -- @TODO: Implement this method in EN3 <2024.05.02>
+        if TEST_ENVIRONMENT then return self.constants.TEST_SUITE end
+
+        if self.clientFlavor then return self.clientFlavor end
+
+        local tocVersion = self:getTocVersion()
+
+        if tocVersion < 20000 then
+            self.clientFlavor = self.constants.CLIENT_CLASSIC_ERA
+        elseif tocVersion < 100000 then
+            self.clientFlavor = self.constants.CLIENT_CLASSIC
+        else
+            self.clientFlavor = self.constants.CLIENT_RETAIL
+        end
+
+        return self.clientFlavor
     end
 
     --[[--
@@ -69,7 +85,7 @@ local Environment = {}
     @treturn integer The client's TOC version
     ]]
     function Environment:getTocVersion()
-        local version, build, date, tocVersion = GetBuildInfo()
+        local _, _, _, tocVersion = GetBuildInfo()
 
         return tocVersion
     end
