@@ -9,6 +9,11 @@ TestEnvironment = BaseTestClass:new()
         lu.assertEquals('test-suite', __.environment.constants.TEST_SUITE)
     end
 
+    -- @covers Environment:getClientFlavor()
+    function TestEnvironment:testGetClientFlavor()
+    -- @TODO: Implement this method in EN3 <2024.05.02>
+    end
+
     -- @covers Environment:getTocVersion()
     function TestEnvironment:testGetTocVersion()
     -- @TODO: Implement this method in EN3 <2024.05.02>

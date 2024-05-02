@@ -48,6 +48,22 @@ local Environment = {}
     end
 
     --[[--
+    Gets the current client flavor.
+
+    The client flavor is a string that represents the current World of
+    Warcraft client and mapped to the constants.CLIENT_* values.
+
+    It's determined by the current TOC version.
+
+    @see Environment.constants
+
+    @treturn string The current client flavor
+    ]]
+    function Environment:getClientFlavor()
+    -- @TODO: Implement this method in EN3 <2024.05.02>
+    end
+
+    --[[--
     Gets the World of Warcraft TOC version.
 
     @treturn string The client's TOC version
