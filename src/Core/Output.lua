@@ -96,7 +96,7 @@ local Output = {}
         -- dd() to be tested
         if inGame then return end
         
-        print('\n-end of dd-')
+        print('\n-end of dd-' .. (not inGame and '\27[0m' or ''))
         lu.unregisterCurrentSuite()
         os.exit(1)
     end
