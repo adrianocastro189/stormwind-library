@@ -40,4 +40,15 @@ TestEnvironment = BaseTestClass:new()
 
         lu.assertEquals(11502, __.environment:getTocVersion())
     end
+
+    --@covers Environment:inGame()
+    function TestEnvironment:testInGame()
+        lu.assertIsFalse(__.environment:inGame())
+
+        __.environment.getClientFlavor = function()
+            return __.environment.constants.CLIENT_CLASSIC
+        end
+
+        lu.assertIsTrue(__.environment:inGame())
+    end
 -- end of TestEnvironment

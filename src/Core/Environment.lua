@@ -89,6 +89,16 @@ local Environment = {}
 
         return tocVersion
     end
+
+    --[[--
+    Determines whether the addon is running in a World of Warcraft client.
+
+    @treturn boolean True if the addon is running in a World of Warcraft
+                     client, false otherwise, like in a test suite
+    ]]
+    function Environment:inGame()
+        return self:getClientFlavor() ~= self.constants.TEST_SUITE
+    end
 -- end of Environment
 
 -- stores the current environment instance
