@@ -4,6 +4,8 @@
 -- import src/Support/Bool.lua
 -- import src/Support/Str.lua
 
+-- import src/Core/Environment.lua
+
 -- import src/Core/AddonProperties.lua
 -- import src/Core/Factory.lua
 
