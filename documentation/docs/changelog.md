@@ -2,6 +2,8 @@
 
 ## yyyy.mm.dd - version 1.2.0
 
+* Allow classes to define constants with the Arr:freeze() method
+
 ## 2024.04.25 - version 1.1.0
 
 * Add a "dump and die" method to the Output class to improve debugging
@@ -32,8 +34,8 @@ return the default value erroneously
 ## 2024.03.29 - version 0.0.7-alpha
 
 * Add the Events facade class to serve as a way to improve event handling
-    * Listen to `PLAYER_LOGIN`
-    * Listen to `PLAYER_TARGET_CHANGED` and split it into three events
+    * Listen to PLAYER_LOGIN
+    * Listen to PLAYER_TARGET_CHANGED and split it into three events
 * Add the CommandsHandler class to allow addons to register commands
 * Add the Output class to replace print() calls
 * Add the RaidMarker model class and the library's possible marker instances
