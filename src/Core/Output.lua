@@ -58,8 +58,7 @@ local Output = {}
         dd(someVariable, { key = 'value' })
     ]]
     function Output:dd(...)
-        -- @TODO: Replace this once the Environment class is implemented <2024.04.21>
-        local inGame = os == nil
+        local inGame = self.__.environment:inGame()
 
         if not inGame then print('\n\n\27[32m-dd-\n') end
 
