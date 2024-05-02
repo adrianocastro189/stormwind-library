@@ -66,10 +66,12 @@ local Environment = {}
     --[[--
     Gets the World of Warcraft TOC version.
 
-    @treturn string The client's TOC version
+    @treturn integer The client's TOC version
     ]]
     function Environment:getTocVersion()
-    -- @TODO: Implement this method in EN3 <2024.05.02>
+        local version, build, date, tocVersion = GetBuildInfo()
+
+        return tocVersion
     end
 -- end of Environment
 

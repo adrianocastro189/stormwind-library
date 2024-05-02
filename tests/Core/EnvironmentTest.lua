@@ -16,6 +16,11 @@ TestEnvironment = BaseTestClass:new()
 
     -- @covers Environment:getTocVersion()
     function TestEnvironment:testGetTocVersion()
-    -- @TODO: Implement this method in EN3 <2024.05.02>
+        GetBuildInfo = function()
+            -- example of GetBuildInfo() return values
+            return 'x.y.z', 12345, '2024-05-02', 11502, '', '', 11502
+        end
+
+        lu.assertEquals(11502, __.environment:getTocVersion())
     end
 -- end of TestEnvironment
