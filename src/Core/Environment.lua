@@ -46,6 +46,15 @@ local Environment = {}
     function Environment.__construct()
         return setmetatable({}, Environment)
     end
+
+    --[[--
+    Gets the World of Warcraft TOC version.
+
+    @treturn string The client's TOC version
+    ]]
+    function Environment:getTocVersion()
+    -- @TODO: Implement this method in EN3 <2024.05.02>
+    end
 -- end of Environment
 
 -- stores the current environment instance

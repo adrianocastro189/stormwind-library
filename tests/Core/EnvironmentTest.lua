@@ -8,4 +8,9 @@ TestEnvironment = BaseTestClass:new()
         lu.assertEquals('retail', __.environment.constants.CLIENT_RETAIL)
         lu.assertEquals('test-suite', __.environment.constants.TEST_SUITE)
     end
+
+    -- @covers Environment:getTocVersion()
+    function TestEnvironment:testGetTocVersion()
+    -- @TODO: Implement this method in EN3 <2024.05.02>
+    end
 -- end of TestEnvironment
