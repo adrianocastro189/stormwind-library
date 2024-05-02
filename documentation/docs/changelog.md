@@ -1,5 +1,7 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.2.0
+
 ## 2024.04.25 - version 1.1.0
 
 * Add a "dump and die" method to the Output class to improve debugging

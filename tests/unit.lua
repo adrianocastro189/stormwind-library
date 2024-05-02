@@ -40,7 +40,7 @@ end
 -- End
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v1_1_0
+StormwindLibrary = StormwindLibrary_v1_2_0
 
 --[[
 This is a base test class that sets up the library before each test.
