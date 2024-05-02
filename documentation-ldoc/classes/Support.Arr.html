@@ -76,6 +76,10 @@ library.arr
     second argument for each of them.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#support.arr:freeze">support.arr:freeze (table)</a></td>
+	<td class="summary">Freezes a table, making it immutable.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#support.arr:get">support.arr:get (list, key, default)</a></td>
 	<td class="summary">Gets a value in an array using the dot notation.</td>
 	</tr>
@@ -172,6 +176,46 @@ library.arr
     <ul>
         <pre class="example"><span class="keyword">local</span> list = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
 <span class="keyword">local</span> results = library.arr:<span class="function-name">map</span>(list, <span class="keyword">function</span>(val) <span class="global">print</span>(val * <span class="number">2</span>) <span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "support.arr:freeze"></a>
+    <strong>support.arr:freeze (table)</strong>
+    </dt>
+    <dd>
+    Freezes a table, making it immutable.
+<p>    This method is useful when you want to create a constant table that
+    can't be changed after its creation, considering that Lua doesn't have
+    a native way to define constants.
+<p>    The implementation below was inspired by the following article:
+    https://andrejs-cainikovs.blogspot.com/2009/05/lua-constants.html
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">table</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         the table to be frozen
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        the frozen table
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = {a = <span class="number">1</span>}
+<span class="keyword">local</span> frozen = library.arr:<span class="function-name">freeze</span>(<span class="global">table</span>)
+frozen.a = <span class="number">2</span>
+<span class="comment">-- error: a is a constant and can't be changed</span></pre>
     </ul>
 
 </dd>
