@@ -36,6 +36,35 @@ local Arr = {}
     end
 
     --[[--
+    Freezes a table, making it immutable.
+
+    This method is useful when you want to create a constant table that
+    can't be changed after its creation, considering that Lua doesn't have
+    a native way to define constants.
+
+    The implementation below was inspired by the following article:
+    https://andrejs-cainikovs.blogspot.com/2009/05/lua-constants.html
+
+    @tparam table table the table to be frozen
+
+    @treturn table the frozen table
+
+    @usage
+        local table = {a = 1}
+        local frozen = library.arr:freeze(table)
+        frozen.a = 2
+        -- error: a is a constant and can't be changed
+    ]]
+    function Arr:freeze(table)
+        return setmetatable({}, {
+            __index = table,
+            __newindex = function(t, key, value)
+                error(key .. " is a constant and can't be changed", 2)
+            end
+        })
+    end
+
+    --[[--
     Gets a value in an array using the dot notation.
     
     With the dot notation search, it's possible to query a value in a

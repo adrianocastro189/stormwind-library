@@ -60,6 +60,44 @@ The code above is the same as doing `list['root']['level1-b']['level2']`,
 however, if `root` or `level1-b` are `nil`, they'll be created as `{}` until
 reaching the last key.
 
+## Creating constants
+
+Lua doesn't have a native way to create constants, but it's possible to
+mimic this behavior by using tables and metatables.
+
+The `Arr:freeze()` method is a helper to create a table with read-only
+properties. And that's achieved by setting a metatable that will throw an
+error when trying to set a new value to the table.
+
+Here's an example of how to create a constant table:
+
+```lua
+local constants = Arr:freeze({
+    MY_CONSTANT_NAME = 'my-constant-value',
+})
+
+-- this will print 'my-constant-value'
+print(constants.MY_CONSTANT_NAME)
+
+-- this will throw an error
+constants.MY_CONSTANT_NAME = 'new-value'
+```
+
+:::tip Prefer to use tables named `constants`
+
+In a programming language that supports constants, it's common to declare
+them in uppercase at the beginning of a class. At the same time, with the 
+freeze function it's possible to have multiple constant tables anywhere.
+
+In Stormwind Library, it's considered a good practice to group all constants 
+in a table called `constants` right after a [class](../core/classes.md) 
+declaration, even if the constants are not totally related with each other.
+
+Using this as a convention, Stormwind Library can provide a similar 
+experience and making it clear that the table is a list of constants.
+
+:::
+
 ## Methods
 
 Please, refer to the [technical documentation](../../library-structure/luadocs#generated-docs)

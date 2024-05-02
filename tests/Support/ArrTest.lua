@@ -26,6 +26,23 @@ TestArr = BaseTestClass:new()
         execution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {'a-a', 'b-b', 'c-c'})
     end
 
+    -- @covers Arr:freeze()
+    function TestArr:testFreeze()
+        local arr = __.arr
+
+        local table = {TEST_CONSTANT = 'a'}
+
+        -- makes sure this table can be modified
+        table['TEST_CONSTANT'] = 'b'
+
+        local constants = arr:freeze(table)
+
+        lu.assertErrorMsgContains("TEST_CONSTANT is a constant and can't be changed", function()
+            constants['TEST_CONSTANT'] = 'c'
+        end)
+        lu.assertEquals('b', constants['TEST_CONSTANT'])
+    end
+
     -- @covers Arr:get()
     function TestArr:testGet()
         local function execution(list, key, default, expectedOutput)
