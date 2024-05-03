@@ -90,9 +90,8 @@ TestClassName = BaseTestClass:new()
 ## Models
 
 Models are classes that represent a data structure, like a raid marker,
-a player, a target, macro, item, etc. They're usually used to hold information
-about game structures that can be used by addons as a way to standardize
-structures
+a player, a macro, an item, etc. They're usually used to hold information
+about game objects as a way to standardize structures.
 
 Here are some practices when creating models:
 
