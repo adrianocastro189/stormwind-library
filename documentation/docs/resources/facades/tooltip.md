@@ -25,6 +25,7 @@ in the future.
 
 Keep an eye on the [changelog](../../changelog) for updates and in this page
 for new implementations.
+
 :::
 
-The list of available tooltip events is available [here](events#tooltip_item_shown).
+The list of available tooltip events is [here](events#tooltip_item_shown).
