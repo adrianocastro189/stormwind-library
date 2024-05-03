@@ -4,6 +4,7 @@
 
 * Add the Environment class to identify the environment where the addon is 
 running
+* Add the Item model to map game items and their properties
 * Allow classes to define constants with the Arr:freeze() method
 * Fix an issue with dd() when called in test units causing the terminal 
 color to be changed permanently
