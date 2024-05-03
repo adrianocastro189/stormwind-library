@@ -1,4 +1,24 @@
 TestFactory = BaseTestClass:new()
+    --@covers Factory:addClass()
+    function TestFactory:testAddClassWithSpecificClients()
+        local mockFlavorA = 'test-flavor-a'
+        local mockFlavorB = 'test-flavor-b'
+
+        lu.assertIsNil(__.classes[mockFlavorA])
+        lu.assertIsNil(__.classes[mockFlavorB])
+
+        -- adding with one specific client
+        __:addClass('TestFactory', TestFactory, mockFlavorA)
+
+        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorA])
+
+        -- adding with multiple specific clients
+        __:addClass('TestFactory', TestFactory, {mockFlavorA, mockFlavorB})
+
+        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorA])
+        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorB])
+    end
+
     --[[
     @covers Factory.classes
     @covers Factory:addClass()
@@ -15,15 +35,12 @@ TestFactory = BaseTestClass:new()
             return self
         end
 
-        local library = StormwindLibrary.new({
-            name = 'test-library'
-        })
-        library:addClass('MockClass', MockClass)
+        __:addClass('MockClass', MockClass)
 
-        lu.assertNotIsNil(library.classes)
-        lu.assertEquals(MockClass, library:getClass('MockClass'))
+        lu.assertNotIsNil(__.classes)
+        lu.assertEquals(MockClass, __:getClass('MockClass'))
 
-        local mockClassInstance = library:new('MockClass', 'test-name')
+        local mockClassInstance = __:new('MockClass', 'test-name')
 
         lu.assertNotIsNil(mockClassInstance)
         lu.assertEquals('test-name', mockClassInstance.name)
