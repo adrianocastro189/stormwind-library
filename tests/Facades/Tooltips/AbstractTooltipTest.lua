@@ -6,6 +6,39 @@ TestAbstractTooltip = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers AbstractTooltip:onItemTooltipShow()
+    function TestAbstractTooltip:testOnItemTooltipShow()
+        local function execution(tooltip, gameTooltip, shouldNotify, expectedItem)
+            GameTooltip = gameTooltip
+            local notifiedItem = nil
+            
+            __.events:listen('ITEM_TOOLTIP_SHOWN', function(item) notifiedItem = item end)
+
+            __:new('AbstractTooltip'):onItemTooltipShow(tooltip)
+
+            if shouldNotify then
+                lu.assertEquals(notifiedItem, expectedItem)
+            else
+                lu.assertNil(notifiedItem)
+            end
+        end
+
+        local mockItem = __
+            :new('Item')
+            :setName('test-item')
+
+        local mockGameTooltip = { GetItem = function() return 'test-item' end }
+
+        -- tooltip is nil
+        execution(nil, mockGameTooltip, false, nil)
+
+        -- tooltip is not a GameTooltip
+        execution({}, mockGameTooltip, false, nil)
+
+        -- tooltip is a GameTooltip
+        execution(mockGameTooltip, mockGameTooltip, true, mockItem)
+    end
+
     -- @covers AbstractTooltip:registerTooltipHandlers()
     function TestAbstractTooltip:testRegisterTooltipHandlersIsAbstract()
         local instance = __:new('AbstractTooltip')

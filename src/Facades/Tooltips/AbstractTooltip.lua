@@ -23,6 +23,28 @@ local AbstractTooltip = {}
     end
 
     --[[--
+    Handles the event fired from the game when a tooltip is shown.
+
+    If the tooltip is consistent and represents a tooltip instance, this
+    method notifies the library event system so subscribers can act upon it
+    regardless of the client version.
+
+    @local
+
+    @tparam GameTooltip tooltip The tooltip that was shown
+    ]]
+    function AbstractTooltip:onItemTooltipShow(tooltip)
+        if tooltip == GameTooltip then
+            -- @TODO: Collect more information from items <2024.05.03>
+            local item = self.__
+                :new('Item')
+                :setName(tooltip:GetItem())
+
+            self.__.events:notify('ITEM_TOOLTIP_SHOWN', item)
+        end
+    end
+
+    --[[--
     Registers all tooltip handlers in game.
 
     This method should be implemented by the concrete classes that inherit
