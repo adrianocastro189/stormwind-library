@@ -9,8 +9,10 @@ TestItem = BaseTestClass:new()
     -- @covers Item:setName()
     function TestItem:testSetName()
         local instance = __:new('Item')
-        instance:setName('test-name')
+        
+        local result = instance:setName('test-name')
 
         lu.assertEquals(instance.name, 'test-name')
+        lu.assertEquals(result, instance)
     end
 -- end of TestItem

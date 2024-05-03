@@ -1,9 +1,9 @@
 --[[--
 The Item class is a model that maps game items and their properties.
 
-An instance of item can be used the item related events are fired as a way
-standardize item information, considering that they change a lot on each
-expansion.
+Just like any other model, it's used to standardize the way addons interact 
+with game objects, especially when item information is passed as a parameter
+to methods, events, datasets, etc.
 
 This model will grow over time as new expansions are released and new
 features are implemented in the library.
