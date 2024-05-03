@@ -4,6 +4,10 @@ TestAbstractTooltip = BaseTestClass:new()
         local instance = __:new('AbstractTooltip')
 
         lu.assertNotNil(instance)
+
+        -- test constants
+        lu.assertEquals(instance.constants.TOOLTIP_ITEM_SHOWN, 'TOOLTIP_ITEM_SHOWN')
+        lu.assertEquals(instance.constants.TOOLTIP_UNIT_SHOWN, 'TOOLTIP_UNIT_SHOWN')
     end
 
     -- @covers AbstractTooltip:onItemTooltipShow()
@@ -12,7 +16,7 @@ TestAbstractTooltip = BaseTestClass:new()
             GameTooltip = gameTooltip
             local notifiedItem = nil
             
-            __.events:listen('ITEM_TOOLTIP_SHOWN', function(item) notifiedItem = item end)
+            __.events:listen('TOOLTIP_ITEM_SHOWN', function(item) notifiedItem = item end)
 
             __:new('AbstractTooltip'):onItemTooltipShow(tooltip)
 
@@ -46,7 +50,7 @@ TestAbstractTooltip = BaseTestClass:new()
 
             GameTooltip = gameTooltip
             
-            __.events:listen('UNIT_TOOLTIP_SHOWN', function() unitTooltipShownNotified = true end)
+            __.events:listen('TOOLTIP_UNIT_SHOWN', function() unitTooltipShownNotified = true end)
 
             __:new('AbstractTooltip'):onUnitTooltipShow(tooltip)
 

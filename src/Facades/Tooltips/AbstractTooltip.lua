@@ -11,6 +11,18 @@ local AbstractTooltip = {}
     AbstractTooltip.__index = AbstractTooltip
     AbstractTooltip.__ = self
 
+    --[[--
+    AbstractTooltip constants.
+
+    @table constants
+    @field TOOLTIP_ITEM_SHOWN Represents the event fired when an item tooltip is shown
+    @field TOOLTIP_UNIT_SHOWN Represents the event fired when a unit tooltip is shown
+    ]]
+    AbstractTooltip.constants = self.arr:freeze({
+        TOOLTIP_ITEM_SHOWN = 'TOOLTIP_ITEM_SHOWN',
+        TOOLTIP_UNIT_SHOWN = 'TOOLTIP_UNIT_SHOWN',
+    })
+
     -- AbstractTooltip is meant to be inherited by other classes and should
     -- not be instantiated directly, only for testing purposes
     self:addClass('AbstractTooltip', AbstractTooltip, self.environment.constants.TEST_SUITE)
@@ -40,7 +52,7 @@ local AbstractTooltip = {}
                 :new('Item')
                 :setName(tooltip:GetItem())
 
-            self.__.events:notify('ITEM_TOOLTIP_SHOWN', item)
+            self.__.events:notify('TOOLTIP_ITEM_SHOWN', item)
         end
     end
 
@@ -58,7 +70,7 @@ local AbstractTooltip = {}
     function AbstractTooltip:onUnitTooltipShow(tooltip)
         if tooltip == GameTooltip then
             -- @TODO: Send unit information <2024.05.03>
-            self.__.events:notify('UNIT_TOOLTIP_SHOWN')
+            self.__.events:notify('TOOLTIP_UNIT_SHOWN')
         end
     end
 
