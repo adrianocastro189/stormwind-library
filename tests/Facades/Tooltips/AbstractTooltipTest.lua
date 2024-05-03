@@ -39,6 +39,32 @@ TestAbstractTooltip = BaseTestClass:new()
         execution(mockGameTooltip, mockGameTooltip, true, mockItem)
     end
 
+    -- @covers AbstractTooltip:onUnitTooltipShow()
+    function TestAbstractTooltip:testOnUnitTooltipShow()
+        local function execution(tooltip, gameTooltip, shouldNotify)
+            local unitTooltipShownNotified = false
+
+            GameTooltip = gameTooltip
+            
+            __.events:listen('UNIT_TOOLTIP_SHOWN', function() unitTooltipShownNotified = true end)
+
+            __:new('AbstractTooltip'):onUnitTooltipShow(tooltip)
+
+            lu.assertEquals(unitTooltipShownNotified, shouldNotify)
+        end
+
+        local mockGameTooltip = {'game-tooltip'}
+
+        -- tooltip is nil
+        execution(nil, mockGameTooltip, false)
+
+        -- tooltip is not a GameTooltip
+        execution({}, mockGameTooltip, false)
+
+        -- tooltip is a GameTooltip
+        execution(mockGameTooltip, mockGameTooltip, true)
+    end
+
     -- @covers AbstractTooltip:registerTooltipHandlers()
     function TestAbstractTooltip:testRegisterTooltipHandlersIsAbstract()
         local instance = __:new('AbstractTooltip')

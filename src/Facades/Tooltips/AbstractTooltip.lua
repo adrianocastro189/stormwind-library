@@ -23,7 +23,7 @@ local AbstractTooltip = {}
     end
 
     --[[--
-    Handles the event fired from the game when a tooltip is shown.
+    Handles the event fired from the game when an item tooltip is shown.
 
     If the tooltip is consistent and represents a tooltip instance, this
     method notifies the library event system so subscribers can act upon it
@@ -41,6 +41,24 @@ local AbstractTooltip = {}
                 :setName(tooltip:GetItem())
 
             self.__.events:notify('ITEM_TOOLTIP_SHOWN', item)
+        end
+    end
+
+    --[[--
+    Handles the event fired from the game when a unit tooltip is shown.
+
+    If the tooltip is consistent and represents a tooltip instance, this
+    method notifies the library event system so subscribers can act upon it
+    regardless of the client version.
+
+    @local
+
+    @tparam GameTooltip tooltip The tooltip that was shown
+    ]]
+    function AbstractTooltip:onUnitTooltipShow(tooltip)
+        if tooltip == GameTooltip then
+            -- @TODO: Send unit information <2024.05.03>
+            self.__.events:notify('UNIT_TOOLTIP_SHOWN')
         end
     end
 
