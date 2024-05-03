@@ -20,6 +20,7 @@
 -- import src/Facades/EventHandlers/TargetEventHandler.lua
 -- import src/Facades/Target.lua
 
+-- import src/Models/Item.lua
 -- import src/Models/Macro.lua
 -- import src/Models/RaidMarker.lua
 
