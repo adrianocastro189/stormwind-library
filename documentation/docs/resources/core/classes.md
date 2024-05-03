@@ -53,6 +53,8 @@ This is an example of a simple class with no properties.
 ```lua
 --[[--
 Class description.
+
+@classmod Module.ClassName
 ]]
 local ClassName = {}
     ClassName.__index = ClassName
@@ -84,3 +86,38 @@ TestClassName = BaseTestClass:new()
     end
 -- end of TestClassName
 ```
+
+## Models
+
+Models are classes that represent a data structure, like a raid marker,
+a player, a target, macro, item, etc. They're usually used to hold information
+about game structures that can be used by addons as a way to standardize
+structures
+
+Here are some practices when creating models:
+
+1. **Avoid constructors with parameters**: Prefer to use setters as that ease
+on inheritance, testing and avoid compatibility issues in case new parameters
+are added to the constructors.
+1. **Implement chainable setters**: When a setter is called, it should return
+the instance itself, so it can be chained with other setters. That improves
+writing code and makes it more readable.
+   * Prefer to use `value` as the setter parameter name instead of the 
+     property name, example:
+     ```lua
+     --[[--
+     Sets the model name.
+     
+     @tparam string value the model's name
+
+     @treturn Module.ClassName self
+     ]]
+     function ClassName:setProperty(value)
+         self.property = value
+         return self
+     end
+     ```
+1. **There's no need for getters**: Lua doesn't have a way to protect 
+properties, so it's not necessary to create getters for them. If a property 
+needs to be read, it can be accessed directly, and that will save a lot of
+unnecessary code.
