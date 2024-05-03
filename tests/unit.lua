@@ -93,6 +93,7 @@ dofile('./tests/Facades/EventsTest.lua')
 dofile('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
 dofile('./tests/Facades/TargetTest.lua')
+dofile('./tests/Facades/Tooltips/AbstractTooltipTest.lua')
 
 dofile('./tests/Models/ItemTest.lua')
 dofile('./tests/Models/MacroTest.lua')
