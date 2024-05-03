@@ -44,6 +44,14 @@ its initialization.
 
 :::
 
+:::tip Abstract methods
+
+Abstract methods can be mimicked by creating a method that throws an
+error when called. This way, the developer is forced to implement that
+method in a child class.
+
+:::
+
 ## Class recipe
 
 Use the recipe below to create new classes.

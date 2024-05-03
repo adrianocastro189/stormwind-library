@@ -21,4 +21,15 @@ local AbstractTooltip = {}
     function AbstractTooltip.__construct()
         return setmetatable({}, AbstractTooltip)
     end
+
+    --[[--
+    Registers all tooltip handlers in game.
+
+    This method should be implemented by the concrete classes that inherit
+    from this one, as the way tooltips are handled may vary from one version
+    of the game to another.
+    ]]
+    function AbstractTooltip:registerTooltipHandlers()
+        error('This is an abstract method and should be implemented by this class inheritances')
+    end
 -- end of AbstractTooltip
