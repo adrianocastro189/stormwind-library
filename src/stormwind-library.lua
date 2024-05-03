@@ -19,6 +19,7 @@
 -- import src/Facades/EventHandlers/PlayerLoginEventHandler.lua
 -- import src/Facades/EventHandlers/TargetEventHandler.lua
 -- import src/Facades/Target.lua
+-- import src/Facades/Tooltips/AbstractTooltip.lua
 
 -- import src/Models/Item.lua
 -- import src/Models/Macro.lua

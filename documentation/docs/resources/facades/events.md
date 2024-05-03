@@ -82,6 +82,18 @@ target before.
 * **Payload:** No data is sent with this event
 * **Description:** Triggered when a player clears the target.
 
+#### `TOOLTIP_ITEM_SHOWN`
+
+* **Constant:** (not available yet)
+* **Payload:** [Item](../models/item)
+* **Description:** Triggered when an item tooltip is shown.
+
+#### `TOOLTIP_UNIT_SHOWN`
+
+* **Constant:** (not available yet)
+* **Payload:** No data is sent with this event
+* **Description:** Triggered when a unit tooltip is shown.
+
 ## How does this facade works
 
 This section is intended to explain how the Events facade works, and how
