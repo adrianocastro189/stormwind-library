@@ -16,4 +16,20 @@ local ClassicTooltip = {}
     function ClassicTooltip.__construct()
         return setmetatable({}, ClassicTooltip)
     end
+
+    --[[--
+    Hooks into the GameTooltip events to handle item and unit tooltips.
+
+    This is the implementation of the AbstractTooltip:registerTooltipHandlers()
+    abstract method that works with Classic clients.
+    ]]
+    function ClassicTooltip:registerTooltipHandlers()
+        GameTooltip:HookScript('OnTooltipSetItem', function (tooltip)
+            self:onItemTooltipShow(tooltip)
+        end)
+
+        GameTooltip:HookScript('OnTooltipSetUnit', function (tooltip)
+            self:onUnitTooltipShow(tooltip)
+        end)
+    end
 -- end of ClassicTooltip
