@@ -1,24 +1,30 @@
 # Factory
 
-The **Factory** is a simple part of the library responsible for emulating the `new` keyword in OOP languages.
+The **Factory** is a simple part of the library responsible for emulating the `new` keyword from OOP languages.
 
 It registers a `new()` method to the library structure that's capable of instantiating classes
 that are registered in its `classes` property.
 
 ## How to allow classes to be instantiated
 
-These are the steps to allow classes to be instantiated:
+These are the steps to allow [classes](classes) to be instantiated:
 
 1. When writing a Lua file containing a class, make sure to register it by doing
 `self:addClass('<class name>', <class name>)` right below the `<class name>.__index = <class name>`
 line
+   * It's also possible to limit the class instantiation per World of Warcraft
+     version by adding a third parameter to this call, which is a string or 
+     table representing one or many [client flavors](environment)
+   * When no flavors are provided, the class is instantiable in any World of 
+     Warcraft version
 1. Write the `__constructor()` method accepting zero or many parameters
 
-Now it's possible to ask the library to provide a new instance of that class with a `new` call.
+With that, it's possible to ask the library to provide a new instance of that 
+class with a `new` call.
 
-## Example
+## Examples
 
-Example:
+Adding a class that's instantiable in any World of Warcraft version:
 
 ```lua
 local MyClass = {}
@@ -34,18 +40,37 @@ function MyClass.__construct(name)
 end
 ```
 
-Now, it's possible to instantiate `MyClass` with:
+Adding a class that's instantiable only in Classic Era
 
 ```lua
--- stormwindLibrary is the library instance created in an addon
-local instance = stormwindLibrary:new('MyClass', 'Any name')
+local MyClassicEraClass = {}
+MyClassicEraClass.__index = MyClassicEraClass
+self:addClass('MyClassicEraClass', MyClassicEraClass, library.environment.constants.CLIENT_CLASSIC_ERA)
+
+function MyClassicEraClass.__construct()
+    -- ...
+end
+```
+
+Now, it's possible to instantiate `MyClass` in any World of Warcraft version 
+by doing a `new()` call in the library instance, but `MyClassicEraClass` can
+only be instantiated if running a World of Warcraft Classic Era client, like 
+in Season of Discovery, Hardcore, etc.
+
+```lua
+-- this will work in any World of Warcraft version
+local instance = library:new('MyClass', 'Any name')
+
+-- this will throw an error if running in a non-Classic Era client
+local instance = library:new('MyClassicEraClass')
 ```
 
 ## Class inheritance
 
 To allow class inheritance, instead of calling the `new()` method directly, 
 it's possible to retrieve a class structure with the `getClass()` method. That
-way, a class can inherit another one by using any inheritance strategy, like setting the meta table.
+way, a class can inherit another one by using any inheritance strategy, like 
+setting the meta table.
 
 Example:
 

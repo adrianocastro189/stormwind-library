@@ -7,6 +7,8 @@ running
 * Allow classes to define constants with the Arr:freeze() method
 * Fix an issue with dd() when called in test units causing the terminal 
 color to be changed permanently
+* Update the library Factory to allow classes to be instantiated in specific
+World of Warcraft versions if necessary
 
 ## 2024.04.25 - version 1.1.0
 
