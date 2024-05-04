@@ -29,3 +29,18 @@ for new implementations.
 :::
 
 The list of available tooltip events is [here](events#tooltip_item_shown).
+
+## Tooltip implementations
+
+The abstract tooltip facade has two implementations:
+
+- `ClassicTooltip`: for Classic Era and Classic versions of the game
+- `RetailTooltip`: for Retail versions of the game
+
+They're registered for the proper game version when the library is loaded,
+so there's no need to manually instantiate them, just invoke the facade
+instantiation method by passing `'Tooltip'` as the class name.
+
+```lua
+local tooltip = library:new('Tooltip')
+```
