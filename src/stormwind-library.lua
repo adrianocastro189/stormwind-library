@@ -21,6 +21,11 @@
 -- import src/Facades/Target.lua
 -- import src/Facades/Tooltips/AbstractTooltip.lua
 -- import src/Facades/Tooltips/ClassicTooltip.lua
+-- import src/Facades/Tooltips/RetailTooltip.lua
+
+-- @TODO: Move this to AbstractTooltip.lua once the library initialization callbacks are implemented <2024.05.04>
+self.tooltip = self:new('Tooltip')
+self.tooltip:registerTooltipHandlers()
 
 -- import src/Models/Item.lua
 -- import src/Models/Macro.lua

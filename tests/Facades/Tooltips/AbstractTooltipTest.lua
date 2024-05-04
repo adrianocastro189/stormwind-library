@@ -10,6 +10,11 @@ TestAbstractTooltip = BaseTestClass:new()
         lu.assertEquals(instance.constants.TOOLTIP_UNIT_SHOWN, 'TOOLTIP_UNIT_SHOWN')
     end
 
+    -- @covers StormwindLibrary.tooltip
+    function TestAbstractTooltip:testLibraryTooltipInstanceIsSet()
+        lu.assertNotNil(__.tooltip)
+    end
+
     -- @covers AbstractTooltip:onItemTooltipShow()
     function TestAbstractTooltip:testOnItemTooltipShow()
         local function execution(tooltip, gameTooltip, shouldNotify, expectedItem)

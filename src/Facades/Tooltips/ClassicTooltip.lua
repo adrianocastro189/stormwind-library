@@ -10,6 +10,7 @@ local ClassicTooltip = {}
     setmetatable(ClassicTooltip, AbstractTooltip)
     self:addClass('ClassicTooltip', ClassicTooltip, self.environment.constants.TEST_SUITE)
     self:addClass('Tooltip', ClassicTooltip, {
+        self.environment.constants.TEST_SUITE,
         self.environment.constants.CLIENT_CLASSIC_ERA,
         self.environment.constants.CLIENT_CLASSIC,
     })
