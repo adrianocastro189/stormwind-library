@@ -21,6 +21,7 @@
 -- import src/Facades/Target.lua
 -- import src/Facades/Tooltips/AbstractTooltip.lua
 -- import src/Facades/Tooltips/ClassicTooltip.lua
+-- import src/Facades/Tooltips/RetailTooltip.lua
 
 -- import src/Models/Item.lua
 -- import src/Models/Macro.lua

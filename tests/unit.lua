@@ -95,6 +95,7 @@ dofile('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
 dofile('./tests/Facades/TargetTest.lua')
 dofile('./tests/Facades/Tooltips/AbstractTooltipTest.lua')
 dofile('./tests/Facades/Tooltips/ClassicTooltipTest.lua')
+dofile('./tests/Facades/Tooltips/RetailTooltipTest.lua')
 
 dofile('./tests/Models/ItemTest.lua')
 dofile('./tests/Models/MacroTest.lua')
