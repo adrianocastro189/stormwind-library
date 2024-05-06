@@ -75,7 +75,7 @@ local Player = {}
     realm, especially in Retail, where Blizzard allows players from other
     realms to share the same place or group.
 
-    @tparam string value the Player's realm
+    @tparam Models.Realm value the Player's realm
 
     @treturn Models.Player self
     ]]
