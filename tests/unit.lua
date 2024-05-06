@@ -45,6 +45,8 @@ local function mockWorldOfWarcraftObjects()
             self.scripts[script] = callback
         end
     }
+
+    GetRealmName = function () return 'test-realm' end
 end
 -- End of World of Warcraft Mocks
 

@@ -6,6 +6,13 @@ TestRealm = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Realm.getCurrentRealm()
+    function TestRealm:testGetCurrentRealm()
+        local result = __:getClass('Realm').getCurrentRealm()
+
+        lu.assertEquals(result.name, 'test-realm')
+    end
+
     -- @covers Realm:setName()
     function TestRealm:testSetName()
         local instance = __:new('Realm')
