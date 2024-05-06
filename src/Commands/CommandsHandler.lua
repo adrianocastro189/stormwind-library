@@ -159,33 +159,30 @@ local CommandsHandler = {}
     function CommandsHandler:parseArguments(input)
         if not input then return {} end
 
-        local function removeQuotes(value)
-            return self.__.str:replaceAll(self.__.str:replaceAll(value, "'", ''), '"', '')
-        end
-
         local result = {}
-        local inQuotes = false
+        local inDoubleQuotes, inSingleQuotes = false, false
         local currentWord = ""
-        
+    
         for i = 1, #input do
             local char = input:sub(i, i)
-            if char == '"' or char == "'" then
-                inQuotes = not inQuotes
-                currentWord = currentWord .. char
-            elseif char == " " and not inQuotes then
+            if char == "'" and not inDoubleQuotes then
+                inSingleQuotes = not inSingleQuotes
+            elseif char == '"' and not inSingleQuotes then
+                inDoubleQuotes = not inDoubleQuotes
+            elseif char == " " and not (inSingleQuotes or inDoubleQuotes) then
                 if currentWord ~= "" then
-                    table.insert(result, removeQuotes(currentWord))
+                    table.insert(result, currentWord)
                     currentWord = ""
                 end
             else
                 currentWord = currentWord .. char
             end
         end
-        
+    
         if currentWord ~= "" then
-            table.insert(result, removeQuotes(currentWord))
+            table.insert(result, currentWord)
         end
-        
+    
         return result
     end
 
