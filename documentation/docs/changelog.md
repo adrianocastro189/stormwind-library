@@ -9,6 +9,8 @@ running
 * Allow classes to define constants with the Arr:freeze() method
 * Fix an issue with dd() when called in test units causing the terminal 
 color to be changed permanently
+* Fix an issue with parsing command arguments when they mix single and double
+quotes
 * Update the library Factory to allow classes to be instantiated in specific
 World of Warcraft versions if necessary
 
