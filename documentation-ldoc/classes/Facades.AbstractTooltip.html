@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><strong>Facades.AbstractTooltip</strong></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Facades.AbstractTooltip</code></h1>
+<p>Abstract base class for tooltips.</p>
+<p>
+<p>It provides ways to interact with the game's tooltip system, but it's
+abstract in a way that addons should work with the concrete classes that
+inherit from this one, instantiated by the factory.
+</p>
+
+
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#facades.abstracttooltip.constants">facades.abstracttooltip.constants</a></td>
+	<td class="summary">AbstractTooltip constants.</td>
+	</tr>
+</table>
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#facades.abstracttooltip.onItemTooltipShow">facades.abstracttooltip.onItemTooltipShow (tooltip)</a></td>
+	<td class="summary">Handles the event fired from the game when an item tooltip is shown.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#facades.abstracttooltip.onUnitTooltipShow">facades.abstracttooltip.onUnitTooltipShow (tooltip)</a></td>
+	<td class="summary">Handles the event fired from the game when a unit tooltip is shown.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#facades.abstracttooltip:registerTooltipHandlers">facades.abstracttooltip:registerTooltipHandlers ()</a></td>
+	<td class="summary">Registers all tooltip handlers in game.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#facades.abstracttooltip:__construct">facades.abstracttooltip:__construct ()</a></td>
+	<td class="summary">AbstractTooltip constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "facades.abstracttooltip.constants"></a>
+    <strong>facades.abstracttooltip.constants</strong>
+    </dt>
+    <dd>
+    AbstractTooltip constants.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">TOOLTIP_ITEM_SHOWN</span>
+         Represents the event fired when an item tooltip is shown
+        </li>
+        <li><span class="parameter">TOOLTIP_UNIT_SHOWN</span>
+         Represents the event fired when a unit tooltip is shown
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "facades.abstracttooltip.onItemTooltipShow"></a>
+    <strong>facades.abstracttooltip.onItemTooltipShow (tooltip)</strong>
+    </dt>
+    <dd>
+    Handles the event fired from the game when an item tooltip is shown.
+<p>    If the tooltip is consistent and represents a tooltip instance, this
+    method notifies the library event system so subscribers can act upon it
+    regardless of the client version.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tooltip</span>
+            <span class="types"><span class="type">GameTooltip</span></span>
+         The tooltip that was shown
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "facades.abstracttooltip.onUnitTooltipShow"></a>
+    <strong>facades.abstracttooltip.onUnitTooltipShow (tooltip)</strong>
+    </dt>
+    <dd>
+    Handles the event fired from the game when a unit tooltip is shown.
+<p>    If the tooltip is consistent and represents a tooltip instance, this
+    method notifies the library event system so subscribers can act upon it
+    regardless of the client version.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tooltip</span>
+            <span class="types"><span class="type">GameTooltip</span></span>
+         The tooltip that was shown
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "facades.abstracttooltip:registerTooltipHandlers"></a>
+    <strong>facades.abstracttooltip:registerTooltipHandlers ()</strong>
+    </dt>
+    <dd>
+    Registers all tooltip handlers in game.
+<p>    This method should be implemented by the concrete classes that inherit
+    from this one, as the way tooltips are handled may vary from one version
+    of the game to another.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "facades.abstracttooltip:__construct"></a>
+    <strong>facades.abstracttooltip:__construct ()</strong>
+    </dt>
+    <dd>
+    AbstractTooltip constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

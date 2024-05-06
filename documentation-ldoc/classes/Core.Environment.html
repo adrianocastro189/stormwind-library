@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><strong>Core.Environment</strong></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Core.Environment</code></h1>
+<p>The Environment class is used by the library to determine whether it's
+running in a specific World of Warcraft client or in a test suite.</p>
+<p>
+<p>Sometimes it's necessary to execute different code depending on the
+available API resources, like functions and tables that are available in
+Retail but not in Classic and vice versa.
+<p>Environment is alvo available to addons, but as long as they register
+multiple versions of a class for each supported client, everything should
+be transparent and no additional handling is required, not even asking
+this class for the current client version.
+<p>Note: Environment is registered before the library Factory, which means
+it can't be instantiated with library:new(). For any class that needs to
+know the current environment, use the library.environment instance.
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#self:addClass">self:addClass (classname, classStructure, clientFlavors)</a></td>
+	<td class="summary">Registers a class so the library is able to instantiate it later.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.environment.constants">core.environment.constants</a></td>
+	<td class="summary">Constants for the available clients and test suite.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.environment:getClientFlavor">core.environment:getClientFlavor ()</a></td>
+	<td class="summary">Gets the current client flavor, determined by the current TOC version.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.environment:getTocVersion">core.environment:getTocVersion ()</a></td>
+	<td class="summary">Gets the World of Warcraft TOC version.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.environment:inGame">core.environment:inGame ()</a></td>
+	<td class="summary">Determines whether the addon is running in a World of Warcraft client.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.environment:__construct">core.environment:__construct ()</a></td>
+	<td class="summary">Environment constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "self:addClass"></a>
+    <strong>self:addClass (classname, classStructure, clientFlavors)</strong>
+    </dt>
+    <dd>
+    Registers a class so the library is able to instantiate it later.
+<p>This method just updates the library classes table by registering a class
+for the client flavors it's supported.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">classname</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The name of the class to be registered
+        </li>
+        <li><span class="parameter">classStructure</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The class structure to be registered
+        </li>
+        <li><span class="parameter">clientFlavors</span>
+            <span class="types"><span class="type">nil</span>, <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The client flavors the class is supported by
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.environment.constants"></a>
+    <strong>core.environment.constants</strong>
+    </dt>
+    <dd>
+    Constants for the available clients and test suite.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CLIENT_CLASSIC</span>
+             The current World of Warcraft Classic client,
+                              which includes TBC, WotLK, and Cataclysm, etc
+        </li>
+        <li><span class="parameter">CLIENT_CLASSIC_ERA</span>
+         Classic SoD, Hardcore, and any other clients
+                              that have no expansions
+        </li>
+        <li><span class="parameter">CLIENT_RETAIL</span>
+              The current World of Warcraft Retail client
+        </li>
+        <li><span class="parameter">TEST_SUITE</span>
+                 The unit test suite, that executes locally
+                              without any World of Warcraft client
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.environment:getClientFlavor"></a>
+    <strong>core.environment:getClientFlavor ()</strong>
+    </dt>
+    <dd>
+    Gets the current client flavor, determined by the current TOC version.
+<p>    The client flavor is a string that represents the current World of
+    Warcraft client and mapped to the constants.CLIENT_* values.
+<p>    If the addon is running in a test suite, create the TEST_ENVIRONMENT
+    global variable and set it to true before instantiating the library so
+    this method can return the proper value.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The current client flavor
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Core.Environment.html#core.environment.constants">Environment.constants</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "core.environment:getTocVersion"></a>
+    <strong>core.environment:getTocVersion ()</strong>
+    </dt>
+    <dd>
+    Gets the World of Warcraft TOC version.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">integer</span></span>
+        The client's TOC version
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.environment:inGame"></a>
+    <strong>core.environment:inGame ()</strong>
+    </dt>
+    <dd>
+    Determines whether the addon is running in a World of Warcraft client.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        True if the addon is running in a World of Warcraft
+                     client, false otherwise, like in a test suite
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.environment:__construct"></a>
+    <strong>core.environment:__construct ()</strong>
+    </dt>
+    <dd>
+    Environment constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
