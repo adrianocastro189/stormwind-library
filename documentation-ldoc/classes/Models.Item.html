@@ -34,6 +34,7 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
 </ul>
 
 
@@ -47,9 +48,9 @@
   <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
   <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
-  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><strong>Models.Item</strong></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
-  <li><strong>Support.Bool</strong></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
   <li><a href="../classes/Support.Str.html">Support.Str</a></li>
   <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
 </ul>
@@ -62,23 +63,29 @@
 
 <div id="content">
 
-<h1>Class <code>Support.Bool</code></h1>
-<p>The Bool support class contains helper functions to manipulate boolean
-values.</p>
-<p></p>
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example">-- library is an instance of the Stormwind Library
-library.bool
-</pre>
-    </ul>
+<h1>Class <code>Models.Item</code></h1>
+<p>The Item class is a model that maps game items and their properties.</p>
+<p>
+<p>Just like any other model, it's used to standardize the way addons interact
+with game objects, especially when item information is passed as a parameter
+to methods, events, datasets, etc.
+<p>This model will grow over time as new expansions are released and new
+features are implemented in the library.
+</p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#support.bool:isTrue">support.bool:isTrue (value)</a></td>
-	<td class="summary">Determines whether a value represents true or not.</td>
+	<td class="name" nowrap><a href="#models.item:setName">models.item:setName (value)</a></td>
+	<td class="summary">Sets the item name.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.item:__construct">models.item:__construct ()</a></td>
+	<td class="summary">Item constructor.</td>
 	</tr>
 </table>
 
@@ -90,45 +97,48 @@ library.bool
 
     <dl class="function">
     <dt>
-    <a name = "support.bool:isTrue"></a>
-    <strong>support.bool:isTrue (value)</strong>
+    <a name = "models.item:setName"></a>
+    <strong>models.item:setName (value)</strong>
     </dt>
     <dd>
-    Determines whether a value represents true or not.
-<p>    This method checks if a value is in a range of possible values that
-    represent a true value.
-
+    Sets the item name.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">value</span>
-            <span class="types"><span class="type">integer</span>, <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <span class="type">boolean</span></span>
-         the value to be checked
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the item's name
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span></span>
-        whether the value represents a true value or not
+           <span class="types"><a class="type" href="../classes/Models.Item.html#">Models.Item</a></span>
+        self
     </ol>
 
 
 
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="comment">-- library is an instance of the Stormwind Library
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"yes"</span>) <span class="comment">-- true
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"no"</span>)  <span class="comment">-- false
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"1"</span>)   <span class="comment">-- true
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"0"</span>)   <span class="comment">-- false
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="number">1</span>)     <span class="comment">-- true
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="number">0</span>)     <span class="comment">-- false
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="keyword">true</span>)  <span class="comment">-- true
-</span>library.bool:<span class="function-name">isTrue</span>(<span class="keyword">false</span>) <span class="comment">-- false</span></pre>
-    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.item:__construct"></a>
+    <strong>models.item:__construct ()</strong>
+    </dt>
+    <dd>
+    Item constructor.
+
+
+
+
+
+
 
 </dd>
 </dl>
