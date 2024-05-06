@@ -27,3 +27,10 @@ local player = library:getClass('Player').getCurrentPlayer()
 Note that the example above is not not calling `:getCurr...` but
 `.getCurr...` because this method is associated with the class itself, not 
 with an instance of the class.
+
+For convenience, once the library is loaded, the current player instance is
+automatically created and stored in a property called `currentPlayer`.
+
+```lua
+local player = library.currentPlayer
+```

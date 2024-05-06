@@ -84,3 +84,6 @@ local Player = {}
         return self
     end
 -- end of Player
+
+-- stores the current player information for easy access
+self.currentPlayer = Player.getCurrentPlayer()

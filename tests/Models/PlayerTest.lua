@@ -15,6 +15,15 @@ TestPlayer = BaseTestClass:new()
         lu.assertEquals(result.realm.name, 'test-realm')
     end
 
+    -- @covers StormwindLibrary.currentPlayer
+    function TestPlayer:testLibraryInstanceIsSet()
+        local result = __.currentPlayer
+
+        lu.assertEquals(result.name, 'test-player-name')
+        lu.assertEquals(result.guid, 'test-player-guid')
+        lu.assertEquals(result.realm.name, 'test-realm')
+    end
+
     -- @covers Player:setGuid()
     -- @covers Player:setName()
     -- @covers Player:setRealm()
