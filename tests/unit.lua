@@ -45,6 +45,20 @@ local function mockWorldOfWarcraftObjects()
             self.scripts[script] = callback
         end
     }
+
+    GetRealmName = function () return 'test-realm' end
+
+    UnitGUID = function (unit)
+        if unit == 'player' then
+            return 'test-player-guid'
+        end
+    end
+
+    UnitName = function (unit)
+        if unit == 'player' then
+            return 'test-player-name'
+        end
+    end
 end
 -- End of World of Warcraft Mocks
 
@@ -111,6 +125,8 @@ dofile('./tests/Facades/Tooltips/RetailTooltipTest.lua')
 dofile('./tests/Models/ItemTest.lua')
 dofile('./tests/Models/MacroTest.lua')
 dofile('./tests/Models/RaidMarkerTest.lua')
+dofile('./tests/Models/RealmTest.lua')
+dofile('./tests/Models/PlayerTest.lua')
 
 dofile('./tests/Support/ArrTest.lua')
 dofile('./tests/Support/BoolTest.lua')

@@ -30,5 +30,7 @@ self.tooltip:registerTooltipHandlers()
 -- import src/Models/Item.lua
 -- import src/Models/Macro.lua
 -- import src/Models/RaidMarker.lua
+-- import src/Models/Realm.lua
+-- import src/Models/Player.lua
 
 -- import src/Views/Windows/Window.lua
