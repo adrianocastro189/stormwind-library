@@ -5,6 +5,8 @@
 * Add the Environment class to identify the environment where the addon is 
 running
 * Add the Item model to map game items and their properties
+* Add the Player model to map player information
+* Add the Realm model to map realm information
 * Add the Tooltip facade to handle tooltip events
 * Allow classes to define constants with the Arr:freeze() method
 * Fix an issue with dd() when called in test units causing the terminal 
