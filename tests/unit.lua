@@ -47,6 +47,18 @@ local function mockWorldOfWarcraftObjects()
     }
 
     GetRealmName = function () return 'test-realm' end
+
+    UnitGUID = function (unit)
+        if unit == 'player' then
+            return 'test-player-guid'
+        end
+    end
+
+    UnitName = function (unit)
+        if unit == 'player' then
+            return 'test-player-name'
+        end
+    end
 end
 -- End of World of Warcraft Mocks
 

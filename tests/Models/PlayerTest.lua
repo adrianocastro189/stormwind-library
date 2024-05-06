@@ -6,6 +6,15 @@ TestPlayer = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Player.getCurrentPlayer()
+    function TestPlayer:testGetCurrentPlayer()
+        local result = __:getClass('Player').getCurrentPlayer()
+
+        lu.assertEquals(result.name, 'test-player-name')
+        lu.assertEquals(result.guid, 'test-player-guid')
+        lu.assertEquals(result.realm.name, 'test-realm')
+    end
+
     -- @covers Player:setGuid()
     -- @covers Player:setName()
     -- @covers Player:setRealm()

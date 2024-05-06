@@ -24,6 +24,22 @@ local Player = {}
     end
 
     --[[--
+    Gets the current player information.
+
+    This method acts as a constructor for the Player model and should not be
+    called in a player object instance. Consider this a static builder
+    method.
+
+    @treturn Models.Player a new Player object with the current player's information
+    ]]
+    function Player.getCurrentPlayer()
+        return Player.__construct()
+            :setName(UnitName('player'))
+            :setGuid(UnitGUID('player'))
+            :setRealm(self:getClass('Realm'):getCurrentRealm())
+    end
+
+    --[[--
     Sets the Player GUID.
 
     @TODO: Move this method to Unit when the Unit model is implemented <2024.05.06>
