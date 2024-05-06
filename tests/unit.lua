@@ -111,6 +111,7 @@ dofile('./tests/Facades/Tooltips/RetailTooltipTest.lua')
 dofile('./tests/Models/ItemTest.lua')
 dofile('./tests/Models/MacroTest.lua')
 dofile('./tests/Models/RaidMarkerTest.lua')
+dofile('./tests/Models/RealmTest.lua')
 
 dofile('./tests/Support/ArrTest.lua')
 dofile('./tests/Support/BoolTest.lua')
