@@ -158,6 +158,38 @@ That's why most of the setters start with `setFirst` instead of just `set`.
 Because that means the library will use the first value set to the window for
 its initial state. After that, the window state will be managed by the
 library configuration manager. Which means, at the moment a player moves, 
-resizes, close, etc, the window, it will save its state in a saved variable
+resizes, closes, etc, the window, it will save its state in a saved variable
 managed by the library configuration instance and once the frame is shown 
 again, the "first values" will be ignored and the ones saved will be used.
+
+By default, the window state will be saved in the global context, meaning that
+players will share the same window state. However, the library allows the
+addon to save the window state in the character context by calling
+`Window:setPersistStateByPlayer(true)`.
+
+```lua
+-- if a player changes the window size, position, visibility, etc, the window
+-- state will be reflected for any other players in the same account
+local sharedWindow = library
+    :new('Window', 'window-id')
+    :create()
+
+-- in this case, the window state will be saved for each player separately
+local playerWindow = library
+    :new('Window', 'window-id')
+    :setPersistStateByPlayer(true)
+    :create()
+```
+
+:::warning Set persistence before creating the window
+
+Due to how windows are built and have their properties managed, the
+`create()` method will get the state before rendering the frames.
+
+That means that 
+the `setPersistStateByPlayer()` method must be called before `create()`, 
+otherwise, the window state will be initially loaded from the global context
+and then persisted in the player context, having no effects on subsequent
+interface reloads.
+
+:::

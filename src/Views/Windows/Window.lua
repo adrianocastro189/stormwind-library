@@ -47,6 +47,20 @@ local Window = {}
     end
 
     --[[--
+    Decides whether this window instance should proxy to the player's or the
+    global configuration instance.
+
+    By default, the window will proxy to the global configuration instance.
+    ]]
+    function Window:config(...)
+        if self.persistStateByPlayer then
+            return self.__:playerConfig(...)
+        end
+        
+        return self.__:config(...)
+    end
+
+    --[[--
     Creates the window frame if it doesn't exist yet.
 
     @treturn Views.Windows.Window The window instance, for method chaining
@@ -313,7 +327,7 @@ local Window = {}
     @treturn any The property value
     ]]
     function Window:getProperty(key)
-        return self.__:config(self:getPropertyKey(key))
+        return self:config(self:getPropertyKey(key))
     end
 
     --[[--
@@ -497,6 +511,19 @@ local Window = {}
     end
 
     --[[--
+    Sets the window instance to have its stated persisted in the player's
+    configuration instead of the global one.
+
+    @tparam boolean value Whether the window should persist its state by player
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    ]]
+    function Window:setPersistStateByPlayer(value)
+        self.persistStateByPlayer = value
+        return self
+    end
+
+    --[[--
     Sets a window property using the library configuration instance.
 
     This method is used internally by the library to persist the window's
@@ -508,7 +535,7 @@ local Window = {}
     @param any value The property value
     ]]
     function Window:setProperty(key, value)
-        self.__:config({
+        self:config({
             [self:getPropertyKey(key)] = value
         })
     end
