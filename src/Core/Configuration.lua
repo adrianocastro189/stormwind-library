@@ -146,7 +146,7 @@ local Configuration = {}
         library.configuration:set('test.property', 'new-value')
     --]]
     function Configuration:set(key, value)      
-        self.__.arr:set(self.data, key, value)
+        self.__.arr:set(self.data, self:maybePrefixKey(key), value)
     end
 
     --[[--
