@@ -229,3 +229,23 @@ function self:maybeInitializeConfiguration()
         self.playerConfiguration:setPrefixKey(self.currentPlayer.realm.name .. '.' .. self.currentPlayer.name)
     end
 end
+
+--[[
+Gets, sets or initializes a player configuration property by a dot notation
+key.
+
+This is the only method that should be used to handle the addon
+player configurations, unless the addon needs to have multiple configuration
+instances.
+
+playerConfig() is a proxy method that forwards the configuration operation
+to the player Configuration instance that's internally handled by
+Configuration:handle().
+
+@see Configuration.handle
+]]
+function self:playerConfig(...)
+    if not self:isConfigEnabled() then return nil end
+
+    return self.playerConfiguration:handle(...)
+end

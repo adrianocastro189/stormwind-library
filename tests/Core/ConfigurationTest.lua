@@ -278,6 +278,26 @@ TestConfiguration = BaseTestClass:new()
         lu.assertEquals('test-prefix.test-key', instance:maybePrefixKey('test-key'))
     end
 
+    -- @covers StormwindLibrary:playerConfig()
+    function TestConfiguration:testPlayerConfig()
+        local arg1, arg2 = nil, nil
+
+        __.isConfigEnabled = function() return false end
+
+        lu.assertIsNil(__:playerConfig('test-property', 'default-value'))
+
+        __.playerConfiguration = __:new('Configuration', {})
+
+        function __.playerConfiguration:handle(...) arg1, arg2 = ... end
+
+        __.isConfigEnabled = function() return true end
+
+        __:playerConfig('test-property', 'default-value')
+
+        lu.assertEquals('test-property', arg1)
+        lu.assertEquals('default-value', arg2)
+    end
+
     -- @covers Configuration:set()
     function TestConfiguration:testSet()
         local setListArg, setKeyArg, setValueArg = nil, nil, nil
