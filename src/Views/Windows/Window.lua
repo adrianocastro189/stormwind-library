@@ -497,6 +497,19 @@ local Window = {}
     end
 
     --[[--
+    Sets the window instance to have its stated persisted in the player's
+    configuration instead of the global one.
+
+    @tparam boolean value Whether the window should persist its state by player
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    ]]
+    function Window:setPersistStateByPlayer(value)
+        self.persistStateByPlayer = value
+        return self
+    end
+
+    --[[--
     Sets a window property using the library configuration instance.
 
     This method is used internally by the library to persist the window's

@@ -435,6 +435,18 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance, result)
     end
 
+    -- @covers Window:setPersistStateByPlayer()
+    function TestWindow:testSetPersistStateByPlayer()
+        local instance = __:new('Window', 'test-id')
+
+        lu.assertIsNil(instance.persistStateByPlayer)
+
+        local result = instance:setPersistStateByPlayer(true)
+
+        lu.assertTrue(instance.persistStateByPlayer)
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Window:setProperty()
     function TestWindow:testSetProperty()
         local configArg = nil
