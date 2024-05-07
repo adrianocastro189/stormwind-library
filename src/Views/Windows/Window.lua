@@ -327,7 +327,7 @@ local Window = {}
     @treturn any The property value
     ]]
     function Window:getProperty(key)
-        return self.__:config(self:getPropertyKey(key))
+        return self:config(self:getPropertyKey(key))
     end
 
     --[[--

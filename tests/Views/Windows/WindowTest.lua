@@ -306,7 +306,7 @@ TestWindow = BaseTestClass:new()
 
         local instance = __:new('Window', 'test-id')
 
-        function instance.__:config(key)
+        function instance:config(key)
             configArg = key
             return 'test-value'
         end
