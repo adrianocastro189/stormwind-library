@@ -4,9 +4,9 @@ The Configuration class provides methods to easily access and manipulate the
 configuration properties. That reduces the need to pollute the addon code 
 with sanity checks, index initializations, etc.
 
-Along with the Configuration class, the library provides a proxy method called
-`config(...)` that allows the addon to access the configuration properties in 
-a more readable way.
+Along with the Configuration class, the library provides two proxy methods 
+called `config(...)` and `playerConfig(...)` that allow the addon to access 
+the global and player configuration properties in a more readable way.
 
 That way, addons can access configuration properties without touching the
 saved variables directly, making the code more readable and maintainable.
@@ -20,7 +20,7 @@ like constants, or values that are set by the addon itself.
 
 Settings are a **subset** of configurations that are meant to be changed by 
 the user. That said, the Configuration class is also used to handle the 
-settings if the addon developer wants to.
+settings if the addon developer wants to, but not restricted to that.
 
 :::
 
@@ -74,8 +74,9 @@ and should be used only if the addon needs to have multiple configurations
 tables.
 
 In most of the cases, when the addon has only one configuration table, the
-**library will automatically instantiate the Configuration class** and make it
-available through the `config(...)` proxy method.
+**library will automatically instantiate the Configuration class** for 
+**global** and **player** contexts, making it available through the
+`config(...)` and `playerConfig(...)` proxy methods.
 
 To achieve that, the addon must pass the saved variables table name to the
 [library properties](../../resources/core/addon-properties.md) with the `data`
@@ -92,8 +93,8 @@ local __ = StormwindLibrary.new({
 })
 ```
 
-After that, the `config(...)` method will be available to access the
-configuration properties in the following combination of parameters:
+After that, both methods method will be available to access the configuration 
+properties in the following combination of parameters:
 
 1. `config('dot.notation.key')` - retrieves the value of the key or `nil` if
 the key is not found
@@ -104,6 +105,9 @@ the key; **or** sets the default value if the key is not found, returning it
 after that
 1. `config({['property.a'] = 'value', ['property.b'] = 'value'})` - sets the
 values of the keys in the table
+
+**Note:** Replace the `config` calls above with `playerConfig` to access the 
+specific player configuration properties.
 
 Examples:
 
@@ -166,7 +170,7 @@ If no prefix is set, the Configuration class will not prefix the keys, and
 that's the default state of this class.
 
 ```lua
-local config = library:new('Configuration', MyAddonData)
+local config = library:new('Configuration', MyAddon_Data)
 
 -- this will try to access the key 'property.a' in the MyAddonData table
 config('property.a')
@@ -189,7 +193,13 @@ means the `config(...)` method will try to access the keys directly in the
 saved variables table and considered as a way to access **global** 
 configuration values, regardless of players, realms, etc.
 
-Of course, by **global** it means the saved variables table itself, not the
-global environment. It's global in the addon context.
+Of course, by **global** it means the **root** index in the saved variables 
+table itself, not the global environment or the `_G` table. It's global in 
+the addon context.
+
+On the other hand, the `playerConfig(...)` method will proxy to a 
+configuration instance that had being created with player realm and name as 
+the prefix key, allowing the addon to have different configurations for each 
+player.
 
 :::
