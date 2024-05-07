@@ -227,24 +227,44 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers StormwindLibrary:maybeInitializeConfiguration()
     function TestConfiguration:testMaybeInitializeConfiguration()
-        local function execution(addonDataPropertyName, configuration, globalDataTable, expectedConfiguration)
+        local function execution(addonDataPropertyName, configuration, playerConfiguration, globalDataTable, expectedConfiguration, expectedPlayerConfiguration)
             __.configuration = configuration
+            __.playerConfiguration = playerConfiguration
             __.addon.data = addonDataPropertyName
             if globalDataTable then _G[addonDataPropertyName] = globalDataTable end
 
             __:maybeInitializeConfiguration()
 
             lu.assertEquals(expectedConfiguration, __.configuration)
+            lu.assertEquals(expectedPlayerConfiguration, __.playerConfiguration)
         end
 
-        execution(nil, nil, nil, nil)
-        execution('test-data', nil, nil, __:new('Configuration', {}))
+        execution(nil, nil, nil, nil, nil, nil)
+        execution(
+            'test-data',
+            nil,
+            nil,
+            nil,
+            __:new('Configuration', {}),
+            __:new('Configuration', {})
+                :setPrefixKey('test-realm.test-player-name')
+        )
 
         local addonData = {['test-key'] = 'test-value'}
-        execution('test-data', nil, addonData, __:new('Configuration', addonData))
+        execution(
+            'test-data',
+            nil,
+            nil,
+            addonData,
+            __:new('Configuration', addonData),
+            __:new('Configuration', addonData)
+                :setPrefixKey('test-realm.test-player-name')
+        )
 
         local configuration = __:new('Configuration', {'test-configuration'})
-        execution('test-data', configuration, nil, configuration)
+        local playerConfiguration = __:new('Configuration', {'test-configuration'})
+            :setPrefixKey('test-realm.test-player-name')
+        execution('test-data', configuration, playerConfiguration, nil, configuration, playerConfiguration)
     end
 
     -- @covers Configuration:maybePrefixKey()

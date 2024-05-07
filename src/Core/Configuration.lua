@@ -162,10 +162,13 @@ local Configuration = {}
     this class, which means that this method should not be called with a
     prefix key that already ends with a dot.
 
-    @tparam string prefixKey The prefix key to be used to prefix all the configuration keys
+    @tparam string value The prefix key to be used to prefix all the configuration keys
+
+    @treturn Core.Configuration The Configuration instance itself to allow method chaining
     ]]
-    function Configuration:setPrefixKey(prefixKey)
-        self.prefixKey = prefixKey
+    function Configuration:setPrefixKey(value)
+        self.prefixKey = value
+        return self
     end
 -- end of Configuration
 
@@ -217,6 +220,12 @@ function self:maybeInitializeConfiguration()
     if key and (self.configuration == nil) then
         -- initializes the addon data if it's not set yet
         _G[key] = self.arr:get(_G, key, {})
+        
+        -- global configurations
         self.configuration = self:new('Configuration', _G[key])
+
+        -- player configurations
+        self.playerConfiguration = self:new('Configuration', _G[key])
+        self.playerConfiguration:setPrefixKey(self.currentPlayer.realm.name .. '.' .. self.currentPlayer.name)
     end
 end
