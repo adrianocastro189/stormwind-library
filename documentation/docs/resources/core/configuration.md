@@ -149,3 +149,47 @@ MyAddon_Data = {
   }
 }
 ```
+
+## Setting a prefix key
+
+When creating a new configuration instance, it's possible to set a prefix key
+that will be used to prefix all the keys in the configuration table.
+
+This is useful when the addon needs to have same configurations for multiple
+contexts, like different profiles, characters, etc.
+
+The prefix can be anything, even a dot notation string, **as long as it 
+doesn't end with a dot**, considering that the prefix will be placed before
+any keys being accessed separately by a dot.
+
+If no prefix is set, the Configuration class will not prefix the keys, and
+that's the default state of this class.
+
+```lua
+local config = library:new('Configuration', MyAddonData)
+
+-- this will try to access the key 'property.a' in the MyAddonData table
+config('property.a')
+
+-- setting a prefix key
+config:setPrefix('any.prefix')
+
+-- after the prefix is set, calling...
+config('property.a')
+
+-- ...will have the configuration instance trying to access the key
+-- 'any.prefix.property.a' in the MyAddonData table
+-- MyAddonData['any']['prefix']['property']['a']
+```
+
+:::warning Default configuration instance
+
+The library default configuration instance **doesn't have a prefix key**. That
+means the `config(...)` method will try to access the keys directly in the
+saved variables table and considered as a way to access **global** 
+configuration values, regardless of players, realms, etc.
+
+Of course, by **global** it means the saved variables table itself, not the
+global environment. It's global in the addon context.
+
+:::
