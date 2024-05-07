@@ -76,7 +76,7 @@ local Configuration = {}
         library.configuration:getOrInitialize('test.property', 'default-value')
     --]]
     function Configuration:getOrInitialize(key, default)
-        self.__.arr:maybeInitialize(self.data, key, default)
+        self.__.arr:maybeInitialize(self.data, self:maybePrefixKey(key), default)
 
         return self:get(key, default)
     end

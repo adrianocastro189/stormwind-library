@@ -67,6 +67,10 @@ TestConfiguration = BaseTestClass:new()
 
         local instance = __:new('Configuration', data)
 
+        -- this will confirm get is calling the maybePrefixKey() method
+        -- for the Arr:maybeInitialize() only
+        instance.prefixKey = 'test-prefix'
+
         function instance:get(key, defaultValue)
             getKeyArg, getDefaultValueArg = key, defaultValue
 
@@ -77,7 +81,7 @@ TestConfiguration = BaseTestClass:new()
 
         lu.assertEquals('test-get-result', result)
         lu.assertEquals(data, miListArg)
-        lu.assertEquals('test-key', miKeyArg)
+        lu.assertEquals('test-prefix.test-key', miKeyArg)
         lu.assertEquals('test-default', miInitialValueArg)
         lu.assertEquals('test-key', getKeyArg)
         lu.assertEquals('test-default', getDefaultValueArg)
