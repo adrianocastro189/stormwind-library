@@ -478,7 +478,7 @@ TestWindow = BaseTestClass:new()
 
         local instance = __:new('Window', 'test-id')
 
-        function instance.__:config(arg) configArg = arg end
+        function instance:config(arg) configArg = arg end
 
         function instance:getPropertyKey(key)
             getPropertyKeyArg = key

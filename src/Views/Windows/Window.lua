@@ -535,7 +535,7 @@ local Window = {}
     @param any value The property value
     ]]
     function Window:setProperty(key, value)
-        self.__:config({
+        self:config({
             [self:getPropertyKey(key)] = value
         })
     end
