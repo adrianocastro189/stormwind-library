@@ -256,4 +256,15 @@ TestConfiguration = BaseTestClass:new()
         lu.assertEquals('test-key', setKeyArg)
         lu.assertEquals('test-value', setValueArg)
     end
+
+    -- @covers Configuration:setPrefixKey()
+    function TestConfiguration:testSetPrefixKey()
+        local instance = __:new('Configuration', {})
+
+        lu.assertIsNil(instance.prefixKey)
+
+        instance:setPrefixKey('test-prefix')
+
+        lu.assertEquals('test-prefix', instance.prefixKey)
+    end
 -- end of TestConfiguration

@@ -130,6 +130,21 @@ local Configuration = {}
     function Configuration:set(key, value)      
         self.__.arr:set(self.data, key, value)
     end
+
+    --[[--
+    Sets a prefix key that will be used to prefix all the configuration keys.
+
+    If this method is not called during the addon lifecycle, no prefixes
+    will be used.
+
+    One of the reasons to use a prefix key is to group configuration values
+    and settings per player, realm, etc.
+
+    @tparam string prefixKey The prefix key to be used to prefix all the configuration keys
+    ]]
+    function Configuration:setPrefixKey(prefixKey)
+        self.prefixKey = prefixKey
+    end
 -- end of Configuration
 
 self:addClass('Configuration', Configuration)
