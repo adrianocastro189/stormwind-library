@@ -40,11 +40,16 @@ TestConfiguration = BaseTestClass:new()
 
         local data = {'test-data'}
 
-        local result = __:new('Configuration', data):get('test-key', 'test-default')
+        local configuration = __:new('Configuration', data)
+        
+        -- this will confirm get is calling the maybePrefixKey() method
+        configuration.prefixKey = 'test-prefix'
+
+        local result = configuration:get('test-key', 'test-default')
 
         lu.assertEquals('test-get-result', result)
         lu.assertEquals(data, listArg)
-        lu.assertEquals('test-key', keyArg)
+        lu.assertEquals('test-prefix.test-key', keyArg)
         lu.assertEquals('test-default', defaultValueArg)
     end
 

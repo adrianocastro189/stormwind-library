@@ -54,7 +54,7 @@ local Configuration = {}
         library.configuration:get('test.property', 'default-value')
     ]]
     function Configuration:get(key, default)
-        return self.__.arr:get(self.data, key, default)
+        return self.__.arr:get(self.data, self:maybePrefixKey(key), default)
     end
 
     --[[--
