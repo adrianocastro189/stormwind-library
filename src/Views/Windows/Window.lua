@@ -47,6 +47,20 @@ local Window = {}
     end
 
     --[[--
+    Decides whether this window instance should proxy to the player's or the
+    global configuration instance.
+
+    By default, the window will proxy to the global configuration instance.
+    ]]
+    function Window:config(...)
+        if self.persistStateByPlayer then
+            return self.__:playerConfig(...)
+        end
+        
+        return self.__:config(...)
+    end
+
+    --[[--
     Creates the window frame if it doesn't exist yet.
 
     @treturn Views.Windows.Window The window instance, for method chaining
