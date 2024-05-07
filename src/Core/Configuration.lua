@@ -116,6 +116,24 @@ local Configuration = {}
     end
 
     --[[--
+    Prefixes a key with the prefix key if it's set.
+
+    This method is used internally to prefix the configuration keys with the
+    prefix key if it's set. It should not be called directly, especially
+    when getting or setting configuration properties, otherwise the prefix
+    may be added twice.
+
+    @local
+
+    @tparam string key The key to be prefixed
+
+    @treturn string The key with the prefix if it's set, or the key itself
+    ]]
+    function Configuration:maybePrefixKey(key)
+        return self.prefixKey and self.prefixKey .. '.' .. key or key
+    end
+
+    --[[--
     Sets a configuration property by a dot notation key.
 
     This will update the configuration property with the new value. If the key
@@ -139,6 +157,10 @@ local Configuration = {}
 
     One of the reasons to use a prefix key is to group configuration values
     and settings per player, realm, etc.
+
+    Note: The prefix will be concatenated with a dot before any key used in
+    this class, which means that this method should not be called with a
+    prefix key that already ends with a dot.
 
     @tparam string prefixKey The prefix key to be used to prefix all the configuration keys
     ]]

@@ -238,6 +238,17 @@ TestConfiguration = BaseTestClass:new()
         execution('test-data', configuration, nil, configuration)
     end
 
+    -- @covers Configuration:maybePrefixKey()
+    function TestConfiguration:testMaybePrefixKey()
+        local instance = __:new('Configuration', {})
+
+        lu.assertEquals('test-key', instance:maybePrefixKey('test-key'))
+
+        instance:setPrefixKey('test-prefix')
+
+        lu.assertEquals('test-prefix.test-key', instance:maybePrefixKey('test-key'))
+    end
+
     -- @covers Configuration:set()
     function TestConfiguration:testSet()
         local setListArg, setKeyArg, setValueArg = nil, nil, nil
