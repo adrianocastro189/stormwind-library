@@ -5,6 +5,7 @@
 * Add the Environment class to identify the environment where the addon is 
 running
 * Add the Item model to map game items and their properties
+* Add the library playerConfig() method to access player-specific configurations
 * Add the Player model to map player information
 * Add the Realm model to map realm information
 * Add the Tooltip facade to handle tooltip events
