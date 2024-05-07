@@ -10,6 +10,8 @@ running
 * Add the Realm model to map realm information
 * Add the Tooltip facade to handle tooltip events
 * Allow classes to define constants with the Arr:freeze() method
+* Allow window instances to have their state saved to player configurations 
+(still defaults to global)
 * Fix an issue with dd() when called in test units causing the terminal 
 color to be changed permanently
 * Fix an issue with parsing command arguments when they mix single and double
