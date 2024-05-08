@@ -1,4 +1,28 @@
 TestWindow = BaseTestClass:new()
+    -- @covers Window:config()
+    function TestWindow:testConfig()
+        local function execution(persistStateByPlayer, shouldCallConfig, shouldCallPlayerConfig)
+            local configInvoked = false
+            local playerConfigInvoked = false
+            local args = nil
+
+            local instance = __:new('Window', 'test-id')
+            instance.persistStateByPlayer = persistStateByPlayer
+            function instance.__:config(...) args = {...} configInvoked = true end
+            function instance.__:playerConfig(...) args = {...} playerConfigInvoked = true end
+
+            instance:config('arg1', 'arg2')
+
+            lu.assertEquals(shouldCallConfig, configInvoked)
+            lu.assertEquals(shouldCallPlayerConfig, playerConfigInvoked)
+            lu.assertEquals({'arg1', 'arg2'}, args)
+        end
+
+        execution(nil, true, false)
+        execution(false, true, false)
+        execution(true, false, true)
+    end
+
     -- @covers Window:__construct()
     function TestWindow:testConstruct()
         local instance = __:new('Window', 'test-id')
@@ -282,7 +306,7 @@ TestWindow = BaseTestClass:new()
 
         local instance = __:new('Window', 'test-id')
 
-        function instance.__:config(key)
+        function instance:config(key)
             configArg = key
             return 'test-value'
         end
@@ -435,6 +459,18 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance, result)
     end
 
+    -- @covers Window:setPersistStateByPlayer()
+    function TestWindow:testSetPersistStateByPlayer()
+        local instance = __:new('Window', 'test-id')
+
+        lu.assertIsNil(instance.persistStateByPlayer)
+
+        local result = instance:setPersistStateByPlayer(true)
+
+        lu.assertTrue(instance.persistStateByPlayer)
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Window:setProperty()
     function TestWindow:testSetProperty()
         local configArg = nil
@@ -442,7 +478,7 @@ TestWindow = BaseTestClass:new()
 
         local instance = __:new('Window', 'test-id')
 
-        function instance.__:config(arg) configArg = arg end
+        function instance:config(arg) configArg = arg end
 
         function instance:getPropertyKey(key)
             getPropertyKeyArg = key

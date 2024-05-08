@@ -54,7 +54,7 @@ local Configuration = {}
         library.configuration:get('test.property', 'default-value')
     ]]
     function Configuration:get(key, default)
-        return self.__.arr:get(self.data, key, default)
+        return self.__.arr:get(self.data, self:maybePrefixKey(key), default)
     end
 
     --[[--
@@ -76,7 +76,7 @@ local Configuration = {}
         library.configuration:getOrInitialize('test.property', 'default-value')
     --]]
     function Configuration:getOrInitialize(key, default)
-        self.__.arr:maybeInitialize(self.data, key, default)
+        self.__.arr:maybeInitialize(self.data, self:maybePrefixKey(key), default)
 
         return self:get(key, default)
     end
@@ -116,6 +116,24 @@ local Configuration = {}
     end
 
     --[[--
+    Prefixes a key with the prefix key if it's set.
+
+    This method is used internally to prefix the configuration keys with the
+    prefix key if it's set. It should not be called directly, especially
+    when getting or setting configuration properties, otherwise the prefix
+    may be added twice.
+
+    @local
+
+    @tparam string key The key to be prefixed
+
+    @treturn string The key with the prefix if it's set, or the key itself
+    ]]
+    function Configuration:maybePrefixKey(key)
+        return self.prefixKey and self.prefixKey .. '.' .. key or key
+    end
+
+    --[[--
     Sets a configuration property by a dot notation key.
 
     This will update the configuration property with the new value. If the key
@@ -128,7 +146,29 @@ local Configuration = {}
         library.configuration:set('test.property', 'new-value')
     --]]
     function Configuration:set(key, value)      
-        self.__.arr:set(self.data, key, value)
+        self.__.arr:set(self.data, self:maybePrefixKey(key), value)
+    end
+
+    --[[--
+    Sets a prefix key that will be used to prefix all the configuration keys.
+
+    If this method is not called during the addon lifecycle, no prefixes
+    will be used.
+
+    One of the reasons to use a prefix key is to group configuration values
+    and settings per player, realm, etc.
+
+    Note: The prefix will be concatenated with a dot before any key used in
+    this class, which means that this method should not be called with a
+    prefix key that already ends with a dot.
+
+    @tparam string value The prefix key to be used to prefix all the configuration keys
+
+    @treturn Core.Configuration The Configuration instance itself to allow method chaining
+    ]]
+    function Configuration:setPrefixKey(value)
+        self.prefixKey = value
+        return self
     end
 -- end of Configuration
 
@@ -180,6 +220,32 @@ function self:maybeInitializeConfiguration()
     if key and (self.configuration == nil) then
         -- initializes the addon data if it's not set yet
         _G[key] = self.arr:get(_G, key, {})
+        
+        -- global configurations
         self.configuration = self:new('Configuration', _G[key])
+
+        -- player configurations
+        self.playerConfiguration = self:new('Configuration', _G[key])
+        self.playerConfiguration:setPrefixKey(self.currentPlayer.realm.name .. '.' .. self.currentPlayer.name)
     end
+end
+
+--[[
+Gets, sets or initializes a player configuration property by a dot notation
+key.
+
+This is the only method that should be used to handle the addon
+player configurations, unless the addon needs to have multiple configuration
+instances.
+
+playerConfig() is a proxy method that forwards the configuration operation
+to the player Configuration instance that's internally handled by
+Configuration:handle().
+
+@see Configuration.handle
+]]
+function self:playerConfig(...)
+    if not self:isConfigEnabled() then return nil end
+
+    return self.playerConfiguration:handle(...)
 end

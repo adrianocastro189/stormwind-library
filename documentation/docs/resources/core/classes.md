@@ -44,6 +44,14 @@ its initialization.
 
 :::
 
+:::tip Abstract methods
+
+Abstract methods can be mimicked by creating a method that throws an
+error when called. This way, the developer is forced to implement that
+method in a child class.
+
+:::
+
 ## Class recipe
 
 Use the recipe below to create new classes.
@@ -53,6 +61,8 @@ This is an example of a simple class with no properties.
 ```lua
 --[[--
 Class description.
+
+@classmod Module.ClassName
 ]]
 local ClassName = {}
     ClassName.__index = ClassName
@@ -84,3 +94,8 @@ TestClassName = BaseTestClass:new()
     end
 -- end of TestClassName
 ```
+
+## Models
+
+Please, refer to the [models documentation](../models/overview) for more
+information on how to create models following the Stormwind Library standards.

@@ -58,8 +58,7 @@ local Output = {}
         dd(someVariable, { key = 'value' })
     ]]
     function Output:dd(...)
-        -- @TODO: Replace this once the Environment class is implemented <2024.04.21>
-        local inGame = os == nil
+        local inGame = self.__.environment:inGame()
 
         if not inGame then print('\n\n\27[32m-dd-\n') end
 
@@ -97,7 +96,7 @@ local Output = {}
         -- dd() to be tested
         if inGame then return end
         
-        print('\n-end of dd-')
+        print('\n-end of dd-' .. (not inGame and '\27[0m' or ''))
         lu.unregisterCurrentSuite()
         os.exit(1)
     end
@@ -185,7 +184,7 @@ local Output = {}
 
 -- sets the unique library output instance
 self.output = Output.__construct()
-self.dd = self.output.dd
+function self:dd(...) self.output:dd(...) end
 
 -- allows Output to be instantiated, very useful for testing
 self:addClass('Output', Output)

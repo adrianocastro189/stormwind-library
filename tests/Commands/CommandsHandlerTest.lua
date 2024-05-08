@@ -115,7 +115,11 @@ TestCommandsHandler = BaseTestClass:new()
         execution('test   with   multiple    spaces', {'test', 'with', 'multiple', 'spaces'})
         execution('"test with" "multiple words in double quotes"', {'test with', 'multiple words in double quotes'})
         execution("'test with' 'multiple words in quotes'", {'test with', 'multiple words in quotes'})
-    end
+        execution("\"name with ' single quotes\"", {"name with ' single quotes"})
+        execution("\"name with multiple 'single quotes'\"", {"name with multiple 'single quotes'"})
+        execution("'\"name wrapped in double quotes\"'", {"\"name wrapped in double quotes\""})
+        execution('"name 1" "name 2"', {"name 1", "name 2"})
+    end    
 
     -- @covers StormwindLibrary:parseOperationAndArguments()
     function TestCommandsHandler:testParseOperationAndArguments()

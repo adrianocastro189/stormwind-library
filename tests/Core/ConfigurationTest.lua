@@ -40,11 +40,16 @@ TestConfiguration = BaseTestClass:new()
 
         local data = {'test-data'}
 
-        local result = __:new('Configuration', data):get('test-key', 'test-default')
+        local configuration = __:new('Configuration', data)
+        
+        -- this will confirm get is calling the maybePrefixKey() method
+        configuration.prefixKey = 'test-prefix'
+
+        local result = configuration:get('test-key', 'test-default')
 
         lu.assertEquals('test-get-result', result)
         lu.assertEquals(data, listArg)
-        lu.assertEquals('test-key', keyArg)
+        lu.assertEquals('test-prefix.test-key', keyArg)
         lu.assertEquals('test-default', defaultValueArg)
     end
 
@@ -62,6 +67,10 @@ TestConfiguration = BaseTestClass:new()
 
         local instance = __:new('Configuration', data)
 
+        -- this will confirm getOrInitialize is calling the maybePrefixKey()
+        -- method for the Arr:maybeInitialize() only
+        instance.prefixKey = 'test-prefix'
+
         function instance:get(key, defaultValue)
             getKeyArg, getDefaultValueArg = key, defaultValue
 
@@ -72,7 +81,7 @@ TestConfiguration = BaseTestClass:new()
 
         lu.assertEquals('test-get-result', result)
         lu.assertEquals(data, miListArg)
-        lu.assertEquals('test-key', miKeyArg)
+        lu.assertEquals('test-prefix.test-key', miKeyArg)
         lu.assertEquals('test-default', miInitialValueArg)
         lu.assertEquals('test-key', getKeyArg)
         lu.assertEquals('test-default', getDefaultValueArg)
@@ -218,24 +227,75 @@ TestConfiguration = BaseTestClass:new()
 
     -- @covers StormwindLibrary:maybeInitializeConfiguration()
     function TestConfiguration:testMaybeInitializeConfiguration()
-        local function execution(addonDataPropertyName, configuration, globalDataTable, expectedConfiguration)
+        local function execution(addonDataPropertyName, configuration, playerConfiguration, globalDataTable, expectedConfiguration, expectedPlayerConfiguration)
             __.configuration = configuration
+            __.playerConfiguration = playerConfiguration
             __.addon.data = addonDataPropertyName
             if globalDataTable then _G[addonDataPropertyName] = globalDataTable end
 
             __:maybeInitializeConfiguration()
 
             lu.assertEquals(expectedConfiguration, __.configuration)
+            lu.assertEquals(expectedPlayerConfiguration, __.playerConfiguration)
         end
 
-        execution(nil, nil, nil, nil)
-        execution('test-data', nil, nil, __:new('Configuration', {}))
+        execution(nil, nil, nil, nil, nil, nil)
+        execution(
+            'test-data',
+            nil,
+            nil,
+            nil,
+            __:new('Configuration', {}),
+            __:new('Configuration', {})
+                :setPrefixKey('test-realm.test-player-name')
+        )
 
         local addonData = {['test-key'] = 'test-value'}
-        execution('test-data', nil, addonData, __:new('Configuration', addonData))
+        execution(
+            'test-data',
+            nil,
+            nil,
+            addonData,
+            __:new('Configuration', addonData),
+            __:new('Configuration', addonData)
+                :setPrefixKey('test-realm.test-player-name')
+        )
 
         local configuration = __:new('Configuration', {'test-configuration'})
-        execution('test-data', configuration, nil, configuration)
+        local playerConfiguration = __:new('Configuration', {'test-configuration'})
+            :setPrefixKey('test-realm.test-player-name')
+        execution('test-data', configuration, playerConfiguration, nil, configuration, playerConfiguration)
+    end
+
+    -- @covers Configuration:maybePrefixKey()
+    function TestConfiguration:testMaybePrefixKey()
+        local instance = __:new('Configuration', {})
+
+        lu.assertEquals('test-key', instance:maybePrefixKey('test-key'))
+
+        instance:setPrefixKey('test-prefix')
+
+        lu.assertEquals('test-prefix.test-key', instance:maybePrefixKey('test-key'))
+    end
+
+    -- @covers StormwindLibrary:playerConfig()
+    function TestConfiguration:testPlayerConfig()
+        local arg1, arg2 = nil, nil
+
+        __.isConfigEnabled = function() return false end
+
+        lu.assertIsNil(__:playerConfig('test-property', 'default-value'))
+
+        __.playerConfiguration = __:new('Configuration', {})
+
+        function __.playerConfiguration:handle(...) arg1, arg2 = ... end
+
+        __.isConfigEnabled = function() return true end
+
+        __:playerConfig('test-property', 'default-value')
+
+        lu.assertEquals('test-property', arg1)
+        lu.assertEquals('default-value', arg2)
     end
 
     -- @covers Configuration:set()
@@ -250,10 +310,24 @@ TestConfiguration = BaseTestClass:new()
 
         local instance = __:new('Configuration', data)
 
+        -- this will confirm set is calling the maybePrefixKey()
+        instance.prefixKey = 'test-prefix'
+
         instance:set('test-key', 'test-value')
 
         lu.assertEquals(data, setListArg)
-        lu.assertEquals('test-key', setKeyArg)
+        lu.assertEquals('test-prefix.test-key', setKeyArg)
         lu.assertEquals('test-value', setValueArg)
+    end
+
+    -- @covers Configuration:setPrefixKey()
+    function TestConfiguration:testSetPrefixKey()
+        local instance = __:new('Configuration', {})
+
+        lu.assertIsNil(instance.prefixKey)
+
+        instance:setPrefixKey('test-prefix')
+
+        lu.assertEquals('test-prefix', instance.prefixKey)
     end
 -- end of TestConfiguration

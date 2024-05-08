@@ -40,7 +40,7 @@
 
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><strong>Commands.Command</strong></li>
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
   <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
   <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
   <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
@@ -49,7 +49,7 @@
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
   <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Models.Item.html">Models.Item</a></li>
-  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><strong>Models.Player</strong></li>
   <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
   <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
@@ -65,42 +65,40 @@
 
 <div id="content">
 
-<h1>Class <code>Commands.Command</code></h1>
-<p>The command class represents a command in game that can be executed with
-/commandName.</p>
+<h1>Class <code>Models.Player</code></h1>
+<p>The Player class is a model that maps player information.</p>
 <p>
-<p>Commands in the Stormwind Library are structured in two parts being:
-<p>1. The command operation
-2. The command arguments
-<p>That said, a command called myAddonCommand that shows its settings screen
-in dark mode would be executed with /myAddonCommand show darkMode.
+<p>Just like any other model, it's used to standardize the way addons interact
+with data related to players.
+<p>This model will grow over time as new features are implemented in the
+library.
 </p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:getHelpContent">commands.command:getHelpContent ()</a></td>
-	<td class="summary">Returns a human readable help content for the command.</td>
+	<td class="name" nowrap><a href="#models.player:getCurrentPlayer">models.player:getCurrentPlayer ()</a></td>
+	<td class="summary">Gets the current player information.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:setCallback">commands.command:setCallback (callback)</a></td>
-	<td class="summary">Sets the command callback.</td>
+	<td class="name" nowrap><a href="#models.player:setGuid">models.player:setGuid (value)</a></td>
+	<td class="summary">Sets the Player GUID.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:setDescription">commands.command:setDescription (description)</a></td>
-	<td class="summary">Sets the command description.</td>
+	<td class="name" nowrap><a href="#models.player:setName">models.player:setName (value)</a></td>
+	<td class="summary">Sets the Player name.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:setOperation">commands.command:setOperation (operation)</a></td>
-	<td class="summary">Sets the command operation.</td>
+	<td class="name" nowrap><a href="#models.player:setRealm">models.player:setRealm (value)</a></td>
+	<td class="summary">Sets the Player realm.</td>
 	</tr>
 </table>
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:__construct">commands.command:__construct ()</a></td>
-	<td class="summary">Command constructor.</td>
+	<td class="name" nowrap><a href="#models.player:__construct">models.player:__construct ()</a></td>
+	<td class="summary">Player constructor.</td>
 	</tr>
 </table>
 
@@ -112,19 +110,23 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
     <dl class="function">
     <dt>
-    <a name = "commands.command:getHelpContent"></a>
-    <strong>commands.command:getHelpContent ()</strong>
+    <a name = "models.player:getCurrentPlayer"></a>
+    <strong>models.player:getCurrentPlayer ()</strong>
     </dt>
     <dd>
-    Returns a human readable help content for the command.
+    Gets the current player information.
+<p>    This method acts as a constructor for the Player model and should not be
+    called in a player object instance. Consider this a static builder
+    method.
+
 
 
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-        a human readable help content for the command
+           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
+        a new Player object with the current player's information
     </ol>
 
 
@@ -132,24 +134,25 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
 </dd>
     <dt>
-    <a name = "commands.command:setCallback"></a>
-    <strong>commands.command:setCallback (callback)</strong>
+    <a name = "models.player:setGuid"></a>
+    <strong>models.player:setGuid (value)</strong>
     </dt>
     <dd>
-    Sets the command callback.
+    Sets the Player GUID.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">callback</span>
-            <span class="types"><span class="type">function</span></span>
-         the callback that will be executed when the command is triggered
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the Player's GUID
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
+           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
         self
     </ol>
 
@@ -158,24 +161,25 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
 </dd>
     <dt>
-    <a name = "commands.command:setDescription"></a>
-    <strong>commands.command:setDescription (description)</strong>
+    <a name = "models.player:setName"></a>
+    <strong>models.player:setName (value)</strong>
     </dt>
     <dd>
-    Sets the command description.
+    Sets the Player name.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">description</span>
+        <li><span class="parameter">value</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the command description that will be shown in the help content
+         the Player's name
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
+           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
         self
     </ol>
 
@@ -184,26 +188,30 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
 </dd>
     <dt>
-    <a name = "commands.command:setOperation"></a>
-    <strong>commands.command:setOperation (operation)</strong>
+    <a name = "models.player:setRealm"></a>
+    <strong>models.player:setRealm (value)</strong>
     </dt>
     <dd>
-    Sets the command operation.
+    Sets the Player realm.
+<p>    It's most likely that a player realm will be the same realm as the
+    player is logged in, but it's possible to have a player from a different
+    realm, especially in Retail, where Blizzard allows players from other
+    realms to share the same place or group.
+
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">operation</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the command operation that will be used to trigger the command
-    callback
-
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
+         the Player's realm
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
+           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
         self
     </ol>
 
@@ -216,11 +224,11 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
     <dl class="function">
     <dt>
-    <a name = "commands.command:__construct"></a>
-    <strong>commands.command:__construct ()</strong>
+    <a name = "models.player:__construct"></a>
+    <strong>models.player:__construct ()</strong>
     </dt>
     <dd>
-    Command constructor.
+    Player constructor.
 
 
 

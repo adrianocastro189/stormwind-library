@@ -1,5 +1,24 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.2.0
+
+* Add the Environment class to identify the environment where the addon is 
+running
+* Add the Item model to map game items and their properties
+* Add the library playerConfig() method to access player-specific configurations
+* Add the Player model to map player information
+* Add the Realm model to map realm information
+* Add the Tooltip facade to handle tooltip events
+* Allow classes to define constants with the Arr:freeze() method
+* Allow window instances to have their state saved to player configurations 
+(still defaults to global)
+* Fix an issue with dd() when called in test units causing the terminal 
+color to be changed permanently
+* Fix an issue with parsing command arguments when they mix single and double
+quotes
+* Update the library Factory to allow classes to be instantiated in specific
+World of Warcraft versions if necessary
+
 ## 2024.04.25 - version 1.1.0
 
 * Add a "dump and die" method to the Output class to improve debugging
@@ -30,8 +49,8 @@ return the default value erroneously
 ## 2024.03.29 - version 0.0.7-alpha
 
 * Add the Events facade class to serve as a way to improve event handling
-    * Listen to `PLAYER_LOGIN`
-    * Listen to `PLAYER_TARGET_CHANGED` and split it into three events
+    * Listen to PLAYER_LOGIN
+    * Listen to PLAYER_TARGET_CHANGED and split it into three events
 * Add the CommandsHandler class to allow addons to register commands
 * Add the Output class to replace print() calls
 * Add the RaidMarker model class and the library's possible marker instances
