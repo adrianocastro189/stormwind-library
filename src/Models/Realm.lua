@@ -29,6 +29,9 @@ local Realm = {}
     method.
 
     @treturn Models.Realm a new Realm object with the current realm's information
+
+    @usage
+        local realm = library:getClass('Realm').getCurrentRealm()
     ]]
     function Realm.getCurrentRealm()
         local realm = Realm.__construct()

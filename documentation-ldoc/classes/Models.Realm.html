@@ -47,10 +47,10 @@
   <li><a href="../classes/Core.Output.html">Core.Output</a></li>
   <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
-  <li><strong>Facades.RetailTooltip</strong></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Models.Item.html">Models.Item</a></li>
   <li><a href="../classes/Models.Player.html">Models.Player</a></li>
-  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><strong>Models.Realm</strong></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
   <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
   <li><a href="../classes/Support.Str.html">Support.Str</a></li>
@@ -65,24 +65,32 @@
 
 <div id="content">
 
-<h1>Class <code>Facades.RetailTooltip</code></h1>
-<p>The default implementation of the AbstractTooltip class for the Retail
-client.</p>
-<p></p>
+<h1>Class <code>Models.Realm</code></h1>
+<p>The Realm class is a model that maps realms also known as servers.</p>
+<p>
+<p>Just like any other model, it's used to standardize the way addons interact
+with realm information.
+<p>This model will grow over time as new features are implemented in the
+library.
+</p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#facades.retailtooltip:registerTooltipHandlers">facades.retailtooltip:registerTooltipHandlers ()</a></td>
-	<td class="summary">Add tooltip post call with the TooltipDataProcessor.</td>
+	<td class="name" nowrap><a href="#models.realm:getCurrentRealm">models.realm:getCurrentRealm ()</a></td>
+	<td class="summary">Instantiates a new Realm object with the current realm's information.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.realm:setName">models.realm:setName (value)</a></td>
+	<td class="summary">Sets the Realm name.</td>
 	</tr>
 </table>
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#facades.retailtooltip:__construct">facades.retailtooltip:__construct ()</a></td>
-	<td class="summary">RetailTooltip constructor.</td>
+	<td class="name" nowrap><a href="#models.realm:__construct">models.realm:__construct ()</a></td>
+	<td class="summary">Realm constructor.</td>
 	</tr>
 </table>
 
@@ -94,14 +102,55 @@ client.</p>
 
     <dl class="function">
     <dt>
-    <a name = "facades.retailtooltip:registerTooltipHandlers"></a>
-    <strong>facades.retailtooltip:registerTooltipHandlers ()</strong>
+    <a name = "models.realm:getCurrentRealm"></a>
+    <strong>models.realm:getCurrentRealm ()</strong>
     </dt>
     <dd>
-    Add tooltip post call with the TooltipDataProcessor.
+    Instantiates a new Realm object with the current realm's information.
+<p>    This method acts as a constructor for the Realm model and should not be
+    called in a realm object instance. Consider this a static builder
+    method.
 
 
 
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
+        a new Realm object with the current realm's information
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> realm = library:<span class="function-name">getClass</span>(<span class="string">'Realm'</span>).<span class="function-name">getCurrentRealm</span>()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "models.realm:setName"></a>
+    <strong>models.realm:setName (value)</strong>
+    </dt>
+    <dd>
+    Sets the Realm name.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the Realm's name
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
+        self
+    </ol>
 
 
 
@@ -112,11 +161,11 @@ client.</p>
 
     <dl class="function">
     <dt>
-    <a name = "facades.retailtooltip:__construct"></a>
-    <strong>facades.retailtooltip:__construct ()</strong>
+    <a name = "models.realm:__construct"></a>
+    <strong>models.realm:__construct ()</strong>
     </dt>
     <dd>
-    RetailTooltip constructor.
+    Realm constructor.
 
 
 

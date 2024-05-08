@@ -50,6 +50,8 @@
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
   <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
   <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
   <li><a href="../classes/Support.Str.html">Support.Str</a></li>
@@ -167,6 +169,11 @@ methods and add new features.
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:config">views.windows.window:config (...)</a></td>
+	<td class="summary">Decides whether this window instance should proxy to the player's or the
+    global configuration instance.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#views.windows.window:create">views.windows.window:create ()</a></td>
 	<td class="summary">Creates the window frame if it doesn't exist yet.</td>
 	</tr>
@@ -193,6 +200,11 @@ methods and add new features.
 	<tr>
 	<td class="name" nowrap><a href="#views.windows.window:setFirstVisibility">views.windows.window:setFirstVisibility (visibility)</a></td>
 	<td class="summary">Sets the window's first visibility.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:setPersistStateByPlayer">views.windows.window:setPersistStateByPlayer (value)</a></td>
+	<td class="summary">Sets the window instance to have its stated persisted in the player's
+    configuration instead of the global one.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#views.windows.window:setTitle">views.windows.window:setTitle (string)</a></td>
@@ -655,6 +667,28 @@ methods and add new features.
 
     <dl class="function">
     <dt>
+    <a name = "views.windows.window:config"></a>
+    <strong>views.windows.window:config (...)</strong>
+    </dt>
+    <dd>
+    Decides whether this window instance should proxy to the player's or the
+    global configuration instance.
+<p>    By default, the window will proxy to the global configuration instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "views.windows.window:create"></a>
     <strong>views.windows.window:create ()</strong>
     </dt>
@@ -872,6 +906,34 @@ window:<span class="function-name">setContent</span>({frameA, frameB, frameC})</
     <ul>
         <pre class="example">window:<span class="function-name">setFirstVisibility</span>(<span class="keyword">false</span>)</pre>
     </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.window:setPersistStateByPlayer"></a>
+    <strong>views.windows.window:setPersistStateByPlayer (value)</strong>
+    </dt>
+    <dd>
+    Sets the window instance to have its stated persisted in the player's
+    configuration instead of the global one.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Whether the window should persist its state by player
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
 
 </dd>
     <dt>
