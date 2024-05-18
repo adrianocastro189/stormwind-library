@@ -1,6 +1,8 @@
 # Changelog
 
-## yyyy.mm.dd - version 1.2.0
+## yyyy.mm.dd - version 1.3.0
+
+## 2024.05.08 - version 1.2.0
 
 * Add the Environment class to identify the environment where the addon is 
 running
