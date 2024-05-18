@@ -1,7 +1,4 @@
----
-sidebar_position: 1
-title: Unit Suite
----
+# Unit Suite
 
 :::note Lua version
 
