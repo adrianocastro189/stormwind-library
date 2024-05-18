@@ -2,8 +2,10 @@
 
 ## yyyy.mm.dd - version 1.3.0
 
-* Move World of Warcraft API mocks to a new reusable file separated from the 
-unit suite
+* Move the dd() method to a better location in the library structure, 
+allowing it to be used before the Output class is registered
+* Move World of Warcraft API mocks to a new reusable file separated from 
+the unit suite
 
 ## 2024.05.08 - version 1.2.0
 
