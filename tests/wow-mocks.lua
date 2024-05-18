@@ -1,15 +1,30 @@
+-- Set up mocks for WoW API functions and global variables that are usually
+-- available in the game environment.
+--
+-- This file is meant to be required in the test suite setup to provide a
+-- consistent environment for the tests to run.
+--
+-- Although some of the functions and variables have static values, it's
+-- possible to override them in the test suite to provide different values
+-- for the tests when needed.
+
 CreateFrame = function (...)
     local mockFrame = {
         ['events'] = {},
         ['scripts'] = {},
     }
     
+    mockFrame.AddMessage = function (self, ...) self.addMessageInvoked = true end
+    mockFrame.CreateFontString = function (self, ...) return CreateFrame(...) end
+    mockFrame.GetHeight = function (self) return self.height end
+    mockFrame.GetWidth = function (self) return self.width end
     mockFrame.Hide = function (self) self.hideInvoked = true end
     mockFrame.EnableMouse = function (self, enable) self.mouseEnabled = enable end
     mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
     mockFrame.SetBackdrop = function (self, backdrop) self.backdrop = backdrop end
     mockFrame.SetBackdropBorderColor = function (self, r, g, b, a) self.backdropBorderColor = { r, g, b, a } end
     mockFrame.SetBackdropColor = function (self, r, g, b, a) self.backdropColor = { r, g, b, a } end
+    mockFrame.SetFont = function (self, font, size) self.fontFamily = font self.fontSize = size end
     mockFrame.SetHeight = function (self, height) self.height = height end
     mockFrame.SetHighlightTexture = function (self, texture) self.highlightTexture = texture end
     mockFrame.SetMovable = function (self, movable) self.movable = movable end
@@ -26,13 +41,22 @@ CreateFrame = function (...)
         }
     end
     mockFrame.SetResizable = function (self, resizable) self.resizable = resizable end
-    mockFrame.SetSize = function (self, width, height) self.width = width self.height = height end
+    mockFrame.SetScrollChild = function (self, child) self.scrollChild = child end
     mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
+    mockFrame.SetSize = function (self, width, height) self.width = width self.height = height end
     mockFrame.SetText = function (self, text) self.text = text end
+    mockFrame.SetWidth = function (self, width) self.width = width end
     mockFrame.Show = function (self) self.showInvoked = true end
+    mockFrame.UnregisterEvent = function (self, event) table.remove(self.events or {}, event) end
 
     return mockFrame
 end
+
+CreateMacro = function () end
+
+date = function (format) return '2024-02-04' end
+
+DEFAULT_CHAT_FRAME = CreateFrame('Frame')
 
 GameTooltip = {
     HookScript = function (self, script, callback)
@@ -41,7 +65,16 @@ GameTooltip = {
     end
 }
 
+GetMacroIndexByName = function () return 0 end
+
 GetRealmName = function () return 'test-realm' end
+
+GetSubZoneText = function () return 'Trade District' end
+
+GetZoneText = function () return 'Stormwind City' end
+
+LOOT_ITEM_SELF = 'You receive loot : %s|Hitem :%d :%d :%d :%d|h[%s]|h%s.'
+LOOT_ITEM_SELF_MULTIPLE = 'You receive loot: %sx%d.'
 
 UnitGUID = function (unit)
     if unit == 'player' then
@@ -49,8 +82,12 @@ UnitGUID = function (unit)
     end
 end
 
+UnitLevel = function (unit) return 60 end
+
 UnitName = function (unit)
     if unit == 'player' then
         return 'test-player-name'
     end
 end
+
+SlashCmdList = {}
