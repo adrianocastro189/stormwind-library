@@ -32,7 +32,7 @@ BaseTestClass = {
         })
         __.output:setTestingMode()
 
-        function dd(...) __.output:dd(...) end
+        function dd(...) __:dd(...) end
     end,
 
     -- guarantees that every test class inherits from this class by forcing
