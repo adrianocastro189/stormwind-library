@@ -67,3 +67,6 @@ There's no need to revert the mocked properties and methods back to their
 original values after the test case is run, unless the test method is
 expected to be called multiple times in the same test class and with
 different mocks.
+
+Stormwind Library also provides a set of mocks for the World of Warcraft API
+that are better described in the [API Mocks](api-mocks) documentation.

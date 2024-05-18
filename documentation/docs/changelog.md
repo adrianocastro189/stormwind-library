@@ -2,6 +2,9 @@
 
 ## yyyy.mm.dd - version 1.3.0
 
+* Move World of Warcraft API mocks to a new reusable file separated from the 
+unit suite
+
 ## 2024.05.08 - version 1.2.0
 
 * Add the Environment class to identify the environment where the addon is 
