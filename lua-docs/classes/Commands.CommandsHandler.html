@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><strong>Commands.CommandsHandler</strong></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Commands.CommandsHandler</code></h1>
+<p>The commands handler provides resources for easy command registration,
+listening and triggering.</p>
+<p></p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.addHelpOperation">commands.commandshandler.addHelpOperation ()</a></td>
+	<td class="summary">This method adds a help operation to the commands handler.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.buildHelpContent">commands.commandshandler.buildHelpContent ()</a></td>
+	<td class="summary">Builds a help content that lists all available operations and their
+    descriptions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.handle">commands.commandshandler.handle (commandArg)</a></td>
+	<td class="summary">This method is responsible for handling the command that was triggered
+    by the user, parsing the arguments and invoking the callback that was
+    registered for the operation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.maybeInvokeCallback">commands.commandshandler.maybeInvokeCallback (operation, args)</a></td>
+	<td class="summary">This method is responsible for invoking the callback that was registered
+    for the operation, if it exists.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.parseArguments">commands.commandshandler.parseArguments (input)</a></td>
+	<td class="summary">This function is responsible for breaking the full argument word that's
+    sent by World of Warcraft to the command callback.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.parseOperationAndArguments">commands.commandshandler.parseOperationAndArguments (args)</a></td>
+	<td class="summary">This method selects the first command argument as the operation and the
+    subsequent arguments as the operation arguments.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.printHelp">commands.commandshandler.printHelp ()</a></td>
+	<td class="summary">Prints the help content to the chat frame.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.register">commands.commandshandler.register ()</a></td>
+	<td class="summary">Register the main Stormwind Library command callback that will then redirect
+    the command to the right operation callback.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler:add">commands.commandshandler:add (command)</a></td>
+	<td class="summary">Adds a command that will be handled by the library.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler:__construct">commands.commandshandler:__construct ()</a></td>
+	<td class="summary">CommandsHandler constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "commands.commandshandler.addHelpOperation"></a>
+    <strong>commands.commandshandler.addHelpOperation ()</strong>
+    </dt>
+    <dd>
+    This method adds a help operation to the commands handler.
+<p>    The help operation is a default operation that can be overridden in
+    case the addon wants to provide a custom help command. For that, just
+    add a command with the operation "help" and a custom callback.
+<p>    When the help operation is not provided, a simple help command is
+    printed to the chat frame with the available operations and their
+    descriptions, when available.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.buildHelpContent"></a>
+    <strong>commands.commandshandler.buildHelpContent ()</strong>
+    </dt>
+    <dd>
+    Builds a help content that lists all available operations and their
+    descriptions.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[string]</a></span>
+        A list of strings with the help content
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.handle"></a>
+    <strong>commands.commandshandler.handle (commandArg)</strong>
+    </dt>
+    <dd>
+    This method is responsible for handling the command that was triggered
+    by the user, parsing the arguments and invoking the callback that was
+    registered for the operation.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">commandArg</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The full command argument
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.maybeInvokeCallback"></a>
+    <strong>commands.commandshandler.maybeInvokeCallback (operation, args)</strong>
+    </dt>
+    <dd>
+    This method is responsible for invoking the callback that was registered
+    for the operation, if it exists.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">operation</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The operation that was triggered
+        </li>
+        <li><span class="parameter">args</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The arguments that were passed to the operation
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.parseArguments"></a>
+    <strong>commands.commandshandler.parseArguments (input)</strong>
+    </dt>
+    <dd>
+    This function is responsible for breaking the full argument word that's
+    sent by World of Warcraft to the command callback.
+<p>    When a command is executed, everything after the command itself becomes
+    the argument. Example: /myCommand arg1 arg2 arg3 will trigger the
+    callback with "arg1 arg2 arg3".
+<p>    The Stormwind Library handles events like a OS console where arguments
+    are separated by blank spaces. Arguments that must contain spaces can
+    be wrapped by " or '. Example: /myCommand arg1 "arg2 arg3" will result
+    in {'arg1', 'arg2 arg3'}.
+<p>    Limitations in this method: when designed, this method meant to allow
+    escaping quotes so arguments could contain those characters. However,
+    that would add more complexity to this method and its first version is
+    focused on simplicity.
+<p>    Notes: the algorithm in this method deserves improvements, or even some
+    handling with regular expression. This is something that should be
+    revisited in the future and when updated, make sure
+    TestCommandsHandler:testGetCommandsHandler() tests pass.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The full command argument
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[string]</a></span>
+        A list of strings representing the arguments
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.parseOperationAndArguments"></a>
+    <strong>commands.commandshandler.parseOperationAndArguments (args)</strong>
+    </dt>
+    <dd>
+    This method selects the first command argument as the operation and the
+    subsequent arguments as the operation arguments.
+<p>    Note that args can be empty, so there's no operation and no arguments.
+<p>    Still, if the size of args is 1, it means there's an operation and no
+    arguments. If the size is greater than 1, the first argument is the
+    operation and the rest are the arguments.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">args</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[string]</a></span>
+         The arguments that were passed to the operation
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The operation that was triggered</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[string]</a></span>
+        The arguments that were passed to the operation</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.printHelp"></a>
+    <strong>commands.commandshandler.printHelp ()</strong>
+    </dt>
+    <dd>
+    Prints the help content to the chat frame.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.register"></a>
+    <strong>commands.commandshandler.register ()</strong>
+    </dt>
+    <dd>
+    Register the main Stormwind Library command callback that will then redirect
+    the command to the right operation callback.
+<p>    In terms of how the library was designed, this is the only real command
+    handler and serves as a bridge between World of Warcraft command system
+    and the addon itself.
+
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "commands.commandshandler:add"></a>
+    <strong>commands.commandshandler:add (command)</strong>
+    </dt>
+    <dd>
+    Adds a command that will be handled by the library.
+<p>    The command must have an operation and a callback.
+<p>    It's important to mention that calling this method with two commands
+    sharing the same operation won't stack two callbacks, but the second
+    one will replace the first.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+            <span class="types"><a class="type" href="../classes/Commands.Command.html">Command</a></span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "commands.commandshandler:__construct"></a>
+    <strong>commands.commandshandler:__construct ()</strong>
+    </dt>
+    <dd>
+    CommandsHandler constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-05-20 15:38:10 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><strong>Core.Target</strong></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Core.Target</code></h1>
+<p>The target facade maps all the information that can be retrieved by the
+World of Warcraft API target related methods.</p>
+<p>
+<p>This class can also be used to access the target with many other purposes,
+like setting the target marker.
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.target:getGuid">core.target:getGuid ()</a></td>
+	<td class="summary">Gets the target GUID.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:getHealth">core.target:getHealth ()</a></td>
+	<td class="summary">Gets the target health.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:getHealthPercentage">core.target:getHealthPercentage ()</a></td>
+	<td class="summary">Gets the target health in percentage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:getMark">core.target:getMark ()</a></td>
+	<td class="summary">Gets the target raid marker in the target, if any.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:getMaxHealth">core.target:getMaxHealth ()</a></td>
+	<td class="summary">Gets the maximum health of the specified unit.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:getName">core.target:getName ()</a></td>
+	<td class="summary">Gets the target name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:hasTarget">core.target:hasTarget ()</a></td>
+	<td class="summary">Determines whether the player has a target or not.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:isAlive">core.target:isAlive ()</a></td>
+	<td class="summary">Determines whether the target is alive.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:isDead">core.target:isDead ()</a></td>
+	<td class="summary">Determines whether the target is dead.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:isMarked">core.target:isMarked ()</a></td>
+	<td class="summary">Determines whether the target is marked or not.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:isNotTaggable">core.target:isNotTaggable ()</a></td>
+	<td class="summary">Determines whether the target is already tagged by other player.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:isTaggable">core.target:isTaggable ()</a></td>
+	<td class="summary">Determines whether the target is taggable or not.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.target:mark">core.target:mark (raidMarker)</a></td>
+	<td class="summary">Adds or removes a raid marker on the target.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.target:__construct">core.target:__construct ()</a></td>
+	<td class="summary">Target constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.target:getGuid"></a>
+    <strong>core.target:getGuid ()</strong>
+    </dt>
+    <dd>
+    Gets the target GUID.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <span class="type">nil</span></span>
+        The target GUID, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:getHealth"></a>
+    <strong>core.target:getHealth ()</strong>
+    </dt>
+    <dd>
+    Gets the target health.
+<p>    In the World of Warcraft API, the UnitHealth('target') function behaves
+    differently for NPCs and other players. For NPCs, it returns the absolute
+    value of their health, whereas for players, it returns a value between
+    0 and 100 representing the percentage of their current health compared
+    to their total health.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+        The target health, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:getHealthPercentage"></a>
+    <strong>core.target:getHealthPercentage ()</strong>
+    </dt>
+    <dd>
+    Gets the target health in percentage.
+<p>    This method returns a value between 0 and 1, representing the target's
+    health percentage.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+        The target health percentage, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:getMark"></a>
+    <strong>core.target:getMark ()</strong>
+    </dt>
+    <dd>
+    Gets the target raid marker in the target, if any.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.RaidMarker.html#">Models.RaidMarker</a> or <span class="type">nil</span></span>
+        The target raid marker, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:getMaxHealth"></a>
+    <strong>core.target:getMaxHealth ()</strong>
+    </dt>
+    <dd>
+    Gets the maximum health of the specified unit.
+<p>    In the World of Warcraft API, the UnitHealthMax function is used to
+    retrieve the maximum health of a specified unit. When you call
+    UnitHealthMax('target'), it returns the maximum amount of health points
+    that the targeted unit can have at full health. This function is commonly
+    used by addon developers and players to track and display health-related
+    information, such as health bars and percentages.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+        The maximum health of the target, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:getName"></a>
+    <strong>core.target:getName ()</strong>
+    </dt>
+    <dd>
+    Gets the target name.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <span class="type">nil</span></span>
+        The target name, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:hasTarget"></a>
+    <strong>core.target:hasTarget ()</strong>
+    </dt>
+    <dd>
+    Determines whether the player has a target or not.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the player has a target or not
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:isAlive"></a>
+    <strong>core.target:isAlive ()</strong>
+    </dt>
+    <dd>
+    Determines whether the target is alive.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+        Whether the target is alive or not, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:isDead"></a>
+    <strong>core.target:isDead ()</strong>
+    </dt>
+    <dd>
+    Determines whether the target is dead.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+        Whether the target is dead or not, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:isMarked"></a>
+    <strong>core.target:isMarked ()</strong>
+    </dt>
+    <dd>
+    Determines whether the target is marked or not.
+<p>    A marked target is a target that has a raid marker on it.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the target is marked or not
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:isNotTaggable"></a>
+    <strong>core.target:isNotTaggable ()</strong>
+    </dt>
+    <dd>
+    Determines whether the target is already tagged by other player.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+        Whether the target is not taggable or not, or nil if the player has no target
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Core.Target.html#core.target:isTaggable">Core.Target.isTaggable</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "core.target:isTaggable"></a>
+    <strong>core.target:isTaggable ()</strong>
+    </dt>
+    <dd>
+    Determines whether the target is taggable or not.
+<p>    In Classic World of Warcraft, a taggable enemy is an enemy is an enemy that
+    can grant experience, reputation, honor, loot, etc. Of course, that would
+    depend on the enemy level, faction, etc. But this method checks if another
+    player hasn't tagged the enemy before the current player.
+<p>    As an example, if the player targets an enemy with a gray health bar, it
+    means it's not taggable, then this method will return false.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
+        Whether the target is taggable or not, or nil if the player has no target
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.target:mark"></a>
+    <strong>core.target:mark (raidMarker)</strong>
+    </dt>
+    <dd>
+    Adds or removes a raid marker on the target.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">raidMarker</span>
+            <span class="types"><a class="type" href="../classes/Models.RaidMarker.html#">Models.RaidMarker</a></span>
+         The raid marker to be added or removed from the target
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+    </ul>
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.target:__construct"></a>
+    <strong>core.target:__construct ()</strong>
+    </dt>
+    <dd>
+    Target constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-05-20 15:38:10 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
