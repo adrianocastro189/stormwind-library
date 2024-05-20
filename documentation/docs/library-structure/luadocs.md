@@ -1,4 +1,4 @@
-# Lua Docs
+# LuaDocs
 
 Although the Stormwind Library is fully covered in this documentation page 
 built over Docusaurus, the technical documentation is not well described
@@ -63,7 +63,7 @@ The documentation standards are based on the
 
 However, there are some rules that are not covered by the manual, so
 these are a couple of standards that are used in the Stormwind Library
-Lua doc blocks:
+LuaDoc blocks:
 
 1. Class and methods blocks use the `--[[--` doc block style.
 1. The `@classmod` tag is used to define the class name and due to how the library is 

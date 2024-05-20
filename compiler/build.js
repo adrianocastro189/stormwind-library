@@ -37,7 +37,7 @@ class StormwindLibrary {
 
         // adds a new line to avoid having the last comment in a file to be just before the
         // first comment in the imported file, resulting in a single comment block and messing
-        // up the Lua Doc generation.
+        // up the LuaDoc generation.
         fileContent += '\n';
 
         // replaces the file content import line with the file contents
