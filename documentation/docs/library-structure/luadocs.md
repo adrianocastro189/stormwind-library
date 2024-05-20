@@ -98,13 +98,35 @@ standards become more clear.
 
 ## Generated docs
 
-The technical documentation for the Stormwind library is generated in the
-`./documentation-ldoc` folder with the command:
+The technical documentation for the Stormwind Library is generated inside the 
+docusaurus' `documentation/static/lua-docs` folder and it's available
+[here](pathname:///lua-docs/index.html).
 
 ```shell
 # this command must be run from the ./dist folder
-ldoc stormwind-library.lua -d ../documentation-ldoc -c ../config.ld -v --multimodule --all
+ldoc stormwind-library.lua -d ../documentation/static/lua-docs -c ../config.ld -v --multimodule --all
 ```
 
 As of now, the generated documentation is being pushed to the repository,
 but that can be changed in the future.
+
+:::danger Linking to the generated docs
+
+When the Docusaurus task generates the `build` folder, it will copy the generated 
+technical Lua documentation from the `static/lua-docs` folder, which means they'll
+become available as a valid URL.
+
+**However**, when linking to those HTML files, it's important to use a different type
+of [link](https://docusaurus.io/docs/advanced/routing#escaping-from-spa-redirects),
+otherwise, even as a valid link, the page will result as a 404 page **when clicked
+from any page**, accessible only by typing the URL directly in the browser.
+
+When linking to the generated Lua documentation, use the following pattern:
+
+```markdown
+[click here...](pathname:///lua-docs/index.html)
+```
+
+Of course, the link above is valid for any other HTML in the `static` folder.
+
+:::

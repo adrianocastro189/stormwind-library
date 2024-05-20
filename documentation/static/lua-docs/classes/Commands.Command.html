@@ -40,7 +40,7 @@
 
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><strong>Commands.Command</strong></li>
   <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
   <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
   <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
@@ -54,7 +54,7 @@
   <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
   <li><a href="../classes/Models.Player.html">Models.Player</a></li>
   <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
-  <li><strong>Models.Realm</strong></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
   <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
   <li><a href="../classes/Support.Str.html">Support.Str</a></li>
@@ -69,32 +69,42 @@
 
 <div id="content">
 
-<h1>Class <code>Models.Realm</code></h1>
-<p>The Realm class is a model that maps realms also known as servers.</p>
+<h1>Class <code>Commands.Command</code></h1>
+<p>The command class represents a command in game that can be executed with
+/commandName.</p>
 <p>
-<p>Just like any other model, it's used to standardize the way addons interact
-with realm information.
-<p>This model will grow over time as new features are implemented in the
-library.
+<p>Commands in the Stormwind Library are structured in two parts being:
+<p>1. The command operation
+2. The command arguments
+<p>That said, a command called myAddonCommand that shows its settings screen
+in dark mode would be executed with /myAddonCommand show darkMode.
 </p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#models.realm:getCurrentRealm">models.realm:getCurrentRealm ()</a></td>
-	<td class="summary">Instantiates a new Realm object with the current realm's information.</td>
+	<td class="name" nowrap><a href="#commands.command:getHelpContent">commands.command:getHelpContent ()</a></td>
+	<td class="summary">Returns a human readable help content for the command.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#models.realm:setName">models.realm:setName (value)</a></td>
-	<td class="summary">Sets the Realm name.</td>
+	<td class="name" nowrap><a href="#commands.command:setCallback">commands.command:setCallback (callback)</a></td>
+	<td class="summary">Sets the command callback.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:setDescription">commands.command:setDescription (description)</a></td>
+	<td class="summary">Sets the command description.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.command:setOperation">commands.command:setOperation (operation)</a></td>
+	<td class="summary">Sets the command operation.</td>
 	</tr>
 </table>
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#models.realm:__construct">models.realm:__construct ()</a></td>
-	<td class="summary">Realm constructor.</td>
+	<td class="name" nowrap><a href="#commands.command:__construct">commands.command:__construct ()</a></td>
+	<td class="summary">Command constructor.</td>
 	</tr>
 </table>
 
@@ -106,53 +116,98 @@ library.
 
     <dl class="function">
     <dt>
-    <a name = "models.realm:getCurrentRealm"></a>
-    <strong>models.realm:getCurrentRealm ()</strong>
+    <a name = "commands.command:getHelpContent"></a>
+    <strong>commands.command:getHelpContent ()</strong>
     </dt>
     <dd>
-    Instantiates a new Realm object with the current realm's information.
-<p>    This method acts as a constructor for the Realm model and should not be
-    called in a realm object instance. Consider this a static builder
-    method.
-
+    Returns a human readable help content for the command.
 
 
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
-        a new Realm object with the current realm's information
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        a human readable help content for the command
     </ol>
 
 
 
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="keyword">local</span> realm = library:<span class="function-name">getClass</span>(<span class="string">'Realm'</span>).<span class="function-name">getCurrentRealm</span>()</pre>
-    </ul>
 
 </dd>
     <dt>
-    <a name = "models.realm:setName"></a>
-    <strong>models.realm:setName (value)</strong>
+    <a name = "commands.command:setCallback"></a>
+    <strong>commands.command:setCallback (callback)</strong>
     </dt>
     <dd>
-    Sets the Realm name.
+    Sets the command callback.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">value</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the Realm's name
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         the callback that will be executed when the command is triggered
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.command:setDescription"></a>
+    <strong>commands.command:setDescription (description)</strong>
+    </dt>
+    <dd>
+    Sets the command description.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">description</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the command description that will be shown in the help content
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.command:setOperation"></a>
+    <strong>commands.command:setOperation (operation)</strong>
+    </dt>
+    <dd>
+    Sets the command operation.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">operation</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         the command operation that will be used to trigger the command
+    callback
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
         self
     </ol>
 
@@ -165,11 +220,11 @@ library.
 
     <dl class="function">
     <dt>
-    <a name = "models.realm:__construct"></a>
-    <strong>models.realm:__construct ()</strong>
+    <a name = "commands.command:__construct"></a>
+    <strong>commands.command:__construct ()</strong>
     </dt>
     <dd>
-    Realm constructor.
+    Command constructor.
 
 
 
@@ -185,6 +240,7 @@ library.
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-05-20 15:38:10 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

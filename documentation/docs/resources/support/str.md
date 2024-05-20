@@ -8,5 +8,5 @@ reference.
 
 ## Methods
 
-Please, refer to the [technical documentation](../../library-structure/luadocs#generated-docs)
+Please, refer to the [technical documentation](pathname:///lua-docs/classes/Support.Str.html)
 to get more information about this class and its methods.

@@ -5,6 +5,7 @@
 * Finish covering all classes with LuaDoc blocks
 * Move the dd() method to a better location in the library structure, 
 allowing it to be used before the Output class is registered
+* Move the generated LuaDoc files inside the docusaurus folder
 * Move World of Warcraft API mocks to a new reusable file separated from 
 the unit suite
 
