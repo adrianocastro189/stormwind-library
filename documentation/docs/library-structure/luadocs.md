@@ -81,6 +81,10 @@ when they should not be used outside the class.
       * Prefer to not break lines, even if the line is longer than the current
         sizes as observed in other classes, unless it's really necessary by
         being too long or having multiple phrases.
+      * Capitalize the first word describing the parameter or return type.
+      * When using multiple types, separate them by a `|` character and prefer
+        to sort them alphabetically, except when one of the types is `nil`, 
+        which should be the last one, example: `number|string|nil`.
    * Prefer `integer` over `number` when the value must be an integer.
    * Prefer `boolean` over `bool`.
    * Use `any` when the type is not defined.
