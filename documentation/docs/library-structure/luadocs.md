@@ -99,7 +99,8 @@ standards become more clear.
 ## Generated docs
 
 The technical documentation for the Stormwind Library is generated inside the 
-docusaurus' `documentation/static/lua-docs` folder.
+docusaurus' `documentation/static/lua-docs` folder and it's available
+[here](pathname:///lua-docs/index.html).
 
 ```shell
 # this command must be run from the ./dist folder

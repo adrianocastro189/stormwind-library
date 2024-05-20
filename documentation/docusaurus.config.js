@@ -72,6 +72,13 @@ const config = {
             label: 'Documentation',
           },
           {
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'left',
+            label: 'LuaDocs',
+            href: 'pathname:///lua-docs/index.html',
+          },
+          {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
             position: 'right',
