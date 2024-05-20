@@ -98,12 +98,12 @@ standards become more clear.
 
 ## Generated docs
 
-The technical documentation for the Stormwind library is generated in the
-`./documentation-ldoc` folder with the command:
+The technical documentation for the Stormwind Library is generated inside the 
+docusaurus' `documentation/static/lua-docs` folder.
 
 ```shell
 # this command must be run from the ./dist folder
-ldoc stormwind-library.lua -d ../documentation-ldoc -c ../config.ld -v --multimodule --all
+ldoc stormwind-library.lua -d ../documentation/static/lua-docs -c ../config.ld -v --multimodule --all
 ```
 
 As of now, the generated documentation is being pushed to the repository,
