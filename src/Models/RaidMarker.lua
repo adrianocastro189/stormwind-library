@@ -1,4 +1,4 @@
---[[
+--[[--
 The raid marker model represents those icon markers that can
 be placed on targets, mostly used in raids and dungeons, especially
 skull and cross (x).
@@ -6,6 +6,8 @@ skull and cross (x).
 This model is used to represent the raid markers in the game, but
 not only conceptually, but it maps markers and their indexes to
 be represented by objects in the addon environment.
+
+@classmod Models.RaidMarker
 ]]
 local RaidMarker = {}
     RaidMarker.__index = RaidMarker
@@ -13,6 +15,9 @@ local RaidMarker = {}
 
     --[[
     The raid marker constructor.
+
+    @tparam integer id The raid marker id
+    @tparam string name The raid marker name
     ]]
     function RaidMarker.__construct(id, name)
         local self = setmetatable({}, RaidMarker)
@@ -23,9 +28,11 @@ local RaidMarker = {}
         return self
     end
 
-    --[[
+    --[[--
     Returns a string representation of the raid marker that can
     be used to print it in the chat output in game.
+
+    @treturn string Printable string representing the raid marker
     ]]
     function RaidMarker:getPrintableString()
         if self.id == 0 then

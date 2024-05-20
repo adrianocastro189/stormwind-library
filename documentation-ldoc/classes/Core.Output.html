@@ -44,12 +44,16 @@
   <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
   <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
   <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
   <li><strong>Core.Output</strong></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
   <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
   <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
   <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
   <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
   <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
@@ -77,10 +81,6 @@ in the Stormwind Library and also by the addons.</p>
 	<td class="name" nowrap><a href="#core.output:color">core.output:color (value, color)</a></td>
 	<td class="summary">Colors a string with a given color according to how
     World of Warcraft handles colors in the chat and output.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#core.output:dd">core.output:dd (...)</a></td>
-	<td class="summary">Dumps the values of variables and tables in the output, then dies.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#core.output:getFormattedMessage">core.output:getFormattedMessage (message)</a></td>
@@ -159,39 +159,6 @@ in the Stormwind Library and also by the addons.</p>
 
 
 
-
-</dd>
-    <dt>
-    <a name = "core.output:dd"></a>
-    <strong>core.output:dd (...)</strong>
-    </dt>
-    <dd>
-    Dumps the values of variables and tables in the output, then dies.
-<p>    The dd() stands for "dump and die" and it's a helper function inspired by a PHP framework
-    called Laravel. It's used to dump the values of variables and tables in the output and stop
-    the execution of the script. It's only used for debugging purposes and should never be used
-    in an addon that will be released.
-<p>    Given that it can't use the Output:out() method, there's no test coverage for dd(). After
-    all it's a test and debugging helper resource.
-
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">...</span>
-         The variables and tables to be dumped
-        </li>
-    </ul>
-
-
-
-
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="function-name">dd</span>(someVariable)
-<span class="function-name">dd</span>({ key = <span class="string">'value'</span> })
-<span class="function-name">dd</span>(someVariable, { key = <span class="string">'value'</span> })</pre>
-    </ul>
 
 </dd>
     <dt>

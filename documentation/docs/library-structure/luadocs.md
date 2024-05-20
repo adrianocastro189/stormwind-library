@@ -1,4 +1,4 @@
-# Lua Docs
+# LuaDocs
 
 Although the Stormwind Library is fully covered in this documentation page 
 built over Docusaurus, the technical documentation is not well described
@@ -63,7 +63,7 @@ The documentation standards are based on the
 
 However, there are some rules that are not covered by the manual, so
 these are a couple of standards that are used in the Stormwind Library
-Lua doc blocks:
+LuaDoc blocks:
 
 1. Class and methods blocks use the `--[[--` doc block style.
 1. The `@classmod` tag is used to define the class name and due to how the library is 
@@ -81,6 +81,10 @@ when they should not be used outside the class.
       * Prefer to not break lines, even if the line is longer than the current
         sizes as observed in other classes, unless it's really necessary by
         being too long or having multiple phrases.
+      * Capitalize the first word describing the parameter or return type.
+      * When using multiple types, separate them by a `|` character and prefer
+        to sort them alphabetically, except when one of the types is `nil`, 
+        which should be the last one, example: `number|string|nil`.
    * Prefer `integer` over `number` when the value must be an integer.
    * Prefer `boolean` over `bool`.
    * Use `any` when the type is not defined.
