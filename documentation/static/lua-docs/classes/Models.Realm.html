@@ -52,9 +52,9 @@
   <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Models.Item.html">Models.Item</a></li>
   <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
-  <li><strong>Models.Player</strong></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
   <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
-  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><strong>Models.Realm</strong></li>
   <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
   <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
   <li><a href="../classes/Support.Str.html">Support.Str</a></li>
@@ -69,11 +69,11 @@
 
 <div id="content">
 
-<h1>Class <code>Models.Player</code></h1>
-<p>The Player class is a model that maps player information.</p>
+<h1>Class <code>Models.Realm</code></h1>
+<p>The Realm class is a model that maps realms also known as servers.</p>
 <p>
 <p>Just like any other model, it's used to standardize the way addons interact
-with data related to players.
+with realm information.
 <p>This model will grow over time as new features are implemented in the
 library.
 </p>
@@ -82,27 +82,19 @@ library.
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#models.player:getCurrentPlayer">models.player:getCurrentPlayer ()</a></td>
-	<td class="summary">Gets the current player information.</td>
+	<td class="name" nowrap><a href="#models.realm:getCurrentRealm">models.realm:getCurrentRealm ()</a></td>
+	<td class="summary">Instantiates a new Realm object with the current realm's information.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#models.player:setGuid">models.player:setGuid (value)</a></td>
-	<td class="summary">Sets the Player GUID.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#models.player:setName">models.player:setName (value)</a></td>
-	<td class="summary">Sets the Player name.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#models.player:setRealm">models.player:setRealm (value)</a></td>
-	<td class="summary">Sets the Player realm.</td>
+	<td class="name" nowrap><a href="#models.realm:setName">models.realm:setName (value)</a></td>
+	<td class="summary">Sets the Realm name.</td>
 	</tr>
 </table>
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#models.player:__construct">models.player:__construct ()</a></td>
-	<td class="summary">Player constructor.</td>
+	<td class="name" nowrap><a href="#models.realm:__construct">models.realm:__construct ()</a></td>
+	<td class="summary">Realm constructor.</td>
 	</tr>
 </table>
 
@@ -114,13 +106,13 @@ library.
 
     <dl class="function">
     <dt>
-    <a name = "models.player:getCurrentPlayer"></a>
-    <strong>models.player:getCurrentPlayer ()</strong>
+    <a name = "models.realm:getCurrentRealm"></a>
+    <strong>models.realm:getCurrentRealm ()</strong>
     </dt>
     <dd>
-    Gets the current player information.
-<p>    This method acts as a constructor for the Player model and should not be
-    called in a player object instance. Consider this a static builder
+    Instantiates a new Realm object with the current realm's information.
+<p>    This method acts as a constructor for the Realm model and should not be
+    called in a realm object instance. Consider this a static builder
     method.
 
 
@@ -129,93 +121,38 @@ library.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
-        a new Player object with the current player's information
+           <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
+        a new Realm object with the current realm's information
     </ol>
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> realm = library:<span class="function-name">getClass</span>(<span class="string">'Realm'</span>).<span class="function-name">getCurrentRealm</span>()</pre>
+    </ul>
 
 </dd>
     <dt>
-    <a name = "models.player:setGuid"></a>
-    <strong>models.player:setGuid (value)</strong>
+    <a name = "models.realm:setName"></a>
+    <strong>models.realm:setName (value)</strong>
     </dt>
     <dd>
-    Sets the Player GUID.
+    Sets the Realm name.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">value</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the Player's GUID
+         the Realm's name
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
-        self
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "models.player:setName"></a>
-    <strong>models.player:setName (value)</strong>
-    </dt>
-    <dd>
-    Sets the Player name.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">value</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the Player's name
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
-        self
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "models.player:setRealm"></a>
-    <strong>models.player:setRealm (value)</strong>
-    </dt>
-    <dd>
-    Sets the Player realm.
-<p>    It's most likely that a player realm will be the same realm as the
-    player is logged in, but it's possible to have a player from a different
-    realm, especially in Retail, where Blizzard allows players from other
-    realms to share the same place or group.
-
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">value</span>
-            <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
-         the Player's realm
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="../classes/Models.Player.html#">Models.Player</a></span>
+           <span class="types"><a class="type" href="../classes/Models.Realm.html#">Models.Realm</a></span>
         self
     </ol>
 
@@ -228,11 +165,11 @@ library.
 
     <dl class="function">
     <dt>
-    <a name = "models.player:__construct"></a>
-    <strong>models.player:__construct ()</strong>
+    <a name = "models.realm:__construct"></a>
+    <strong>models.realm:__construct ()</strong>
     </dt>
     <dd>
-    Player constructor.
+    Realm constructor.
 
 
 
@@ -248,6 +185,7 @@ library.
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-05-20 15:38:10 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
