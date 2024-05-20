@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><strong>Core.Events</strong></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Core.Events</code></h1>
+<p>The Events class is a layer between World of Warcraft events and events
+triggered by the Stormwind Library.</p>
+<p>
+<p>When using this library in an addon, it should focus on listening to the
+library events, which are more detailed and have more mapped parameters.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.events.createFrame">core.events.createFrame ()</a></td>
+	<td class="summary">Creates the events frame, which will be responsible for capturing
+    all World of Warcraft events and forwarding them to the library
+    handlers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.events.playerTargetChangedListener">core.events.playerTargetChangedListener ()</a></td>
+	<td class="summary">Listens to the World of Warcraft PLAYER_TARGET_CHANGED event, which is
+triggered when the player changes the target.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.events:handleOriginal">core.events:handleOriginal (source, event, ...)</a></td>
+	<td class="summary">This is the main event handler method, which will capture all
+    subscribed World of Warcraft events and forwards them to the library
+    handlers that will later notify other subscribers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.events:listen">core.events:listen (event, callback)</a></td>
+	<td class="summary">Listens to a Stormwind Library event.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.events:listenOriginal">core.events:listenOriginal (event, callback)</a></td>
+	<td class="summary">Sets the Events Frame to listen to a specific event and also store the
+    handler callback to be called when the event is triggered.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.events:notify">core.events:notify (event, ...)</a></td>
+	<td class="summary">Notifies all listeners of a specific event.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.events:__construct">core.events:__construct ()</a></td>
+	<td class="summary">Events constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "core.events.createFrame"></a>
+    <strong>core.events.createFrame ()</strong>
+    </dt>
+    <dd>
+    Creates the events frame, which will be responsible for capturing
+    all World of Warcraft events and forwarding them to the library
+    handlers.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.events.playerTargetChangedListener"></a>
+    <strong>core.events.playerTargetChangedListener ()</strong>
+    </dt>
+    <dd>
+    Listens to the World of Warcraft PLAYER_TARGET_CHANGED event, which is
+triggered when the player changes the target.
+<p>This method breaks the event into three different events:
+<p>- PLAYER_TARGET: triggered when the player targets a unit
+- PLAYER_TARGET_CHANGED: triggered when the player target changes
+- PLAYER_TARGET_CLEAR: triggered when the player clears the target
+<p>To achieve this, a pleyerHadTarget event state is used to keep track of
+whether the player had a target or not when the World of Warcraft event
+was captured.
+<p>When the player had no target and the event was captured, the
+PLAYER_TARGET is triggered, meaning that player now targetted a unit.
+<p>When the player had a target, the event was captured and the player still
+had a target, the PLAYER_TARGET_CHANGED is triggered, meaning that it was
+changed.
+<p>Finally, when the player had a target and the event was captured, but the
+player no longer has a target, the PLAYER_TARGET_CLEAR is triggered.
+
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.events:handleOriginal"></a>
+    <strong>core.events:handleOriginal (source, event, ...)</strong>
+    </dt>
+    <dd>
+    This is the main event handler method, which will capture all
+    subscribed World of Warcraft events and forwards them to the library
+    handlers that will later notify other subscribers.
+<p>    It's important to mention that addons shouldn't care about this
+    method, which is an internal method to the Events class.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">source</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The Events instance, used when calling Events.handleOriginal
+        </li>
+        <li><span class="parameter">event</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The World of Warcraft event to be handled
+        </li>
+        <li><span class="parameter">...</span>
+         The parameters passed by the World of Warcraft event
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.events:listen"></a>
+    <strong>core.events:listen (event, callback)</strong>
+    </dt>
+    <dd>
+    Listens to a Stormwind Library event.
+<p>    This method is used by addons to listen to the library events.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">event</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The Stormwind Library event to listen to
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         The callback to be called when the event is triggered
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.events:listenOriginal"></a>
+    <strong>core.events:listenOriginal (event, callback)</strong>
+    </dt>
+    <dd>
+    Sets the Events Frame to listen to a specific event and also store the
+    handler callback to be called when the event is triggered.
+<p>    It's important to mention that addons shouldn't care about this
+    method, which is an internal method to the Events class.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">event</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The World of Warcraft event to listen to
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         The callback to be called when the event is triggered
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.events:notify"></a>
+    <strong>core.events:notify (event, ...)</strong>
+    </dt>
+    <dd>
+    Notifies all listeners of a specific event.
+<p>    This method should be called by event handlers to notify all listeners
+    of a specific Stormwind Library event.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">event</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The Stormwind Library event to notify
+        </li>
+        <li><span class="parameter">...</span>
+         The parameters to be passed to the event listeners
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.events:__construct"></a>
+    <strong>core.events:__construct ()</strong>
+    </dt>
+    <dd>
+    Events constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

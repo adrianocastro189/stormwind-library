@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><strong>Models.Macro</strong></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Models.Macro</code></h1>
+<p>The macro class maps macro information and allow in game macro updates.</p>
+<p></p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.macro:exists">models.macro:exists ()</a></td>
+	<td class="summary">Determines whether this macro exists.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.macro:save">models.macro:save ()</a></td>
+	<td class="summary">Saves the macro, returning the macro id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.macro:setBody">models.macro:setBody (value)</a></td>
+	<td class="summary">Sets the macro body.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.macro:setIcon">models.macro:setIcon (value)</a></td>
+	<td class="summary">Sets the macro icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.macro:setName">models.macro:setName (value)</a></td>
+	<td class="summary">Sets the macro name.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.macro:__construct">models.macro:__construct (name)</a></td>
+	<td class="summary">Macro constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.macro:exists"></a>
+    <strong>models.macro:exists ()</strong>
+    </dt>
+    <dd>
+    Determines whether this macro exists.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the macro exists
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.macro:save"></a>
+    <strong>models.macro:save ()</strong>
+    </dt>
+    <dd>
+    Saves the macro, returning the macro id.
+<p>    If the macro, identified by its name, doesn't exist yet, it will be created.
+<p>    It's important to mention that this whole Macro class can have weird
+    behavior if it tries to save() a macro with dupicated names. Make sure this
+    method is called for unique names.
+<p>    Future implementations may fix this issue, but as long as it uses unique
+    names, this model will work as expected.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">integer</span></span>
+        The macro id
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.macro:setBody"></a>
+    <strong>models.macro:setBody (value)</strong>
+    </dt>
+    <dd>
+    Sets the macro body.
+<p>    The macro's body is the code that will be executed when the macro's
+    triggered.
+<p>    If the value is an array, it's considered a multiline body, and lines will
+    be separated by a line break.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">array[string]</span> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The macro's body
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Macro.html#">Models.Macro</a></span>
+        self The current instance for method chaining
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.macro:setIcon"></a>
+    <strong>models.macro:setIcon (value)</strong>
+    </dt>
+    <dd>
+    Sets the macro icon.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">integer</span> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The macro's icon texture id
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Macro.html#">Models.Macro</a></span>
+        self The current instance for method chaining
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.macro:setName"></a>
+    <strong>models.macro:setName (value)</strong>
+    </dt>
+    <dd>
+    Sets the macro name.
+<p>    This is the macro's identifier, which means the one World of Warcraft API
+    will use when accessing the game's macro.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The macro's name
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Macro.html#">Models.Macro</a></span>
+        self The current instance for method chaining
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.macro:__construct"></a>
+    <strong>models.macro:__construct (name)</strong>
+    </dt>
+    <dd>
+    Macro constructor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The macro's name
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
