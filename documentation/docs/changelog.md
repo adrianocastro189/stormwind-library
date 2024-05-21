@@ -2,6 +2,7 @@
 
 ## yyyy.mm.dd - version 1.3.0
 
+* Documentation published on [GitHub Pages](https://www.stormwindlibrary.com)
 * Finish covering all classes with LuaDoc blocks
 * Move the dd() method to a better location in the library structure, 
 allowing it to be used before the Output class is registered
