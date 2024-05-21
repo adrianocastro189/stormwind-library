@@ -62,7 +62,7 @@ const config = {
         title: 'Stormwind Library',
         logo: {
           alt: 'Stormwind Library',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
         },
         items: [
           {
@@ -79,7 +79,7 @@ const config = {
             href: 'pathname:///lua-docs/index.html',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/adrianocastro189/stormwind-library',
             label: 'GitHub',
             position: 'right',
           },
