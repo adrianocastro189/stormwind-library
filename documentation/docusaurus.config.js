@@ -95,31 +95,35 @@ const config = {
                 label: 'Documentation',
                 to: '/docs/intro',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'LuaDocs',
+                to: 'pathname:///lua-docs/index.html',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Addons',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Memory',
+                href: 'https://www.curseforge.com/wow/addons/memory',
+              },
+              {
+                label: 'MultiTargets',
+                href: 'https://www.curseforge.com/wow/addons/multitargets',
+              },
+            ],
+          },
+          {
+            title: 'Source',
+            items: [
+              {
+                label: 'Support this project',
+                href: 'https://github.com/sponsors/adrianocastro189',
+              },
+              {
+                label: 'View source on GitHub',
+                href: 'https://github.com/adrianocastro189/stormwind-library',
               },
             ],
           },
