@@ -106,12 +106,12 @@ local Events = {}
     @param ... The parameters to be passed to the event listeners
     ]]
     function Events:notify(event, ...)
-        local params = ...
+        local params = {...}
 
         local listeners = self.__.arr:get(self.listeners, event, {})
 
         self.__.arr:map(listeners, function (listener)
-            listener(params)
+            listener(self.__.arr:unpack(params))
         end)
     end
 -- end of Events
