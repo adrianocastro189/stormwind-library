@@ -4,6 +4,7 @@
 
 * Documentation published on [GitHub Pages](https://www.stormwindlibrary.com)
 * Finish covering all classes with LuaDoc blocks
+* Fix Events:notify() to properly handle multiple arguments
 * Move the dd() method to a better location in the library structure, 
 allowing it to be used before the Output class is registered
 * Move the generated LuaDoc files inside the docusaurus folder
