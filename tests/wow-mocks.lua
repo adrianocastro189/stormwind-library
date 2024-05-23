@@ -15,19 +15,23 @@ CreateFrame = function (...)
     }
     
     mockFrame.AddMessage = function (self, ...) self.addMessageInvoked = true end
+    mockFrame.SetAutoFocus = function (self, autoFocus) self.autoFocus = autoFocus end
     mockFrame.CreateFontString = function (self, ...) return CreateFrame(...) end
     mockFrame.GetHeight = function (self) return self.height end
     mockFrame.GetWidth = function (self) return self.width end
     mockFrame.Hide = function (self) self.hideInvoked = true end
+    mockFrame.SetEnabled = function (self, enabled) self.enabled = enabled end
     mockFrame.EnableMouse = function (self, enable) self.mouseEnabled = enable end
     mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
     mockFrame.SetBackdrop = function (self, backdrop) self.backdrop = backdrop end
     mockFrame.SetBackdropBorderColor = function (self, r, g, b, a) self.backdropBorderColor = { r, g, b, a } end
     mockFrame.SetBackdropColor = function (self, r, g, b, a) self.backdropColor = { r, g, b, a } end
     mockFrame.SetFont = function (self, font, size) self.fontFamily = font self.fontSize = size end
+    mockFrame.SetFontObject = function (self, fontObject) self.fontObject = fontObject end
     mockFrame.SetHeight = function (self, height) self.height = height end
     mockFrame.SetHighlightTexture = function (self, texture) self.highlightTexture = texture end
     mockFrame.SetMovable = function (self, movable) self.movable = movable end
+    mockFrame.SetMultiLine = function (self, multiLine) self.multiLine = multiLine end
     mockFrame.SetNormalTexture = function (self, texture) self.normalTexture = texture end
     mockFrame.SetParent = function (self, parent) self.parent = parent end
     mockFrame.SetPoint = function (self, point, relativeFrame, relativePoint, xOfs, yOfs)
@@ -45,6 +49,7 @@ CreateFrame = function (...)
     mockFrame.SetScript = function (self, script, callback) self.scripts[script] = callback end
     mockFrame.SetSize = function (self, width, height) self.width = width self.height = height end
     mockFrame.SetText = function (self, text) self.text = text end
+    mockFrame.SetTextInsets = function (self, left, right, top, bottom) self.textInsets = { left, right, top, bottom } end
     mockFrame.SetWidth = function (self, width) self.width = width end
     mockFrame.Show = function (self) self.showInvoked = true end
     mockFrame.UnregisterEvent = function (self, event) table.remove(self.events or {}, event) end
