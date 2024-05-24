@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><strong>Support.Bool</strong></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Support.Bool</code></h1>
+<p>The Bool support class contains helper functions to manipulate boolean
+values.</p>
+<p></p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">-- library is an instance of the Stormwind Library
+library.bool
+</pre>
+    </ul>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#support.bool:isTrue">support.bool:isTrue (value)</a></td>
+	<td class="summary">Determines whether a value represents true or not.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "support.bool:isTrue"></a>
+    <strong>support.bool:isTrue (value)</strong>
+    </dt>
+    <dd>
+    Determines whether a value represents true or not.
+<p>    This method checks if a value is in a range of possible values that
+    represent a true value.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">integer</span>, <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <span class="type">boolean</span></span>
+         the value to be checked
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the value represents a true value or not
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- library is an instance of the Stormwind Library
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"yes"</span>) <span class="comment">-- true
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"no"</span>)  <span class="comment">-- false
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"1"</span>)   <span class="comment">-- true
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="string">"0"</span>)   <span class="comment">-- false
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="number">1</span>)     <span class="comment">-- true
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="number">0</span>)     <span class="comment">-- false
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="keyword">true</span>)  <span class="comment">-- true
+</span>library.bool:<span class="function-name">isTrue</span>(<span class="keyword">false</span>) <span class="comment">-- false</span></pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-05-20 15:38:10 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

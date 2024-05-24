@@ -13,15 +13,15 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://www.stormwindlibrary.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'adrianocastro189', // Usually your GitHub org/user name.
+  projectName: 'stormwind-library', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -62,7 +62,7 @@ const config = {
         title: 'Stormwind Library',
         logo: {
           alt: 'Stormwind Library',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
         },
         items: [
           {
@@ -72,7 +72,14 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'left',
+            label: 'LuaDocs',
+            href: 'pathname:///lua-docs/index.html',
+          },
+          {
+            href: 'https://github.com/adrianocastro189/stormwind-library',
             label: 'GitHub',
             position: 'right',
           },
@@ -88,31 +95,35 @@ const config = {
                 label: 'Documentation',
                 to: '/docs/intro',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'LuaDocs',
+                to: 'pathname:///lua-docs/index.html',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Addons',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Memory',
+                href: 'https://www.curseforge.com/wow/addons/memory',
+              },
+              {
+                label: 'MultiTargets',
+                href: 'https://www.curseforge.com/wow/addons/multitargets',
+              },
+            ],
+          },
+          {
+            title: 'Source',
+            items: [
+              {
+                label: 'Support this project',
+                href: 'https://github.com/sponsors/adrianocastro189',
+              },
+              {
+                label: 'View source on GitHub',
+                href: 'https://github.com/adrianocastro189/stormwind-library',
               },
             ],
           },

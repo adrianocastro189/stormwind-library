@@ -35,7 +35,7 @@ After that, the addon can access the configuration properties using the
 Configuration setters and getters.
 
 **Note:** For a detailed explanation of the Configuration accessors, read the
-[technical documentation](../../library-structure/luadocs#generated-docs).
+[technical documentation](pathname:///lua-docs/classes/Core.Configuration.html).
 
 ```lua
 local configTable = {}
@@ -69,7 +69,7 @@ local config = library:new('Configuration', MyAddon_Data)
 ## Accessing the configuration
 
 The Configuration class offers a set of methods to access the configuration
-properties. Those are better explained in the [technical documentation](../../library-structure/luadocs#generated-docs)
+properties. Those are better explained in the [technical documentation](pathname:///lua-docs/classes/Core.Configuration.html)
 and should be used only if the addon needs to have multiple configurations
 tables.
 

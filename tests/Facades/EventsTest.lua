@@ -65,13 +65,17 @@ TestEvents = BaseTestClass:new()
     function TestEvents:testNotify()
         local events = __:new('Events')
 
-        local callbackInvoked = false
-        local callback = function (param) callbackInvoked = param end
+        local arg1, arg2 = nil, nil
+        local callback = function (param1, param2)
+            arg1 = param1
+            arg2 = param2
+        end
 
         events:listen('test-event', callback)
 
-        events:notify('test-event', 'test-arg')
+        events:notify('test-event', 'test-arg-1', 'test-arg-2')
 
-        lu.assertEquals('test-arg', callbackInvoked)
+        lu.assertEquals('test-arg-1', arg1)
+        lu.assertEquals('test-arg-2', arg2)
     end
 -- end of TestEvents

@@ -1,6 +1,17 @@
 # Changelog
 
-## yyyy.mm.dd - version 1.2.0
+## 2024.05.24 - version 1.3.0
+
+* Documentation published on [GitHub Pages](https://www.stormwindlibrary.com)
+* Finish covering all classes with LuaDoc blocks
+* Fix Events:notify() to properly handle multiple arguments
+* Move the dd() method to a better location in the library structure, 
+allowing it to be used before the Output class is registered
+* Move the generated LuaDoc files inside the docusaurus folder
+* Move World of Warcraft API mocks to a new reusable file separated from 
+the unit suite
+
+## 2024.05.08 - version 1.2.0
 
 * Add the Environment class to identify the environment where the addon is 
 running
@@ -24,7 +35,7 @@ World of Warcraft versions if necessary
 * Add a "dump and die" method to the Output class to improve debugging
 * Add a new property to initialize the library that allows addons to have a 
 class managing configurations and settings with facades to Arr
-* Add more Lua Doc blocks covering the library structure: to all classes in 
+* Add more LuaDoc blocks covering the library structure: to all classes in 
 the Commands structure, and to Output
 * Add the Configuration class to handle addon configurations and settings
 * Add the library getClass() method to allow addons to retrieve a class 

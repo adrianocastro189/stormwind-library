@@ -13,7 +13,7 @@ events.EVENT_NAME_PLAYER_TARGET_CHANGED = 'PLAYER_TARGET_CHANGED'
 -- the Stormwind Library event triggered when the player clears the target
 events.EVENT_NAME_PLAYER_TARGET_CLEAR = 'PLAYER_TARGET_CLEAR'
 
---[[
+--[[--
 Listens to the World of Warcraft PLAYER_TARGET_CHANGED event, which is
 triggered when the player changes the target.
 
@@ -36,6 +36,8 @@ changed.
 
 Finally, when the player had a target and the event was captured, but the
 player no longer has a target, the PLAYER_TARGET_CLEAR is triggered.
+
+@local
 ]]
 function Events:playerTargetChangedListener()
     if self.eventStates.playerHadTarget then

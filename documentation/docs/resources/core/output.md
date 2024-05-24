@@ -105,13 +105,13 @@ lu.assertTrue(library.output:printed('Hello, World of Warcraft!'))
 
 ## Dump and dying - dd()
 
-The `Output:dd()` method is inspired by PHP Laravel's `dd()` function and 
-offers a quick way to dump a variable and stop the execution of the script.
-It's intended to be used for debugging purposes only.
+The library's `dd()` function is inspired by PHP Laravel's `dd()` function 
+and offers a quick way to dump variables and stop the execution of the 
+script. **It's intended to be used for debugging purposes only.**
 
-Once called with one or more variables, it will print the variable structure
-using the standard `print()`, which **can't be replaced** like the 
-`Output:print()` method, considering that `dd()` is intended for debugging
+Once called with one or more variables, it will print the their structures 
+using the standard `print()` method, which **can't be replaced** like 
+`Output:print()`, considering that `dd()` is intended for debugging 
 purposes only.
 
 This method is also prepared to avoid circular references and won't break if
@@ -126,8 +126,5 @@ is recommended for small tables and variables and mostly for local testing.
 local myTable = { key = 'value' }
 
 -- this will print the table and stop the execution
-library.output:dd(myTable)
-
--- it's also possible to use the dd() method in the library global scope
 library:dd(myTable)
 ```

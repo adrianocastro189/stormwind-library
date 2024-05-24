@@ -1,4 +1,6 @@
--- Library version = '1.2.0'
+-- Library version = '1.3.0'
+
+-- import src/Core/DumpAndDie.lua
 
 -- import src/Support/Arr.lua
 -- import src/Support/Bool.lua

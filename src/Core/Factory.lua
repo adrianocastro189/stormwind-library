@@ -1,4 +1,4 @@
---[[
+--[[--
 Contains a list of classes that can be instantiated by the library.
 ]]
 self.classes = {}
@@ -28,12 +28,14 @@ function self:addClass(classname, classStructure, clientFlavors)
     end)
 end
 
---[[
+--[[--
 Returns a class structure by its name.
 
 This method's the same as accessing self.classes[classname].
 
 @tparam string classname The name of the class to be returned
+
+@treturn table The class structure
 ]]
 function self:getClass(classname)
     local clientFlavor = self.environment:getClientFlavor()
@@ -41,10 +43,15 @@ function self:getClass(classname)
     return self.classes[clientFlavor][classname]
 end
 
---[[
+--[[--
 This method emulates the new keyword in OOP languages by instantiating a
 class by its name as long as the class has a __construct() method with or
 without parameters.
+
+@tparam string classname The name of the class to be instantiated
+@param ... The parameters to be passed to the class constructor
+
+@treturn table The class instance
 ]]
 function self:new(classname, ...)
     return self:getClass(classname).__construct(...)

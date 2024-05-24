@@ -11,7 +11,7 @@ released and new features are implemented in the library.
 
 For a more detailed explanation of the Realm model and its available methods 
 and properties, please refer to the library
-[technical documentation](../../library-structure/luadocs#generated-docs).
+[technical documentation](pathname:///lua-docs/classes/Models.Realm.html).
 
 ## Getting the current realm instance
 
