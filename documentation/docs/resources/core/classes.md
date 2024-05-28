@@ -48,7 +48,13 @@ its initialization.
 
 Abstract methods can be mimicked by creating a method that throws an
 error when called. This way, the developer is forced to implement that
-method in a child class.
+method in a child class. Example:
+
+```lua
+function AbstractClass:doSomething()
+    error('This is an abstract method and should be implemented by this class inheritances')
+end
+```
 
 :::
 
