@@ -19,4 +19,15 @@ local Inventory = {}
     function Inventory.__construct()
         return setmetatable({}, Inventory)
     end
+
+    --[[--
+    Maps all player bags as containers in the inventory internal list.
+
+    This method will also trigger the mapping of the containers slot, so
+    it's expected to have the player items synchronized after this method
+    is called.
+    ]]
+    function Inventory:mapBags()
+    -- @TODO: Implement this method in IV2 <2024.06.06>
+    end
 -- end of Inventory
