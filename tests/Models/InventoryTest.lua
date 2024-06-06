@@ -6,6 +6,11 @@ TestInventory = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Inventory:getItems()
+    function TestInventory:testGetItems()
+    -- @TODO: Implement this method in IV3 <2024.06.06>
+    end
+
     -- @covers Inventory:mapBags()
     function TestInventory:testMapBags()
     -- @TODO: Implement this method in IV2 <2024.06.06>

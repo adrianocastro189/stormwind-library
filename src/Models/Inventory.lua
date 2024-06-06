@@ -21,6 +21,19 @@ local Inventory = {}
     end
 
     --[[--
+    Gets all items from the inventory.
+
+    This method will return all items from all containers mapped in the
+    inventory.
+
+    Make sure to call this method after any actions that trigger the
+    inventory mapping (refresh), to get the most updated items.
+    ]]
+    function Inventory:getItems()
+    -- @TODO: Implement this method in IV3 <2024.06.06>
+    end
+
+    --[[--
     Maps all player bags as containers in the inventory internal list.
 
     This method will also trigger the mapping of the containers slot, so
