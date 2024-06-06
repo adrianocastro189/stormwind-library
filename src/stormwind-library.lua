@@ -25,6 +25,8 @@
 -- import src/Facades/Tooltips/ClassicTooltip.lua
 -- import src/Facades/Tooltips/RetailTooltip.lua
 
+-- import src/Factories/ItemFactory.lua
+
 -- @TODO: Move this to AbstractTooltip.lua once the library initialization callbacks are implemented <2024.05.04>
 self.tooltip = self:new('Tooltip')
 self.tooltip:registerTooltipHandlers()
