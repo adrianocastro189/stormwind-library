@@ -11,6 +11,10 @@ Although instantiable just like almost every model in the Stormwind Library,
 it's recommended to use the instance stored in the library object as a good
 source of truth.
 
+For a more detailed explanation of the Inventory model and its available 
+methods and properties, please refer to the library
+[technical documentation](pathname:///lua-docs/classes/Models.Inventory.html).
+
 ## Getting the player's inventory
 
 Once instantiated, the library will automatically instantiate the player's
