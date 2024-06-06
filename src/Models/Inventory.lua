@@ -45,4 +45,13 @@ local Inventory = {}
     function Inventory:mapBags()
     -- @TODO: Implement this method in IV2 <2024.06.06>
     end
+
+    --[[--
+    Iterates over all containers in the inventory and refreshes their items.
+
+    @treturn Models.Container self
+    ]]
+    function Inventory:refresh()
+    -- @TODO: Implement this method in IV2 <2024.06.06>
+    end
 -- end of Inventory
