@@ -32,6 +32,15 @@ local Container = {}
     end
 
     --[[--
+    Gets the number of slots in the container.
+
+    @treturn int the number of slots in the container
+    ]]
+    function Container:getNumSlots()
+        return C_Container.GetContainerNumSlots(self.slot)
+    end
+
+    --[[--
     Determines whether the container has a specific item.
 
     @tparam int|Models.Item The item ID or item instance to search for

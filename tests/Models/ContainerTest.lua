@@ -11,6 +11,19 @@ TestContainer = BaseTestClass:new()
     -- @TODO: Implement this test method in BG5 <2024.06.06>
     end
 
+    -- @covers Container:getNumSlots()
+    function TestContainer:testGetNumSlots()
+        local instance = __:new('Container')
+
+        C_Container = {
+            GetContainerNumSlots = function () return 1 end
+        }
+
+        local result = instance:getNumSlots()
+
+        lu.assertEquals(result, 1)
+    end
+
     -- @covers Container:hasItem()
     function TestContainer:testHasItem()
     -- @TODO: Implement this test method in BG5 <2024.06.06>
