@@ -21,7 +21,27 @@ TestContainer = BaseTestClass:new()
 
     -- @covers Container:getItems()
     function TestContainer:testGetItems()
-    -- @TODO: Implement this test method in BG5 <2024.06.06>
+        local execution = function (items, shouldCallMapItems, mappedItems)
+            local instance = __:new('Container')
+
+            instance.mapItemsInvoked = false
+
+            instance.mapItems = function ()
+                instance.items = mappedItems
+                instance.mapItemsInvoked = true
+            end
+
+            instance.items = items
+
+            lu.assertEquals(mappedItems, instance:getItems())
+            lu.assertEquals(shouldCallMapItems, instance.mapItemsInvoked)
+        end
+
+        local items = { 'test-item-1', 'test-item-2' }
+
+        execution(nil, true, items)
+        execution({}, false, {})
+        execution(items, false, items)
     end
 
     -- @covers Container:getNumSlots()

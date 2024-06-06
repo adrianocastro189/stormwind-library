@@ -42,7 +42,11 @@ local Container = {}
     @treturn table[Models.Item] the container's items
     ]]
     function Container:getItems()
-    -- @TODO: Implement this method in BG5 <2024.06.06>
+        if self.items == nil then
+            self:mapItems()
+        end
+
+        return self.items
     end
 
     --[[--
