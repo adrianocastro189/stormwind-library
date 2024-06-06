@@ -66,3 +66,6 @@ local Inventory = {}
     -- @TODO: Implement this method in IV2 <2024.06.06>
     end
 -- end of Inventory
+
+-- @TODO: Find a way to keep it refreshed automatically in IV3 <2024.06.06>
+self.playerInventory = self:new('Inventory')

@@ -16,6 +16,11 @@ TestInventory = BaseTestClass:new()
     -- @TODO: Implement this method in IV3 <2024.06.06>
     end
 
+    -- @covers StormwindLibrary.playerInventory
+    function TestInventory:testLibraryInstanceIsSet()
+        lu.assertNotNil(__.playerInventory)
+    end
+
     -- @covers Inventory:mapBags()
     function TestInventory:testMapBags()
     -- @TODO: Implement this method in IV2 <2024.06.06>
