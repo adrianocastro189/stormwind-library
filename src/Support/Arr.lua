@@ -39,6 +39,27 @@ local Arr = {}
     end
 
     --[[--
+    Concatenates the values of the arrays passed as arguments into a single
+    array.
+
+    This method should be called only for arrays, as it won't consider table
+    keys and will only concatenate their values.
+
+    @tparam table ... The arrays to be concatenated
+
+    @treturn table The concatenated array
+    ]]
+    function Arr:concat(...)
+        local results = {}
+        self:each({...}, function(list)
+            self:each(list, function(value)
+                table.insert(results, value)
+            end)
+        end)
+        return results
+    end
+
+    --[[--
     Iterates over the list values and calls the callback function in the
     second argument for each of them.
 
