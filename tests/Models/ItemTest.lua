@@ -19,6 +19,6 @@ TestItem = BaseTestClass:new()
         lu.assertEquals(instance.name, 'test-name')
 
         -- asserts that the setters return the instance for chaining
-        lu.assertEquals(result, instance)
+        lu.assertEquals(instance, result)
     end
 -- end of TestItem
