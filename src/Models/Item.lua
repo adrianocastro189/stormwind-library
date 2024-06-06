@@ -23,6 +23,18 @@ local Item = {}
     end
 
     --[[--
+    Sets the item id.
+
+    @tparam int value the item's id
+
+    @treturn Models.Item self
+    ]]
+    function Item:setId(value)
+        self.id = value
+        return self
+    end
+
+    --[[--
     Sets the item name.
 
     @tparam string value the item's name
