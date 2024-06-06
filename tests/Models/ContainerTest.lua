@@ -6,6 +6,19 @@ TestContainer = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Container:getContainerItemInfo()
+    function TestContainer:testGetContainerItemInfo()
+        local instance = __:new('Container')
+
+        local itemInformationMock = { 'test-item-information' }
+
+        C_Container = {
+            GetContainerItemInfo = function () return itemInformationMock end
+        }
+
+        lu.assertEquals(itemInformationMock, instance:getContainerItemInfo(1))
+    end
+
     -- @covers Container:getItems()
     function TestContainer:testGetItems()
     -- @TODO: Implement this test method in BG5 <2024.06.06>

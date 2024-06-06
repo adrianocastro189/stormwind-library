@@ -17,6 +17,18 @@ local Container = {}
     end
 
     --[[--
+    Gets the item information for a specific slot in the container using the
+    game's C_Container.GetContainerItemInfo API method.
+
+    @internal
+
+    @tparam int slot The internal container slot to get the item information from
+
+    @treturn table[string]|nil The item information (if any) in a specific slot
+    ]]
+    function Container:getContainerItemInfo(slot)
+        return C_Container.GetContainerItemInfo(self.slot, slot)
+    --[[--
     Gets the container's items.
 
     Important note: this method may scan the container for items only once.
