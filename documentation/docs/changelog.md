@@ -3,9 +3,7 @@
 ## yyyy.mm.dd - version 1.4.0
 
 * Add a factory to create item instances from multiple sources
-* Add a helper function to Arr called any() that applied a callback to each 
-element in the array and returns true if the callback returns true for any of 
-them
+* Add new helper methods to Arr
 * Add the Container model to map the backpack, bags, bank slots, etc
 * Add the id property to the Item model
 
