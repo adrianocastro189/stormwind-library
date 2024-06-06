@@ -28,6 +28,8 @@ local Container = {}
     ]]
     function Container:getContainerItemInfo(slot)
         return C_Container.GetContainerItemInfo(self.slot, slot)
+    end
+
     --[[--
     Gets the container's items.
 
@@ -66,10 +68,21 @@ local Container = {}
     Scans the container represented by self.slot and updates its internal
     list of items.
 
+    @NOTE: This method was designed to be updated in the future when the
+    container class implements a map with slot = item positions. For now,
+    it's a simple item mapping that updated the internal items cache.
+
     @treturn Models.Container self
     ]]
     function Container:mapItems()
-        -- @TODO: Implement this method in BG4 <2024.06.06>
+        self.items = {}
+
+        for slot = 1, self:getNumSlots() do
+            local itemInformation = self:getContainerItemInfo(slot)
+            local item = self.__.itemFactory:createFromContainerItemInfo(itemInformation)
+            table.insert(self.items, item)
+        end
+
         return self
     end
 

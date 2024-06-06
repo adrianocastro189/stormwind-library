@@ -46,9 +46,26 @@ TestContainer = BaseTestClass:new()
     function TestContainer:testMapItems()
         local instance = __:new('Container')
 
+        instance.getNumSlots = function () return 3 end
+        instance.getContainerItemInfo = function (self, slot)
+            if slot == 2 then
+                -- emulates a slot without an item
+                return nil
+            end
+
+            return {
+                itemID = 1,
+                itemName = 'test-item-name',
+            }
+        end
+
         local result = instance:mapItems()
 
-        -- @TODO: Implement this test method in BG4 <2024.06.06>
+        local item = __:new('Item')
+            :setId(1)
+            :setName('test-item-name')
+
+        lu.assertEquals({item, item}, result.items)
 
         -- asserts that the method returns the instance for chaining
         lu.assertEquals(instance, result)
