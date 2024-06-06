@@ -26,6 +26,8 @@ local Inventory = {}
     This method will also trigger the mapping of the containers slot, so
     it's expected to have the player items synchronized after this method
     is called.
+
+    @treturn Models.Inventory self
     ]]
     function Inventory:mapBags()
     -- @TODO: Implement this method in IV2 <2024.06.06>
