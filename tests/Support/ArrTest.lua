@@ -18,6 +18,27 @@ TestArr = BaseTestClass:new()
         lu.assertNotIsNil(arr)
     end
 
+    -- @covers Arr:concat()
+    function TestArr:testConcat()
+        local function execution(lists, expectedOutput)
+            local results = __.arr:concat(__.arr:unpack(lists))
+    
+            lu.assertEquals(expectedOutput, results)
+        end
+
+        -- called with empty tables
+        execution({{}, {}}, {})
+
+        -- called with string arrays
+        execution({{'a'}, {'b'}}, {'a', 'b'})
+
+        -- called with string arrays and repeated values
+        execution({{'a', 'b'}, {'b', 'c'}}, {'a', 'b', 'b', 'c'})
+
+        -- called with tables
+        execution({{a = 'a'}, {b = 'b'}}, {'a', 'b'})
+    end
+
     -- @covers Arr:each()
     function TestArr:testEach()
         local function execution(list, expectedOutput)
