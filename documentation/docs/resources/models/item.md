@@ -13,3 +13,9 @@ released and new features are implemented in the library.
 For a more detailed explanation of the Item model and its available methods 
 and properties, please refer to the library
 [technical documentation](pathname:///lua-docs/classes/Models.Item.html).
+
+## Building item instances from different sources
+
+Stormwind Library provides a factory to create item instances from different
+sources like the container item info table. Please refer to the
+[ItemFactory documentation](../factories/item-factory) for more information.
