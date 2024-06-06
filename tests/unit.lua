@@ -63,6 +63,7 @@ dofile('./tests/Facades/Tooltips/RetailTooltipTest.lua')
 dofile('./tests/Factories/ItemFactoryTest.lua')
 
 dofile('./tests/Models/ContainerTest.lua')
+dofile('./tests/Models/InventoryTest.lua')
 dofile('./tests/Models/ItemTest.lua')
 dofile('./tests/Models/MacroTest.lua')
 dofile('./tests/Models/RaidMarkerTest.lua')
