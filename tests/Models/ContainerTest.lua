@@ -6,6 +6,18 @@ TestContainer = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Container:mapItems()
+    function TestContainer:testMapItems()
+        local instance = __:new('Container')
+
+        local result = instance:mapItems()
+
+        -- @TODO: Implement this test method in BG4 <2024.06.06>
+
+        -- asserts that the method returns the instance for chaining
+        lu.assertEquals(result, instance)
+    end
+
     -- @covers Container:setSlot()
     function TestContainer:testSetters()
         local instance = __:new('Container')

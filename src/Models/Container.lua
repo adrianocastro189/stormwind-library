@@ -17,6 +17,17 @@ local Container = {}
     end
 
     --[[--
+    Scans the container represented by self.slot and updates its internal
+    list of items.
+
+    @treturn Models.Container self
+    ]]
+    function Container:mapItems()
+        -- @TODO: Implement this method in BG4 <2024.06.06>
+        return self
+    end
+
+    --[[--
     Sets the container slot.
 
     The slot represents the container's position in the player's inventory.
