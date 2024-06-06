@@ -1,5 +1,7 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.4.0
+
 ## 2024.05.24 - version 1.3.0
 
 * Documentation published on [GitHub Pages](https://www.stormwindlibrary.com)

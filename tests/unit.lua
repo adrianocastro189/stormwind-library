@@ -1,7 +1,7 @@
 lu = require('luaunit')
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v1_3_0
+StormwindLibrary = StormwindLibrary_v1_4_0
 
 --[[
 This is a base test class that sets up the library before each test.
