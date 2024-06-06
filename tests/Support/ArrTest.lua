@@ -37,6 +37,9 @@ TestArr = BaseTestClass:new()
 
         -- called with tables
         execution({{a = 'a'}, {b = 'b'}}, {'a', 'b'})
+
+        -- called with tables and repeated keys
+        execution({{a = 'a'}, {b = 'b'}, {c = 'c'}}, {'a', 'b', 'c'})
     end
 
     -- @covers Arr:each()
