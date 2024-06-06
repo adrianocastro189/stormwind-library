@@ -7,17 +7,24 @@ For a more detailed explanation of the Container model and its available
 methods and properties, please refer to the library
 [technical documentation](pathname:///lua-docs/classes/Models.Container.html).
 
-## Mapping items
+## Getting an updated container list of items
 
-The Container model includes a method to map items which scans the container
-represented by its slots and stores an internal list of items.
+When instantiated, the container instance has no items stored yet.
+
+Given that items are cached internally, when calling `getItems()` in a brand 
+new instance will result in a container scan to populate the list.
+
+After that, the `refresh()` method should be called.
 
 ```lua
--- setSlot() and mapItems() are chainable methods
-local container = library
+local backpack = library
     :new('Container')
     :setSlot(Enum.BagIndex.Backpack)
-    :mapItems()
+
+local itemsInBackpack = backpack:getItems()
+
+-- later in another part of the code if the backpack instance is reused
+local updatedItemsInBackpack = backpack:refresh():getItems()
 ```
 
 :::tip Getting the available slot constants
