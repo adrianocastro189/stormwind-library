@@ -11,6 +11,11 @@ TestInventory = BaseTestClass:new()
     -- @TODO: Implement this method in IV3 <2024.06.06>
     end
 
+    -- @covers Inventory:hasItem()
+    function TestInventory:testHasItem()
+    -- @TODO: Implement this method in IV3 <2024.06.06>
+    end
+
     -- @covers Inventory:mapBags()
     function TestInventory:testMapBags()
     -- @TODO: Implement this method in IV2 <2024.06.06>

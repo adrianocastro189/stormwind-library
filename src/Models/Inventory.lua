@@ -34,6 +34,17 @@ local Inventory = {}
     end
 
     --[[--
+    Determines whether the inventory has a specific item.
+
+    @tparam int|Models.Item The item ID or item instance to search for
+
+    @treturn boolean
+    ]]
+    function Inventory:hasItem(item)
+    -- @TODO: Implement this method in IV3 <2024.06.06>
+    end
+
+    --[[--
     Maps all player bags as containers in the inventory internal list.
 
     This method will also trigger the mapping of the containers slot, so
@@ -49,7 +60,7 @@ local Inventory = {}
     --[[--
     Iterates over all containers in the inventory and refreshes their items.
 
-    @treturn Models.Container self
+    @treturn Models.Inventory self
     ]]
     function Inventory:refresh()
     -- @TODO: Implement this method in IV2 <2024.06.06>
