@@ -15,4 +15,20 @@ local Container = {}
     function Container.__construct()
         return setmetatable({}, Container)
     end
+
+    --[[--
+    Sets the container slot.
+
+    The slot represents the container's position in the player's inventory.
+    
+    A list of slots can be found with "/dump Enum.BagIndex" in game.
+
+    @tparam int value the container's slot
+
+    @treturn Models.Container self
+    ]]
+    function Container:setSlot(value)
+        self.slot = value
+        return self
+    end
 -- end of Container
