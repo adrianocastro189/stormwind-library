@@ -6,6 +6,11 @@ TestContainer = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Container:hasItem()
+    function TestContainer:testHasItem()
+        -- @TODO: Implement this test method in BG5 <2024.06.06>
+    end
+
     -- @covers Container:mapItems()
     function TestContainer:testMapItems()
         local instance = __:new('Container')

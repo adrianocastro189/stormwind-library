@@ -17,6 +17,16 @@ local Container = {}
     end
 
     --[[--
+    Determines whether the container has a specific item.
+
+    @tparam int|Models.Item The item ID or item instance to search for
+    ]]
+    function Container:hasItem(item)
+        -- @TODO: Implement this method in BG5 <2024.06.06>
+        return self
+    end
+
+    --[[--
     Scans the container represented by self.slot and updates its internal
     list of items.
 
