@@ -42,7 +42,11 @@ local Container = {}
     @treturn table[Models.Item] the container's items
     ]]
     function Container:getItems()
-    -- @TODO: Implement this method in BG5 <2024.06.06>
+        if self.items == nil then
+            self:mapItems()
+        end
+
+        return self.items
     end
 
     --[[--
@@ -58,10 +62,15 @@ local Container = {}
     Determines whether the container has a specific item.
 
     @tparam int|Models.Item The item ID or item instance to search for
+
+    @treturn boolean
     ]]
     function Container:hasItem(item)
-        -- @TODO: Implement this method in BG5 <2024.06.06>
-        return self
+        local arr = self.__.arr
+
+        return arr:any(self:getItems(), function (itemInContainer)
+            return itemInContainer.id == arr:get(arr:wrap(item), 'id', item)
+        end)
     end
 
     --[[--

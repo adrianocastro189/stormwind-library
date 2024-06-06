@@ -1,4 +1,16 @@
 TestArr = BaseTestClass:new()
+    -- @covers Arr:any()
+    function TestArr:testAny()
+        local execution = function(list, callback, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:any(list, callback))
+        end
+
+        execution(nil, function () return true end, false)
+        execution({}, function () return true end, false)
+        execution({'a', 'b', 'c'}, function (val) return val == 'd' end, false)
+        execution({'a', 'b', 'c'}, function (val) return val == 'b' end, true)
+    end
+
     -- @covers Arr
     function TestArr:testArrInstanceIsSet()
         local arr = __.arr
