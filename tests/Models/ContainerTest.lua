@@ -20,7 +20,18 @@ TestContainer = BaseTestClass:new()
         -- @TODO: Implement this test method in BG4 <2024.06.06>
 
         -- asserts that the method returns the instance for chaining
-        lu.assertEquals(result, instance)
+        lu.assertEquals(instance, result)
+    end
+
+    -- @covers Container:refresh()
+    function TestContainer:testRefresh()
+        local instance = __:new('Container')
+
+        instance.mapItems = function () instance.mapItemsInvoked = true end
+
+        instance:refresh()
+
+        lu.assertTrue(instance.mapItemsInvoked)
     end
 
     -- @covers Container:setSlot()
@@ -33,6 +44,6 @@ TestContainer = BaseTestClass:new()
         lu.assertEquals(instance.slot, 1)
 
         -- asserts that the setters return the instance for chaining
-        lu.assertEquals(result, instance)
+        lu.assertEquals(instance, result)
     end
 -- end of TestContainer

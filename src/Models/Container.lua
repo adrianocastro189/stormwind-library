@@ -38,6 +38,20 @@ local Container = {}
     end
 
     --[[--
+    This is just a facade for the mapItems() method to improve readability.
+
+    The refresh method just updates the container's internal list of items
+    to reflect the current state of the player's container.
+
+    @see Models.Container.mapItems
+
+    @treturn Models.Container self
+    ]]
+    function Container:refresh()
+        return self:mapItems()
+    end
+
+    --[[--
     Sets the container slot.
 
     The slot represents the container's position in the player's inventory.
