@@ -6,9 +6,35 @@ TestContainer = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Container:getContainerItemInfo()
+    function TestContainer:testGetContainerItemInfo()
+        local instance = __:new('Container')
+
+        local itemInformationMock = { 'test-item-information' }
+
+        C_Container = {
+            GetContainerItemInfo = function () return itemInformationMock end
+        }
+
+        lu.assertEquals(itemInformationMock, instance:getContainerItemInfo(1))
+    end
+
     -- @covers Container:getItems()
     function TestContainer:testGetItems()
     -- @TODO: Implement this test method in BG5 <2024.06.06>
+    end
+
+    -- @covers Container:getNumSlots()
+    function TestContainer:testGetNumSlots()
+        local instance = __:new('Container')
+
+        C_Container = {
+            GetContainerNumSlots = function () return 1 end
+        }
+
+        local result = instance:getNumSlots()
+
+        lu.assertEquals(result, 1)
     end
 
     -- @covers Container:hasItem()
@@ -20,9 +46,26 @@ TestContainer = BaseTestClass:new()
     function TestContainer:testMapItems()
         local instance = __:new('Container')
 
+        instance.getNumSlots = function () return 3 end
+        instance.getContainerItemInfo = function (self, slot)
+            if slot == 2 then
+                -- emulates a slot without an item
+                return nil
+            end
+
+            return {
+                itemID = 1,
+                itemName = 'test-item-name',
+            }
+        end
+
         local result = instance:mapItems()
 
-        -- @TODO: Implement this test method in BG4 <2024.06.06>
+        local item = __:new('Item')
+            :setId(1)
+            :setName('test-item-name')
+
+        lu.assertEquals({item, item}, result.items)
 
         -- asserts that the method returns the instance for chaining
         lu.assertEquals(instance, result)

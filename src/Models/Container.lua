@@ -17,6 +17,20 @@ local Container = {}
     end
 
     --[[--
+    Gets the item information for a specific slot in the container using the
+    game's C_Container.GetContainerItemInfo API method.
+
+    @internal
+
+    @tparam int slot The internal container slot to get the item information from
+
+    @treturn table[string]|nil The item information (if any) in a specific slot
+    ]]
+    function Container:getContainerItemInfo(slot)
+        return C_Container.GetContainerItemInfo(self.slot, slot)
+    end
+
+    --[[--
     Gets the container's items.
 
     Important note: this method may scan the container for items only once.
@@ -29,6 +43,15 @@ local Container = {}
     ]]
     function Container:getItems()
     -- @TODO: Implement this method in BG5 <2024.06.06>
+    end
+
+    --[[--
+    Gets the number of slots in the container.
+
+    @treturn int the number of slots in the container
+    ]]
+    function Container:getNumSlots()
+        return C_Container.GetContainerNumSlots(self.slot)
     end
 
     --[[--
@@ -45,10 +68,21 @@ local Container = {}
     Scans the container represented by self.slot and updates its internal
     list of items.
 
+    @NOTE: This method was designed to be updated in the future when the
+    container class implements a map with slot = item positions. For now,
+    it's a simple item mapping that updated the internal items cache.
+
     @treturn Models.Container self
     ]]
     function Container:mapItems()
-        -- @TODO: Implement this method in BG4 <2024.06.06>
+        self.items = {}
+
+        for slot = 1, self:getNumSlots() do
+            local itemInformation = self:getContainerItemInfo(slot)
+            local item = self.__.itemFactory:createFromContainerItemInfo(itemInformation)
+            table.insert(self.items, item)
+        end
+
         return self
     end
 
