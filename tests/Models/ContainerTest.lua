@@ -6,9 +6,14 @@ TestContainer = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Container:getItems()
+    function TestContainer:testGetItems()
+    -- @TODO: Implement this test method in BG5 <2024.06.06>
+    end
+
     -- @covers Container:hasItem()
     function TestContainer:testHasItem()
-        -- @TODO: Implement this test method in BG5 <2024.06.06>
+    -- @TODO: Implement this test method in BG5 <2024.06.06>
     end
 
     -- @covers Container:mapItems()

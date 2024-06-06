@@ -17,6 +17,21 @@ local Container = {}
     end
 
     --[[--
+    Gets the container's items.
+
+    Important note: this method may scan the container for items only once.
+    After that, it will return the cached list of items. It's necessary to
+    call self:refresh() to update the list of items in case the caller needs
+    the most up-to-date list, unless there's an event listener updating them
+    automatically.
+
+    @treturn table[Models.Item] the container's items
+    ]]
+    function Container:getItems()
+    -- @TODO: Implement this method in BG5 <2024.06.06>
+    end
+
+    --[[--
     Determines whether the container has a specific item.
 
     @tparam int|Models.Item The item ID or item instance to search for
