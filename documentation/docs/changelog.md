@@ -2,6 +2,7 @@
 
 ## yyyy.mm.dd - version 1.4.0
 
+* Add a factory to create item instances from multiple sources
 * Add the id property to the Item model
 
 ## 2024.05.24 - version 1.3.0

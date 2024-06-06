@@ -60,6 +60,8 @@ dofile('./tests/Facades/Tooltips/AbstractTooltipTest.lua')
 dofile('./tests/Facades/Tooltips/ClassicTooltipTest.lua')
 dofile('./tests/Facades/Tooltips/RetailTooltipTest.lua')
 
+dofile('./tests/Factories/ItemFactoryTest.lua')
+
 dofile('./tests/Models/ItemTest.lua')
 dofile('./tests/Models/MacroTest.lua')
 dofile('./tests/Models/RaidMarkerTest.lua')
