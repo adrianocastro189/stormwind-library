@@ -6,6 +6,7 @@
 * Add new helper methods to Arr
 * Add the Container model to map the backpack, bags, bank slots, etc
 * Add the id property to the Item model
+* Inventory tracking (still experimental)
 
 ## 2024.05.24 - version 1.3.0
 

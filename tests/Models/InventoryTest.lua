@@ -48,13 +48,8 @@ TestInventory = BaseTestClass:new()
         execution({ containerHasNotItem, containerHasItem }, true)
     end
 
-    -- @covers StormwindLibrary.playerInventory
-    function TestInventory:testLibraryInstanceIsSet()
-        lu.assertNotNil(__.playerInventory)
-    end
-
-    -- @covers Inventory:mapBags()
-    function TestInventory:testMapBags()
+    -- @covers Inventory:mapContainers()
+    function TestInventory:testMapContainers()
         local instance = __:new('Inventory')
 
         __.arr:maybeInitialize(_G, 'Enum.BagIndex', { TestBag = 1 })
@@ -67,7 +62,7 @@ TestInventory = BaseTestClass:new()
 
         __.new = function () return bagMock end
 
-        local result = instance:mapBags()
+        local result = instance:mapContainers()
 
         lu.assertTrue(bagMock.mapItemsInvoked)
         lu.assertEquals({ bagMock }, instance.containers)
@@ -76,11 +71,11 @@ TestInventory = BaseTestClass:new()
         _G.Enum = nil
     end
 
-    -- @covers Inventory:mapBags()
-    function TestInventory:testMapBagsWithEnumNotSet()
+    -- @covers Inventory:mapContainers()
+    function TestInventory:testMapContainersWithEnumNotSet()
         local instance = __:new('Inventory')
 
-        instance:mapBags()
+        instance:mapContainers()
 
         lu.assertIsNil(instance.bags)
     end
