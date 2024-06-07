@@ -61,7 +61,7 @@ local Inventory = {}
 
     @treturn Models.Inventory self
     ]]
-    function Inventory:mapBags()
+    function Inventory:mapContainers()
         if not self.__.arr:get(_G, 'Enum.BagIndex') then
             return
         end
@@ -93,5 +93,11 @@ local Inventory = {}
     end
 -- end of Inventory
 
--- @TODO: Find a way to keep it refreshed automatically in IV3 <2024.06.06>
-self.playerInventory = self:new('Inventory')
+if self.addon.inventory.track then
+    self.playerInventory = self:new('Inventory')
+    self.playerInventory:mapContainers()
+
+    self.events:listenOriginal('BAG_UPDATE', function ()
+        self.playerInventory:mapContainers()
+    end)
+end
