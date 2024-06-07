@@ -24,7 +24,28 @@ TestInventory = BaseTestClass:new()
 
     -- @covers Inventory:hasItem()
     function TestInventory:testHasItem()
-    -- @TODO: Implement this method in IV3 <2024.06.06>
+        local function execution(containers, expectedOutput)
+            local instance = __:new('Inventory')
+
+            instance.containers = containers
+
+            lu.assertEquals(expectedOutput, instance:hasItem())
+        end
+
+        local containerHasItem = { hasItem = function () return true end }
+        local containerHasNotItem = { hasItem = function () return false end }
+
+        -- with no containers
+        execution({}, false)
+
+        -- with one container that has the item
+        execution({ containerHasItem }, true)
+
+        -- with one container that has not the item
+        execution({ containerHasNotItem }, false)
+
+        -- with two containers
+        execution({ containerHasNotItem, containerHasItem }, true)
     end
 
     -- @covers StormwindLibrary.playerInventory

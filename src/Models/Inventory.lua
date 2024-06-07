@@ -47,7 +47,9 @@ local Inventory = {}
     @treturn boolean
     ]]
     function Inventory:hasItem(item)
-    -- @TODO: Implement this method in IV3 <2024.06.06>
+        return self.__.arr:any(self.containers, function (container)
+            return container:hasItem(item)
+        end)
     end
 
     --[[--
