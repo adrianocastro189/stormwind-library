@@ -8,7 +8,18 @@ TestInventory = BaseTestClass:new()
 
     -- @covers Inventory:getItems()
     function TestInventory:testGetItems()
-    -- @TODO: Implement this method in IV3 <2024.06.06>
+        local instance = __:new('Inventory')
+
+        local containerA, containerB = __:new('Container'), __:new('Container')
+
+        containerA.getItems = function () return { 'itemA1', 'itemA2' } end
+        containerB.getItems = function () return { 'itemB1', 'itemB2' } end
+
+        instance.containers = { containerA, containerB }
+
+        local result = instance:getItems()
+
+        lu.assertEquals({ 'itemA1', 'itemA2', 'itemB1', 'itemB2' }, result)
     end
 
     -- @covers Inventory:hasItem()
