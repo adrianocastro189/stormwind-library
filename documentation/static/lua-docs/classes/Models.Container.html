@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><strong>Models.Container</strong></li>
+  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Models.Container</code></h1>
+<p>This model represents bags, bank bags, the player'self backpack, and any other
+container capable of holding items.</p>
+<p></p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.container:getContainerItemInfo">models.container:getContainerItemInfo (slot)</a></td>
+	<td class="summary">Gets the item information for a specific slot in the container using the
+    game's C_Container.GetContainerItemInfo API method.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.container:getItems">models.container:getItems ()</a></td>
+	<td class="summary">Gets the container's items.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.container:getNumSlots">models.container:getNumSlots ()</a></td>
+	<td class="summary">Gets the number of slots in the container.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.container:hasItem">models.container:hasItem (The)</a></td>
+	<td class="summary">Determines whether the container has a specific item.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.container:mapItems">models.container:mapItems ()</a></td>
+	<td class="summary">Scans the container represented by self.slot and updates its internal
+    list of items.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.container:refresh">models.container:refresh ()</a></td>
+	<td class="summary">This is just a facade for the mapItems() method to improve readability.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.container:setSlot">models.container:setSlot (value)</a></td>
+	<td class="summary">Sets the container slot.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.container:__construct">models.container:__construct ()</a></td>
+	<td class="summary">Container constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.container:getContainerItemInfo"></a>
+    <strong>models.container:getContainerItemInfo (slot)</strong>
+    </dt>
+    <dd>
+    Gets the item information for a specific slot in the container using the
+    game's C_Container.GetContainerItemInfo API method.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">slot</span>
+            <span class="types"><span class="type">int</span></span>
+         The internal container slot to get the item information from
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[string]</a> or <span class="type">nil</span></span>
+        The item information (if any) in a specific slot
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.container:getItems"></a>
+    <strong>models.container:getItems ()</strong>
+    </dt>
+    <dd>
+    Gets the container's items.
+<p>    Important note: this method may scan the container for items only once.
+    After that, it will return the cached list of items. It's necessary to
+    call self:refresh() to update the list of items in case the caller needs
+    the most up-to-date list, unless there's an event listener updating them
+    automatically.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[Models.Item]</a></span>
+        the container's items
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.container:getNumSlots"></a>
+    <strong>models.container:getNumSlots ()</strong>
+    </dt>
+    <dd>
+    Gets the number of slots in the container.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        the number of slots in the container
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.container:hasItem"></a>
+    <strong>models.container:hasItem (The)</strong>
+    </dt>
+    <dd>
+    Determines whether the container has a specific item.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">The</span>
+            <span class="types"><span class="type">int</span> or <a class="type" href="../classes/Models.Item.html#">Models.Item</a></span>
+         item ID or item instance to search for
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.container:mapItems"></a>
+    <strong>models.container:mapItems ()</strong>
+    </dt>
+    <dd>
+    Scans the container represented by self.slot and updates its internal
+    list of items.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Container.html#">Models.Container</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.container:refresh"></a>
+    <strong>models.container:refresh ()</strong>
+    </dt>
+    <dd>
+    This is just a facade for the mapItems() method to improve readability.
+<p>    The refresh method just updates the container's internal list of items
+    to reflect the current state of the player's container.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Container.html#">Models.Container</a></span>
+        self
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Models.Container.html#models.container:mapItems">Models.Container.mapItems</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "models.container:setSlot"></a>
+    <strong>models.container:setSlot (value)</strong>
+    </dt>
+    <dd>
+    Sets the container slot.
+<p>    The slot represents the container's position in the player's inventory.
+
+    A list of slots can be found with "/dump Enum.BagIndex" in game.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">int</span></span>
+         the container's slot
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Container.html#">Models.Container</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.container:__construct"></a>
+    <strong>models.container:__construct ()</strong>
+    </dt>
+    <dd>
+    Container constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-06-07 17:22:22 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

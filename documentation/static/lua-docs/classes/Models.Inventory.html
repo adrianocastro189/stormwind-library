@@ -40,7 +40,7 @@
 
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><strong>Commands.Command</strong></li>
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
   <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
   <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
   <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
@@ -52,7 +52,7 @@
   <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
   <li><a href="../classes/Models.Container.html">Models.Container</a></li>
-  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><strong>Models.Inventory</strong></li>
   <li><a href="../classes/Models.Item.html">Models.Item</a></li>
   <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
   <li><a href="../classes/Models.Player.html">Models.Player</a></li>
@@ -72,42 +72,40 @@
 
 <div id="content">
 
-<h1>Class <code>Commands.Command</code></h1>
-<p>The command class represents a command in game that can be executed with
-/commandName.</p>
+<h1>Class <code>Models.Inventory</code></h1>
+<p>This model represents the group of all player containers condensed as a
+single concept.</p>
 <p>
-<p>Commands in the Stormwind Library are structured in two parts being:
-<p>1. The command operation
-2. The command arguments
-<p>That said, a command called myAddonCommand that shows its settings screen
-in dark mode would be executed with /myAddonCommand show darkMode.
+<p>It's a concept because the game doesn't have a visual inventory, but it
+shows the items inside bags, bank slots, keyring, etc, that are mapped as
+containers, while the inventory is the "sum" of all these containers.
 </p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:getHelpContent">commands.command:getHelpContent ()</a></td>
-	<td class="summary">Returns a human readable help content for the command.</td>
+	<td class="name" nowrap><a href="#models.inventory:getItems">models.inventory:getItems ()</a></td>
+	<td class="summary">Gets all items from the inventory.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:setCallback">commands.command:setCallback (callback)</a></td>
-	<td class="summary">Sets the command callback.</td>
+	<td class="name" nowrap><a href="#models.inventory:hasItem">models.inventory:hasItem (The)</a></td>
+	<td class="summary">Determines whether the inventory has a specific item.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:setDescription">commands.command:setDescription (description)</a></td>
-	<td class="summary">Sets the command description.</td>
+	<td class="name" nowrap><a href="#models.inventory:mapContainers">models.inventory:mapContainers ()</a></td>
+	<td class="summary">Maps all player containers in the inventory internal list.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:setOperation">commands.command:setOperation (operation)</a></td>
-	<td class="summary">Sets the command operation.</td>
+	<td class="name" nowrap><a href="#models.inventory:refresh">models.inventory:refresh ()</a></td>
+	<td class="summary">Iterates over all containers in the inventory and refreshes their items.</td>
 	</tr>
 </table>
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#commands.command:__construct">commands.command:__construct ()</a></td>
-	<td class="summary">Command constructor.</td>
+	<td class="name" nowrap><a href="#models.inventory:__construct">models.inventory:__construct ()</a></td>
+	<td class="summary">Inventory constructor.</td>
 	</tr>
 </table>
 
@@ -119,19 +117,44 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
     <dl class="function">
     <dt>
-    <a name = "commands.command:getHelpContent"></a>
-    <strong>commands.command:getHelpContent ()</strong>
+    <a name = "models.inventory:getItems"></a>
+    <strong>models.inventory:getItems ()</strong>
     </dt>
     <dd>
-    Returns a human readable help content for the command.
+    Gets all items from the inventory.
+<p>    This method will return all items from all containers mapped in the
+    inventory.
+<p>    Make sure to call this method after any actions that trigger the
+    inventory mapping (refresh), to get the most updated items.
 
 
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.inventory:hasItem"></a>
+    <strong>models.inventory:hasItem (The)</strong>
+    </dt>
+    <dd>
+    Determines whether the inventory has a specific item.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">The</span>
+            <span class="types"><span class="type">int</span> or <a class="type" href="../classes/Models.Item.html#">Models.Item</a></span>
+         item ID or item instance to search for
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-        a human readable help content for the command
+           <span class="types"><span class="type">boolean</span></span>
+
     </ol>
 
 
@@ -139,24 +162,22 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
 </dd>
     <dt>
-    <a name = "commands.command:setCallback"></a>
-    <strong>commands.command:setCallback (callback)</strong>
+    <a name = "models.inventory:mapContainers"></a>
+    <strong>models.inventory:mapContainers ()</strong>
     </dt>
     <dd>
-    Sets the command callback.
+    Maps all player containers in the inventory internal list.
+<p>    This method will also trigger the mapping of the containers slot, so
+    it's expected to have the player items synchronized after this method
+    is called.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">callback</span>
-            <span class="types"><span class="type">function</span></span>
-         the callback that will be executed when the command is triggered
-        </li>
-    </ul>
+
 
     <h3>Returns:</h3>
     <ol>
 
+           <span class="types"><a class="type" href="../classes/Models.Inventory.html#">Models.Inventory</a></span>
         self
     </ol>
 
@@ -165,52 +186,18 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
 </dd>
     <dt>
-    <a name = "commands.command:setDescription"></a>
-    <strong>commands.command:setDescription (description)</strong>
+    <a name = "models.inventory:refresh"></a>
+    <strong>models.inventory:refresh ()</strong>
     </dt>
     <dd>
-    Sets the command description.
+    Iterates over all containers in the inventory and refreshes their items.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">description</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the command description that will be shown in the help content
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        self
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "commands.command:setOperation"></a>
-    <strong>commands.command:setOperation (operation)</strong>
-    </dt>
-    <dd>
-    Sets the command operation.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">operation</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         the command operation that will be used to trigger the command
-    callback
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
+           <span class="types"><a class="type" href="../classes/Models.Inventory.html#">Models.Inventory</a></span>
         self
     </ol>
 
@@ -223,11 +210,11 @@ in dark mode would be executed with /myAddonCommand show darkMode.
 
     <dl class="function">
     <dt>
-    <a name = "commands.command:__construct"></a>
-    <strong>commands.command:__construct ()</strong>
+    <a name = "models.inventory:__construct"></a>
+    <strong>models.inventory:__construct ()</strong>
     </dt>
     <dd>
-    Command constructor.
+    Inventory constructor.
 
 
 
