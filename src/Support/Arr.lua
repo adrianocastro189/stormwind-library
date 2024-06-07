@@ -48,6 +48,12 @@ local Arr = {}
     @tparam table ... The arrays to be concatenated
 
     @treturn table The concatenated array
+
+    @usage
+        local list1 = {1, 2}
+        local list2 = {3, 4}
+        local results = library.arr:concat(list1, list2)
+        -- results = {1, 2, 3, 4}
     ]]
     function Arr:concat(...)
         local results = {}

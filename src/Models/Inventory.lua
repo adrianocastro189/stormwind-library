@@ -30,7 +30,13 @@ local Inventory = {}
     inventory mapping (refresh), to get the most updated items.
     ]]
     function Inventory:getItems()
-    -- @TODO: Implement this method in IV3 <2024.06.06>
+        local items = {}
+
+        self.__.arr:each(self.containers, function (container)
+            items = self.__.arr:concat(items, container:getItems())
+        end)
+
+        return items
     end
 
     --[[--
@@ -41,7 +47,9 @@ local Inventory = {}
     @treturn boolean
     ]]
     function Inventory:hasItem(item)
-    -- @TODO: Implement this method in IV3 <2024.06.06>
+        return self.__.arr:any(self.containers, function (container)
+            return container:hasItem(item)
+        end)
     end
 
     --[[--
