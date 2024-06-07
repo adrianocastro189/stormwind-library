@@ -45,7 +45,7 @@ local Inventory = {}
     end
 
     --[[--
-    Maps all player bags as containers in the inventory internal list.
+    Maps all player containers in the inventory internal list.
 
     This method will also trigger the mapping of the containers slot, so
     it's expected to have the player items synchronized after this method
@@ -54,7 +54,21 @@ local Inventory = {}
     @treturn Models.Inventory self
     ]]
     function Inventory:mapBags()
-    -- @TODO: Implement this method in IV2 <2024.06.06>
+        if not self.__.arr:get(_G, 'Enum.BagIndex') then
+            return
+        end
+
+        self.containers = {}
+
+        self.__.arr:each(Enum.BagIndex, function (bagId, bagName)
+            local container = self.__:new('Container')
+                :setSlot(bagId)
+                :mapItems()
+
+            table.insert(self.containers, container)
+        end)
+
+        return self
     end
 
     --[[--
@@ -63,7 +77,11 @@ local Inventory = {}
     @treturn Models.Inventory self
     ]]
     function Inventory:refresh()
-    -- @TODO: Implement this method in IV2 <2024.06.06>
+        self.__.arr:each(self.containers, function (container)
+            container:refresh()
+        end)
+
+        return self
     end
 -- end of Inventory
 

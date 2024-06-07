@@ -23,11 +23,51 @@ TestInventory = BaseTestClass:new()
 
     -- @covers Inventory:mapBags()
     function TestInventory:testMapBags()
-    -- @TODO: Implement this method in IV2 <2024.06.06>
+        local instance = __:new('Inventory')
+
+        __.arr:maybeInitialize(_G, 'Enum.BagIndex', { TestBag = 1 })
+
+        local bagMock = __:new('Container')
+        bagMock.mapItems = function ()
+            bagMock.mapItemsInvoked = true
+            return bagMock
+        end
+
+        __.new = function () return bagMock end
+
+        local result = instance:mapBags()
+
+        lu.assertTrue(bagMock.mapItemsInvoked)
+        lu.assertEquals({ bagMock }, instance.containers)
+        lu.assertEquals(instance, result)
+
+        _G.Enum = nil
+    end
+
+    -- @covers Inventory:mapBags()
+    function TestInventory:testMapBagsWithEnumNotSet()
+        local instance = __:new('Inventory')
+
+        instance:mapBags()
+
+        lu.assertIsNil(instance.bags)
     end
 
     -- @covers Inventory:refresh()
     function TestInventory:testRefresh()
-    -- @TODO: Implement this method in IV2 <2024.06.06>
+        local instance = __:new('Inventory')
+
+        local containerMock = __:new('Container')
+        containerMock.refresh = function ()
+            containerMock.refreshInvoked = true
+            return containerMock
+        end
+
+        instance.containers = { containerMock }
+
+        local result = instance:refresh()
+
+        lu.assertTrue(containerMock.refreshInvoked)
+        lu.assertEquals(instance, result)
     end
 -- end of TestInventory
