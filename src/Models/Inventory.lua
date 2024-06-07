@@ -77,7 +77,11 @@ local Inventory = {}
     @treturn Models.Inventory self
     ]]
     function Inventory:refresh()
-    -- @TODO: Implement this method in IV2 <2024.06.06>
+        self.__.arr:each(self.containers, function (container)
+            container:refresh()
+        end)
+
+        return self
     end
 -- end of Inventory
 

@@ -35,10 +35,11 @@ TestInventory = BaseTestClass:new()
 
         __.new = function () return bagMock end
 
-        instance:mapBags()
+        local result = instance:mapBags()
 
         lu.assertTrue(bagMock.mapItemsInvoked)
         lu.assertEquals({ bagMock }, instance.containers)
+        lu.assertEquals(instance, result)
 
         _G.Enum = nil
     end
@@ -54,6 +55,19 @@ TestInventory = BaseTestClass:new()
 
     -- @covers Inventory:refresh()
     function TestInventory:testRefresh()
-    -- @TODO: Implement this method in IV2 <2024.06.06>
+        local instance = __:new('Inventory')
+
+        local containerMock = __:new('Container')
+        containerMock.refresh = function ()
+            containerMock.refreshInvoked = true
+            return containerMock
+        end
+
+        instance.containers = { containerMock }
+
+        local result = instance:refresh()
+
+        lu.assertTrue(containerMock.refreshInvoked)
+        lu.assertEquals(instance, result)
     end
 -- end of TestInventory
