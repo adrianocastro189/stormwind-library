@@ -22,3 +22,7 @@ If you like this framework and want to support its development, you can
 [buy the author a coffee](https://github.com/sponsors/adrianocastro189).
 
 Every contribution or subscription is deeply appreciated.
+
+### Sponsors
+
+* [MattewsStox](https://github.com/MattewsStox)
