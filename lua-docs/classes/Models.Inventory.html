@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><a href="../classes/Models.Container.html">Models.Container</a></li>
+  <li><strong>Models.Inventory</strong></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Models.Inventory</code></h1>
+<p>This model represents the group of all player containers condensed as a
+single concept.</p>
+<p>
+<p>It's a concept because the game doesn't have a visual inventory, but it
+shows the items inside bags, bank slots, keyring, etc, that are mapped as
+containers, while the inventory is the "sum" of all these containers.
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.inventory:getItems">models.inventory:getItems ()</a></td>
+	<td class="summary">Gets all items from the inventory.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.inventory:hasItem">models.inventory:hasItem (The)</a></td>
+	<td class="summary">Determines whether the inventory has a specific item.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.inventory:mapContainers">models.inventory:mapContainers ()</a></td>
+	<td class="summary">Maps all player containers in the inventory internal list.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#models.inventory:refresh">models.inventory:refresh ()</a></td>
+	<td class="summary">Iterates over all containers in the inventory and refreshes their items.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#models.inventory:__construct">models.inventory:__construct ()</a></td>
+	<td class="summary">Inventory constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.inventory:getItems"></a>
+    <strong>models.inventory:getItems ()</strong>
+    </dt>
+    <dd>
+    Gets all items from the inventory.
+<p>    This method will return all items from all containers mapped in the
+    inventory.
+<p>    Make sure to call this method after any actions that trigger the
+    inventory mapping (refresh), to get the most updated items.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.inventory:hasItem"></a>
+    <strong>models.inventory:hasItem (The)</strong>
+    </dt>
+    <dd>
+    Determines whether the inventory has a specific item.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">The</span>
+            <span class="types"><span class="type">int</span> or <a class="type" href="../classes/Models.Item.html#">Models.Item</a></span>
+         item ID or item instance to search for
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.inventory:mapContainers"></a>
+    <strong>models.inventory:mapContainers ()</strong>
+    </dt>
+    <dd>
+    Maps all player containers in the inventory internal list.
+<p>    This method will also trigger the mapping of the containers slot, so
+    it's expected to have the player items synchronized after this method
+    is called.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Inventory.html#">Models.Inventory</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "models.inventory:refresh"></a>
+    <strong>models.inventory:refresh ()</strong>
+    </dt>
+    <dd>
+    Iterates over all containers in the inventory and refreshes their items.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Models.Inventory.html#">Models.Inventory</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "models.inventory:__construct"></a>
+    <strong>models.inventory:__construct ()</strong>
+    </dt>
+    <dd>
+    Inventory constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-06-07 17:22:22 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
