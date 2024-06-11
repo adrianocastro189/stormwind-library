@@ -5,6 +5,12 @@ The **Factory** is a simple part of the library responsible for emulating the `n
 It registers a `new()` method to the library structure that's capable of instantiating classes
 that are registered in its `classes` property.
 
+:::warning Model factories are not covered here
+
+Please, refer to the [factories](/docs/category/factories) documentation for information about model factories, which are a different concept from this one.
+
+:::
+
 ## How to allow classes to be instantiated
 
 These are the steps to allow [classes](classes) to be instantiated:

@@ -11,6 +11,60 @@ local Arr = {}
     Arr.__index = Arr
     Arr.__ = self
 
+    --[[
+    Iterates over the list values and calls a callback function for each of
+    them, returning true if at least one of the calls returns true.
+
+    Once the callback returns true, the method stops the iteration and
+    returns, which means that the callback won't be called for the remaining
+    items in the list.
+
+    The callback function must be a function that accepts (val) or (val, i)
+    where val is the object in the interaction and i it's index. It also must
+    return a boolean value.
+
+    @tparam table list The list to be iterated
+    @tparam function callback The function to be called for each item in the list
+    
+    @treturn boolean Whether the callback returned true for at least one item
+    ]]
+    function Arr:any(list, callback)
+        for i, val in pairs(list or {}) do
+            if callback(val, i) then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    --[[--
+    Concatenates the values of the arrays passed as arguments into a single
+    array.
+
+    This method should be called only for arrays, as it won't consider table
+    keys and will only concatenate their values.
+
+    @tparam table ... The arrays to be concatenated
+
+    @treturn table The concatenated array
+
+    @usage
+        local list1 = {1, 2}
+        local list2 = {3, 4}
+        local results = library.arr:concat(list1, list2)
+        -- results = {1, 2, 3, 4}
+    ]]
+    function Arr:concat(...)
+        local results = {}
+        self:each({...}, function(list)
+            self:each(list, function(value)
+                table.insert(results, value)
+            end)
+        end)
+        return results
+    end
+
     --[[--
     Iterates over the list values and calls the callback function in the
     second argument for each of them.

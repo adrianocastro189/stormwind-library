@@ -1,9 +1,45 @@
 TestArr = BaseTestClass:new()
+    -- @covers Arr:any()
+    function TestArr:testAny()
+        local execution = function(list, callback, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:any(list, callback))
+        end
+
+        execution(nil, function () return true end, false)
+        execution({}, function () return true end, false)
+        execution({'a', 'b', 'c'}, function (val) return val == 'd' end, false)
+        execution({'a', 'b', 'c'}, function (val) return val == 'b' end, true)
+    end
+
     -- @covers Arr
     function TestArr:testArrInstanceIsSet()
         local arr = __.arr
 
         lu.assertNotIsNil(arr)
+    end
+
+    -- @covers Arr:concat()
+    function TestArr:testConcat()
+        local function execution(lists, expectedOutput)
+            local results = __.arr:concat(__.arr:unpack(lists))
+    
+            lu.assertEquals(expectedOutput, results)
+        end
+
+        -- called with empty tables
+        execution({{}, {}}, {})
+
+        -- called with string arrays
+        execution({{'a'}, {'b'}}, {'a', 'b'})
+
+        -- called with string arrays and repeated values
+        execution({{'a', 'b'}, {'b', 'c'}}, {'a', 'b', 'b', 'c'})
+
+        -- called with tables
+        execution({{a = 'a'}, {b = 'b'}}, {'a', 'b'})
+
+        -- called with tables and repeated keys
+        execution({{a = 'a'}, {b = 'b'}, {c = 'c'}}, {'a', 'b', 'c'})
     end
 
     -- @covers Arr:each()

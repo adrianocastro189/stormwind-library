@@ -32,17 +32,6 @@ so when showing `command` for example, it means passing a table with
 
 Some parameters are **optional** and some are **required**.
 
-### data
-
-* **Type:** string, that must be informed as a string, not the table variable
-itself, given that the library will access it with `_G`
-* **Optional**
-* **Default:** `nil`
-* **Effect:** The library will automatically create a [configuration](configuration)
-instance and enable the `config(...)` proxy method to access the saved 
-variables properties. The string must be the name of the saved variables 
-table.
-
 ### colors
 
 * **Type**
@@ -70,6 +59,38 @@ highlight secondary information.
 * **Effect:** When initialized, the library will register a command
 that can be executed in game. Please, read the
 [commands documentation](../commands/overview) for reference.
+
+### data
+
+* **Type:** string, that must be informed as a string, not the table variable
+itself, given that the library will access it with `_G`
+* **Optional**
+* **Default:** `nil`
+* **Effect:** The library will automatically create a [configuration](configuration)
+instance and enable the `config(...)` proxy method to access the saved 
+variables properties. The string must be the name of the saved variables 
+table.
+
+### inventory
+
+* **Type**
+  * A table containing flags for inventory management
+  * **Important note:** This property and the inventory tracking feature were 
+  introduced in version 1.4.0 in an experimental way. Please, use this tracking
+  flag with caution and expect changes (especially in performance) in future
+  ```lua
+  -- ...
+  inventory = {
+    track = true,
+  }
+  -- ...
+  ```
+* **Optional**
+* **Default:** `{ track = false }`, indicating that the library will not
+track the player's inventory by default
+* **Effect:** When set to `true`, the library will automatically instantiate
+the [player's inventory](../models/inventory) and keep it updated with the 
+player's containers by listening to the `BAG_UPDATE` event.
 
 ### name
 

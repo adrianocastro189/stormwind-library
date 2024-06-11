@@ -1,4 +1,4 @@
--- Library version = '1.3.0'
+-- Library version = '1.4.0'
 
 -- import src/Core/DumpAndDie.lua
 
@@ -25,11 +25,15 @@
 -- import src/Facades/Tooltips/ClassicTooltip.lua
 -- import src/Facades/Tooltips/RetailTooltip.lua
 
+-- import src/Factories/ItemFactory.lua
+
 -- @TODO: Move this to AbstractTooltip.lua once the library initialization callbacks are implemented <2024.05.04>
 self.tooltip = self:new('Tooltip')
 self.tooltip:registerTooltipHandlers()
 
+-- import src/Models/Container.lua
 -- import src/Models/Item.lua
+-- import src/Models/Inventory.lua
 -- import src/Models/Macro.lua
 -- import src/Models/RaidMarker.lua
 -- import src/Models/Realm.lua

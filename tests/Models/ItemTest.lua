@@ -6,13 +6,19 @@ TestItem = BaseTestClass:new()
         lu.assertNotNil(instance)
     end
 
+    -- @covers Item:setId()
     -- @covers Item:setName()
-    function TestItem:testSetName()
+    function TestItem:testSetters()
         local instance = __:new('Item')
-        
-        local result = instance:setName('test-name')
 
+        local result = instance
+            :setId(1)
+            :setName('test-name')
+
+        lu.assertEquals(instance.id, 1)
         lu.assertEquals(instance.name, 'test-name')
-        lu.assertEquals(result, instance)
+
+        -- asserts that the setters return the instance for chaining
+        lu.assertEquals(instance, result)
     end
 -- end of TestItem

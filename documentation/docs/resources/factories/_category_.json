@@ -1,0 +1,7 @@
+{
+  "label": "Factories",
+  "link": {
+    "type": "generated-index",
+    "description": "Classes in this section must not be confused with the core's factory structure for instantiating classes. They're factories to build model instances from multiple sources and reduce the amount of code to build objects from different tables, strings and other formats."
+  }
+}
