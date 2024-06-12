@@ -6,10 +6,12 @@ TestCommand = BaseTestClass:new()
         local command = __:new('Command')
         
         command
+            :setArgsValidator('test-args-validator')
             :setCallback('test-callback')
             :setDescription('test-description')
             :setOperation('test-operation')
 
+        lu.assertEquals('test-args-validator', command.argsValidator)
         lu.assertEquals('test-callback', command.callback)
         lu.assertEquals('test-description', command.description)
         lu.assertEquals('test-operation', command.operation)

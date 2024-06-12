@@ -40,6 +40,28 @@ local Command = {}
     end
 
     --[[--
+    Sets the command arguments validator.
+
+    A command arguments validator is a function that will be executed before
+    the command callback. It must return 'valid' if the arguments are valid
+    or any other value if the arguments are invalid.
+
+    @tparam function value the command arguments validator
+
+    @return self
+
+    @usage
+        command:setArgsValidator(function(...)
+            -- validate the arguments
+            return 'valid'
+        end)
+    ]]
+    function Command:setArgsValidator(value)
+        self.argsValidator = value
+        return self
+    end
+
+    --[[--
     Sets the command description.
 
     @tparam string description the command description that will be shown in the help content
