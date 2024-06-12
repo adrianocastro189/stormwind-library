@@ -46,6 +46,10 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
+        gtag: {
+          trackingID: 'G-GDGPH5FK71',
+          anonymizeIP: true,
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
