@@ -97,4 +97,23 @@ local Command = {}
         self.callback = callback
         return self
     end
+
+    --[[--
+    Validates the command arguments if the command has an arguments validator.
+
+    If no arguments validator is set, the method will return 'valid' as by the
+    default, the command must consider the user input as valid to execute. This
+    also allows that addons can validate the arguments internally.
+
+    @param ... The arguments to be validated
+
+    @treturn string 'valid' if the arguments are valid or any other value otherwise
+    ]]
+    function Command:validateArgs(...)
+        if self.argsValidator then
+            return self.argsValidator(...)
+        end
+
+        return 'valid'
+    end
 -- end of Command

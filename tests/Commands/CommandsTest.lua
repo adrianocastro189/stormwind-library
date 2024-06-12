@@ -38,4 +38,37 @@ TestCommand = BaseTestClass:new()
 
         lu.assertNotIsNil(command)
     end
+
+    -- @covers Command:validateArgs()
+    function TestCommand:testValidateArgs()
+        local function execution(validator, expectedOutput)
+            local command = __:new('Command')
+
+            command:setArgsValidator(validator)
+
+            lu.assertEquals(expectedOutput, command:validateArgs())
+        end
+
+        -- no validator
+        execution(nil, 'valid')
+
+        -- validator returning invalid
+        execution(function() return 'invalid' end, 'invalid')
+    end
+
+    -- @covers Command:validateArgs()
+    function TestCommand:testValidateArgsWithMultipleParameters()
+        local command = __:new('Command')
+
+        -- makes sure the arguments are being passed to the validator
+        command:setArgsValidator(function(arg1, arg2)
+            command.arg1 = arg1
+            command.arg2 = arg2
+        end)
+
+        command:validateArgs('arg1', 'arg2')
+
+        lu.assertEquals('arg1', command.arg1)
+        lu.assertEquals('arg2', command.arg2)
+    end
 -- end of TestCommand
