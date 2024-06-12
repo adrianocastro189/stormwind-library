@@ -62,6 +62,18 @@ local Command = {}
     end
 
     --[[--
+    Sets the command callback.
+
+    @tparam function callback the callback that will be executed when the command is triggered
+
+    @return self
+    ]]
+    function Command:setCallback(callback)
+        self.callback = callback
+        return self
+    end
+
+    --[[--
     Sets the command description.
 
     @tparam string description the command description that will be shown in the help content
@@ -83,18 +95,6 @@ local Command = {}
     ]]
     function Command:setOperation(operation)
         self.operation = operation
-        return self
-    end
-
-    --[[--
-    Sets the command callback.
-
-    @tparam function callback the callback that will be executed when the command is triggered
-
-    @return self
-    ]]
-    function Command:setCallback(callback)
-        self.callback = callback
         return self
     end
 
