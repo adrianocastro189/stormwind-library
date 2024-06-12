@@ -1,5 +1,7 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.5.0
+
 ## 2024.06.11 - version 1.4.0
 
 * Add a factory to create item instances from multiple sources
