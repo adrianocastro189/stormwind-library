@@ -4,7 +4,7 @@
 
 * Allow commands to register [argument validators](@TODO: link to the documentation 2024.06.12)
 * Default to the [help operation](resources/commands/commands-handler#the-help-operation)
-when no operation is passed to the addon main slash command
+when it's missing in the addon main slash command
 
 ## 2024.06.11 - version 1.4.0
 
