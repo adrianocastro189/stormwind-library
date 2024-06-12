@@ -40,6 +40,40 @@ local Command = {}
     end
 
     --[[--
+    Sets the command arguments validator.
+
+    A command arguments validator is a function that will be executed before
+    the command callback. It must return 'valid' if the arguments are valid
+    or any other value if the arguments are invalid.
+
+    @tparam function value the command arguments validator
+
+    @return self
+
+    @usage
+        command:setArgsValidator(function(...)
+            -- validate the arguments
+            return 'valid'
+        end)
+    ]]
+    function Command:setArgsValidator(value)
+        self.argsValidator = value
+        return self
+    end
+
+    --[[--
+    Sets the command callback.
+
+    @tparam function callback the callback that will be executed when the command is triggered
+
+    @return self
+    ]]
+    function Command:setCallback(callback)
+        self.callback = callback
+        return self
+    end
+
+    --[[--
     Sets the command description.
 
     @tparam string description the command description that will be shown in the help content
@@ -65,14 +99,21 @@ local Command = {}
     end
 
     --[[--
-    Sets the command callback.
+    Validates the command arguments if the command has an arguments validator.
 
-    @tparam function callback the callback that will be executed when the command is triggered
+    If no arguments validator is set, the method will return 'valid' as by the
+    default, the command must consider the user input as valid to execute. This
+    also allows that addons can validate the arguments internally.
 
-    @return self
+    @param ... The arguments to be validated
+
+    @treturn string 'valid' if the arguments are valid or any other value otherwise
     ]]
-    function Command:setCallback(callback)
-        self.callback = callback
-        return self
+    function Command:validateArgs(...)
+        if self.argsValidator then
+            return self.argsValidator(...)
+        end
+
+        return 'valid'
     end
 -- end of Command
