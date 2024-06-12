@@ -127,7 +127,7 @@ local CommandsHandler = {}
 
     --[[--
     This method is responsible for invoking the callback that was registered
-    for the operation, if it exists.
+    for the operation, if it exists, or the default otherwise.
     
     @codeCoverageIgnore this method's already tested by the handle() test method
 
@@ -137,15 +137,9 @@ local CommandsHandler = {}
     @tparam table args The arguments that were passed to the operation
     ]]
     function CommandsHandler:maybeInvokeCallback(operation, args)
-        -- @TODO: Call a default callback if no operation is found <2024.03.18>
-        if not operation then return end
+        local command = self:getCommandOrDefault(operation)
 
-        local command = self.operations[operation]
-        local callback = command and command.callback or nil
-
-        if callback then
-            callback(self.__.arr:unpack(args))
-        end
+        command.callback(self.__.arr:unpack(args))
     end
 
     --[[--
