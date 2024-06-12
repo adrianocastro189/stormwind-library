@@ -4,7 +4,7 @@ title: Overview
 ---
 
 Slash commands in World of Warcraft are executed in the chat box that can
-execute lots of things for a character as well as for the UI.
+trigger lots of things for a character as well as for their UI.
 
 Examples of slash commands:
 
@@ -25,20 +25,20 @@ complex enough to be handled by a procedural script.
 
 That said, if an addon needs to use the library commands resources, it must
 adhere to a few rules. Otherwise, the addon can "manually" introduce 
-commands in the traditional way.
+commands in the traditional way and bypass this resource.
 
 1. **Single command name:** the library allows only a single command per 
 addon. Which means the addon can't register `/myAddonCommand` and
 `/myAddonAnotherCommand`, instead, it must use the concept of command 
-operations
+operations.
 2. **One callback per operation:** considering a single command per addon,
 the first argument is considered the operation, which means something like
 the real command inside the addon. As an example `/myAddonCommand show` and
 `/myAddonCommand hide` are commands with two different operations: **show**
-and **hide**
-    * Still, a command callback may accept parameters, so a command like
+and **hide**.
+    * Still, a command callback may accept arguments, so a command like
     `/myAddonCommand show simpleUi darkMode` will call the **show** callback
-    passing `simpleUi` and `darkMode` arguments
+    passing `simpleUi` and `darkMode` as arguments.
 
 If the addon can handle commands in the proposed way, then it can use the
 resources below to register, listen and trigger callbacks for slash 
@@ -61,7 +61,9 @@ any effects and won't forward to the addon callbacks.
         * `/myAddonCommand show`
         * `/myAddonCommand config`
         * `/myAddonCommand start`
-1. **Arguments can't escape quotes:** when calling commands handled by the
+    * By default, calling `/myAddonCommand` will trigger the **help** operation
+      as better explained [here](commands-handler#the-help-operation).
+1. **Arguments can't escape quotes yet:** when calling commands handled by the
 Stormwind Library, arguments are separated by a space (` `) meaning that
 `/myAddonCommand operation arg1 arg2` will call the operation passing both
 arguments as two Lua variables and it also allows wrapping strings with

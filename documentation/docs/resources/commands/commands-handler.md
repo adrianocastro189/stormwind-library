@@ -48,3 +48,7 @@ the help itself) along with their descriptions.
 
 Addons that must need to override the help operation, simply create a command
 and add it normally, so the default one will be replaced.
+
+The commands handler was updated in [version 1.5.0](../../changelog) to also 
+consider the help operation as the default one when no operation is passed. 
+With that change, raw commands like `/myCommand` will work the same as `/myCommand help`.
