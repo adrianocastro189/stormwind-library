@@ -38,7 +38,9 @@ triggered along with the argument, which is broken by spaces.
 the command **operation**, so it will determine the proper callback to 
 trigger in the addon. This callback is the one exposed by the command 
 object.
-1. The other arguments (if any) are passed to the operation callback.
+1. The other arguments (if any) are then validated by the
+[command instance validator](command#validating-arguments) (if provided) and 
+when valid, passed to the operation callback.
 
 ## The help operation
 
