@@ -8,10 +8,13 @@ TestPlayer = BaseTestClass:new()
 
     -- @covers Player.getCurrentPlayer()
     function TestPlayer:testGetCurrentPlayer()
+        UnitLevel = function () return 10 end
+
         local result = __:getClass('Player').getCurrentPlayer()
 
-        lu.assertEquals('test-player-name', result.name)
+        lu.assertEquals(10, result.level)
         lu.assertEquals('test-player-guid', result.guid)
+        lu.assertEquals('test-player-name', result.name)
         lu.assertEquals('test-realm', result.realm.name)
     end
 

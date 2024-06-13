@@ -34,8 +34,9 @@ local Player = {}
     ]]
     function Player.getCurrentPlayer()
         return Player.__construct()
-            :setName(UnitName('player'))
             :setGuid(UnitGUID('player'))
+            :setLevel(UnitLevel('player'))
+            :setName(UnitName('player'))
             :setRealm(self:getClass('Realm'):getCurrentRealm())
     end
 
