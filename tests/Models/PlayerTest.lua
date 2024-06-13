@@ -27,7 +27,19 @@ TestPlayer = BaseTestClass:new()
         lu.assertEquals('test-realm', result.realm.name)
     end
 
+    -- @covers StormwindLibrary:refreshCurrentPlayer()]
+    function TestPlayer:testRefreshCurrentPlayer()
+        local player = 'test-player'
+
+        __:getClass('Player').getCurrentPlayer = function () return player end
+        __.currentPlayer = nil
+        __:refreshCurrentPlayer()
+        
+        lu.assertEquals(player, __.currentPlayer)
+    end
+
     -- @covers Player:setGuid()
+    -- @covers Player:setLevel()
     -- @covers Player:setName()
     -- @covers Player:setRealm()
     function TestPlayer:testSetters()
