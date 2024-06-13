@@ -2,6 +2,7 @@
 
 ## yyyy.mm.dd - version 1.5.0
 
+* Add a level property to the Player model and update the current player instance automatically when the player levels up
 * Allow commands to register
 [argument validators](resources/commands/command#validating-arguments)
 * Default to the
