@@ -8,23 +8,27 @@ TestPlayer = BaseTestClass:new()
 
     -- @covers Player.getCurrentPlayer()
     function TestPlayer:testGetCurrentPlayer()
+        UnitLevel = function () return 10 end
+
         local result = __:getClass('Player').getCurrentPlayer()
 
-        lu.assertEquals(result.name, 'test-player-name')
-        lu.assertEquals(result.guid, 'test-player-guid')
-        lu.assertEquals(result.realm.name, 'test-realm')
+        lu.assertEquals(10, result.level)
+        lu.assertEquals('test-player-guid', result.guid)
+        lu.assertEquals('test-player-name', result.name)
+        lu.assertEquals('test-realm', result.realm.name)
     end
 
     -- @covers StormwindLibrary.currentPlayer
     function TestPlayer:testLibraryInstanceIsSet()
         local result = __.currentPlayer
 
-        lu.assertEquals(result.name, 'test-player-name')
-        lu.assertEquals(result.guid, 'test-player-guid')
-        lu.assertEquals(result.realm.name, 'test-realm')
+        lu.assertEquals('test-player-name', result.name)
+        lu.assertEquals('test-player-guid', result.guid)
+        lu.assertEquals('test-realm', result.realm.name)
     end
 
     -- @covers Player:setGuid()
+    -- @covers Player:setLevel()
     -- @covers Player:setName()
     -- @covers Player:setRealm()
     function TestPlayer:testSetters()
@@ -33,17 +37,20 @@ TestPlayer = BaseTestClass:new()
         local instance = __:new('Player')
         
         lu.assertIsNil(instance.guid)
+        lu.assertIsNil(instance.level)
         lu.assertIsNil(instance.name)
         lu.assertIsNil(instance.realm)
 
         local result = instance
             :setGuid('test-guid')
+            :setLevel(1)
             :setName('test-name')
             :setRealm(realm)
 
-        lu.assertEquals(result, instance)
-        lu.assertEquals(instance.guid, 'test-guid')
-        lu.assertEquals(instance.name, 'test-name')
-        lu.assertEquals(instance.realm, realm)
+        lu.assertEquals(instance, result)
+        lu.assertEquals('test-guid', instance.guid)
+        lu.assertEquals(1, instance.level)
+        lu.assertEquals('test-name', instance.name)
+        lu.assertEquals(realm, instance.realm)
     end
 -- end of TestPlayer
