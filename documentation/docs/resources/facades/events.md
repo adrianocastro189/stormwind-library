@@ -56,6 +56,13 @@ with the `Events:listen(event, callback)` method. It's advisable to use
 the constants defined in the Stormwind Library to avoid typos and to make
 the code more readable.
 
+#### `PLAYER_LEVEL_UP`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_LEVEL_UP`
+* **Payload:** an integer with the **new** player level
+* **Description:** This event is the same as the World of Warcraft event
+called `PLAYER_LEVEL_UP`, but with fewer data.
+
 #### `PLAYER_LOGIN`
 
 * **Constant:** `library.events.EVENT_NAME_PLAYER_LOGIN`
