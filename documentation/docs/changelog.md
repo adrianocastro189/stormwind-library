@@ -5,6 +5,8 @@
 * Allow commands to register [argument validators](resources/commands/command#validating-arguments)
 * Default to the [help operation](resources/commands/commands-handler#the-help-operation)
 when it's missing in the addon main slash command
+* Watch for the [PLAYER_LEVEL_UP](resources/facades/events#player_level_up) 
+event and forward it to the library listeners
 
 ## 2024.06.11 - version 1.4.0
 
