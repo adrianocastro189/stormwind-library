@@ -2,7 +2,7 @@
 
 ## yyyy.mm.dd - version 1.5.0
 
-* Allow commands to register [argument validators](@TODO: link to the documentation 2024.06.12)
+* Allow commands to register [argument validators](resources/commands/command#validating-arguments)
 * Default to the [help operation](resources/commands/commands-handler#the-help-operation)
 when it's missing in the addon main slash command
 

@@ -127,10 +127,11 @@ local CommandsHandler = {}
 
     --[[--
     This method is responsible for invoking the callback that was registered
-    for the operation, if it exists, or the default otherwise.
-    
-    @codeCoverageIgnore this method's already tested by the handle() test method
+    for the operation, if it exists, or the default one otherwise.
 
+    But before invoking the callback, it validates the arguments that were
+    passed to the operation in case the command has an arguments validator.
+    
     @local
 
     @tparam string operation The operation that was triggered
@@ -138,6 +139,13 @@ local CommandsHandler = {}
     ]]
     function CommandsHandler:maybeInvokeCallback(operation, args)
         local command = self:getCommandOrDefault(operation)
+
+        local validationResult = command:validateArgs(self.__.arr:unpack(args))
+
+        if validationResult ~= 'valid' then
+            self.__.output:out(validationResult)
+            return
+        end
 
         command.callback(self.__.arr:unpack(args))
     end

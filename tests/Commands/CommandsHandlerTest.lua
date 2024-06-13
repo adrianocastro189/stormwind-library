@@ -120,12 +120,59 @@ TestCommandsHandler = BaseTestClass:new()
     end
 
     --[[
-    @covers StormwindLibrary:handle()
+    @covers CommandsHandler:handle()
 
     This test just makes sure an invalid operation won't throw errors
     ]]
     function TestCommandsHandler:testHandleWithInvalidOperation()
         __:new('CommandsHandler'):handle('invalid-operation')
+    end
+
+    -- @covers CommandsHandler:maybeInvokeCallback()
+    function TestCommandsHandler:testMaybeInvokeCallbackWithInvalidArgs()
+        local handler = __:new('CommandsHandler')
+        local command = __:new('Command')
+
+        command.validateArgs = function() return 'invalid arguments' end
+
+        handler.getCommandOrDefault = function() return command end
+
+        handler:maybeInvokeCallback('test-operation', {})
+
+        lu.assertIsTrue(__.output:printed('invalid arguments'))
+    end
+
+    -- @covers CommandsHandler:maybeInvokeCallback()
+    function TestCommandsHandler:testMaybeInvokeCallbackWithValidArgs()
+        local handler = __:new('CommandsHandler')
+        local command = __:new('Command')
+
+        -- makes sure the arguments are properly unpacked for the validation phase
+        command.validateArgs = function(self, arg1, arg2, arg3)
+            self.validateArg1 = arg1
+            self.validateArg2 = arg2
+            self.validateArg3 = arg3
+            return 'valid'
+        end
+
+        -- makes sure the arguments are properly unpacked for the callback phase
+        command.callback =  function(arg1, arg2, arg3)
+            command.callbackArg1 = arg1
+            command.callbackArg2 = arg2
+            command.callbackArg3 = arg3
+        end
+
+        handler.getCommandOrDefault = function() return command end
+
+        handler:maybeInvokeCallback('test-operation', {'test-arg1', 'test-arg2', 'test-arg3'})
+
+        lu.assertEquals('test-arg1', command.validateArg1)
+        lu.assertEquals('test-arg2', command.validateArg2)
+        lu.assertEquals('test-arg3', command.validateArg3)
+
+        lu.assertEquals('test-arg1', command.callbackArg1)
+        lu.assertEquals('test-arg2', command.callbackArg2)
+        lu.assertEquals('test-arg3', command.callbackArg3)
     end
 
     -- @covers CommandsHandler:parseArguments()
