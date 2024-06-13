@@ -54,6 +54,20 @@ local Player = {}
     end
 
     --[[--
+    Sets the Player level.
+
+    @TODO: Move this method to Unit when the Unit model is implemented <2024.06.13>
+
+    @tparam integer value the Player's level
+
+    @treturn Models.Player self
+    ]]
+    function Player:setLevel(value)
+        self.level = value
+        return self
+    end
+
+    --[[--
     Sets the Player name.
 
     @TODO: Move this method to Unit when the Unit model is implemented <2024.05.06>

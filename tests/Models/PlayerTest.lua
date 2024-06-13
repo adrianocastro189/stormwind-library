@@ -10,18 +10,18 @@ TestPlayer = BaseTestClass:new()
     function TestPlayer:testGetCurrentPlayer()
         local result = __:getClass('Player').getCurrentPlayer()
 
-        lu.assertEquals(result.name, 'test-player-name')
-        lu.assertEquals(result.guid, 'test-player-guid')
-        lu.assertEquals(result.realm.name, 'test-realm')
+        lu.assertEquals('test-player-name', result.name)
+        lu.assertEquals('test-player-guid', result.guid)
+        lu.assertEquals('test-realm', result.realm.name)
     end
 
     -- @covers StormwindLibrary.currentPlayer
     function TestPlayer:testLibraryInstanceIsSet()
         local result = __.currentPlayer
 
-        lu.assertEquals(result.name, 'test-player-name')
-        lu.assertEquals(result.guid, 'test-player-guid')
-        lu.assertEquals(result.realm.name, 'test-realm')
+        lu.assertEquals('test-player-name', result.name)
+        lu.assertEquals('test-player-guid', result.guid)
+        lu.assertEquals('test-realm', result.realm.name)
     end
 
     -- @covers Player:setGuid()
@@ -33,17 +33,20 @@ TestPlayer = BaseTestClass:new()
         local instance = __:new('Player')
         
         lu.assertIsNil(instance.guid)
+        lu.assertIsNil(instance.level)
         lu.assertIsNil(instance.name)
         lu.assertIsNil(instance.realm)
 
         local result = instance
             :setGuid('test-guid')
+            :setLevel(1)
             :setName('test-name')
             :setRealm(realm)
 
-        lu.assertEquals(result, instance)
-        lu.assertEquals(instance.guid, 'test-guid')
-        lu.assertEquals(instance.name, 'test-name')
-        lu.assertEquals(instance.realm, realm)
+        lu.assertEquals(instance, result)
+        lu.assertEquals('test-guid', instance.guid)
+        lu.assertEquals(1, instance.level)
+        lu.assertEquals('test-name', instance.name)
+        lu.assertEquals(realm, instance.realm)
     end
 -- end of TestPlayer
