@@ -101,7 +101,4 @@ local Player = {}
 -- end of Player
 
 -- stores the current player information for easy access
-function self:refreshCurrentPlayer()
-    self.currentPlayer = self:getClass('Player').getCurrentPlayer()
-end
-self:refreshCurrentPlayer()
+self.currentPlayer = Player.getCurrentPlayer()
