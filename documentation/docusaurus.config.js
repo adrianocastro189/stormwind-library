@@ -112,6 +112,10 @@ const config = {
                 label: 'MultiTargets',
                 href: 'https://www.curseforge.com/wow/addons/multitargets',
               },
+              {
+                label: 'OMG! My Chicken is amazing!',
+                href: 'https://www.curseforge.com/wow/addons/omg-my-chicken-is-amazing',
+              },
             ],
           },
           {
