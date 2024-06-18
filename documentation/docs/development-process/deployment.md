@@ -22,6 +22,8 @@ merge it
    * The release title is the same, but with a `v` prefix, like `v1.0.0`
    * The release notes are created with the **Generate release notes** 
      button
+   * **Important:** Upload the `dist/stormwind-library.lua` compiled file
+     as a release asset
 1. Checkout the `main` branch and pull the latest changes
 1. Deploy the documentation to
 [GitHub Pages](https://www.stormwindlibrary.com) using the `npm` commands
