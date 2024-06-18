@@ -34,8 +34,9 @@ local Player = {}
     ]]
     function Player.getCurrentPlayer()
         return Player.__construct()
-            :setName(UnitName('player'))
             :setGuid(UnitGUID('player'))
+            :setLevel(UnitLevel('player'))
+            :setName(UnitName('player'))
             :setRealm(self:getClass('Realm'):getCurrentRealm())
     end
 
@@ -50,6 +51,20 @@ local Player = {}
     ]]
     function Player:setGuid(value)
         self.guid = value
+        return self
+    end
+
+    --[[--
+    Sets the Player level.
+
+    @TODO: Move this method to Unit when the Unit model is implemented <2024.06.13>
+
+    @tparam integer value the Player's level
+
+    @treturn Models.Player self
+    ]]
+    function Player:setLevel(value)
+        self.level = value
         return self
     end
 

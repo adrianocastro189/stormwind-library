@@ -12,6 +12,7 @@ CreateFrame = function (...)
     local mockFrame = {
         ['events'] = {},
         ['scripts'] = {},
+        ['unregisteredEvents'] = {},
     }
     
     mockFrame.AddMessage = function (self, ...) self.addMessageInvoked = true end
@@ -60,7 +61,7 @@ CreateFrame = function (...)
     mockFrame.SetTextInsets = function (self, left, right, top, bottom) self.textInsets = { left, right, top, bottom } end
     mockFrame.SetWidth = function (self, width) self.width = width end
     mockFrame.Show = function (self) self.showInvoked = true end
-    mockFrame.UnregisterEvent = function (self, event) table.remove(self.events or {}, event) end
+    mockFrame.UnregisterEvent = function (self, event) table.insert(self.unregisteredEvents or {}, event) end
 
     return mockFrame
 end

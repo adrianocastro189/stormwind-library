@@ -1,5 +1,5 @@
 TestCommandsHandler = BaseTestClass:new()
-    -- @covers StormwindLibrary:add()
+    -- @covers CommandsHandler:add()
     function TestCommandsHandler:testAdd()
         local handler = __.commands
 
@@ -13,7 +13,7 @@ TestCommandsHandler = BaseTestClass:new()
         lu.assertEquals(command, handler.operations['test-operation'])
     end
 
-    -- @covers StormwindLibrary:addHelpOperation()
+    -- @covers CommandsHandler:addHelpOperation()
     function TestCommandsHandler:testAddHelpOperation()
         local handler = __:new('CommandsHandler')
 
@@ -22,7 +22,7 @@ TestCommandsHandler = BaseTestClass:new()
         lu.assertNotNil(handler.operations['help'])
     end
 
-    -- @covers StormwindLibrary:buildHelpContent()
+    -- @covers CommandsHandler:buildHelpContent()
     function TestCommandsHandler:testBuildHelpContent()
         local handler = __:new('CommandsHandler')
         handler.slashCommand = '/test'
@@ -68,7 +68,36 @@ TestCommandsHandler = BaseTestClass:new()
         lu.assertIsTable(handler.operations)
     end
 
-    -- @covers StormwindLibrary:handle()
+    -- @covers CommandsHandler:getCommandOrDefault()
+    function TestCommandsHandler:testGetCommandOrDefault()
+        local function execution(operation, command, expectedResult)
+            if command then
+                __.commands.operations[operation] = command
+            end
+
+            local result = __.commands:getCommandOrDefault(operation)
+
+            lu.assertEquals(expectedResult, result)
+        end
+
+        local helpCommand = 'test-help-command'
+        __.commands.operations['help'] = helpCommand
+
+        -- no operation
+        execution(nil, nil, helpCommand)
+
+        -- operation with no command associated
+        execution('test-operation', nil, helpCommand)
+
+        -- command with no callback
+        execution('test-operation', __:new('Command'), helpCommand)
+
+        -- command with callback
+        local commandWithCallback = __:new('Command'):setCallback('test-callback')
+        execution('test-operation', commandWithCallback, commandWithCallback)
+    end
+
+    -- @covers CommandsHandler:handle()
     function TestCommandsHandler:testHandle()
         local invokedArgs = nil
 
@@ -91,7 +120,7 @@ TestCommandsHandler = BaseTestClass:new()
     end
 
     --[[
-    @covers StormwindLibrary:handle()
+    @covers CommandsHandler:handle()
 
     This test just makes sure an invalid operation won't throw errors
     ]]
@@ -99,7 +128,54 @@ TestCommandsHandler = BaseTestClass:new()
         __:new('CommandsHandler'):handle('invalid-operation')
     end
 
-    -- @covers StormwindLibrary:parseArguments()
+    -- @covers CommandsHandler:maybeInvokeCallback()
+    function TestCommandsHandler:testMaybeInvokeCallbackWithInvalidArgs()
+        local handler = __:new('CommandsHandler')
+        local command = __:new('Command')
+
+        command.validateArgs = function() return 'invalid arguments' end
+
+        handler.getCommandOrDefault = function() return command end
+
+        handler:maybeInvokeCallback('test-operation', {})
+
+        lu.assertIsTrue(__.output:printed('invalid arguments'))
+    end
+
+    -- @covers CommandsHandler:maybeInvokeCallback()
+    function TestCommandsHandler:testMaybeInvokeCallbackWithValidArgs()
+        local handler = __:new('CommandsHandler')
+        local command = __:new('Command')
+
+        -- makes sure the arguments are properly unpacked for the validation phase
+        command.validateArgs = function(self, arg1, arg2, arg3)
+            self.validateArg1 = arg1
+            self.validateArg2 = arg2
+            self.validateArg3 = arg3
+            return 'valid'
+        end
+
+        -- makes sure the arguments are properly unpacked for the callback phase
+        command.callback =  function(arg1, arg2, arg3)
+            command.callbackArg1 = arg1
+            command.callbackArg2 = arg2
+            command.callbackArg3 = arg3
+        end
+
+        handler.getCommandOrDefault = function() return command end
+
+        handler:maybeInvokeCallback('test-operation', {'test-arg1', 'test-arg2', 'test-arg3'})
+
+        lu.assertEquals('test-arg1', command.validateArg1)
+        lu.assertEquals('test-arg2', command.validateArg2)
+        lu.assertEquals('test-arg3', command.validateArg3)
+
+        lu.assertEquals('test-arg1', command.callbackArg1)
+        lu.assertEquals('test-arg2', command.callbackArg2)
+        lu.assertEquals('test-arg3', command.callbackArg3)
+    end
+
+    -- @covers CommandsHandler:parseArguments()
     function TestCommandsHandler:testParseArguments()
         local function execution(value, expectedOutput)
             local output = __.commands:parseArguments(value)
@@ -121,7 +197,7 @@ TestCommandsHandler = BaseTestClass:new()
         execution('"name 1" "name 2"', {"name 1", "name 2"})
     end    
 
-    -- @covers StormwindLibrary:parseOperationAndArguments()
+    -- @covers CommandsHandler:parseOperationAndArguments()
     function TestCommandsHandler:testParseOperationAndArguments()
         local function execution(args, expectedOperation, expectedArguments)
             local operation, arguments = __.commands:parseOperationAndArguments(args)
@@ -136,7 +212,7 @@ TestCommandsHandler = BaseTestClass:new()
         execution({'test', 'with', 'multiple', 'args'}, 'test', {'with', 'multiple', 'args'})
     end
 
-    -- @covers StormwindLibrary:printHelp()
+    -- @covers CommandsHandler:printHelp()
     function TestCommandsHandler:testPrintHelp()
         local function execution(helpContent, shouldOutput)
             local handler = __:new('CommandsHandler')
@@ -157,7 +233,7 @@ TestCommandsHandler = BaseTestClass:new()
         execution({'command-a'}, true)
     end
 
-    -- @covers StormwindLibrary:register()
+    -- @covers CommandsHandler:register()
     function TestCommandsHandler:testRegister()
         local function execution(command, expectedGlobalSlashCommandIndex, expectedSlashCommand, expectedSlashCmdListIndex)
             local currentSlashCmdList = SlashCmdList 
@@ -183,4 +259,4 @@ TestCommandsHandler = BaseTestClass:new()
         execution(nil, nil, nil, nil)
         execution('test', 'SLASH_TEST1', '/test', 'TEST')
     end
--- end of TestTarget
+-- end of TestCommandsHandler

@@ -56,6 +56,16 @@ with the `Events:listen(event, callback)` method. It's advisable to use
 the constants defined in the Stormwind Library to avoid typos and to make
 the code more readable.
 
+#### `PLAYER_LEVEL_UP`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_LEVEL_UP`
+* **Payload:** An integer with the **new** player level
+* **Description:** This event is the same as the World of Warcraft event
+called `PLAYER_LEVEL_UP`, but with fewer data.
+* **Notes:** Before broadcasting this event, the
+[library current player](../models/player#getting-the-current-player-instance)
+instance will be updated with the new level.
+
 #### `PLAYER_LOGIN`
 
 * **Constant:** `library.events.EVENT_NAME_PLAYER_LOGIN`

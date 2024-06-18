@@ -1,4 +1,4 @@
--- Library version = '1.4.0'
+-- Library version = '1.5.0'
 
 -- import src/Core/DumpAndDie.lua
 
@@ -18,6 +18,7 @@
 -- import src/Commands/CommandsHandler.lua
 
 -- import src/Facades/Events.lua
+-- import src/Facades/EventHandlers/PlayerLevelUpEventHandler.lua
 -- import src/Facades/EventHandlers/PlayerLoginEventHandler.lua
 -- import src/Facades/EventHandlers/TargetEventHandler.lua
 -- import src/Facades/Target.lua

@@ -88,6 +88,27 @@ local CommandsHandler = {}
     end
 
     --[[--
+    Gets a command instance by its operation or the default help command.
+
+    To avoid any confusions, although loaded by an operation, the return
+    command is an instance of the Command class, so that's why this method is
+    prefixed with getCommand.
+
+    @tparam string operation The operation associated with the command
+
+    @treturn Command The command instance or the default help command
+    ]]
+    function CommandsHandler:getCommandOrDefault(operation)
+        local command = operation and self.operations[operation] or nil
+
+        if command and command.callback then
+            return command
+        end
+
+        return self.operations['help']
+    end
+
+    --[[--
     This method is responsible for handling the command that was triggered
     by the user, parsing the arguments and invoking the callback that was
     registered for the operation.
@@ -106,25 +127,27 @@ local CommandsHandler = {}
 
     --[[--
     This method is responsible for invoking the callback that was registered
-    for the operation, if it exists.
-    
-    @codeCoverageIgnore this method's already tested by the handle() test method
+    for the operation, if it exists, or the default one otherwise.
 
+    But before invoking the callback, it validates the arguments that were
+    passed to the operation in case the command has an arguments validator.
+    
     @local
 
     @tparam string operation The operation that was triggered
     @tparam table args The arguments that were passed to the operation
     ]]
     function CommandsHandler:maybeInvokeCallback(operation, args)
-        -- @TODO: Call a default callback if no operation is found <2024.03.18>
-        if not operation then return end
+        local command = self:getCommandOrDefault(operation)
 
-        local command = self.operations[operation]
-        local callback = command and command.callback or nil
+        local validationResult = command:validateArgs(self.__.arr:unpack(args))
 
-        if callback then
-            callback(self.__.arr:unpack(args))
+        if validationResult ~= 'valid' then
+            self.__.output:out(validationResult)
+            return
         end
+
+        command.callback(self.__.arr:unpack(args))
     end
 
     --[[--
