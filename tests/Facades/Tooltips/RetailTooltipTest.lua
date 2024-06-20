@@ -1,7 +1,13 @@
 TestRetailTooltip = BaseTestClass:new()
+    -- helper method to instantiate the classic implementation
+    function TestRetailTooltip:instance()
+        __.environment.getClientFlavor = function () return __.environment.constants.CLIENT_RETAIL end
+        return __:new('Tooltip')
+    end
+
     -- @covers RetailTooltip:__construct()
     function TestRetailTooltip:testConstruct()
-        local instance = __:new('RetailTooltip')
+        local instance = self:instance()
 
         lu.assertNotNil(instance)
 
@@ -26,10 +32,7 @@ TestRetailTooltip = BaseTestClass:new()
             end
         }
 
-        local instance = __:new('RetailTooltip')
-
-        instance:registerTooltipHandlers()
-
+        self:instance():registerTooltipHandlers()
 
         lu.assertIsFunction(hooks['item'])
         lu.assertIsFunction(hooks['unit'])

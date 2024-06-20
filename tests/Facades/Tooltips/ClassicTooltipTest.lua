@@ -1,7 +1,7 @@
 TestClassicTooltip = BaseTestClass:new()
     -- helper method to instantiate the classic implementation
     function TestClassicTooltip:instance()
-        __.environment.clientFlavor = __.environment.constants.CLIENT_CLASSIC
+        __.environment.getClientFlavor = function () return __.environment.constants.CLIENT_CLASSIC end
         return __:new('Tooltip')
     end
 
