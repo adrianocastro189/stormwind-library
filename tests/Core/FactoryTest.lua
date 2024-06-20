@@ -1,4 +1,33 @@
 TestFactory = BaseTestClass:new()
+    -- @covers Factory:addChildClass()
+    function TestFactory:testAddChildClass()
+        local args = {}
+
+        __.extend = function(self, classStructure, parentClassname)
+            args.extendClassStructure = classStructure
+            args.extendParentClassname = parentClassname
+        end
+
+        __.addClass = function(self, classname, classStructure, clientFlavors, classType)
+            args.addClassClassname = classname
+            args.addClassClassStructure = classStructure
+            args.addClassClientFlavors = clientFlavors
+            args.addClassType = classType
+        end
+
+        local mockClassStructure = {'test-class-structure'}
+
+        __:addChildClass('TestClass', mockClassStructure, 'TestParentClass', 'test-client-flavors', 3)
+
+        lu.assertEquals(mockClassStructure, args.extendClassStructure)
+        lu.assertEquals('TestParentClass', args.extendParentClassname)
+
+        lu.assertEquals('TestClass', args.addClassClassname)
+        lu.assertEquals(mockClassStructure, args.addClassClassStructure)
+        lu.assertEquals('test-client-flavors', args.addClassClientFlavors)
+        lu.assertEquals(3, args.addClassType)
+    end
+
     -- @covers Factory:addClass()
     function TestFactory:testAddClassWithSpecificClients()
         local mockFlavorA = 'test-flavor-a'
