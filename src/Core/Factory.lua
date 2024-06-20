@@ -24,6 +24,23 @@ function self:addAbstractClass(classname, classStructure, clientFlavors)
 end
 
 --[[--
+Helper method that extends a class structure with another by a parent class name
+and also adds the class.
+
+Calling this method is the same of calling extend() and addClass() in sequence.
+
+@tparam string classname The name of the class to be registered
+@tparam table classStructure The class structure to be registered
+@tparam string parentClassname The name of the parent class to be extended with
+@tparam nil|string|table clientFlavors The client flavors the class is supported by
+@tparam integer|nil classType The class type, represented by the classTypes constants
+]]
+function self:addChildClass(classname, classStructure, parentClassname, clientFlavors, classType)
+    self:extend(classStructure, parentClassname)
+    self:addClass(classname, classStructure, clientFlavors, classType)
+end
+
+--[[--
 Registers a class so the library is able to instantiate it later.
 
 This method just updates the library classes table by registering a class

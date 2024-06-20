@@ -24,6 +24,12 @@ line
      table representing one or many [client flavors](environment)
    * When no flavors are provided, the class is instantiable in any World of 
      Warcraft version
+   * After version 1.6.0, a new parameter was introduced to allow the 
+     registration of abstract classes by using the new `library.classTypes`
+     constants
+       * `CLASS_TYPE_ABSTRACT` for abstract classes
+       * `CLASS_TYPE_CONCRETE` for concrete classes that can be instantiated,
+         which is also the default value when omitted
 1. Write the `__constructor()` method accepting zero or many parameters
 
 With that, it's possible to ask the library to provide a new instance of that 
@@ -87,6 +93,12 @@ but be warned that it won't add the class to be instantiated automatically. The
 reason for that is that `addClass()` can also be used to add abstract classes,
 so `extend()` can't determine if the child class should be instantiable or not.
 
+To save code repetition when extending classes, it's also possible to use the
+`addChildClass()` method, which will extend the class and add it to the list of
+classes handled by the library. This method will also respect the client flavors
+if provided, just like for the `addClass()` method, and also be able to add
+abstract child classes, as long as passing the correct class type constant.
+
 Example:
 
 ```lua
@@ -98,8 +110,12 @@ library:addClass('MyParentClass', MyParentClass)
 local MyChildClass = {}
 MyChildClass.__index = MyChildClass
 -- constructor omitted for brevity in this example
+
+-- extend the class with...
 library:extend(MyChildClass, 'MyParentClass')
 library:addClass('MyChildClass', MyChildClass)
+-- ...or
+library:addChildClass('MyChildClass', MyChildClass, 'MyParentClass')
 ```
 
 :::warning Parent class constructor limitations
