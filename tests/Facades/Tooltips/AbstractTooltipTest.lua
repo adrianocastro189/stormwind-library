@@ -1,7 +1,13 @@
 TestAbstractTooltip = BaseTestClass:new()
+    -- helper method to instantiate the abstract class
+    function TestAbstractTooltip:instance()
+        -- instantiating an abstract class here is ok for the sake of testing
+        return __:getClass('AbstractTooltip').__construct()
+    end
+
     -- @covers AbstractTooltip:__construct()
     function TestAbstractTooltip:testConstruct()
-        local instance = __:new('AbstractTooltip')
+        local instance = self:instance()
 
         lu.assertNotNil(instance)
 
@@ -23,7 +29,7 @@ TestAbstractTooltip = BaseTestClass:new()
             
             __.events:listen('TOOLTIP_ITEM_SHOWN', function(item) notifiedItem = item end)
 
-            __:new('AbstractTooltip'):onItemTooltipShow(tooltip)
+            self:instance():onItemTooltipShow(tooltip)
 
             if shouldNotify then
                 lu.assertEquals(notifiedItem, expectedItem)
@@ -57,7 +63,8 @@ TestAbstractTooltip = BaseTestClass:new()
             
             __.events:listen('TOOLTIP_UNIT_SHOWN', function() unitTooltipShownNotified = true end)
 
-            __:new('AbstractTooltip'):onUnitTooltipShow(tooltip)
+            -- instantiating an abstract class here is ok for the sake of testing
+            self:instance():onUnitTooltipShow(tooltip)
 
             lu.assertEquals(unitTooltipShownNotified, shouldNotify)
         end
@@ -76,10 +83,8 @@ TestAbstractTooltip = BaseTestClass:new()
 
     -- @covers AbstractTooltip:registerTooltipHandlers()
     function TestAbstractTooltip:testRegisterTooltipHandlersIsAbstract()
-        local instance = __:new('AbstractTooltip')
-
         lu.assertErrorMsgContains('This is an abstract method and should be implemented by this class inheritances', function()
-            instance:registerTooltipHandlers()
+            self:instance():registerTooltipHandlers()
         end)
     end
 -- end of TestAbstractTooltip
