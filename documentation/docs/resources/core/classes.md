@@ -27,7 +27,7 @@ methods refer to the "class" itself**, and because of that, a `self:addClass()`
 is called at the top, so the library can store a reference for this "class",
 declared as `local`. After that, the library can instantiate that class
 anywhere in the addon code.
-    * Read the [factory documentation](factory) for more information
+    * If the point above is a bit confusing, read the [factory documentation](factory) for more information and examples
 
 :::tip "Private" constructors
 
@@ -55,6 +55,8 @@ function AbstractClass:doSomething()
     error('This is an abstract method and should be implemented by this class inheritances')
 end
 ```
+
+See how you can register an abstract class [here](factory#abstract-classes).
 
 :::
 

@@ -1,9 +1,10 @@
 # Factory
 
-The **Factory** is a simple part of the library responsible for emulating the `new` keyword from OOP languages.
+**Factory** is a simple part of the library responsible for emulating the `new` 
+keyword from OOP languages.
 
-It registers a `new()` method to the library structure that's capable of instantiating classes
-that are registered in its `classes` property.
+It registers a `new()` method to the library structure that's capable of 
+instantiating classes that are registered in its `classes` property.
 
 :::warning Model factories are not covered here
 
@@ -16,7 +17,7 @@ Please, refer to the [factories](/docs/category/factories) documentation for inf
 These are the steps to allow [classes](classes) to be instantiated:
 
 1. When writing a Lua file containing a class, make sure to register it by doing
-`self:addClass('<class name>', <class name>)` right below the `<class name>.__index = <class name>`
+`self:addClass('<class name>', <class table>)` right below the `<class name>.__index = <class table>`
 line
    * It's also possible to limit the class instantiation per World of Warcraft
      version by adding a third parameter to this call, which is a string or 
@@ -101,3 +102,11 @@ not use this structure if you need that or override the `__construct()` method
 in the child class by doing the same thing as the parent class constructor.
 
 :::
+
+## Abstract classes
+
+[Stormwind Library v1.6.0](../../changelog) introduced the concept of abstract 
+classes to its Factory by allowing the registration of classes that can't be 
+instantiated with the `new()` method. This is useful for creating classes that 
+are meant to be used as a base for other classes with abstractions and methods 
+that should be implemented by child classes.
