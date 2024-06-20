@@ -56,7 +56,7 @@ function self:addClass(classname, classStructure, clientFlavors, classType)
 end
 
 --[[--
-Promotes class inheritance by extending a class structure with another by its
+Provides class inheritance by extending a class structure with another by its
 name.
 
 Calling this method is the same of getting the parent class structure with
