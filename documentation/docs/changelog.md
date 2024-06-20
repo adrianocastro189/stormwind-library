@@ -1,5 +1,7 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.6.0
+
 ## 2024.06.18 - version 1.5.0
 
 * Add a level property to the Player model and update the current player instance automatically when the player levels up

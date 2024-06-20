@@ -1,4 +1,4 @@
--- Library version = '1.5.0'
+-- Library version = '1.6.0'
 
 -- import src/Core/DumpAndDie.lua
 
