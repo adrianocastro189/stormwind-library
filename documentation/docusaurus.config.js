@@ -83,6 +83,14 @@ const config = {
             href: 'pathname:///lua-docs/index.html',
           },
           {
+            label: '❤️ Buy me a coffee',
+            to: 'https://github.com/sponsors/adrianocastro189',
+          },
+          {
+            label: 'YouTube',
+            to: 'https://www.youtube.com/@stormwindlibrary',
+          },
+          {
             href: 'https://github.com/adrianocastro189/stormwind-library',
             label: 'GitHub',
             position: 'right',
@@ -102,6 +110,10 @@ const config = {
               {
                 label: 'LuaDocs',
                 to: 'pathname:///lua-docs/index.html',
+              },
+              {
+                label: 'Videos',
+                to: 'https://www.youtube.com/@stormwindlibrary',
               },
             ],
           },
