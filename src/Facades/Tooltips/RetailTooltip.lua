@@ -6,10 +6,7 @@ client.
 ]]
 local RetailTooltip = {}
     RetailTooltip.__index = RetailTooltip
-    -- RetailTooltip inherits from AbstractTooltip
-    setmetatable(RetailTooltip, AbstractTooltip)
-    self:addClass('RetailTooltip', RetailTooltip, self.environment.constants.TEST_SUITE)
-    self:addClass('Tooltip', RetailTooltip, {
+    self:addChildClass('Tooltip', RetailTooltip, 'AbstractTooltip', {
         self.environment.constants.CLIENT_RETAIL,
     })
 

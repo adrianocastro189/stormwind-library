@@ -10,6 +10,7 @@ inherit from this one, instantiated by the factory.
 local AbstractTooltip = {}
     AbstractTooltip.__index = AbstractTooltip
     AbstractTooltip.__ = self
+    self:addAbstractClass('AbstractTooltip', AbstractTooltip)
 
     --[[--
     AbstractTooltip constants.
@@ -22,10 +23,6 @@ local AbstractTooltip = {}
         TOOLTIP_ITEM_SHOWN = 'TOOLTIP_ITEM_SHOWN',
         TOOLTIP_UNIT_SHOWN = 'TOOLTIP_UNIT_SHOWN',
     })
-
-    -- AbstractTooltip is meant to be inherited by other classes and should
-    -- not be instantiated directly, only for testing purposes
-    self:addClass('AbstractTooltip', AbstractTooltip, self.environment.constants.TEST_SUITE)
 
     --[[--
     AbstractTooltip constructor.
