@@ -1,7 +1,13 @@
 TestClassicTooltip = BaseTestClass:new()
+    -- helper method to instantiate the classic implementation
+    function TestClassicTooltip:instance()
+        __.environment.clientFlavor = __.environment.constants.CLIENT_CLASSIC
+        return __:new('Tooltip')
+    end
+
     -- @covers ClassicTooltip:__construct()
     function TestClassicTooltip:testConstruct()
-        local instance = __:new('ClassicTooltip')
+        local instance = self:instance()
 
         lu.assertNotNil(instance)
 
@@ -19,9 +25,7 @@ TestClassicTooltip = BaseTestClass:new()
             end
         }
 
-        local instance = __:new('ClassicTooltip')
-
-        instance:registerTooltipHandlers()
+        self:instance():registerTooltipHandlers()
 
         lu.assertIsFunction(hooks['OnTooltipSetItem'])
         lu.assertIsFunction(hooks['OnTooltipSetUnit'])
