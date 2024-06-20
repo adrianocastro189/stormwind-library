@@ -50,13 +50,14 @@ Returns a class structure by its name.
 This method's the same as accessing self.classes[classname].
 
 @tparam string classname The name of the class to be returned
+@tparam string output The output format, either 'structure' (default) or 'type'
 
-@treturn table The class structure
+@treturn integer|table The class structure or type, depending on the output parameter
 ]]
-function self:getClass(classname)
+function self:getClass(classname, output)
     local clientFlavor = self.environment:getClientFlavor()
 
-    return self.classes[clientFlavor][classname]['structure']
+    return self.classes[clientFlavor][classname][output or 'structure']
 end
 
 --[[--
@@ -70,5 +71,11 @@ without parameters.
 @treturn table The class instance
 ]]
 function self:new(classname, ...)
+    local classType = self:getClass(classname, 'type')
+
+    if classType == self.classTypes.CLASS_TYPE_ABSTRACT then
+        error(classname .. ' is an abstract class and cannot be instantiated')
+    end
+
     return self:getClass(classname).__construct(...)
 end
