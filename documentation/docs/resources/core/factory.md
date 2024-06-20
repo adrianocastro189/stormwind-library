@@ -74,24 +74,32 @@ local instance = library:new('MyClassicEraClass')
 
 ## Class inheritance
 
-To allow class inheritance, instead of calling the `new()` method directly, 
-it's possible to retrieve a class structure with the `getClass()` method. That
-way, a class can inherit another one by using any inheritance strategy, like 
-setting the meta table.
+It's possible to extend classes when inheriting their table structures by 
+getting the class structure with `getClass()` and then setting the metatable of 
+the new class with the parent class structure.
+
+If using the library version 1.6.0 or newer, it's also possible to use a helper
+method called `extend()` that expects a table structure and the parent class 
+name.
+
+This method will set the child class metatable with the parent class structure
+but be warned that it won't add the class to be instantiated automatically. The 
+reason for that is that `addClass()` can also be used to add abstract classes,
+so `extend()` can't determine if the child class should be instantiable or not.
 
 Example:
 
 ```lua
--- imagine that this is a class in the library or in another addon
-local MyClass = {}
-MyClass.__index = MyClass
-self:addClass('MyClass', MyClass)
+local MyParentClass = {}
+MyParentClass.__index = MyParentClass
+-- constructor omitted for brevity in this example
+library:addClass('MyParentClass', MyParentClass)
 
--- then to inherit from MyClass, get the class structure with:
-myClassStructure = library:getClass('MyClass')
--- and then inherit from it using your preferred way to work with inheritance
--- in Lua, like the setmetatable function
-setmetatable(MyNewClass, myClassStructure)
+local MyChildClass = {}
+MyChildClass.__index = MyChildClass
+-- constructor omitted for brevity in this example
+library:extend(MyChildClass, 'MyParentClass')
+library:addClass('MyChildClass', MyChildClass)
 ```
 
 :::warning Parent class constructor limitations
