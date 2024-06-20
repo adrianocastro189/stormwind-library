@@ -83,6 +83,25 @@ TestFactory = BaseTestClass:new()
         )
     end
 
+    -- @covers Factory:extend()
+    function TestFactory:testExtend()
+        local parentClass = {}
+        parentClass.__index = parentClass
+        function parentClass.__construct() return setmetatable({}, parentClass) end
+        parentClass.property = 'property'
+        function parentClass:get() return self.property .. ' from parent' end
+        __:addClass('ParentClass', parentClass)
+
+        local childClass = {}
+        childClass.__index = childClass
+        function childClass.__construct() return setmetatable({}, childClass) end
+        __:extend(childClass, 'ParentClass')
+        function childClass:get() return self.property .. ' from child' end
+        __:addClass('ChildClass', childClass)
+
+        lu.assertEquals('property from child', __:new('ChildClass'):get())
+    end
+
     -- @covers Factory.classTypes
     function TestFactory:testFactoryConstants()
         lu.assertEquals(1, __.classTypes.CLASS_TYPE_ABSTRACT)

@@ -56,6 +56,26 @@ function self:addClass(classname, classStructure, clientFlavors, classType)
 end
 
 --[[--
+Promotes class inheritance by extending a class structure with another by its
+name.
+
+Calling this method is the same of getting the parent class structure with
+getClass() and setting the child class structure metatable. Consider this as
+a helper method to improve code readability.
+
+It's important to note that this method respects the client flavors strategy 
+just like getClass(), which means it will only work properly if the parent
+class is registered for the same client flavors as where this method is called.
+
+@tparam table classStructure The class structure to be extended
+@tparam string parentClassname The name of the parent class to be extended with
+]]
+function self:extend(classStructure, parentClassname)
+    local parentStructure = self:getClass(parentClassname)
+    setmetatable(classStructure, parentStructure)
+end
+
+--[[--
 Returns a class structure by its name.
 
 This method's the same as accessing self.classes[classname].
