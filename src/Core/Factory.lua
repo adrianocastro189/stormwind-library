@@ -1,5 +1,6 @@
 --[[--
-Contains a list of classes that can be instantiated by the library.
+Contains a list of class structures that Stormwind Library can handle to allow
+instantiation, protection in case of abstractions, and inheritance.
 ]]
 self.classes = {}
 
