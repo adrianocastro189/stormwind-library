@@ -1,5 +1,5 @@
 TestFactory = BaseTestClass:new()
-    --@covers Factory:addClass()
+    -- @covers Factory:addClass()
     function TestFactory:testAddClassWithSpecificClients()
         local mockFlavorA = 'test-flavor-a'
         local mockFlavorB = 'test-flavor-b'
@@ -44,5 +44,14 @@ TestFactory = BaseTestClass:new()
 
         lu.assertNotIsNil(mockClassInstance)
         lu.assertEquals('test-name', mockClassInstance.name)
+    end
+
+    -- @covers Factory.classTypes
+    function TestFactory:testFactoryConstants()
+        lu.assertEquals(1, __.classTypes.CLASS_TYPE_ABSTRACT)
+        lu.assertEquals(2, __.classTypes.CLASS_TYPE_CONCRETE)
+
+        -- makes sure the constants are immutable
+        lu.assertError(function() __.classTypes.CLASS_TYPE_ABSTRACT = 3 end)
     end
 -- end of TestFactory

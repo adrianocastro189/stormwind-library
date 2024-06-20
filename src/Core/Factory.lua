@@ -5,6 +5,14 @@ instantiation, protection in case of abstractions, and inheritance.
 self.classes = {}
 
 --[[--
+Maps all the possible class types Stormwind Library can handle.
+]]
+self.classTypes = self.arr:freeze({
+    CLASS_TYPE_ABSTRACT = 1,
+    CLASS_TYPE_CONCRETE = 2,
+})
+
+--[[--
 Registers a class so the library is able to instantiate it later.
 
 This method just updates the library classes table by registering a class
