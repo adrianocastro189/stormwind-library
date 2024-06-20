@@ -13,6 +13,17 @@ self.classTypes = self.arr:freeze({
 })
 
 --[[--
+Registers an abstract class.
+
+@tparam string classname The name of the abstract class to be registered
+@tparam table classStructure The abstract class structure to be registered
+@tparam nil|string|table clientFlavors The client flavors the class is supported by
+--]]
+function self:addAbstractClass(classname, classStructure, clientFlavors)
+    self:addClass(classname, classStructure, clientFlavors, self.classTypes.CLASS_TYPE_ABSTRACT)
+end
+
+--[[--
 Registers a class so the library is able to instantiate it later.
 
 This method just updates the library classes table by registering a class

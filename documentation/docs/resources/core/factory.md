@@ -110,3 +110,13 @@ classes to its Factory by allowing the registration of classes that can't be
 instantiated with the `new()` method. This is useful for creating classes that 
 are meant to be used as a base for other classes with abstractions and methods 
 that should be implemented by child classes.
+
+To register an abstract class, use the `addAbstractClass()` method instead of
+`addClass()`. With that, the `new()` method won't be able to instantiate that
+class.
+
+```lua
+local MyAbstractClass = {}
+MyAbstractClass.__index = MyAbstractClass
+self:addAbstractClass('MyAbstractClass', MyAbstractClass)
+```

@@ -72,9 +72,10 @@ TestFactory = BaseTestClass:new()
         lu.assertEquals('test-name', mockClassInstance.name)
     end
 
+    -- @covers Factory:addAbstractClass()
     -- @covers Factory:new()
     function TestFactory:testClassInstantiationWithAbstractClass()
-        __:addClass('MockAbstractClass', TestFactory, nil, __.classTypes.CLASS_TYPE_ABSTRACT)
+        __:addAbstractClass('MockAbstractClass', TestFactory, nil)
 
         lu.assertErrorMsgContains(
             'MockAbstractClass is an abstract class and cannot be instantiated',
