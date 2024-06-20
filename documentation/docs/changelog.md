@@ -2,6 +2,9 @@
 
 ## yyyy.mm.dd - version 1.6.0
 
+* Factory and class structures now support the concept of
+  [abstract classes](resources/core/factory#abstract-classes)
+
 ## 2024.06.18 - version 1.5.0
 
 * Add a level property to the Player model and update the current player instance automatically when the player levels up

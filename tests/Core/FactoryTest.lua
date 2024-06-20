@@ -1,5 +1,5 @@
 TestFactory = BaseTestClass:new()
-    --@covers Factory:addClass()
+    -- @covers Factory:addClass()
     function TestFactory:testAddClassWithSpecificClients()
         local mockFlavorA = 'test-flavor-a'
         local mockFlavorB = 'test-flavor-b'
@@ -10,13 +10,39 @@ TestFactory = BaseTestClass:new()
         -- adding with one specific client
         __:addClass('TestFactory', TestFactory, mockFlavorA)
 
-        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorA])
+        lu.assertEquals({
+            ['TestFactory'] = {
+                structure = TestFactory,
+                type = __.classTypes.CLASS_TYPE_CONCRETE,
+            }
+        }, __.classes[mockFlavorA])
 
         -- adding with multiple specific clients
         __:addClass('TestFactory', TestFactory, {mockFlavorA, mockFlavorB})
 
-        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorA])
-        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorB])
+        lu.assertEquals({
+            ['TestFactory'] = {
+                structure = TestFactory,
+                type = __.classTypes.CLASS_TYPE_CONCRETE,
+            },
+        }, __.classes[mockFlavorA])
+
+        lu.assertEquals({
+            ['TestFactory'] = {
+                structure = TestFactory,
+                type = __.classTypes.CLASS_TYPE_CONCRETE,
+            },
+        }, __.classes[mockFlavorB])
+    end
+
+    -- @covers Factory:addClass()
+    function TestFactory:testAddClassWithSpecificType()
+        __:addClass('TestFactory', TestFactory, nil, 3)
+
+        lu.assertEquals({
+            structure = TestFactory,
+            type = 3,
+        }, __.classes[__.environment.constants.CLIENT_CLASSIC]['TestFactory'])
     end
 
     --[[
@@ -44,5 +70,24 @@ TestFactory = BaseTestClass:new()
 
         lu.assertNotIsNil(mockClassInstance)
         lu.assertEquals('test-name', mockClassInstance.name)
+    end
+
+    -- @covers Factory:new()
+    function TestFactory:testClassInstantiationWithAbstractClass()
+        __:addClass('MockAbstractClass', TestFactory, nil, __.classTypes.CLASS_TYPE_ABSTRACT)
+
+        lu.assertErrorMsgContains(
+            'MockAbstractClass is an abstract class and cannot be instantiated',
+            function () __:new('MockAbstractClass') end
+        )
+    end
+
+    -- @covers Factory.classTypes
+    function TestFactory:testFactoryConstants()
+        lu.assertEquals(1, __.classTypes.CLASS_TYPE_ABSTRACT)
+        lu.assertEquals(2, __.classTypes.CLASS_TYPE_CONCRETE)
+
+        -- makes sure the constants are immutable
+        lu.assertError(function() __.classTypes.CLASS_TYPE_ABSTRACT = 3 end)
     end
 -- end of TestFactory
