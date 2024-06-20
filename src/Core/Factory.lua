@@ -21,9 +21,13 @@ for the client flavors it's supported.
 @tparam string classname The name of the class to be registered
 @tparam table classStructure The class structure to be registered
 @tparam nil|string|table clientFlavors The client flavors the class is supported by
+@tparam integer|nil classType The class type, represented by the classTypes constants
 ]]
-function self:addClass(classname, classStructure, clientFlavors)
+function self:addClass(classname, classStructure, clientFlavors, classType)
     local arr = self.arr
+
+    -- defaults to concrete class if not specified
+    classType = classType or self.classTypes.CLASS_TYPE_CONCRETE
 
     clientFlavors = arr:wrap(clientFlavors or {
         self.environment.constants.CLIENT_CLASSIC,
@@ -33,7 +37,10 @@ function self:addClass(classname, classStructure, clientFlavors)
     })
 
     arr:each(clientFlavors, function(clientFlavor)
-        arr:set(self.classes, clientFlavor .. '.' .. classname, classStructure)
+        arr:set(self.classes, clientFlavor .. '.' .. classname, {
+            structure = classStructure,
+            type = classType,
+        })
     end)
 end
 
@@ -49,7 +56,7 @@ This method's the same as accessing self.classes[classname].
 function self:getClass(classname)
     local clientFlavor = self.environment:getClientFlavor()
 
-    return self.classes[clientFlavor][classname]
+    return self.classes[clientFlavor][classname]['structure']
 end
 
 --[[--

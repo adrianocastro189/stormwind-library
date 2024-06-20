@@ -10,13 +10,39 @@ TestFactory = BaseTestClass:new()
         -- adding with one specific client
         __:addClass('TestFactory', TestFactory, mockFlavorA)
 
-        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorA])
+        lu.assertEquals({
+            ['TestFactory'] = {
+                structure = TestFactory,
+                type = __.classTypes.CLASS_TYPE_CONCRETE,
+            }
+        }, __.classes[mockFlavorA])
 
         -- adding with multiple specific clients
         __:addClass('TestFactory', TestFactory, {mockFlavorA, mockFlavorB})
 
-        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorA])
-        lu.assertEquals({['TestFactory'] = TestFactory}, __.classes[mockFlavorB])
+        lu.assertEquals({
+            ['TestFactory'] = {
+                structure = TestFactory,
+                type = __.classTypes.CLASS_TYPE_CONCRETE,
+            },
+        }, __.classes[mockFlavorA])
+
+        lu.assertEquals({
+            ['TestFactory'] = {
+                structure = TestFactory,
+                type = __.classTypes.CLASS_TYPE_CONCRETE,
+            },
+        }, __.classes[mockFlavorB])
+    end
+
+    -- @covers Factory:addClass()
+    function TestFactory:testAddClassWithSpecificType()
+        __:addClass('TestFactory', TestFactory, nil, 3)
+
+        lu.assertEquals({
+            structure = TestFactory,
+            type = 3,
+        }, __.classes[__.environment.constants.CLIENT_CLASSIC]['TestFactory'])
     end
 
     --[[
