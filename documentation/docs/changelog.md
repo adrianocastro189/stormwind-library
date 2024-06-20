@@ -4,6 +4,9 @@
 
 * Factory and class structures now support the concept of
   [abstract classes](resources/core/factory#abstract-classes)
+* Factory now offers methods to provide
+  [class inheritance](resources/core/factory#class-inheritance)
+
 
 ## 2024.06.18 - version 1.5.0
 
