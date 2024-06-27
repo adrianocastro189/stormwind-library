@@ -16,6 +16,7 @@ CreateFrame = function (...)
     }
     
     mockFrame.AddMessage = function (self, ...) self.addMessageInvoked = true end
+    mockFrame.ClearAllPoints = function (self) self.clearAllPointsInvoked = true end
     mockFrame.CreateFontString = function (self, ...) return CreateFrame(...) end
     mockFrame.CreateTexture = function (self, ...) return CreateFrame(...) end
     mockFrame.GetHeight = function (self) return self.height end
