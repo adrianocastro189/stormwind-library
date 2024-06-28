@@ -1,3 +1,6 @@
+import React from 'react';
+import YouTubeEmbed from '@site/src/components/YouTubeEmbed';
+
 # Factory
 
 **Factory** is a simple part of the library responsible for emulating the `new` 
@@ -34,6 +37,8 @@ line
 
 With that, it's possible to ask the library to provide a new instance of that 
 class with a `new` call.
+
+<YouTubeEmbed videoId="KRL30brxHLU" />
 
 ## Examples
 

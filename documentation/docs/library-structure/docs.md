@@ -8,6 +8,28 @@ When working on any part of the library, it is important to keep the documentati
 up-to-date. This includes updating the documentation for any new features or changes
 that are made to the library.
 
+## Adding videos to the documentation
+
+Stormwind Library has a
+[YouTube channel](https://www.youtube.com/@stormwindlibrary) where videos are
+uploaded to help developers understand how to use the library. Those videos can
+be embedded in the documentation by using the `YouTubeEmbed` component.
+
+To add a video to the documentation, follow these steps:
+
+1. Add some imports to the **top of the `.md` file**, before the first `#`
+   ```markdown
+   import React from 'react';
+   import YouTubeEmbed from '@site/src/components/YouTubeEmbed';
+
+   # Document title...
+   ```
+1. Copy the YouTube video ID from the URL
+1. Use the `YouTubeEmbed` component anywhere in the document, like this:
+   ```markdown
+   <YouTubeEmbed videoId="KRL30brxHLU" />
+   ```
+
 ## Documentation deployment process
 
 **Single time setup**

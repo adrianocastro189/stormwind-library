@@ -1,3 +1,6 @@
+import React from 'react';
+import YouTubeEmbed from '@site/src/components/YouTubeEmbed';
+
 # Classes
 
 Lua doesn't offer directly a class structure like every
@@ -9,6 +12,8 @@ structure, etc.
 The Stormwind Library proposes a few standards to achieve
 class structures that are created with a couple of metatables
 settings and some indentation.
+
+<YouTubeEmbed videoId="KRL30brxHLU" />
 
 ## Class standards
 
