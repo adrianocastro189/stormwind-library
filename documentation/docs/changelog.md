@@ -2,6 +2,7 @@
 
 ## yyyy.mm.dd - version 1.7.0
 
+* Add a new helper method to Arr that determines if a table has a specific key
 * Add the new ["inCombat" property](resources/models/player#player-in-combat-status)
 to the Player model to track the player's combat status
 * Compiling the library now also generates a
