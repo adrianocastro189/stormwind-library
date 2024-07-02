@@ -55,6 +55,18 @@ local Player = {}
     end
 
     --[[--
+    Sets the Player in combat status.
+
+    @tparam boolean value the Player's in combat status
+
+    @treturn Models.Player self
+    ]]
+    function Player:setInCombat(value)
+        self.inCombat = value
+        return self
+    end
+
+    --[[--
     Sets the Player level.
 
     @TODO: Move this method to Unit when the Unit model is implemented <2024.06.13>
