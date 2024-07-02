@@ -332,7 +332,7 @@ local Arr = {}
         -- list = {a = {b = {c = 1}}}
     ]]
     function Arr:maybeInitialize(list, key, initialValue)
-        if self:get(list, key) == nil then self:set(list, key, initialValue) end
+        if not self:hasKey(list, key) then self:set(list, key, initialValue) end
     end
 
     --[[--

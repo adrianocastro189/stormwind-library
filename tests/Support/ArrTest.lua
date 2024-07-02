@@ -239,8 +239,8 @@ TestArr = BaseTestClass:new()
 
         local list = {}
 
-        execution(list, 'test-key', 'test-value', 'test-value')
-        execution(list, 'test-key', 'test-value-again', 'test-value')
+        execution(list, 'test-key.test-inner-key', 'test-value', 'test-value')
+        execution(list, 'test-key.test-inner-key', 'test-value-again', 'test-value')
     end
 
     -- @covers Arr:pluck()
