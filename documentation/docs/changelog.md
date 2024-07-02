@@ -2,6 +2,8 @@
 
 ## yyyy.mm.dd - version 1.7.0
 
+* Add the new ["inCombat" property](resources/models/player#player-in-combat-status)
+to the Player model to track the player's combat status
 * Compiling the library now also generates a
 [minified version](library-structure/build) of the library
 * New events to broadcast player
