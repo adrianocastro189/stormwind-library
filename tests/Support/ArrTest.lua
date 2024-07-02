@@ -103,6 +103,28 @@ TestArr = BaseTestClass:new()
         execution(listWithFalseValue, 'test', nil, false)
     end
 
+    -- @covers Arr:hasKey()
+    function TestArr:testHasKey()
+        local function execution(list, key, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:hasKey(list, key))
+        end
+
+        -- with empty list
+        execution({}, 'test', false)
+
+        -- list with keys
+        execution({a = 'a', b = 'b', c = 'c'}, 'a', true)
+        execution({a = 'a', b = 'b', c = 'c'}, 'd', false)
+
+        -- with nested keys
+        local listWithNestedKeys = {}
+        listWithNestedKeys['test-a'] = {}
+        listWithNestedKeys['test-a']['test-b'] = {}
+        execution(listWithNestedKeys, 'test-a', true)
+        execution(listWithNestedKeys, 'test-a.test-b', true)
+        execution(listWithNestedKeys, 'test-a.test-b.test-c', false)
+    end
+
     -- @covers Arr:implode()
     function TestArr:testImplode()
         local arr = __.arr
@@ -217,8 +239,8 @@ TestArr = BaseTestClass:new()
 
         local list = {}
 
-        execution(list, 'test-key', 'test-value', 'test-value')
-        execution(list, 'test-key', 'test-value-again', 'test-value')
+        execution(list, 'test-key.test-inner-key', 'test-value', 'test-value')
+        execution(list, 'test-key.test-inner-key', 'test-value-again', 'test-value')
     end
 
     -- @covers Arr:pluck()
