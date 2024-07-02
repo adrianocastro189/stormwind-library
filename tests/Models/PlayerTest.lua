@@ -43,15 +43,15 @@ TestPlayer = BaseTestClass:new()
         lu.assertIsNil(instance.realm)
 
         local result = instance
-            :setInCombat(true)
             :setGuid('test-guid')
+            :setInCombat(true)
             :setLevel(1)
             :setName('test-name')
             :setRealm(realm)
 
         lu.assertEquals(instance, result)
-        lu.assertEquals(true, result.inCombat)
         lu.assertEquals('test-guid', instance.guid)
+        lu.assertEquals(true, result.inCombat)
         lu.assertEquals(1, instance.level)
         lu.assertEquals('test-name', instance.name)
         lu.assertEquals(realm, instance.realm)
