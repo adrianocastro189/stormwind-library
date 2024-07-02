@@ -14,6 +14,7 @@ class StormwindLibrary {
 
         this.importFiles()
         this.fileContent = this.wrapLibraryMainFunction()
+        this.fileContentMinified = this.minify()
 
         this.write()
     }
@@ -149,6 +150,7 @@ end`
         }
 
         fs.writeFileSync(`${distFolderPath}/stormwind-library.lua`, this.fileContent, 'utf8')
+        fs.writeFileSync(`${distFolderPath}/stormwind-library.min.lua`, this.fileContentMinified, 'utf8')
     }
 }
 
