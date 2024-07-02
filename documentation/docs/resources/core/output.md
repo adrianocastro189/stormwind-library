@@ -54,6 +54,23 @@ like sending all to a frame instead of Lua's default print function.
 
 :::
 
+## The error() method
+
+When a player tries to cast a spell that's on cooldown, or attempt to mount
+in a no-mount zone, the game will print an error message in red color in
+the middle of the screen. That's the error message UI frame.
+
+Stormwind Library provides a method to print messages in this same frame that
+shares the stacking behavior with other error messages. This method is 
+available in the output structure and can be called like this:
+
+```lua
+library.output:error('Content to be printed')
+```
+
+In case the UI error frame is not available, the error message will be printed
+in the chat frame instead, using the `Output:out()` method.
+
 ## Coloring strings
 
 When printing content to World of Warcraft chat, it's very common to
