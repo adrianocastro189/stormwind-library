@@ -1,5 +1,7 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.7.0
+
 ## 2024.06.28 - version 1.6.0
 
 * Factory and class structures now support the concept of
