@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
 /**
  * Wrapper for the Stormwind Library file located in the src directory.
@@ -9,12 +9,12 @@ class StormwindLibrary {
      * Builds the library.
      */
     build = () => {
-        this.read();
+        this.read()
 
-        this.importFiles();
-        this.fileContent = this.wrapLibraryMainFunction();
+        this.importFiles()
+        this.fileContent = this.wrapLibraryMainFunction()
 
-        this.write();
+        this.write()
     }
 
     /**
@@ -24,7 +24,7 @@ class StormwindLibrary {
      * @returns 
      */
     getVersionInSnakeCase = (separator = '_') => {
-        return this.parseVersion().replace(/\./g, separator);
+        return this.parseVersion().replace(/\./g, separator)
     }
 
     /**
@@ -33,26 +33,26 @@ class StormwindLibrary {
      * @param {string} filePath 
      */
     importFile = (filePath) => {
-        let fileContent = fs.readFileSync(`../${filePath}`, 'utf8');
+        let fileContent = fs.readFileSync(`../${filePath}`, 'utf8')
 
         // adds a new line to avoid having the last comment in a file to be just before the
         // first comment in the imported file, resulting in a single comment block and messing
         // up the LuaDoc generation.
-        fileContent += '\n';
+        fileContent += '\n'
 
         // replaces the file content import line with the file contents
-        this.fileContent = this.fileContent.replace(`-- import ${filePath}`, fileContent);
+        this.fileContent = this.fileContent.replace(`-- import ${filePath}`, fileContent)
     }
 
     /**
      * Finds all the import lines in the library file and imports the files.
      */
     importFiles = () => {
-        const importFiles = this.listImportFiles();
+        const importFiles = this.listImportFiles()
 
         importFiles.forEach((filePath) => {
-            this.importFile(filePath);
-        });
+            this.importFile(filePath)
+        })
     }
 
     /**
@@ -66,9 +66,9 @@ class StormwindLibrary {
      * @returns the file names without the comment
      */
     listImportFiles = () => {
-        const importLines = this.fileContent.match(/-- import .+/g);
+        const importLines = this.fileContent.match(/-- import .+/g)
 
-        return importLines.map((line) => line.replace('-- import ', ''));
+        return importLines.map((line) => line.replace('-- import ', ''))
     }
 
     /**
@@ -81,20 +81,20 @@ class StormwindLibrary {
      * This method will parse the version from the file content.
      */
     parseVersion = () => {
-        if (this.libraryVersion) { return this.libraryVersion; }
+        if (this.libraryVersion) { return this.libraryVersion }
 
-        const match = this.fileContent.match(/-- Library version = '(\d+\.\d+\.\d+)'/);
+        const match = this.fileContent.match(/-- Library version = '(\d+\.\d+\.\d+)'/)
 
-        this.libraryVersion = match ? match[1] : null;
+        this.libraryVersion = match ? match[1] : null
 
-        return this.libraryVersion;
+        return this.libraryVersion
     }
 
     /**
      * Reads the library file content and stores it in the fileContent property.
      */
     read = () => {
-        this.fileContent = fs.readFileSync('../src/stormwind-library.lua', 'utf8');
+        this.fileContent = fs.readFileSync('../src/stormwind-library.lua', 'utf8')
     }
 
     /**
@@ -105,7 +105,7 @@ class StormwindLibrary {
      * @returns {string}
      */
     wrapLibraryMainFunction = () => {
-        const library = `StormwindLibrary_v${this.getVersionInSnakeCase()}`;
+        const library = `StormwindLibrary_v${this.getVersionInSnakeCase()}`
 
         return `
 --- Stormwind Library
@@ -119,7 +119,7 @@ function ${library}.new(props)
     local self = setmetatable({}, ${library})
     ${this.fileContent}
     return self
-end`;
+end`
     }
 
     /**
@@ -128,15 +128,15 @@ end`;
      * @param {*} content 
      */
     write = () => {
-        const distFolderPath = '../dist';
+        const distFolderPath = '../dist'
         
         if (! fs.existsSync(distFolderPath)) {
-            fs.mkdirSync(distFolderPath);
+            fs.mkdirSync(distFolderPath)
         }
 
-        fs.writeFileSync(`${distFolderPath}/stormwind-library.lua`, this.fileContent, 'utf8');
+        fs.writeFileSync(`${distFolderPath}/stormwind-library.lua`, this.fileContent, 'utf8')
     }
 }
 
 // Fire the build process!
-new StormwindLibrary().build();
+new StormwindLibrary().build()
