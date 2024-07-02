@@ -13,6 +13,7 @@ TestPlayerCombatStatusEventHandler = BaseTestClass:new()
             enteredCombatEventBroadcasted = false,
             leftCombatEventBroadcasted = false
         }
+        __.currentPlayer.inCombat = nil
 
         events:listen(events.EVENT_NAME_PLAYER_ENTERED_COMBAT, function ()
             listenerMock.enteredCombatEventBroadcasted = true
@@ -24,15 +25,18 @@ TestPlayerCombatStatusEventHandler = BaseTestClass:new()
 
         lu.assertIsFalse(listenerMock.enteredCombatEventBroadcasted)
         lu.assertIsFalse(listenerMock.leftCombatEventBroadcasted)
+        lu.assertIsNil(__.currentPlayer.inCombat)
 
         events:handleOriginal(nil, 'PLAYER_REGEN_DISABLED')
 
         lu.assertIsTrue(listenerMock.enteredCombatEventBroadcasted)
         lu.assertIsFalse(listenerMock.leftCombatEventBroadcasted)
+        lu.assertIsTrue(__.currentPlayer.inCombat)
 
         events:handleOriginal(nil, 'PLAYER_REGEN_ENABLED')
 
         lu.assertIsTrue(listenerMock.enteredCombatEventBroadcasted)
         lu.assertIsTrue(listenerMock.leftCombatEventBroadcasted)
+        lu.assertIsFalse(__.currentPlayer.inCombat)
     end
 -- end of TestPlayerLevelUpEventHandler

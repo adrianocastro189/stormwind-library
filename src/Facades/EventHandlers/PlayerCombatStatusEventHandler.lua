@@ -8,10 +8,14 @@ events.EVENT_NAME_PLAYER_LEFT_COMBAT = 'PLAYER_LEFT_COMBAT'
 
 -- handles the World of Warcraft PLAYER_REGEN_DISABLED event
 events:listenOriginal('PLAYER_REGEN_DISABLED', function ()
+    self.currentPlayer:setInCombat(true)
+
     events:notify(events.EVENT_NAME_PLAYER_ENTERED_COMBAT)
 end)
 
 -- handles the World of Warcraft PLAYER_REGEN_ENABLED event
 events:listenOriginal('PLAYER_REGEN_ENABLED', function ()
+    self.currentPlayer:setInCombat(false)
+
     events:notify(events.EVENT_NAME_PLAYER_LEFT_COMBAT)
 end)
