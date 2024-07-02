@@ -1,4 +1,5 @@
 const fs = require('fs')
+const luamin = require('luamin')
 const path = require('path')
 
 /**
@@ -69,6 +70,19 @@ class StormwindLibrary {
         const importLines = this.fileContent.match(/-- import .+/g)
 
         return importLines.map((line) => line.replace('-- import ', ''))
+    }
+
+    /**
+     * Minifies the library file content.
+     * 
+     * A minified content is side version of the compiled file that removes
+     * unnecessary characters, spaces, line breaks, etc, producing a smaller
+     * version of the Stormwind Library.
+     * 
+     * @returns {string}
+     */
+    minify = () => {
+        return luamin.minify(this.fileContent)
     }
 
     /**
