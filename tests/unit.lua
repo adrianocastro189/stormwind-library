@@ -53,6 +53,7 @@ dofile('./tests/Core/FactoryTest.lua')
 dofile('./tests/Core/OutputTest.lua')
 
 dofile('./tests/Facades/EventsTest.lua')
+dofile('./tests/Facades/EventHandlers/PlayerCombatStatusEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/PlayerLevelUpEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
