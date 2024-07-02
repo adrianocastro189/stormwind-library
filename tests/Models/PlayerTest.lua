@@ -14,6 +14,7 @@ TestPlayer = BaseTestClass:new()
 
         lu.assertEquals(10, result.level)
         lu.assertEquals('test-player-guid', result.guid)
+        lu.assertIsTrue(result.inCombat)
         lu.assertEquals('test-player-name', result.name)
         lu.assertEquals('test-realm', result.realm.name)
     end

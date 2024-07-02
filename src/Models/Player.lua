@@ -35,6 +35,7 @@ local Player = {}
     function Player.getCurrentPlayer()
         return Player.__construct()
             :setGuid(UnitGUID('player'))
+            :setInCombat(UnitAffectingCombat('player'))
             :setLevel(UnitLevel('player'))
             :setName(UnitName('player'))
             :setRealm(self:getClass('Realm'):getCurrentRealm())

@@ -91,6 +91,8 @@ GetZoneText = function () return 'Stormwind City' end
 LOOT_ITEM_SELF = 'You receive loot : %s|Hitem :%d :%d :%d :%d|h[%s]|h%s.'
 LOOT_ITEM_SELF_MULTIPLE = 'You receive loot: %sx%d.'
 
+UnitAffectingCombat = function (unit) return true end
+
 UnitGUID = function (unit)
     if unit == 'player' then
         return 'test-player-guid'
