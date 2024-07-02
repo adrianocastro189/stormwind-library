@@ -91,6 +91,13 @@ GetZoneText = function () return 'Stormwind City' end
 LOOT_ITEM_SELF = 'You receive loot : %s|Hitem :%d :%d :%d :%d|h[%s]|h%s.'
 LOOT_ITEM_SELF_MULTIPLE = 'You receive loot: %sx%d.'
 
+UIErrorsFrame = { AddMessage = function(message, r, g, b)
+    UIErrorsFrame.messageArg = message
+    UIErrorsFrame.rArg = r
+    UIErrorsFrame.gArg = g
+    UIErrorsFrame.bArg = b
+end }
+
 UnitAffectingCombat = function (unit) return true end
 
 UnitGUID = function (unit)

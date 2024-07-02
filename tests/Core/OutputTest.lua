@@ -13,12 +13,23 @@ TestOutput = BaseTestClass:new()
         execution('test', 'FFFFFF', '000000', '|cfffffffftest|r')
     end
 
-    -- @covers Output:__construct()
-    function TestOutput:testInstantiate()
-        local instance = __:new('Output')
+    -- @covers Output:error()
+    function TestOutput:testErrorWithUIErrorsFrameNotSet()
+        _G['UIErrorsFrame'] = nil
 
-        lu.assertNotNil(instance)
-        lu.assertEquals('out', instance.mode)
+        __.output:error('test-message')
+
+        lu.assertIsTrue(__.output:printed('Error: test-message'))
+    end
+
+    -- @covers Output:error()
+    function TestOutput:testErrorWithUIErrorsFrameSet()
+        __.output:error('test-message')
+
+        lu.assertEquals('test-message', UIErrorsFrame.messageArg)
+        lu.assertEquals(1.0, UIErrorsFrame.rArg)
+        lu.assertEquals(0.1, UIErrorsFrame.gArg)
+        lu.assertEquals(0.1, UIErrorsFrame.bArg)
     end
 
     -- @covers Output:getFormattedMessage()
@@ -28,6 +39,14 @@ TestOutput = BaseTestClass:new()
         function output:color(value) return 'colored-' .. value end
 
         lu.assertEquals('colored-TestSuite | test-message', output:getFormattedMessage('test-message'))
+    end
+
+    -- @covers Output:__construct()
+    function TestOutput:testInstantiate()
+        local instance = __:new('Output')
+
+        lu.assertNotNil(instance)
+        lu.assertEquals('out', instance.mode)
     end
 
     -- @covers Output:isTestingMode()
