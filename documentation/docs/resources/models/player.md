@@ -34,3 +34,20 @@ automatically created and stored in a property called `currentPlayer`.
 ```lua
 local player = library.currentPlayer
 ```
+
+## Player in combat status
+
+From version 1.7.0, the player model gained a new property called `inCombat`
+which is a flag that indicates whether the player is in combat or not.
+
+Given that `Player` is a model that's detached from the game state, this
+flag must be updated manually by the addon developer. However, the library
+`currentPlayer` in combat status is synchronized with the game state by
+watching the [combat status events](../facades/events#player_entered_combat),
+which means doing the following...
+
+```lua
+library.currentPlayer.inCombat
+```
+
+...at any point in time will return the current combat status of the player.

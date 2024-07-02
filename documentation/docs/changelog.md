@@ -1,5 +1,15 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.7.0
+
+* Add the new ["inCombat" property](resources/models/player#player-in-combat-status)
+to the Player model to track the player's combat status
+* Compiling the library now also generates a
+[minified version](library-structure/build) of the library
+* New events to broadcast player
+[entering](resources/facades/events#player_entered_combat) and
+[leaving](resources/facades/events#player_left_combat) combat statuses
+
 ## 2024.06.28 - version 1.6.0
 
 * Factory and class structures now support the concept of
