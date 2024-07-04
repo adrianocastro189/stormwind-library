@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-GDGPH5FK71",{anonymize_ip:!0})</script><link rel="stylesheet" href="/assets/css/styles.fd1b7669.css">
-<script src="/assets/js/runtime~main.51263702.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.38d2bca7.js" defer="defer"></script>
 <script src="/assets/js/main.3e093732.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -48,6 +48,26 @@ events can be watched.</p>
 with the <code>Events:listen(event, callback)</code> method. It&#x27;s advisable to use
 the constants defined in the Stormwind Library to avoid typos and to make
 the code more readable.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="player_entered_combat"><code>PLAYER_ENTERED_COMBAT</code><a href="#player_entered_combat" class="hash-link" aria-label="Direct link to player_entered_combat" title="Direct link to player_entered_combat">​</a></h4>
+<ul>
+<li><strong>Constant:</strong> <code>library.events.EVENT_NAME_PLAYER_ENTERED_COMBAT</code></li>
+<li><strong>Payload:</strong> No data is sent with this event</li>
+<li><strong>Description:</strong> Facade for the disable regen event, which is triggered
+when the player enters combat.</li>
+<li><strong>Notes:</strong> The motivation behind this event is to provide a more intuitive
+name for listeners.</li>
+<li><strong>Since:</strong> 1.7.0</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="player_left_combat"><code>PLAYER_LEFT_COMBAT</code><a href="#player_left_combat" class="hash-link" aria-label="Direct link to player_left_combat" title="Direct link to player_left_combat">​</a></h4>
+<ul>
+<li><strong>Constant:</strong> <code>library.events.EVENT_NAME_PLAYER_LEFT_COMBAT</code></li>
+<li><strong>Payload:</strong> No data is sent with this event</li>
+<li><strong>Description:</strong> Facade for the enable regen event, which is triggered
+when the player leaves combat.</li>
+<li><strong>Notes:</strong> The motivation behind this event is to provide a more intuitive
+name for listeners.</li>
+<li><strong>Since:</strong> 1.7.0</li>
+</ul>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="player_level_up"><code>PLAYER_LEVEL_UP</code><a href="#player_level_up" class="hash-link" aria-label="Direct link to player_level_up" title="Direct link to player_level_up">​</a></h4>
 <ul>
 <li><strong>Constant:</strong> <code>library.events.EVENT_NAME_PLAYER_LEVEL_UP</code></li>

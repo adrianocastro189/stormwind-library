@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-GDGPH5FK71",{anonymize_ip:!0})</script><link rel="stylesheet" href="/assets/css/styles.fd1b7669.css">
-<script src="/assets/js/runtime~main.51263702.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.38d2bca7.js" defer="defer"></script>
 <script src="/assets/js/main.3e093732.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -16,7 +16,12 @@ following steps should be followed:</p>
 <ol>
 <li>Checkout the <strong>release branch</strong> created in the
 <a href="/docs/development-process/implementation">implementation</a> phase</li>
-<li>Make sure all <a href="/docs/testing/unit-suite">tests</a> are passing</li>
+<li>Make sure all <a href="/docs/testing/unit-suite">tests</a> are passing<!-- -->
+<ul>
+<li>For the distribution file</li>
+<li>For the minified distribution file</li>
+</ul>
+</li>
 <li>Generate the <a href="/docs/library-structure/luadocs">LuaDocs files</a> and push them
 to the repository with <strong>&quot;Update LuaDocs&quot;</strong> as the commit message</li>
 <li>Open the <code>documentation/docs/changelog.md</code> file and update the release
@@ -31,8 +36,8 @@ merge it</li>
 <li>The release title is the same, but with a <code>v</code> prefix, like <code>v1.0.0</code></li>
 <li>The release notes are created with the <strong>Generate release notes</strong>
 button</li>
-<li><strong>Important:</strong> Upload the <code>dist/stormwind-library.lua</code> compiled file
-as a release asset</li>
+<li><strong>Important:</strong> Upload both <code>dist/stormwind-library.lua</code> and
+<code>dist/stormwind-library.min.lua</code> compiled files release assets</li>
 </ul>
 </li>
 <li>Checkout the <code>main</code> branch and pull the latest changes</li>
