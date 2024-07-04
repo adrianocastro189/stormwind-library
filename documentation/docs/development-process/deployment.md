@@ -9,6 +9,8 @@ following steps should be followed:
 1. Checkout the **release branch** created in the
 [implementation](implementation) phase
 1. Make sure all [tests](../testing/unit-suite) are passing
+   * For the distribution file
+   * For the minified distribution file
 1. Generate the [LuaDocs files](../library-structure/luadocs) and push them 
 to the repository with **"Update LuaDocs"** as the commit message
 1. Open the `documentation/docs/changelog.md` file and update the release
@@ -22,8 +24,8 @@ merge it
    * The release title is the same, but with a `v` prefix, like `v1.0.0`
    * The release notes are created with the **Generate release notes** 
      button
-   * **Important:** Upload the `dist/stormwind-library.lua` compiled file
-     as a release asset
+   * **Important:** Upload both `dist/stormwind-library.lua` and
+     `dist/stormwind-library.min.lua` compiled files release assets
 1. Checkout the `main` branch and pull the latest changes
 1. Deploy the documentation to
 [GitHub Pages](https://www.stormwindlibrary.com) using the `npm` commands

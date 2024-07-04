@@ -60,6 +60,7 @@ CreateFrame = function (...)
     mockFrame.SetText = function (self, text) self.text = text end
     mockFrame.SetTextColor = function (self, r, g, b, a) self.textColor = { r, g, b, a } end
     mockFrame.SetTextInsets = function (self, left, right, top, bottom) self.textInsets = { left, right, top, bottom } end
+    mockFrame.SetTexture = function (self, texture) self.texture = texture end
     mockFrame.SetWidth = function (self, width) self.width = width end
     mockFrame.Show = function (self) self.showInvoked = true end
     mockFrame.UnregisterEvent = function (self, event) table.insert(self.unregisteredEvents or {}, event) end
@@ -90,6 +91,15 @@ GetZoneText = function () return 'Stormwind City' end
 
 LOOT_ITEM_SELF = 'You receive loot : %s|Hitem :%d :%d :%d :%d|h[%s]|h%s.'
 LOOT_ITEM_SELF_MULTIPLE = 'You receive loot: %sx%d.'
+
+UIErrorsFrame = { AddMessage = function(instance, message, r, g, b)
+    UIErrorsFrame.messageArg = message
+    UIErrorsFrame.rArg = r
+    UIErrorsFrame.gArg = g
+    UIErrorsFrame.bArg = b
+end }
+
+UnitAffectingCombat = function (unit) return true end
 
 UnitGUID = function (unit)
     if unit == 'player' then

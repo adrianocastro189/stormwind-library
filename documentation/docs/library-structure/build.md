@@ -12,7 +12,9 @@ a very simple way:
 1. Navigate to `./compiler`
 1. Run `node build.js`
 
-After that, a file called `stormwind-library.lua` is created in the `./dist` folder.
+After that, a file called `stormwind-library.lua` is created in the `./dist` 
+folder and since 1.7.0, another file called `stormwind-library.min.lua` was
+also produced, containing the minified version of the library.
 
 This is the file that must be imported by the addons.
 

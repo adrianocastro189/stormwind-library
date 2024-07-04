@@ -151,6 +151,26 @@ local Arr = {}
     end
 
     --[[--
+    Determines whether a table has a key or not.
+
+    This method is a simple wrapper around the get() method, checking if the
+    value returned is not nil. It also accepts a dot notation key.
+
+    @tparam table list the table to be checked
+    @tparam string key a dot notation key to be used in the search
+
+    @treturn boolean whether the key is in the table or not
+
+    @usage
+        local list = {a = {b = {c = 1}}}
+        local hasKey = library.arr:hasKey(list, 'a.b.c')
+        -- hasKey = true
+    ]]
+    function Arr:hasKey(list, key)
+        return self:get(list, key) ~= nil
+    end
+
+    --[[--
     Combines the elements of a table into a single string, separated by
     a specified delimiter.
     
@@ -312,7 +332,7 @@ local Arr = {}
         -- list = {a = {b = {c = 1}}}
     ]]
     function Arr:maybeInitialize(list, key, initialValue)
-        if self:get(list, key) == nil then self:set(list, key, initialValue) end
+        if not self:hasKey(list, key) then self:set(list, key, initialValue) end
     end
 
     --[[--

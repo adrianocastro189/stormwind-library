@@ -35,6 +35,7 @@ local Player = {}
     function Player.getCurrentPlayer()
         return Player.__construct()
             :setGuid(UnitGUID('player'))
+            :setInCombat(UnitAffectingCombat('player'))
             :setLevel(UnitLevel('player'))
             :setName(UnitName('player'))
             :setRealm(self:getClass('Realm'):getCurrentRealm())
@@ -51,6 +52,18 @@ local Player = {}
     ]]
     function Player:setGuid(value)
         self.guid = value
+        return self
+    end
+
+    --[[--
+    Sets the Player in combat status.
+
+    @tparam boolean value the Player's in combat status
+
+    @treturn Models.Player self
+    ]]
+    function Player:setInCombat(value)
+        self.inCombat = value
         return self
     end
 

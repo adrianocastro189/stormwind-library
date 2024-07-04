@@ -40,6 +40,28 @@ local Output = {}
     end
 
     --[[--
+    Outputs an error message using the game's error frame.
+
+    The error frame by default is a red message that appears in the
+    middle of the screen, usually used for errors that need the user's
+    attention like attempting to use an ability that is on cooldown or
+    trying to mount in a place where it's not allowed.
+
+    If, for some reason, the error frame is not available, it will fall back
+    to the default output method.
+
+    @tparam string message The error message to be printed
+    ]]
+    function Output:error(message)
+        if self.__.arr:hasKey(_G, 'UIErrorsFrame.AddMessage') then
+            UIErrorsFrame:AddMessage(message, 1.0, 0.1, 0.1)
+            return
+        end
+
+        self:out('Error: '..message)
+    end
+
+    --[[--
     Formats a standard message with the addon name to be printed.
 
     @tparam string message The message to be formatted

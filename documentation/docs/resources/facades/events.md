@@ -56,6 +56,26 @@ with the `Events:listen(event, callback)` method. It's advisable to use
 the constants defined in the Stormwind Library to avoid typos and to make
 the code more readable.
 
+#### `PLAYER_ENTERED_COMBAT`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_ENTERED_COMBAT`
+* **Payload:** No data is sent with this event
+* **Description:** Facade for the disable regen event, which is triggered
+when the player enters combat.
+* **Notes:** The motivation behind this event is to provide a more intuitive
+name for listeners.
+* **Since:** 1.7.0
+
+#### `PLAYER_LEFT_COMBAT`
+
+* **Constant:** `library.events.EVENT_NAME_PLAYER_LEFT_COMBAT`
+* **Payload:** No data is sent with this event
+* **Description:** Facade for the enable regen event, which is triggered
+when the player leaves combat.
+* **Notes:** The motivation behind this event is to provide a more intuitive
+name for listeners.
+* **Since:** 1.7.0
+
 #### `PLAYER_LEVEL_UP`
 
 * **Constant:** `library.events.EVENT_NAME_PLAYER_LEVEL_UP`

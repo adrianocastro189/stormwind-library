@@ -1,7 +1,7 @@
 lu = require('luaunit')
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v1_6_0
+StormwindLibrary = StormwindLibrary_v1_7_0
 
 --[[
 This is a base test class that sets up the library before each test.
@@ -53,6 +53,7 @@ dofile('./tests/Core/FactoryTest.lua')
 dofile('./tests/Core/OutputTest.lua')
 
 dofile('./tests/Facades/EventsTest.lua')
+dofile('./tests/Facades/EventHandlers/PlayerCombatStatusEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/PlayerLevelUpEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/PlayerLoginEventHandlerTest.lua')
 dofile('./tests/Facades/EventHandlers/TargetEventHandlerTest.lua')
