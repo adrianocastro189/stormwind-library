@@ -54,7 +54,7 @@ local Output = {}
     ]]
     function Output:error(message)
         if self.__.arr:hasKey(_G, 'UIErrorsFrame.AddMessage') then
-            UIErrorsFrame.AddMessage(message, 1.0, 0.1, 0.1)
+            UIErrorsFrame:AddMessage(message, 1.0, 0.1, 0.1)
             return
         end
 
