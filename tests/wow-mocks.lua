@@ -60,6 +60,7 @@ CreateFrame = function (...)
     mockFrame.SetText = function (self, text) self.text = text end
     mockFrame.SetTextColor = function (self, r, g, b, a) self.textColor = { r, g, b, a } end
     mockFrame.SetTextInsets = function (self, left, right, top, bottom) self.textInsets = { left, right, top, bottom } end
+    mockFrame.SetTexture = function (self, texture) self.texture = texture end
     mockFrame.SetWidth = function (self, width) self.width = width end
     mockFrame.Show = function (self) self.showInvoked = true end
     mockFrame.UnregisterEvent = function (self, event) table.insert(self.unregisteredEvents or {}, event) end
