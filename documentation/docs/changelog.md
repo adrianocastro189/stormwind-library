@@ -1,6 +1,6 @@
 # Changelog
 
-## yyyy.mm.dd - version 1.7.0
+## 2024.07.04 - version 1.7.0
 
 * Add a facade method to
 [print messages in the UI error frame](resources/core/output#the-error-method)
