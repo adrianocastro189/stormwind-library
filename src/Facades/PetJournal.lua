@@ -2,7 +2,10 @@
 Facade for the PetJournal API.
 
 Although C_PetJournal is available in the CLASSIC_ERA clients, this facade is
-not instantiable there considering that its functions are not functional.
+not instantiable there considering that its functions are not functional. For
+that reason, StormwindLibrary won't hold a default instance of this class like
+it does for other facades. Instead, addons must create their own instances of
+this class when needed.
 
 @classmod Core.PetJournal
 ]]
