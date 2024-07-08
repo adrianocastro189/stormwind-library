@@ -65,3 +65,23 @@ versions.
 trigger a full inventory update and that should be reviewed in the future,
 because sometimes this event may be triggered multiple times in a short period
 of time, so it's important to polish this feature to avoid performance issues.
+
+## The outdated flag
+
+A flag called `outdated` was introduced in the library version 1.8.0 to set a
+state in the inventory instance that indicates that the items list is outdated.
+
+This flag works similarly to the one in the
+[Container](container#the-outdated-flag) model. And the reason both classes 
+have this "redundant" flag is that Inventory and Container must be able to
+exist independently.
+
+Thanks to this flag, the methods that manipulate the inventory items will scan
+all the containers and update the items list only when needed.
+
+As said before, when the `library.playerInventory` instance is active, it will
+watch the `BAG_UPDATE` event, but now instead of updating the items in each 
+container like it used to work when it was introduced in previous versions, it 
+will only update the outdated flag in the inventory instance. Once any method 
+is called in the inventory that requires the items list, then items will be 
+scanned and updated.
