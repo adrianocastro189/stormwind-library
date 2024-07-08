@@ -96,6 +96,8 @@ local Container = {}
             table.insert(self.items, item)
         end
 
+        self.outdated = false
+
         return self
     end
 
