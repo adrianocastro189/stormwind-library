@@ -22,10 +22,11 @@ TestContainer = BaseTestClass:new()
 
     -- @covers Container:getItems()
     function TestContainer:testGetItems()
-        local execution = function (items, shouldCallMapItems, mappedItems)
+        local execution = function (items, outdated, shouldCallMapItems, mappedItems)
             local instance = __:new('Container')
 
             instance.mapItemsInvoked = false
+            instance.outdated = outdated
 
             instance.mapItems = function ()
                 instance.items = mappedItems
@@ -40,9 +41,17 @@ TestContainer = BaseTestClass:new()
 
         local items = { 'test-item-1', 'test-item-2' }
 
-        execution(nil, true, items)
-        execution({}, false, {})
-        execution(items, false, items)
+        -- items are null, not outdated
+        execution(nil, false, true, items)
+
+        -- items are empty, not outdated
+        execution({}, false, false, {})
+
+        -- items are set, but not outdated
+        execution(items, false, false, items)
+
+        -- items are set, but outdated
+        execution(items, true, true, items)
     end
 
     -- @covers Container:getNumSlots()

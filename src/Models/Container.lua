@@ -46,7 +46,7 @@ local Container = {}
     @treturn table[Models.Item] the container's items
     ]]
     function Container:getItems()
-        if self.items == nil then
+        if self.items == nil or self.outdated then
             self:mapItems()
         end
 
