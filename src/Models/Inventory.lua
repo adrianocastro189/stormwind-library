@@ -61,6 +61,8 @@ local Inventory = {}
     inventory mapping (refresh), to get the most updated items.
     ]]
     function Inventory:getItems()
+        self:maybeMapContainers()
+
         local items = {}
 
         self.__.arr:each(self.containers, function (container)
@@ -78,6 +80,8 @@ local Inventory = {}
     @treturn boolean
     ]]
     function Inventory:hasItem(item)
+        self:maybeMapContainers()
+
         return self.__.arr:any(self.containers, function (container)
             return container:hasItem(item)
         end)
@@ -133,6 +137,8 @@ local Inventory = {}
     @treturn Models.Inventory self
     ]]
     function Inventory:refresh()
+        self:maybeMapContainers()
+
         self.__.arr:each(self.containers, function (container)
             container:refresh()
         end)

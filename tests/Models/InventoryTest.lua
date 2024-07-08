@@ -31,6 +31,7 @@ TestInventory = BaseTestClass:new()
     -- @covers Inventory:getItems()
     function TestInventory:testGetItems()
         local instance = __:new('Inventory')
+        instance.maybeMapContainers = function () instance.maybeMapContainersInvoked = true end
 
         local containerA, containerB = __:new('Container'), __:new('Container')
 
@@ -42,16 +43,19 @@ TestInventory = BaseTestClass:new()
         local result = instance:getItems()
 
         lu.assertEquals({ 'itemA1', 'itemA2', 'itemB1', 'itemB2' }, result)
+        lu.assertTrue(instance.maybeMapContainersInvoked)
     end
 
     -- @covers Inventory:hasItem()
     function TestInventory:testHasItem()
         local function execution(containers, expectedOutput)
             local instance = __:new('Inventory')
+            instance.maybeMapContainers = function () instance.maybeMapContainersInvoked = true end
 
             instance.containers = containers
 
             lu.assertEquals(expectedOutput, instance:hasItem())
+            lu.assertTrue(instance.maybeMapContainersInvoked)
         end
 
         local containerHasItem = { hasItem = function () return true end }
@@ -131,6 +135,7 @@ TestInventory = BaseTestClass:new()
     -- @covers Inventory:refresh()
     function TestInventory:testRefresh()
         local instance = __:new('Inventory')
+        instance.maybeMapContainers = function () instance.maybeMapContainersInvoked = true end
 
         local containerMock = __:new('Container')
         containerMock.refresh = function ()
@@ -143,6 +148,7 @@ TestInventory = BaseTestClass:new()
         local result = instance:refresh()
 
         lu.assertTrue(containerMock.refreshInvoked)
+        lu.assertTrue(instance.maybeMapContainersInvoked)
         lu.assertEquals(instance, result)
     end
 -- end of TestInventory
