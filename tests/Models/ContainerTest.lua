@@ -4,6 +4,7 @@ TestContainer = BaseTestClass:new()
         local instance = __:new('Container')
 
         lu.assertNotNil(instance)
+        lu.assertTrue(instance.outdated)
     end
 
     -- @covers Container:getContainerItemInfo()

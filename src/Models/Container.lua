@@ -13,7 +13,11 @@ local Container = {}
     Container constructor.
     ]]
     function Container.__construct()
-        return setmetatable({}, Container)
+        local instance = setmetatable({}, Container)
+
+        instance.outdated = true
+
+        return instance
     end
 
     --[[--
