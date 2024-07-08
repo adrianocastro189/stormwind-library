@@ -5,6 +5,7 @@ TestInventory = BaseTestClass:new()
 
         lu.assertNotNil(instance)
         lu.assertTrue(instance.outdated)
+        lu.assertEquals({}, instance.containers)
     end
 
     -- @covers Inventory:flagOutdated()

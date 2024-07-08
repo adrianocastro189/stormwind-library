@@ -19,6 +19,7 @@ local Inventory = {}
     function Inventory.__construct()
         local instance = setmetatable({}, Inventory)
 
+        instance.containers = {}
         instance.outdated = true
 
         return instance
