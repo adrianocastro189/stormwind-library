@@ -151,4 +151,4 @@ library:dd(myTable)
 The output structure has also a facade to the chat methods that can be used
 to print messages in the chat frame.
 
-* `output:say(message)` - Makes the player say something in the chat frame.
+* `say(message)` - Makes the player say something in the chat frame.
