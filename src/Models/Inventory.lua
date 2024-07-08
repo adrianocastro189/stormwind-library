@@ -17,7 +17,11 @@ local Inventory = {}
     Inventory constructor.
     ]]
     function Inventory.__construct()
-        return setmetatable({}, Inventory)
+        local instance = setmetatable({}, Inventory)
+
+        instance.outdated = true
+
+        return instance
     end
 
     --[[--

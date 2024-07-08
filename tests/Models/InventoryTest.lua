@@ -4,6 +4,7 @@ TestInventory = BaseTestClass:new()
         local instance = __:new('Inventory')
 
         lu.assertNotNil(instance)
+        lu.assertTrue(instance.outdated)
     end
 
     -- @covers Inventory:getItems()
