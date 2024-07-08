@@ -7,6 +7,20 @@
 -- Although some of the functions and variables have static values, it's
 -- possible to override them in the test suite to provide different values
 -- for the tests when needed.
+C_PetJournal = {
+    GetPetInfoByPetID = function (petGuid)
+        -- return speciesID, customName, level, xp, maxXP, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique, obtainable
+        return 189, 'Test Pet', 1, 0, 0, 1, false, 'Test Pet', 'test-icon', 1, 1, 'Test Source', 'Test Description', false, true, true, true, true
+    end,
+    GetSummonedPetGUID = function () return 'test-pet-guid' end,
+    GetOwnedBattlePetString = function (speciesId)
+        if speciesId == -1 then
+            return nil
+        end
+
+        return '|cFFFFD200Collected (1/3)'
+    end
+}
 
 CreateFrame = function (...)
     local mockFrame = {
