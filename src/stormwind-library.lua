@@ -41,4 +41,5 @@ self.tooltip:registerTooltipHandlers()
 -- import src/Models/Realm.lua
 -- import src/Models/Player.lua
 
+-- import src/Views/ViewConstants.lua
 -- import src/Views/Windows/Window.lua
