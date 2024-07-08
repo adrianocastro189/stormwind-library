@@ -1,6 +1,6 @@
 --[[--
-This model represents bags, bank bags, the player'self backpack, and any other
-container capable of holding items.
+This model represents bags, bank bags, the player's self backpack, and any
+other container capable of holding items.
 
 @classmod Models.Container
 ]]
