@@ -120,6 +120,25 @@ TestOutput = BaseTestClass:new()
         lu.assertIsFalse(output:printed('test-message-c'))
     end
 
+    -- @covers Output:say()
+    function TestOutput:testSay()
+        local originalSendChatMessage = SendChatMessage
+
+        local messageArg = nil
+        local typeArg = nil
+        SendChatMessage = function(msg, type)
+            messageArg = msg
+            typeArg = type
+        end
+
+        __.output:say('test-message')
+
+        lu.assertEquals('test-message', messageArg)
+        lu.assertEquals('SAY', typeArg)
+
+        SendChatMessage = originalSendChatMessage
+    end
+
     -- @covers Output:setTestingMode()
     function TestOutput:testSetTestingMode()
         local output = __:new('Output')
