@@ -2,6 +2,8 @@
 
 ## yyyy.mm.dd - version 1.8.0
 
+* Add a [facade class](resources/facades/pet-journal) to the C_PetJournal API 
+table
 * New [view constants file](resources/views/constants) to store values that 
 can be reused in multiple view classes and instances
 
