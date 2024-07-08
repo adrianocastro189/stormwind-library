@@ -88,6 +88,13 @@ when they should not be used outside the class.
    * Prefer `integer` over `number` when the value must be an integer.
    * Prefer `boolean` over `bool`.
    * Use `any` when the type is not defined.
+1. Constants tables that are created with `Arr:freeze()` should be documented 
+with:
+   * Quick description of the constant group
+   * `@table tableName`
+   * For each constant, a `@field CONST_NAME Constant description` tag
+   * Examples of documented constants are in the `Environment.lua` and
+     `ViewConstants.lua` files
 
 :::tip This section is a work in progress
 

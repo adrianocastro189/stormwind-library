@@ -2,6 +2,9 @@
 
 ## yyyy.mm.dd - version 1.8.0
 
+* New [view constants file](resources/views/constants) to store values that 
+can be reused in multiple view classes and instances
+
 ## 2024.07.04 - version 1.7.0
 
 * Add a facade method to

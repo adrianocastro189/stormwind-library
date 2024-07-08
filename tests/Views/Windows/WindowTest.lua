@@ -142,7 +142,7 @@ TestWindow = BaseTestClass:new()
         }, result.points['BOTTOMRIGHT'])
         lu.assertEquals(35, result.height)
         lu.assertEquals({
-            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            bgFile = __.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
             edgeFile = '',
             edgeSize = 4,
             insets = {left = 4, right = 4, top = 4, bottom = 4},
@@ -160,7 +160,7 @@ TestWindow = BaseTestClass:new()
         local result = instance:createFrame()
 
         lu.assertEquals({
-            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            bgFile = __.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
             edgeFile = '',
             edgeSize = 4,
             insets = {left = 4, right = 4, top = 4, bottom = 4},
@@ -262,7 +262,7 @@ TestWindow = BaseTestClass:new()
         }, result.points['TOPRIGHT'])
         lu.assertEquals(35, result.height)
         lu.assertEquals({
-            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            bgFile = __.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
             edgeFile = '',
             edgeSize = 4,
             insets = {left = 4, right = 4, top = 4, bottom = 4},
