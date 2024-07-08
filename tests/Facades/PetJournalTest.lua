@@ -5,4 +5,13 @@ TestPetJournal = BaseTestClass:new()
 
         lu.assertNotNil(instance)
     end
+
+    -- @covers PetJournal:playerOwnsPet()
+    function TestPetJournal:testPlayerOwnsPet()
+        local instance = __:new('PetJournal')
+
+        -- see wow-mocks.lua
+        lu.assertTrue(instance:playerOwnsPet(1))
+        lu.assertFalse(instance:playerOwnsPet(-1))
+    end
 -- end of TestPetJournal

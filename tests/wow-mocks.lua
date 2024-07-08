@@ -7,6 +7,15 @@
 -- Although some of the functions and variables have static values, it's
 -- possible to override them in the test suite to provide different values
 -- for the tests when needed.
+C_PetJournal = {
+    GetOwnedBattlePetString = function (speciesId)
+        if speciesId == -1 then
+            return nil
+        end
+
+        return '|cFFFFD200Collected (1/3)'
+    end
+}
 
 CreateFrame = function (...)
     local mockFrame = {
