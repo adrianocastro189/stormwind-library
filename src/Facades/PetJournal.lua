@@ -23,6 +23,28 @@ local PetJournal = {}
     end
 
     --[[--
+    Gets the species id of the pet currently summoned by the player.
+
+    If the player has no pet summoned, this method returns nil.
+
+    Note that this method doesn't return the pet identifier, or GUID, which
+    means the returned id is the species id of the pet, not the pet itself.
+
+    @treturn integer|nil The currently summoned pet species id, or nil if no pet is summoned
+    ]]
+    function PetJournal:getSummonedPetSpeciesId()
+        local petGuid = C_PetJournal.GetSummonedPetGUID()
+
+        if petGuid then
+            -- this sanity check is necessary to avoid Lua errors in case no
+            -- pet is summoned
+            return C_PetJournal.GetPetInfoByPetID(petGuid)
+        end
+
+        return nil
+    end
+
+    --[[--
     Determines whether the player has at least one pet from a given species.
 
     The C_PetJournal.GetOwnedBattlePetString() API method returns a colored
