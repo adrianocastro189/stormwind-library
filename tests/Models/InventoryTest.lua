@@ -73,6 +73,7 @@ TestInventory = BaseTestClass:new()
     -- @covers Inventory:mapContainers()
     function TestInventory:testMapContainers()
         local instance = __:new('Inventory')
+        instance.outdated = true
 
         __.arr:maybeInitialize(_G, 'Enum.BagIndex', { TestBag = 1 })
 
@@ -87,6 +88,7 @@ TestInventory = BaseTestClass:new()
         local result = instance:mapContainers()
 
         lu.assertTrue(bagMock.mapItemsInvoked)
+        lu.assertFalse(instance.outdated)
         lu.assertEquals({ bagMock }, instance.containers)
         lu.assertEquals(instance, result)
 
@@ -100,6 +102,30 @@ TestInventory = BaseTestClass:new()
         instance:mapContainers()
 
         lu.assertIsNil(instance.bags)
+    end
+
+    -- @covers Inventory:maybeMapContainers()
+    function TestInventory:testMaybeMapContainers()
+        local function execution(outdated, shouldCallMapContainers)
+            local instance = __:new('Inventory')
+            instance.mapContainersInvoked = false
+            instance.outdated = outdated
+
+            instance.mapContainers = function ()
+                instance.mapContainersInvoked = true
+                return instance
+            end
+
+            instance:maybeMapContainers()
+
+            lu.assertEquals(shouldCallMapContainers, instance.mapContainersInvoked)
+        end
+
+        -- outdated
+        execution(true, true)
+
+        -- not outdated
+        execution(false, false)
     end
 
     -- @covers Inventory:refresh()

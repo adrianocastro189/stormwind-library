@@ -43,7 +43,7 @@ local Container = {}
     Gets the item information for a specific slot in the container using the
     game's C_Container.GetContainerItemInfo API method.
 
-    @internal
+    @local
 
     @tparam int slot The internal container slot to get the item information from
 

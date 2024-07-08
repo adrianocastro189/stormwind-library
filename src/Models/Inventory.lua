@@ -107,6 +107,23 @@ local Inventory = {}
             table.insert(self.containers, container)
         end)
 
+        self.outdated = false
+
+        return self
+    end
+
+    --[[--
+    May map the containers if the inventory is outdated.
+
+    @local
+    
+    @treturn Models.Inventory self
+    ]]
+    function Inventory:maybeMapContainers()
+        if self.outdated then
+            self:mapContainers()
+        end
+
         return self
     end
 
