@@ -1,6 +1,6 @@
 --[[--
-This model represents bags, bank bags, the player'self backpack, and any other
-container capable of holding items.
+This model represents bags, bank bags, the player's self backpack, and any
+other container capable of holding items.
 
 @classmod Models.Container
 ]]
@@ -13,7 +13,30 @@ local Container = {}
     Container constructor.
     ]]
     function Container.__construct()
-        return setmetatable({}, Container)
+        local instance = setmetatable({}, Container)
+
+        instance.outdated = true
+
+        return instance
+    end
+
+    --[[--
+    Marks the container as outdated, meaning that the container's items need
+    to be refreshed, mapped again, to reflect the current state of the player
+    items in the container.
+
+    It's important to mention that this flag is named "outdated" instead of
+    "updated" because as a layer above the game's API, the library will do the
+    best it can to keep the container's items updated, but it's not guaranteed
+    considering the fact that it can miss some specific events. One thing it
+    can be sure is when the container is outdated when the BAG_UPDATE event
+    is triggered.
+
+    @treturn Models.Container self
+    ]]
+    function Container:flagOutdated()
+        self.outdated = true
+        return self
     end
 
     --[[--
@@ -42,7 +65,7 @@ local Container = {}
     @treturn table[Models.Item] the container's items
     ]]
     function Container:getItems()
-        if self.items == nil then
+        if self.items == nil or self.outdated then
             self:mapItems()
         end
 
@@ -91,6 +114,8 @@ local Container = {}
             local item = self.__.itemFactory:createFromContainerItemInfo(itemInformation)
             table.insert(self.items, item)
         end
+
+        self.outdated = false
 
         return self
     end
