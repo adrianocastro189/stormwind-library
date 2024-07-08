@@ -4,6 +4,8 @@
 
 * Add a [facade class](resources/facades/pet-journal) to the C_PetJournal API 
 table
+* Add a [flag to the Container model](resources/models/container#the-outdated-flag)
+to indicate that the items list is outdated and needs to be refreshed
 * New [view constants file](resources/views/constants) to store values that 
 can be reused in multiple view classes and instances
 
