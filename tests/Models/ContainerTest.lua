@@ -7,6 +7,20 @@ TestContainer = BaseTestClass:new()
         lu.assertTrue(instance.outdated)
     end
 
+    -- @covers Container:flagOutdated()
+    function TestContainer:testFlagOutdated()
+        local instance = __:new('Container')
+
+        instance.outdated = false
+
+        local result = instance:flagOutdated()
+
+        lu.assertTrue(instance.outdated)
+
+        -- asserts that the method returns the instance for chaining
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Container:getContainerItemInfo()
     function TestContainer:testGetContainerItemInfo()
         local instance = __:new('Container')

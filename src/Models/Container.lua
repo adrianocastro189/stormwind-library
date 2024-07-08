@@ -21,6 +21,25 @@ local Container = {}
     end
 
     --[[--
+    Marks the container as outdated, meaning that the container's items need
+    to be refreshed, mapped again, to reflect the current state of the player
+    items in the container.
+
+    It's important to mention that this flag is named "outdated" instead of
+    "updated" because as a layer above the game's API, the library will do the
+    best it can to keep the container's items updated, but it's not guaranteed
+    considering the fact that it can miss some specific events. One thing it
+    can be sure is when the container is outdated when the BAG_UPDATE event
+    is triggered.
+
+    @treturn Models.Container self
+    ]]
+    function Container:flagOutdated()
+        self.outdated = true
+        return self
+    end
+
+    --[[--
     Gets the item information for a specific slot in the container using the
     game's C_Container.GetContainerItemInfo API method.
 
