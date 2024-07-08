@@ -1,5 +1,7 @@
 # Changelog
 
+## yyyy.mm.dd - version 1.8.0
+
 ## 2024.07.04 - version 1.7.0
 
 * Add a facade method to
