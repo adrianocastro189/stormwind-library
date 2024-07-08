@@ -149,7 +149,7 @@ local Window = {}
         frame:SetPoint('BOTTOMRIGHT', self.window, 'BOTTOMRIGHT', 0, 0)
         frame:SetHeight(35)
         frame:SetBackdrop({
-            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            bgFile = self.__.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
             edgeFile = '',
             edgeSize = 4,
             insets = {left = 4, right = 4, top = 4, bottom = 4},
@@ -176,7 +176,7 @@ local Window = {}
         local frame = CreateFrame('Frame', nil, UIParent, 'BackdropTemplate')
 
         frame:SetBackdrop({
-            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            bgFile = self.__.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
             edgeFile = '',
             edgeSize = 4,
             insets = {left = 4, right = 4, top = 4, bottom = 4},
@@ -268,7 +268,7 @@ local Window = {}
         frame:SetPoint('TOPRIGHT', self.window, 'TOPRIGHT', 0, 0)
         frame:SetHeight(35)
         frame:SetBackdrop({
-            bgFile = 'Interface/Tooltips/UI-Tooltip-Background',
+            bgFile = self.__.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
             edgeFile = '',
             edgeSize = 4,
             insets = {left = 4, right = 4, top = 4, bottom = 4},
