@@ -7,7 +7,7 @@ that reason, StormwindLibrary won't hold a default instance of this class like
 it does for other facades. Instead, addons must create their own instances of
 this class when needed.
 
-@classmod Core.PetJournal
+@classmod Facades.PetJournal
 ]]
 local PetJournal = {}
     PetJournal.__index = PetJournal
