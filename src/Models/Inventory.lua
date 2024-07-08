@@ -149,9 +149,8 @@ local Inventory = {}
 
 if self.addon.inventory.track then
     self.playerInventory = self:new('Inventory')
-    self.playerInventory:mapContainers()
 
     self.events:listenOriginal('BAG_UPDATE', function ()
-        self.playerInventory:mapContainers()
+        self.playerInventory:flagOutdated()
     end)
 end
