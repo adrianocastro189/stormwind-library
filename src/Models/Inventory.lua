@@ -25,6 +25,33 @@ local Inventory = {}
     end
 
     --[[--
+    Marks the inventory as outdated, meaning that the container's items need
+    to be refreshed, mapped again, in which container inside this inventory
+    instance to reflect the current state of the player items in all
+    containers.
+
+    It's important to mention that this flag is named "outdated" instead of
+    "updated" because as a layer above the game's API, the library will do the
+    best it can to keep the container's items updated, but it's not guaranteed
+    considering the fact that it can miss some specific events. One thing it
+    can be sure is when the container is outdated when the BAG_UPDATE event
+    is triggered.
+
+    @see Models.Container.flagOutdated
+
+    @treturn Models.Inventory self
+    ]]
+    function Inventory:flagOutdated()
+        self.outdated = true
+
+        self.__.arr:each(self.containers, function (container)
+            container:flagOutdated()
+        end)
+
+        return self
+    end
+
+    --[[--
     Gets all items from the inventory.
 
     This method will return all items from all containers mapped in the

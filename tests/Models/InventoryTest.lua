@@ -7,6 +7,27 @@ TestInventory = BaseTestClass:new()
         lu.assertTrue(instance.outdated)
     end
 
+    -- @covers Inventory:flagOutdated()
+    function TestInventory:testFlagOutdated()
+        local instance = __:new('Inventory')
+
+        local containerMock = __:new('Container')
+        containerMock.flagOutdated = function ()
+            containerMock.flagOutdatedInvoked = true
+            return containerMock
+        end
+
+        instance.containers = { containerMock }
+
+        instance.outdated = false
+
+        local result = instance:flagOutdated()
+
+        lu.assertTrue(instance.outdated)
+        lu.assertTrue(containerMock.flagOutdatedInvoked)
+        lu.assertEquals(instance, result)
+    end
+
     -- @covers Inventory:getItems()
     function TestInventory:testGetItems()
         local instance = __:new('Inventory')
