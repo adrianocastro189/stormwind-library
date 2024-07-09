@@ -7,6 +7,8 @@ table
 * Add a flag to the [Container](resources/models/container#the-outdated-flag)
 and [Inventory](resources/models/inventory#the-outdated-flag) models
 to indicate that their items lists are outdated and need to be refreshed
+* New [Interval class](resources/support/interval) to execute callback 
+functions at a specified interval in seconds
 * New [Output method](resources/core/output#chat-methods) to make the
 player say something in the chat frame
 * New [view constants file](resources/views/constants) to store values that 
