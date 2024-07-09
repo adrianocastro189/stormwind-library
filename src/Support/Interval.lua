@@ -22,6 +22,18 @@ local Interval = {}
     end
 
     --[[--
+    Sets the callback to be executed at each interval.
+
+    @tparam function value the callback to be executed at each interval
+
+    @treturn Support.Interval self
+    ]]
+    function Interval:setCallback(value)
+        self.callback = value
+        return self
+    end
+
+    --[[--
     Sets the number of seconds between each interval.
 
     @tparam integer value the number of seconds between each interval
