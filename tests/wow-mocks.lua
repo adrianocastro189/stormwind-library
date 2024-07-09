@@ -22,6 +22,19 @@ C_PetJournal = {
     end
 }
 
+C_Timer = {
+    NewTicker = function (seconds, callback)
+        local tickerMock = {}
+        tickerMock.canceled = false
+        tickerMock.callback = callback
+        tickerMock.seconds = seconds
+        
+        function tickerMock:Cancel() self.canceled = true end
+
+        return tickerMock
+    end
+}
+
 CreateFrame = function (...)
     local mockFrame = {
         ['events'] = {},

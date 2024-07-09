@@ -21,4 +21,16 @@ TestInterval = BaseTestClass:new()
         lu.assertEquals(60, instance.seconds)
         lu.assertEquals(TestInterval.testSetters, instance.callback)
     end
+
+    -- @covers Interval:start()
+    function TestInterval:testStart()
+        local instance = __:new('Interval')
+            :setCallback(TestInterval.testSetters)
+            :setSeconds(60)
+
+        instance:start()
+
+        lu.assertNotNil(instance.ticker)
+        lu.assertIsFalse(instance.ticker.canceled)
+    end
 -- end of TestInterval

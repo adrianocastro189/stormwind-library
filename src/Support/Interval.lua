@@ -44,4 +44,14 @@ local Interval = {}
         self.seconds = value
         return self
     end
+
+    --[[--
+    Starts the interval.
+
+    @treturn Support.Interval self
+    ]]
+    function Interval:start()
+        self.ticker = C_Timer.NewTicker(self.seconds, self.callback)
+        return self
+    end
 -- end of Interval
