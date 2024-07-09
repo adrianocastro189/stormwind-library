@@ -20,4 +20,16 @@ local Interval = {}
     function Interval.__construct()
         return setmetatable({}, Interval)
     end
+
+    --[[--
+    Sets the number of seconds between each interval.
+
+    @tparam integer value the number of seconds between each interval
+
+    @treturn Support.Interval self
+    ]]
+    function Interval:setSeconds(value)
+        self.seconds = value
+        return self
+    end
 -- end of Interval

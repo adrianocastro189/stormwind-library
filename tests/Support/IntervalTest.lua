@@ -5,4 +5,17 @@ TestInterval = BaseTestClass:new()
 
         lu.assertNotNil(instance)
     end
+
+    -- @covers Interval:setSeconds()
+    function TestInterval:testSetters()
+        local instance = __:new('Interval')
+
+        lu.assertIsNil(instance.seconds)
+
+        local result = instance
+            :setSeconds(60)
+
+        lu.assertEquals(instance, result)
+        lu.assertEquals(60, instance.seconds)
+    end
 -- end of TestInterval
