@@ -41,7 +41,11 @@ local PetJournal = {}
         if petGuid then
             -- this sanity check is necessary to avoid Lua errors in case no
             -- pet is summoned
-            return C_PetJournal.GetPetInfoByPetID(petGuid)
+            local speciesId = C_PetJournal.GetPetInfoByPetID(petGuid)
+
+            -- don't return C_PetJournal.GetPetInfoByPetID(petGuid) directly
+            -- as it will return all the pet info, not just the species id
+            return speciesId
         end
 
         return nil
