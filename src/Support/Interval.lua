@@ -54,4 +54,17 @@ local Interval = {}
         self.ticker = C_Timer.NewTicker(self.seconds, self.callback)
         return self
     end
+
+    --[[--
+    Stops the interval if it's running.
+
+    @treturn Support.Interval self
+    ]]
+    function Interval:stop()
+        if self.ticker then
+            self.ticker:Cancel()
+        end
+        
+        return self
+    end
 -- end of Interval
