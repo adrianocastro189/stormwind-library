@@ -1,0 +1,23 @@
+--[[--
+The Interval class is a utility class that is capable of executing a given
+function at a specified interval.
+
+It uses the World of Warcraft API ticker in the background to mimic the
+setInterval() function in JavaScript. And different from other support
+classes, Interval is an instance based class, which means it requires one
+instance per interval, allowing multiple intervals to be run at the same time.
+
+@classmod Support.Interval
+]]
+local Interval = {}
+    Interval.__index = Interval
+    Interval.__ = self
+    self:addClass('Interval', Interval)
+
+    --[[--
+    Interval constructor.
+    ]]
+    function Interval.__construct()
+        return setmetatable({}, Interval)
+    end
+-- end of Interval

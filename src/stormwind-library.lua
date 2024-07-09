@@ -11,6 +11,8 @@
 -- import src/Core/AddonProperties.lua
 -- import src/Core/Factory.lua
 
+-- import src/Support/Interval.lua
+
 -- import src/Core/Configuration.lua
 -- import src/Core/Output.lua
 
