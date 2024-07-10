@@ -3,7 +3,7 @@
 ## yyyy.mm.dd - version 1.8.0
 
 * Add a [facade class](resources/facades/pet-journal) to the C_PetJournal API 
-table
+table (Retail only for now)
 * Add a flag to the [Container](resources/models/container#the-outdated-flag)
 and [Inventory](resources/models/inventory#the-outdated-flag) models
 to indicate that their items lists are outdated and need to be refreshed
