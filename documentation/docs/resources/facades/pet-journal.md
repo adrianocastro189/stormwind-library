@@ -13,10 +13,11 @@ by addons demands.
 
 Different from other facades, Stormwind Library doesn't provide a default 
 instance for this class in a property given that it's not instantiable in the
-Classic Era clientes like Hardcore or Season of Discovery.
+classic clients.
 
-Although Classic Era clients have the `C_PetJournal` table available, they're 
-apparently not functional, at least at the time of writing this documentation.
+Although classic clients have the `C_PetJournal` table available, they're 
+apparently not functional, at least at the time of writing this documentation
+and for the purposes of this facade.
 
 Addons must instantiate the `PetJournal` class to use it.
 
