@@ -49,8 +49,8 @@
   <li><a href="../classes/Core.Target.html">Core.Target</a></li>
   <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
-  <li><a href="../classes/Facades.PetJournal.html">Facades.PetJournal</a></li>
-  <li><strong>Facades.RetailTooltip</strong></li>
+  <li><strong>Facades.PetJournal</strong></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
   <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
   <li><a href="../classes/Models.Container.html">Models.Container</a></li>
   <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
@@ -74,24 +74,33 @@
 
 <div id="content">
 
-<h1>Class <code>Facades.RetailTooltip</code></h1>
-<p>The default implementation of the AbstractTooltip class for the Retail
-client.</p>
-<p></p>
+<h1>Class <code>Facades.PetJournal</code></h1>
+<p>Facade for the PetJournal API.</p>
+<p>
+<p>Although C_PetJournal is available in the classic clients, this facade is
+not instantiable there considering that its functions are not entirely
+functional. For that reason, StormwindLibrary won't hold a default instance
+of this class like it does for other facades. Instead, addons must create
+their own instances of this class when needed.
+</p>
 
 
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#facades.retailtooltip:registerTooltipHandlers">facades.retailtooltip:registerTooltipHandlers ()</a></td>
-	<td class="summary">Add tooltip post call with the TooltipDataProcessor.</td>
+	<td class="name" nowrap><a href="#facades.petjournal:getSummonedPetSpeciesId">facades.petjournal:getSummonedPetSpeciesId ()</a></td>
+	<td class="summary">Gets the species id of the pet currently summoned by the player.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#facades.petjournal:playerOwnsPet">facades.petjournal:playerOwnsPet (speciesId)</a></td>
+	<td class="summary">Determines whether the player has at least one pet from a given species.</td>
 	</tr>
 </table>
 <h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#facades.retailtooltip:__construct">facades.retailtooltip:__construct ()</a></td>
-	<td class="summary">RetailTooltip constructor.</td>
+	<td class="name" nowrap><a href="#facades.petjournal:__construct">facades.petjournal:__construct ()</a></td>
+	<td class="summary">PetJournal constructor.</td>
 	</tr>
 </table>
 
@@ -103,14 +112,57 @@ client.</p>
 
     <dl class="function">
     <dt>
-    <a name = "facades.retailtooltip:registerTooltipHandlers"></a>
-    <strong>facades.retailtooltip:registerTooltipHandlers ()</strong>
+    <a name = "facades.petjournal:getSummonedPetSpeciesId"></a>
+    <strong>facades.petjournal:getSummonedPetSpeciesId ()</strong>
     </dt>
     <dd>
-    Add tooltip post call with the TooltipDataProcessor.
+    Gets the species id of the pet currently summoned by the player.
+<p>    If the player has no pet summoned, this method returns nil.
+<p>    Note that this method doesn't return the pet identifier, or GUID, which
+    means the returned id is the species id of the pet, not the pet itself.
 
 
 
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">integer</span> or <span class="type">nil</span></span>
+        The currently summoned pet species id, or nil if no pet is summoned
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "facades.petjournal:playerOwnsPet"></a>
+    <strong>facades.petjournal:playerOwnsPet (speciesId)</strong>
+    </dt>
+    <dd>
+    Determines whether the player has at least one pet from a given species.
+<p>    The C_PetJournal.GetOwnedBattlePetString() API method returns a colored
+    string containing the number of pets owned by the player for a given
+    species. Example: "|cFFFFD200Collected (1/3)"
+<p>    This method just checks if the string is not nil, which means the player
+    has at least one pet from the given species.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">speciesId</span>
+            <span class="types"><span class="type">integer</span></span>
+         The species ID of the pet to check
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the player owns at least one pet from the given species
+    </ol>
 
 
 
@@ -121,11 +173,11 @@ client.</p>
 
     <dl class="function">
     <dt>
-    <a name = "facades.retailtooltip:__construct"></a>
-    <strong>facades.retailtooltip:__construct ()</strong>
+    <a name = "facades.petjournal:__construct"></a>
+    <strong>facades.petjournal:__construct ()</strong>
     </dt>
     <dd>
-    RetailTooltip constructor.
+    PetJournal constructor.
 
 
 
