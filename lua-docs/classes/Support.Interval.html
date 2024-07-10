@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+<!-- Google tag (gtag.js) --><script async src='https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71'></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GDGPH5FK71');</script></head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.PetJournal.html">Facades.PetJournal</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><a href="../classes/Models.Container.html">Models.Container</a></li>
+  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><strong>Support.Interval</strong></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Support.Interval</code></h1>
+<p>The Interval class is a utility class that is capable of executing a given
+function at a specified interval.</p>
+<p>
+<p>It uses the World of Warcraft API ticker in the background to mimic the
+setInterval() function in JavaScript. And different from other support
+classes, Interval is an instance based class, which means it requires one
+instance per interval, allowing multiple intervals to be run at the same time.
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#support.interval:setCallback">support.interval:setCallback (value)</a></td>
+	<td class="summary">Sets the callback to be executed at each interval.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.interval:setSeconds">support.interval:setSeconds (value)</a></td>
+	<td class="summary">Sets the number of seconds between each interval.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.interval:start">support.interval:start ()</a></td>
+	<td class="summary">Starts the interval.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#support.interval:stop">support.interval:stop ()</a></td>
+	<td class="summary">Stops the interval if it's running.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#support.interval:__construct">support.interval:__construct ()</a></td>
+	<td class="summary">Interval constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "support.interval:setCallback"></a>
+    <strong>support.interval:setCallback (value)</strong>
+    </dt>
+    <dd>
+    Sets the callback to be executed at each interval.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">function</span></span>
+         the callback to be executed at each interval
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Support.Interval.html#">Support.Interval</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "support.interval:setSeconds"></a>
+    <strong>support.interval:setSeconds (value)</strong>
+    </dt>
+    <dd>
+    Sets the number of seconds between each interval.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">integer</span></span>
+         the number of seconds between each interval
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Support.Interval.html#">Support.Interval</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "support.interval:start"></a>
+    <strong>support.interval:start ()</strong>
+    </dt>
+    <dd>
+    Starts the interval.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Support.Interval.html#">Support.Interval</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "support.interval:stop"></a>
+    <strong>support.interval:stop ()</strong>
+    </dt>
+    <dd>
+    Stops the interval if it's running.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Support.Interval.html#">Support.Interval</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "support.interval:__construct"></a>
+    <strong>support.interval:__construct ()</strong>
+    </dt>
+    <dd>
+    Interval constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-07-10 08:57:51 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
