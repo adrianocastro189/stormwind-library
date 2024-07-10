@@ -1,4 +1,4 @@
--- Library version = '1.7.0'
+-- Library version = '1.8.0'
 
 -- import src/Core/DumpAndDie.lua
 
@@ -11,6 +11,8 @@
 -- import src/Core/AddonProperties.lua
 -- import src/Core/Factory.lua
 
+-- import src/Support/Interval.lua
+
 -- import src/Core/Configuration.lua
 -- import src/Core/Output.lua
 
@@ -22,6 +24,7 @@
 -- import src/Facades/EventHandlers/PlayerLevelUpEventHandler.lua
 -- import src/Facades/EventHandlers/PlayerLoginEventHandler.lua
 -- import src/Facades/EventHandlers/TargetEventHandler.lua
+-- import src/Facades/PetJournal.lua
 -- import src/Facades/Target.lua
 -- import src/Facades/Tooltips/AbstractTooltip.lua
 -- import src/Facades/Tooltips/ClassicTooltip.lua
@@ -41,4 +44,5 @@ self.tooltip:registerTooltipHandlers()
 -- import src/Models/Realm.lua
 -- import src/Models/Player.lua
 
+-- import src/Views/ViewConstants.lua
 -- import src/Views/Windows/Window.lua

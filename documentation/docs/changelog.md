@@ -1,5 +1,19 @@
 # Changelog
 
+## 2024.07.10 - version 1.8.0
+
+* Add a [facade class](resources/facades/pet-journal) to the C_PetJournal API 
+table (Retail only for now)
+* Add a flag to the [Container](resources/models/container#the-outdated-flag)
+and [Inventory](resources/models/inventory#the-outdated-flag) models
+to indicate that their items lists are outdated and need to be refreshed
+* New [Interval class](resources/support/interval) to execute callback 
+functions at a specified interval in seconds
+* New [Output method](resources/core/output#chat-methods) to make the
+player say something in the chat frame
+* New [view constants file](resources/views/constants) to store values that 
+can be reused in multiple view classes and instances
+
 ## 2024.07.04 - version 1.7.0
 
 * Add a facade method to

@@ -4,6 +4,21 @@ TestContainer = BaseTestClass:new()
         local instance = __:new('Container')
 
         lu.assertNotNil(instance)
+        lu.assertTrue(instance.outdated)
+    end
+
+    -- @covers Container:flagOutdated()
+    function TestContainer:testFlagOutdated()
+        local instance = __:new('Container')
+
+        instance.outdated = false
+
+        local result = instance:flagOutdated()
+
+        lu.assertTrue(instance.outdated)
+
+        -- asserts that the method returns the instance for chaining
+        lu.assertEquals(instance, result)
     end
 
     -- @covers Container:getContainerItemInfo()
@@ -21,10 +36,11 @@ TestContainer = BaseTestClass:new()
 
     -- @covers Container:getItems()
     function TestContainer:testGetItems()
-        local execution = function (items, shouldCallMapItems, mappedItems)
+        local execution = function (items, outdated, shouldCallMapItems, mappedItems)
             local instance = __:new('Container')
 
             instance.mapItemsInvoked = false
+            instance.outdated = outdated
 
             instance.mapItems = function ()
                 instance.items = mappedItems
@@ -39,9 +55,17 @@ TestContainer = BaseTestClass:new()
 
         local items = { 'test-item-1', 'test-item-2' }
 
-        execution(nil, true, items)
-        execution({}, false, {})
-        execution(items, false, items)
+        -- items are null, not outdated
+        execution(nil, false, true, items)
+
+        -- items are empty, not outdated
+        execution({}, false, false, {})
+
+        -- items are set, but not outdated
+        execution(items, false, false, items)
+
+        -- items are set, but outdated
+        execution(items, true, true, items)
     end
 
     -- @covers Container:getNumSlots()
@@ -66,6 +90,7 @@ TestContainer = BaseTestClass:new()
         local itemC = __:new('Item'):setId(3)
 
         instance.items = { itemA, itemB }
+        instance.outdated = false
 
         lu.assertTrue(instance:hasItem(1))
         lu.assertTrue(instance:hasItem(itemA))
@@ -90,6 +115,7 @@ TestContainer = BaseTestClass:new()
                 itemName = 'test-item-name',
             }
         end
+        instance.outdated = true
 
         local result = instance:mapItems()
 
@@ -98,6 +124,7 @@ TestContainer = BaseTestClass:new()
             :setName('test-item-name')
 
         lu.assertEquals({item, item}, result.items)
+        lu.assertFalse(result.outdated)
 
         -- asserts that the method returns the instance for chaining
         lu.assertEquals(instance, result)

@@ -17,7 +17,39 @@ local Inventory = {}
     Inventory constructor.
     ]]
     function Inventory.__construct()
-        return setmetatable({}, Inventory)
+        local instance = setmetatable({}, Inventory)
+
+        instance.containers = {}
+        instance.outdated = true
+
+        return instance
+    end
+
+    --[[--
+    Marks the inventory as outdated, meaning that the container's items need
+    to be refreshed, mapped again, in which container inside this inventory
+    instance to reflect the current state of the player items in all
+    containers.
+
+    It's important to mention that this flag is named "outdated" instead of
+    "updated" because as a layer above the game's API, the library will do the
+    best it can to keep the container's items updated, but it's not guaranteed
+    considering the fact that it can miss some specific events. One thing it
+    can be sure is when the container is outdated when the BAG_UPDATE event
+    is triggered.
+
+    @see Models.Container.flagOutdated
+
+    @treturn Models.Inventory self
+    ]]
+    function Inventory:flagOutdated()
+        self.outdated = true
+
+        self.__.arr:each(self.containers, function (container)
+            container:flagOutdated()
+        end)
+
+        return self
     end
 
     --[[--
@@ -30,6 +62,8 @@ local Inventory = {}
     inventory mapping (refresh), to get the most updated items.
     ]]
     function Inventory:getItems()
+        self:maybeMapContainers()
+
         local items = {}
 
         self.__.arr:each(self.containers, function (container)
@@ -47,6 +81,8 @@ local Inventory = {}
     @treturn boolean
     ]]
     function Inventory:hasItem(item)
+        self:maybeMapContainers()
+
         return self.__.arr:any(self.containers, function (container)
             return container:hasItem(item)
         end)
@@ -76,6 +112,23 @@ local Inventory = {}
             table.insert(self.containers, container)
         end)
 
+        self.outdated = false
+
+        return self
+    end
+
+    --[[--
+    May map the containers if the inventory is outdated.
+
+    @local
+    
+    @treturn Models.Inventory self
+    ]]
+    function Inventory:maybeMapContainers()
+        if self.outdated then
+            self:mapContainers()
+        end
+
         return self
     end
 
@@ -85,6 +138,8 @@ local Inventory = {}
     @treturn Models.Inventory self
     ]]
     function Inventory:refresh()
+        self:maybeMapContainers()
+
         self.__.arr:each(self.containers, function (container)
             container:refresh()
         end)
@@ -95,9 +150,8 @@ local Inventory = {}
 
 if self.addon.inventory.track then
     self.playerInventory = self:new('Inventory')
-    self.playerInventory:mapContainers()
 
     self.events:listenOriginal('BAG_UPDATE', function ()
-        self.playerInventory:mapContainers()
+        self.playerInventory:flagOutdated()
     end)
 end
