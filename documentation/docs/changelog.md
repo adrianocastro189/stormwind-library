@@ -1,6 +1,6 @@
 # Changelog
 
-## yyyy.mm.dd - version 1.8.0
+## 2024.07.10 - version 1.8.0
 
 * Add a [facade class](resources/facades/pet-journal) to the C_PetJournal API 
 table (Retail only for now)
