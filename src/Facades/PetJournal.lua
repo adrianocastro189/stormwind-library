@@ -1,11 +1,11 @@
 --[[--
 Facade for the PetJournal API.
 
-Although C_PetJournal is available in the CLASSIC_ERA clients, this facade is
-not instantiable there considering that its functions are not functional. For
-that reason, StormwindLibrary won't hold a default instance of this class like
-it does for other facades. Instead, addons must create their own instances of
-this class when needed.
+Although C_PetJournal is available in the classic clients, this facade is
+not instantiable there considering that its functions are not entirely
+functional. For that reason, StormwindLibrary won't hold a default instance
+of this class like it does for other facades. Instead, addons must create
+their own instances of this class when needed.
 
 @classmod Facades.PetJournal
 ]]
@@ -14,7 +14,6 @@ local PetJournal = {}
     PetJournal.__ = self
     self:addClass('PetJournal', PetJournal, {
         self.environment.constants.TEST_SUITE,
-        self.environment.constants.CLIENT_CLASSIC,
         self.environment.constants.CLIENT_RETAIL,
     })
 
