@@ -82,3 +82,8 @@ local AbstractTooltip = {}
         error('This is an abstract method and should be implemented by this class inheritances')
     end
 -- end of AbstractTooltip
+
+self:onLoad(function()
+    self.tooltip = self:new('Tooltip')
+    self.tooltip:registerTooltipHandlers()
+end)
