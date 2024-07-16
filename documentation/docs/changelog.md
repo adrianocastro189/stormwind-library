@@ -1,6 +1,13 @@
+---
+sidebar_position: 2
+---
+
 # Changelog
 
 ## yyyy.mm.dd - version 1.9.0
+
+* Add the [Callback Loader](resources/core/callback-loader) mechanism to
+  invoke functions after the library is fully loaded
 
 ## 2024.07.10 - version 1.8.0
 
