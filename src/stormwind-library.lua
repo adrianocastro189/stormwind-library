@@ -48,3 +48,5 @@ self.tooltip:registerTooltipHandlers()
 
 -- import src/Views/ViewConstants.lua
 -- import src/Views/Windows/Window.lua
+
+self:invokeLoadCallbacks()

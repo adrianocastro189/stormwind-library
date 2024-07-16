@@ -47,6 +47,7 @@ dofile('./tests/Commands/CommandsTest.lua')
 dofile('./tests/Commands/CommandsHandlerTest.lua')
 
 dofile('./tests/Core/AddonPropertiesTest.lua')
+dofile('./tests/Core/CallbackLoaderTest.lua')
 dofile('./tests/Core/ConfigurationTest.lua')
 dofile('./tests/Core/EnvironmentTest.lua')
 dofile('./tests/Core/FactoryTest.lua')

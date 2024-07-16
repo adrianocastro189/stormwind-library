@@ -37,3 +37,53 @@ are removed right after their execution, making this an **internal** system to
 improve the library loading process.
 
 :::
+
+## Usage
+
+As a reminder, the callback loader is available only for the library itself.
+That said, the instructions below must be considered when developing library
+files, not addons.
+
+Consider the two files below. **They're not part of the library**, but just a 
+very simple example to illustrate the callback loader mechanism.
+
+* Inventory.lua
+  ```lua
+  function playerHasItem(itemId)
+      -- logic to check if the player has an item
+      return true
+  end
+  ```
+
+* Player.lua
+  ```lua
+  function playerIsMissingHearthstone()
+      return not playerHasItem(6948)
+  end
+  ```
+
+Now, during the **library loading process**, some code that's not inside any 
+class or function scope does:
+
+```lua
+-- on initialization
+if playerIsMissingHearthstone() then
+    print('Remember to talk to an innkeeper to get a hearthstone!')
+end
+```
+
+The code above will raise errors if the `PlayerCheckUp.lua` file is referenced
+before `Inventory.lua`.
+
+To solve such issues, the callback loader mechanism can be used. The code below
+can be placed at the end of any file above and will be executed after all
+library resources are loaded.
+
+```lua
+-- on initialization
+library:onLoad(function()
+    if playerIsMissingHearthstone() then
+        print('Remember to talk to an innkeeper to get a hearthstone!')
+    end
+end)
+```
