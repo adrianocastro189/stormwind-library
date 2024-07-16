@@ -1,5 +1,7 @@
 -- Library version = '1.9.0'
 
+-- import src/Core/CallbackLoader.lua
+
 -- import src/Core/DumpAndDie.lua
 
 -- import src/Support/Arr.lua
