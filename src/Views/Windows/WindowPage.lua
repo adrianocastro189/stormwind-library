@@ -10,8 +10,6 @@ local WindowPage = {}
     WindowPage.__index = WindowPage
     WindowPage.__ = self
 
-    -- WindowPage inherits from World of Warcraft's Frame structure
-    setmetatable(WindowPage, CreateFrame('Frame', nil, UIParent, 'BackdropTemplate'))
     self:addClass('WindowPage', WindowPage)
 
     --[[--
@@ -22,7 +20,50 @@ local WindowPage = {}
 
         self.pageId = pageId
 
+        self:create()
+
         return self
+    end
+
+    --[[--
+    Creates the page frame if it doesn't exist yet.
+
+    @treturn Views.Windows.WindowPage The window page instance, for method chaining
+    ]]
+    function WindowPage:create()
+        if self.page then return self end
+
+        self.page = self:createFrame()
+
+        return self
+    end
+
+    --[[--
+    This is just a facade method to call World of Warcraft's CreateFrame.
+
+    @local
+
+    @see Views.Windows.Window.create
+
+    @treturn table The window frame created by CreateFrame
+    ]]
+    function WindowPage:createFrame()
+        local frame = CreateFrame('Frame', nil, UIParent, 'BackdropTemplate')
+
+        -- @TODO: Review the lines below in WI5 <2024.07.17>
+        -- frame:SetBackdrop({
+        --     bgFile = self.__.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
+        --     edgeFile = '',
+        --     edgeSize = 4,
+        --     insets = {left = 4, right = 4, top = 4, bottom = 4},
+        -- })
+        -- frame:SetBackdropColor(0, 0, 0, .5)
+        -- frame:SetBackdropBorderColor(0, 0, 0, 1)      
+        -- frame:SetMovable(true)
+        -- frame:EnableMouse(true)
+        -- frame:SetResizable(true)
+
+        return frame
     end
 
     --[[--
@@ -35,19 +76,19 @@ local WindowPage = {}
     function WindowPage:positionContentChildFrames()
         -- sets the first relative frame the content frame itself
         -- but after the first child, the relative frame will be the last
-        local lastRelativeTo = self
+        local lastRelativeTo = self.page
         local totalChildrenHeight = 0
 
         for _, child in ipairs(self.contentChildren) do
-            child:SetParent(self)
-            child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
-            child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
+            child:SetParent(self.page)
+            child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self.page and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
+            child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self.page and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
 
             lastRelativeTo = child
             totalChildrenHeight = totalChildrenHeight + child:GetHeight()
         end
 
-        self:SetHeight(totalChildrenHeight)
+        self.page:SetHeight(totalChildrenHeight)
     end
 
     --[[--
