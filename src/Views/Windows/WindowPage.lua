@@ -67,6 +67,15 @@ local WindowPage = {}
     end
 
     --[[--
+    Hides the page frame.
+
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function WindowPage:hide()
+        self.page:Hide()
+    end
+
+    --[[--
     Positions the children frames inside the page.
 
     This is an internal method and it shouldn't be called by addons.

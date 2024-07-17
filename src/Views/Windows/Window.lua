@@ -47,6 +47,27 @@ local Window = {}
     end
 
     --[[--
+    Adds a page to the window.
+
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+
+    @tparam Views.Windows.WindowPage windowPage The window page to be added
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    ]]
+    function Window:addPage(windowPage)
+        self.pages[windowPage.pageId] = windowPage
+        windowPage:hide()
+        self:positionPages()
+
+        if #self.pages == 1 then
+            self:setActivePage(windowPage.pageId)
+        end
+
+        return self
+    end
+
+    --[[--
     Decides whether this window instance should proxy to the player's or the
     global configuration instance.
 
@@ -393,6 +414,8 @@ local Window = {}
 
     This is an internal method and it shouldn't be called by addons.
 
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+
     @local
     --]]
     function Window:positionPages()
@@ -403,6 +426,15 @@ local Window = {}
             child:SetPoint('TOPLEFT', self.contentFrame, 'TOPLEFT', 0, 0)
             child:SetPoint('TOPRIGHT', self.contentFrame, 'TOPRIGHT', 0, 0)
         end
+    end
+
+    --[[--
+    Sets the active page in the Window.
+
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function Window:setActivePage(pageId)
+        -- @TODO: Implement in WI3 <2024.07.17>
     end
 
     --[[--
