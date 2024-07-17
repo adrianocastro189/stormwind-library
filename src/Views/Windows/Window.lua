@@ -49,8 +49,6 @@ local Window = {}
     --[[--
     Adds a page to the window.
 
-    @TODO: Implement unit tests in WI5 <2024.07.17>
-
     @tparam Views.Windows.WindowPage windowPage The window page to be added
 
     @treturn Views.Windows.Window The window instance, for method chaining
@@ -429,7 +427,8 @@ local Window = {}
     --[[--
     Sets the active page in the Window.
 
-    @TODO: Implement unit tests in WI5 <2024.07.17>
+    This method basically hides all pages and shows the one with the given
+    page id and adjusts the content frame height to the current page height.
     ]]
     function Window:setActivePage(pageId)
         self.__.arr:each(self.pages, function(windowPage)

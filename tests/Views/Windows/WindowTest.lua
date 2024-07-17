@@ -431,6 +431,48 @@ TestWindow = BaseTestClass:new()
         lu.assertEquals(instance.contentFrame, pageAFrame.parent)
     end
 
+    -- @covers Window:setActivePage()
+    function TestWindow:testSetActivePage()
+        local pageA = {
+            pageId = 'test-page-id-a',
+            visible = true,
+            getHeight = function() return 100 end,
+            hide = function(self) self.visible = false end,
+            show = function(self) self.visible = true end,
+        }
+        
+        local pageB = {
+            pageId = 'test-page-id-b',
+            visible = true,
+            getHeight = function() return 200 end,
+            hide = function(self) self.visible = false end,
+            show = function(self) self.visible = true end,
+        }
+
+        local instance = __:new('Window', 'test-id')
+
+        instance.pages = {
+            ['test-page-id-a'] = pageA,
+            ['test-page-id-b'] = pageB,
+        }
+
+        instance.contentFrame = { SetHeight = function (self, height) self.height = height end }
+
+        lu.assertIsNil(instance.activePage)
+
+        instance:setActivePage('test-page-id-a')
+
+        lu.assertIsTrue(pageA.visible)
+        lu.assertIsFalse(pageB.visible)
+        lu.assertEquals(100, instance.contentFrame.height)
+
+        instance:setActivePage('test-page-id-b')
+
+        lu.assertIsFalse(pageA.visible)
+        lu.assertIsTrue(pageB.visible)
+        lu.assertEquals(200, instance.contentFrame.height)
+    end
+
     -- @covers Window:setFirstPosition()
     function TestWindow:testSetFirstPosition()
         local instance = __:new('Window', 'test-id')
