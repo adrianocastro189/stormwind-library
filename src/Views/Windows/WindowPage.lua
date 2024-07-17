@@ -51,6 +51,22 @@ local WindowPage = {}
     end
 
     --[[--
+    Gets the page's height.
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function WindowPage:getHeight()
+        return self.contentFrame:GetHeight()
+    end
+
+    --[[--
+    Hides the page frame.
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function WindowPage:hide()
+        self.contentFrame:Hide()
+    end
+
+    --[[--
     Positions the children frames inside the page.
 
     This is an internal method and it shouldn't be called by addons.
@@ -108,5 +124,13 @@ local WindowPage = {}
         if self.contentFrame then self:positionContentChildFrames() end
 
         return self
+    end
+
+    --[[--
+    Shows the page frame.
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function WindowPage:show()
+        self.contentFrame:Show()
     end
 -- end of WindowPage
