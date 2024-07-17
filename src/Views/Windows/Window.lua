@@ -419,7 +419,7 @@ local Window = {}
     @local
     --]]
     function Window:positionPages()
-        for _, windowPage in ipairs(self.pages) do
+        for _, windowPage in pairs(self.pages) do
             local child = windowPage.page
 
             child:SetParent(self.contentFrame)
