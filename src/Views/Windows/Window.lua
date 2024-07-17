@@ -41,7 +41,7 @@ local Window = {}
         self.firstVisibility = true
         self.id = id
 
-        self.contentChildren = {}
+        self.pages = {}
 
         return self
     end
@@ -80,7 +80,7 @@ local Window = {}
         self:createScrollbar()
         self:createContentFrame()
 
-        self:positionContentChildFrames()
+        self:positionPages()
 
         return self
     end
@@ -389,64 +389,20 @@ local Window = {}
     end
 
     --[[--
-    Positions the content children frames inside the content frame.
+    Positions the pages inside the content frame.
 
     This is an internal method and it shouldn't be called by addons.
 
     @local
     --]]
-    function Window:positionContentChildFrames()
-        -- sets the first relative frame the content frame itself
-        -- but after the first child, the relative frame will be the last
-        local lastRelativeTo = self.contentFrame
-        local totalChildrenHeight = 0
+    function Window:positionPages()
+        for _, windowPage in ipairs(self.pages) do
+            local child = windowPage.page
 
-        for _, child in ipairs(self.contentChildren) do
             child:SetParent(self.contentFrame)
-            child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
-            child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
-
-            lastRelativeTo = child
-            totalChildrenHeight = totalChildrenHeight + child:GetHeight()
+            child:SetPoint('TOPLEFT', self.contentFrame, 'TOPLEFT', 0, 0)
+            child:SetPoint('TOPRIGHT', self.contentFrame, 'TOPRIGHT', 0, 0)
         end
-
-        self.contentFrame:SetHeight(totalChildrenHeight)
-    end
-
-    --[[--
-    Sets the window's content, which is a table of frames.
-
-    The Stormwind Library Window was designed to accept a list of frames to
-    compose its content. When create() is called, a content frame wrapped by
-    a vertical scrollbar is created, but the content frame is empty.
-
-    This method is used to populate the content frame with the frames passed
-    in the frames parameter. The frames then will be positioned sequentially
-    from top to bottom, with the first frame being positioned at the top and
-    the last frame at the bottom. Their width will be the same as the content
-    frame's width and will grow horizontally to the right if the whole
-    window is resized.
-
-    Please, read the library documentation for more information on how to
-    work with the frames inside the window's content.
-
-    @tparam table frames The list of frames to be placed inside the content frame
-
-    @treturn Views.Windows.Window The window instance, for method chaining
-
-    @usage
-        local frameA = CreateFrame(...)
-        local frameB = CreateFrame(...)
-        local frameC = CreateFrame(...)
-
-        window:setContent({frameA, frameB, frameC})
-    ]]
-    function Window:setContent(frames)
-        self.contentChildren = frames
-
-        if self.contentFrame then self:positionContentChildFrames() end
-
-        return self
     end
 
     --[[--
