@@ -67,6 +67,15 @@ local WindowPage = {}
     end
 
     --[[--
+    Gets the page's height.
+
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function WindowPage:getHeight()
+        return self.page:GetHeight()
+    end
+
+    --[[--
     Hides the page frame.
 
     @TODO: Implement unit tests in WI5 <2024.07.17>
@@ -133,5 +142,14 @@ local WindowPage = {}
         self:positionContentChildFrames()
 
         return self
+    end
+
+    --[[--
+    Shows the page frame.
+
+    @TODO: Implement unit tests in WI5 <2024.07.17>
+    ]]
+    function WindowPage:show()
+        self.page:Show()
     end
 -- end of WindowPage
