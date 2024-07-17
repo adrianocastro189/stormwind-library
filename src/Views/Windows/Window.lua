@@ -434,7 +434,15 @@ local Window = {}
     @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function Window:setActivePage(pageId)
-        -- @TODO: Implement in WI3 <2024.07.17>
+        self.__.arr:each(self.pages, function(windowPage)
+            if windowPage.pageId == pageId then
+                windowPage:show()
+                self.contentFrame:SetHeight(windowPage:getHeight())
+                return
+            end
+
+            windowPage:hide()
+        end)
     end
 
     --[[--
