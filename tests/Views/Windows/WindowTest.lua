@@ -42,7 +42,7 @@ TestWindow = BaseTestClass:new()
             local createFrameInvoked = false
             local createScrollbarInvoked = false
             local createTitleBarInvoked = false
-            local positionChildFramesInvoked = false
+            local positionPagesInvoked = false
             local setWindowPositionOnCreationInvoked = false
             local setWindowSizeOnCreationInvoked = false
             local setWindowVisibilityOnCreationInvoked = false
@@ -53,7 +53,7 @@ TestWindow = BaseTestClass:new()
             instance.createFrame = function() createFrameInvoked = true end
             instance.createScrollbar = function() createScrollbarInvoked = true end
             instance.createTitleBar = function() createTitleBarInvoked = true end
-            instance.positionContentChildFrames = function() positionChildFramesInvoked = true end
+            instance.positionPages = function() positionPagesInvoked = true end
             instance.setWindowPositionOnCreation = function() setWindowPositionOnCreationInvoked = true end
             instance.setWindowSizeOnCreation = function() setWindowSizeOnCreationInvoked = true end
             instance.setWindowVisibilityOnCreation = function() setWindowVisibilityOnCreationInvoked = true end
@@ -67,7 +67,7 @@ TestWindow = BaseTestClass:new()
             lu.assertEquals(shouldCallCreateFrame, createFrameInvoked)
             lu.assertEquals(shouldCallCreateFrame, createScrollbarInvoked)
             lu.assertEquals(shouldCallCreateFrame, createTitleBarInvoked)
-            lu.assertEquals(shouldCallCreateFrame, positionChildFramesInvoked)
+            lu.assertEquals(shouldCallCreateFrame, positionPagesInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowPositionOnCreationInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowSizeOnCreationInvoked)
             lu.assertEquals(shouldCallCreateFrame, setWindowVisibilityOnCreationInvoked)
@@ -378,55 +378,33 @@ TestWindow = BaseTestClass:new()
         execution('', true, false)
     end
 
-    -- @covers Window:positionContentChildFrames()
-    function TestWindow:testPositionContentChildFrames()
-        local contentFrameHeight, pointsA, pointsB = nil, {}, {}
+    -- @covers Window:positionPages()
+    function TestWindow:testPositionPages()
+        local pointsA, pointsB = {}, {}
 
-        local childFrameA = {
-            GetHeight = function() return 10 end,
+        local pageAFrame = {
             SetParent = function(self, parent) self.parent = parent end,
             SetPoint = function(self, ...) table.insert(pointsA, {...}) end
         }
-        local childFrameB = {
-            GetHeight = function() return 20 end,
+        local pageBFrame = {
             SetParent = function(self, parent) self.parent = parent end,
             SetPoint = function(self, ...) table.insert(pointsB, {...}) end
         }
 
+        local pageA = {contentFrame = pageAFrame}
+        local pageB = {contentFrame = pageBFrame}
+
         local instance = __:new('Window')
-        instance.contentFrame = {
-            SetHeight = function(self, height) contentFrameHeight = height end,
-        }
-        instance.contentChildren = {childFrameA, childFrameB}
 
-        instance:positionContentChildFrames()
+        instance.pages = {pageA, pageB}
 
-        lu.assertEquals(30, contentFrameHeight)
+        instance:positionPages()
+
         lu.assertEquals({'TOPLEFT', instance.contentFrame, 'TOPLEFT', 0, 0}, pointsA[1])
         lu.assertEquals({'TOPRIGHT', instance.contentFrame, 'TOPRIGHT', 0, 0}, pointsA[2])
-        lu.assertEquals({'TOPLEFT', childFrameA, 'BOTTOMLEFT', 0, 0}, pointsB[1])
-        lu.assertEquals({'TOPRIGHT', childFrameA, 'BOTTOMRIGHT', 0, 0}, pointsB[2])
-        lu.assertEquals(instance.contentFrame, childFrameA.parent)
-    end
-
-    -- @covers Window:setContent()
-    function TestWindow:testSetContent()
-        local function execution(contentFrame, shouldCallPositionChildFrames)
-            local positionContentChildFramesInvoked = false
-
-            local instance = __:new('Window')
-            instance.contentFrame = contentFrame
-            instance.positionContentChildFrames = function() positionContentChildFramesInvoked = true end
-    
-            local result = instance:setContent({'test-content'})
-    
-            lu.assertEquals(shouldCallPositionChildFrames, positionContentChildFramesInvoked)
-            lu.assertEquals({'test-content'}, instance.contentChildren)
-            lu.assertEquals(instance, result)
-        end
-
-        execution(nil, false)
-        execution({'test-content-frame'}, true)
+        lu.assertEquals({'TOPLEFT', instance.contentFrame, 'TOPLEFT', 0, 0}, pointsB[1])
+        lu.assertEquals({'TOPRIGHT', instance.contentFrame, 'TOPRIGHT', 0, 0}, pointsB[2])
+        lu.assertEquals(instance.contentFrame, pageAFrame.parent)
     end
 
     -- @covers Window:setFirstPosition()

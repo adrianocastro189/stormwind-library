@@ -420,7 +420,7 @@ local Window = {}
     --]]
     function Window:positionPages()
         for _, windowPage in pairs(self.pages) do
-            local child = windowPage.page
+            local child = windowPage.contentFrame
 
             child:SetParent(self.contentFrame)
             child:SetPoint('TOPLEFT', self.contentFrame, 'TOPLEFT', 0, 0)
