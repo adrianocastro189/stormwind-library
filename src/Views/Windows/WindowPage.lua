@@ -17,10 +17,10 @@ local WindowPage = {}
     --[[--
     WindowPage constructor.
     ]]
-    function WindowPage.__construct()
+    function WindowPage.__construct(pageId)
         local self = setmetatable({}, WindowPage)
 
-        -- add properties here
+        self.pageId = pageId
 
         return self
     end
