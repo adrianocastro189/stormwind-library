@@ -9,6 +9,9 @@ WindowPage represents a page in a window content area.
 local WindowPage = {}
     WindowPage.__index = WindowPage
     WindowPage.__ = self
+
+    -- WindowPage inherits from World of Warcraft's Frame structure
+    setmetatable(WindowPage, CreateFrame('Frame', nil, UIParent, 'BackdropTemplate'))
     self:addClass('WindowPage', WindowPage)
 
     --[[--
