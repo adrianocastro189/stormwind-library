@@ -60,7 +60,7 @@ local Window = {}
         windowPage:hide()
         self:positionPages()
 
-        if #self.pages == 1 then
+        if self.__.arr:count(self.pages) == 1 then
             self:setActivePage(windowPage.pageId)
         end
 
@@ -413,8 +413,6 @@ local Window = {}
     Positions the pages inside the content frame.
 
     This is an internal method and it shouldn't be called by addons.
-
-    @TODO: Implement unit tests in WI5 <2024.07.17>
 
     @local
     --]]

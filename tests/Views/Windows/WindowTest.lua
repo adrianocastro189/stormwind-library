@@ -1,4 +1,28 @@
 TestWindow = BaseTestClass:new()
+    -- @covers Window:addPage()
+    function TestWindow:testAddPage()
+        local instance = __:new('Window', 'test-id')
+        local hideInvoked = false
+        local positionPagesInvoked = false
+        local activePage = nil
+
+        instance.setActivePage = function(self, page) activePage = page end
+        instance.positionPages = function() positionPagesInvoked = true end
+
+        lu.assertEquals({}, instance.pages)
+
+        local page = __:new('WindowPage', 'test-page-id')
+        page.hide = function() hideInvoked = true end
+
+        local result = instance:addPage(page)
+
+        lu.assertEquals(instance, result)
+        lu.assertEquals({['test-page-id'] = page}, instance.pages)
+        lu.assertEquals('test-page-id', activePage)
+        lu.assertIsTrue(hideInvoked)
+        lu.assertIsTrue(positionPagesInvoked)
+    end
+
     -- @covers Window:config()
     function TestWindow:testConfig()
         local function execution(persistStateByPlayer, shouldCallConfig, shouldCallPlayerConfig)
