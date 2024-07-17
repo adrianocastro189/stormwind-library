@@ -52,7 +52,6 @@ local WindowPage = {}
 
     --[[--
     Gets the page's height.
-    @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function WindowPage:getHeight()
         return self.contentFrame:GetHeight()
@@ -60,7 +59,6 @@ local WindowPage = {}
 
     --[[--
     Hides the page frame.
-    @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function WindowPage:hide()
         self.contentFrame:Hide()
@@ -128,7 +126,6 @@ local WindowPage = {}
 
     --[[--
     Shows the page frame.
-    @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function WindowPage:show()
         self.contentFrame:Show()

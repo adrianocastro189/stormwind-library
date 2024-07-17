@@ -69,6 +69,28 @@ TestWindowPage = BaseTestClass:new()
         lu.assertEquals(instance.contentFrame, childFrameA.parent)
     end
 
+    -- @covers WindowPage:getHeight()
+    -- @covers WindowPage:hide()
+    -- @covers WindowPage:show()
+    function TestWindowPage:testProxyMethods()
+        local function execution(methodName, frameMethodName)
+            local page = __:new('WindowPage')
+            page.contentFrame = {
+                [frameMethodName] = function(self, ...)
+                    self[frameMethodName .. 'Invoked'] = true
+                end
+            }
+
+            page[methodName](page)
+
+            lu.assertIsTrue(page.contentFrame[frameMethodName .. 'Invoked'])
+        end
+
+        execution('getHeight', 'GetHeight')
+        execution('hide', 'Hide')
+        execution('show', 'Show')
+    end
+
     -- @covers WindowPage:setContent()
     function TestWindowPage:testSetContent()
         local function execution(contentFrame, shouldCallPositionChildFrames)
