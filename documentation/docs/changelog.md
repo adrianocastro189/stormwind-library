@@ -11,7 +11,6 @@ sidebar_position: 2
 * Add a count utility method to the Arr class
 * Add the [Callback Loader](resources/core/callback-loader) mechanism to
   invoke functions after the library is fully loaded
-* Add the WindowPage class structure to improve Window content management
 
 ## 2024.07.10 - version 1.8.0
 
