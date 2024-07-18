@@ -21,6 +21,8 @@ features, like:
 * Adding a scrollbar to the main window content
 * Persisting the window position and size between interface reloads
 * An easy way to attach frames to the window with a vertical layout
+* Add controls grouped by pages to easily switch between them, so the window
+  can be reused for different addon features
 * More to come...
 
 ## How to create and show a window
@@ -44,8 +46,8 @@ Now, let's see how to create the same window with a bit more customization:
 local window = library
     :new('Window', 'my-window-id')
     :setTitle('My Window')
-    :setFirstPosition('CENTER', 'CENTER', 0, 0)
-    :setFirstSize(250, 400)
+    :setFirstPosition({point = 'CENTER', relativePoint = 'CENTER', xOfs = 0, yOfs = 0})
+    :setFirstSize({width = 250, height = 400})
     :setFirstVisibility(true)
     :create()
 ```
@@ -81,19 +83,44 @@ One of the motivations to create the Window class was to provide an easy way
 to add content that was also wrapped by a vertical scroll bar in case it's
 big enough to overflow the window.
 
-That said, the class has a `setContent()` method that accepts a table of 
-frames that will be **automatically positioned** in the content area from top
-to bottom and width that's bound to the window width.
+:::note The old `Window:setContent()` method
+
+Just a little bit of history to add context to the current implementation.
+
+The first Window version used to provide a method called `setContent()`,
+accepting a list of frames that would be automatically positioned in the
+window content area like blocks.
+
+However, that approach introduced some limitations, especially when addons
+needed to add frames that would replace the whole content area. Given the
+way blocks are vertically stacked, it was hard to manage the inner frames
+and hide or show the right ones according to the addon needs.
+
+As an example, if the addon wanted to have a settings section and the main
+section showing whatever information it needed, it would have to hide them
+and move the section relative points programmatically, which was a bit
+cumbersome.
+
+:::
+
+Version 1.9.0 introduced a new approach to add content to a window: the window
+**page**.
+
+A window page is instantiated by the `WindowPage` class and it has a method 
+called `setContent()` that accepts a table of frames that will be 
+**automatically positioned** in the page content area from top to bottom and 
+width that's bound to the window width.
 
 That way, addons can add frames to the window content without worrying about
-positioning them as long as they pass the frames in the right order and 
-respect a few rules. Let's call them "inner frames".
+positioning them as long as they pass the frames in the right order.
 
-1. Inner frames shouldn't be created with a width as they'll occupy the whole 
-content area width. **Consider them blocks that will be stacked vertically!**
-1. The addon must be responsible for hiding the inner frames in case it must
-update the whole content area. The library doesn't manage the inner frames
-(**at least in the current version**).
+It's possible to create multiple pages, one per addon feature, like a settings
+page, another one for the main addon content, an "about" page, etc. And then
+once a page is created, it can be sent to the window by calling the 
+`Window:addPage()` method.
+
+Considering that every window page must be created with a page id, it's just a
+matter of calling `Window:setActivePage(pageId)` to show the right page.
 
 :::info Free inner frames layout
 
@@ -101,9 +128,12 @@ _What if my addon needs to add inner frames freely that don't behave as
 blocks?_
 
 It's totally possible, as
-the `contentFrame` is a public property of the `Window` class and can be used
-to position frames. The `setContent()` method is just a helper to add frames
-as blocks, but it's not mandatory to use it.
+the `contentFrame` is a public property of the `WindowPage` class and can be 
+used to position frames. The `setContent()` method is just a helper to add 
+frames as blocks, but it's not mandatory to use it.
+
+It's totally fine to use `contentFrame` as a parent and relative point to add
+frames that don't need to be stacked vertically.
 
 :::
 
@@ -111,25 +141,54 @@ See this example on how to add inner frames that behave as blocks to the
 window content area:
 
 ```lua
-local window = library:new('Window', 'my-window-id')
-    -- :chained method as described above
+local window = library
+    :new('Window', 'my-window')
     :create()
 
-local settingsBlock = CreateFrame('Frame', nil, window.contentFrame, "BackdropTemplate")
-settingsBlock:SetHeight(35)
-settingsBlock:SetBackdrop(...)
-settingsBlock:SetBackdropColor(...)
--- any other visual settings method calls
+-- just a simple component factory to create edit boxes and place them in the
+-- pages content area, but it works for any kind of frame
+local function getEditBox(text)
+   local editBox = CreateFrame('EditBox')
+   editBox:SetMultiLine(true)
+   editBox:SetSize(100, 100)
+   editBox:SetPoint('TOP', 0, 0)
+   editBox:SetFontObject(GameFontNormal)
+   editBox:SetText(text)
+   editBox:SetAutoFocus(false)
+   editBox:SetTextInsets(10, 10, 0, 0)
+   editBox:SetEnabled(false)
+   editBox:Show()
+   return editBox
+end
 
-local optionsBlock = CreateFrame('Frame', nil, window.contentFrame, "BackdropTemplate")
-optionsBlock:SetHeight(100)
--- any other visual settings method calls
+-- the :create() method must be called before adding content as the
+-- window content area is created by this method and won't be triggered
+-- by the class constructor
+local settPage = library:new('WindowPage', 'settings'):create()
+local mainPage = library:new('WindowPage', 'main'):create()
 
-local notesBlock = ...
+settPage:setContent({
+    getEditBox('Settings page'),
+    getEditBox('Setting#1'),
+    getEditBox('Setting#2'),
+})
+mainPage:setContent({
+    getEditBox('Main addon content page'),
+    getEditBox('Component#1'),
+    getEditBox('Component#2'),
+})
 
--- this will add the blocks to the window content area where each block will
--- occupy the whole width and be stacked vertically
-window:setContent({ settingsBlock, optionsBlock, notesBlock })
+window:addPage(settPage)
+window:addPage(mainPage)
+
+-- this is optional, but allows testing the window with easy chat commands
+_G['myWindow'] = window
+
+-- shows the settings page
+myWindow:setActivePage('settings')
+
+-- shows the main page
+myWindow:setActivePage('main')
 ```
 
 :::note Keep an eye on this documentation
