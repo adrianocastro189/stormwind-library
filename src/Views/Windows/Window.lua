@@ -49,8 +49,6 @@ local Window = {}
     --[[--
     Adds a page to the window.
 
-    @TODO: Implement unit tests in WI5 <2024.07.17>
-
     @tparam Views.Windows.WindowPage windowPage The window page to be added
 
     @treturn Views.Windows.Window The window instance, for method chaining
@@ -60,7 +58,7 @@ local Window = {}
         windowPage:hide()
         self:positionPages()
 
-        if #self.pages == 1 then
+        if self.__.arr:count(self.pages) == 1 then
             self:setActivePage(windowPage.pageId)
         end
 
@@ -414,13 +412,11 @@ local Window = {}
 
     This is an internal method and it shouldn't be called by addons.
 
-    @TODO: Implement unit tests in WI5 <2024.07.17>
-
     @local
     --]]
     function Window:positionPages()
         for _, windowPage in pairs(self.pages) do
-            local child = windowPage.page
+            local child = windowPage.contentFrame
 
             child:SetParent(self.contentFrame)
             child:SetPoint('TOPLEFT', self.contentFrame, 'TOPLEFT', 0, 0)
@@ -431,7 +427,8 @@ local Window = {}
     --[[--
     Sets the active page in the Window.
 
-    @TODO: Implement unit tests in WI5 <2024.07.17>
+    This method basically hides all pages and shows the one with the given
+    page id and adjusts the content frame height to the current page height.
     ]]
     function Window:setActivePage(pageId)
         self.__.arr:each(self.pages, function(windowPage)

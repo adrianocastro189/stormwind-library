@@ -42,6 +42,18 @@ TestArr = BaseTestClass:new()
         execution({{a = 'a'}, {b = 'b'}, {c = 'c'}}, {'a', 'b', 'c'})
     end
 
+    -- @covers Arr:count()
+    function TestArr:testCount()
+        local function execution(list, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:count(list))
+        end
+
+        execution({}, 0)
+        execution({3, 4, 5}, 3)
+        execution({'a', 'b', 'c'}, 3)
+        execution({a = 'a', b = 'b', c = 'c'}, 3)
+    end
+
     -- @covers Arr:each()
     function TestArr:testEach()
         local function execution(list, expectedOutput)

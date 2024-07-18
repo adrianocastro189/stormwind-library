@@ -1,8 +1,9 @@
 --[[--
 WindowPage represents a page in a window content area.
 
-@TODO: Implement unit tests in WI5 <2024.07.17>
-@TODO: Write a better LuaDoc block in WI5 <2024.07.17>
+With the concept of pages, it's possible to have a single window handling
+multiple content areas, each one with its own set of frames and change pages
+to switch between them.
 
 @classmod Views.Windows.WindowPage
 ]]
@@ -20,8 +21,6 @@ local WindowPage = {}
 
         self.pageId = pageId
 
-        self:create()
-
         return self
     end
 
@@ -31,9 +30,9 @@ local WindowPage = {}
     @treturn Views.Windows.WindowPage The window page instance, for method chaining
     ]]
     function WindowPage:create()
-        if self.page then return self end
+        if self.contentFrame then return self end
 
-        self.page = self:createFrame()
+        self.contentFrame = self:createFrame()
 
         return self
     end
@@ -43,45 +42,26 @@ local WindowPage = {}
 
     @local
 
-    @see Views.Windows.Window.create
+    @see Views.Windows.WindowPage.create
 
-    @treturn table The window frame created by CreateFrame
+    @treturn table The frame created by CreateFrame
     ]]
     function WindowPage:createFrame()
-        local frame = CreateFrame('Frame', nil, UIParent, 'BackdropTemplate')
-
-        -- @TODO: Review the lines below in WI5 <2024.07.17>
-        -- frame:SetBackdrop({
-        --     bgFile = self.__.viewConstants.DEFAULT_BACKGROUND_TEXTURE,
-        --     edgeFile = '',
-        --     edgeSize = 4,
-        --     insets = {left = 4, right = 4, top = 4, bottom = 4},
-        -- })
-        -- frame:SetBackdropColor(0, 0, 0, .5)
-        -- frame:SetBackdropBorderColor(0, 0, 0, 1)      
-        -- frame:SetMovable(true)
-        -- frame:EnableMouse(true)
-        -- frame:SetResizable(true)
-
-        return frame
+        return CreateFrame('Frame', nil, UIParent, 'BackdropTemplate')
     end
 
     --[[--
     Gets the page's height.
-
-    @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function WindowPage:getHeight()
-        return self.page:GetHeight()
+        return self.contentFrame:GetHeight()
     end
 
     --[[--
     Hides the page frame.
-
-    @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function WindowPage:hide()
-        self.page:Hide()
+        self.contentFrame:Hide()
     end
 
     --[[--
@@ -94,19 +74,19 @@ local WindowPage = {}
     function WindowPage:positionContentChildFrames()
         -- sets the first relative frame the content frame itself
         -- but after the first child, the relative frame will be the last
-        local lastRelativeTo = self.page
+        local lastRelativeTo = self.contentFrame
         local totalChildrenHeight = 0
 
         for _, child in ipairs(self.contentChildren) do
-            child:SetParent(self.page)
-            child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self.page and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
-            child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self.page and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
+            child:SetParent(self.contentFrame)
+            child:SetPoint('TOPLEFT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPLEFT' or 'BOTTOMLEFT', 0, 0)
+            child:SetPoint('TOPRIGHT', lastRelativeTo, lastRelativeTo == self.contentFrame and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
 
             lastRelativeTo = child
             totalChildrenHeight = totalChildrenHeight + child:GetHeight()
         end
 
-        self.page:SetHeight(totalChildrenHeight)
+        self.contentFrame:SetHeight(totalChildrenHeight)
     end
 
     --[[--
@@ -139,17 +119,15 @@ local WindowPage = {}
     function WindowPage:setContent(frames)
         self.contentChildren = frames
 
-        self:positionContentChildFrames()
+        if self.contentFrame then self:positionContentChildFrames() end
 
         return self
     end
 
     --[[--
     Shows the page frame.
-
-    @TODO: Implement unit tests in WI5 <2024.07.17>
     ]]
     function WindowPage:show()
-        self.page:Show()
+        self.contentFrame:Show()
     end
 -- end of WindowPage

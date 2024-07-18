@@ -81,6 +81,7 @@ dofile('./tests/Support/IntervalTest.lua')
 
 dofile('./tests/Views/ViewConstantsTest.lua')
 dofile('./tests/Views/Windows/WindowTest.lua')
+dofile('./tests/Views/Windows/WindowPageTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false
 
