@@ -213,8 +213,6 @@ TestConfiguration = BaseTestClass:new()
     -- @covers StormwindLibrary:isConfigEnabled()
     function TestConfiguration:testIsConfigEnabled()
         local function execution(instance, expectedOutput)
-            -- @TODO: Remove this method once the library offers a structure
-            --        to execute callbacks when it's loaded <2024.04.22>
             __.maybeInitializeConfiguration = function() end
             __.configuration = instance
 
