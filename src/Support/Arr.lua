@@ -66,6 +66,29 @@ local Arr = {}
     end
 
     --[[--
+    Counts the number of items in a list.
+
+    This method solves the problem of counting the number of items in a list
+    that's not an array, so it can't be counted using the # operator.
+
+    @tparam table list The list to be counted
+
+    @treturn integer The number of items in the list
+
+    @usage
+        local list = {a = 'a', b = 'b', c = 'c'}
+        local count = library.arr:count(list)
+        -- count = 3
+    ]]
+    function Arr:count(list)
+        local count = 0
+        self:each(list, function()
+            count = count + 1
+        end)
+        return count
+    end
+
+    --[[--
     Iterates over the list values and calls the callback function in the
     second argument for each of them.
 

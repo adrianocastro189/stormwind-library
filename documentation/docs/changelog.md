@@ -6,6 +6,9 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.9.0
 
+* A complete rewrite of the Window class content management to introduce 
+  [content pages](resources/views/window#adding-content-to-the-window)
+* Add a count utility method to the Arr class
 * Add the [Callback Loader](resources/core/callback-loader) mechanism to
   invoke functions after the library is fully loaded
 
