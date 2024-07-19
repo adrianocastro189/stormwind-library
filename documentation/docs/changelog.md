@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Changelog
 
-## yyyy.mm.dd - version 1.9.0
+## 2024.07.19 - version 1.9.0
 
 * A complete rewrite of the Window class content management to introduce 
   [content pages](resources/views/window#adding-content-to-the-window)
