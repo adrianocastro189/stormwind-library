@@ -23,6 +23,7 @@ C_PetJournal = {
 }
 
 C_Timer = {
+    After = function (seconds, callback) end,
     NewTicker = function (seconds, callback)
         local tickerMock = {}
         tickerMock.canceled = false
