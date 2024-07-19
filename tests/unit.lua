@@ -1,7 +1,7 @@
 lu = require('luaunit')
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v1_8_0
+StormwindLibrary = StormwindLibrary_v1_9_0
 
 --[[
 This is a base test class that sets up the library before each test.
@@ -47,6 +47,7 @@ dofile('./tests/Commands/CommandsTest.lua')
 dofile('./tests/Commands/CommandsHandlerTest.lua')
 
 dofile('./tests/Core/AddonPropertiesTest.lua')
+dofile('./tests/Core/CallbackLoaderTest.lua')
 dofile('./tests/Core/ConfigurationTest.lua')
 dofile('./tests/Core/EnvironmentTest.lua')
 dofile('./tests/Core/FactoryTest.lua')
@@ -79,6 +80,7 @@ dofile('./tests/Support/StrTest.lua')
 dofile('./tests/Support/IntervalTest.lua')
 
 dofile('./tests/Views/ViewConstantsTest.lua')
+dofile('./tests/Views/Windows/WindowPageTest.lua')
 dofile('./tests/Views/Windows/WindowTest.lua')
 
 lu.ORDER_ACTUAL_EXPECTED=false

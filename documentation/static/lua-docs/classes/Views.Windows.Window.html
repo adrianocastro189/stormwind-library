@@ -65,6 +65,7 @@
   <li><a href="../classes/Support.Interval.html">Support.Interval</a></li>
   <li><a href="../classes/Support.Str.html">Support.Str</a></li>
   <li><strong>Views.Windows.Window</strong></li>
+  <li><a href="../classes/Views.Windows.WindowPage.html">Views.Windows.WindowPage</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -141,8 +142,8 @@ methods and add new features.
 	<td class="summary">Hides the window.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#views.windows.window.positionContentChildFrames">views.windows.window.positionContentChildFrames ()</a></td>
-	<td class="summary">Positions the content children frames inside the content frame.</td>
+	<td class="name" nowrap><a href="#views.windows.window.positionPages">views.windows.window.positionPages ()</a></td>
+	<td class="summary">Positions the pages inside the content frame.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#views.windows.window.setProperty">views.windows.window.setProperty (key, any)</a></td>
@@ -178,6 +179,10 @@ methods and add new features.
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#views.windows.window:addPage">views.windows.window:addPage (windowPage)</a></td>
+	<td class="summary">Adds a page to the window.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#views.windows.window:config">views.windows.window:config (...)</a></td>
 	<td class="summary">Decides whether this window instance should proxy to the player's or the
     global configuration instance.</td>
@@ -195,8 +200,8 @@ methods and add new features.
 	<td class="summary">Determines if the window is persisting its state.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#views.windows.window:setContent">views.windows.window:setContent (frames)</a></td>
-	<td class="summary">Sets the window's content, which is a table of frames.</td>
+	<td class="name" nowrap><a href="#views.windows.window:setActivePage">views.windows.window:setActivePage (pageId)</a></td>
+	<td class="summary">Sets the active page in the Window.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#views.windows.window:setFirstPosition">views.windows.window:setFirstPosition (position)</a></td>
@@ -511,11 +516,11 @@ methods and add new features.
 
 </dd>
     <dt>
-    <a name = "views.windows.window.positionContentChildFrames"></a>
-    <strong>views.windows.window.positionContentChildFrames ()</strong>
+    <a name = "views.windows.window.positionPages"></a>
+    <strong>views.windows.window.positionPages ()</strong>
     </dt>
     <dd>
-    Positions the content children frames inside the content frame.
+    Positions the pages inside the content frame.
 <p>    This is an internal method and it shouldn't be called by addons.
 
 
@@ -676,6 +681,33 @@ methods and add new features.
 
     <dl class="function">
     <dt>
+    <a name = "views.windows.window:addPage"></a>
+    <strong>views.windows.window:addPage (windowPage)</strong>
+    </dt>
+    <dd>
+    Adds a page to the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">windowPage</span>
+            <span class="types"><a class="type" href="../classes/Views.Windows.WindowPage.html#">Views.Windows.WindowPage</a></span>
+         The window page to be added
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
+        The window instance, for method chaining
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "views.windows.window:config"></a>
     <strong>views.windows.window:config (...)</strong>
     </dt>
@@ -763,50 +795,25 @@ methods and add new features.
 
 </dd>
     <dt>
-    <a name = "views.windows.window:setContent"></a>
-    <strong>views.windows.window:setContent (frames)</strong>
+    <a name = "views.windows.window:setActivePage"></a>
+    <strong>views.windows.window:setActivePage (pageId)</strong>
     </dt>
     <dd>
-    Sets the window's content, which is a table of frames.
-<p>    The Stormwind Library Window was designed to accept a list of frames to
-    compose its content. When create() is called, a content frame wrapped by
-    a vertical scrollbar is created, but the content frame is empty.
-<p>    This method is used to populate the content frame with the frames passed
-    in the frames parameter. The frames then will be positioned sequentially
-    from top to bottom, with the first frame being positioned at the top and
-    the last frame at the bottom. Their width will be the same as the content
-    frame's width and will grow horizontally to the right if the whole
-    window is resized.
-<p>    Please, read the library documentation for more information on how to
-    work with the frames inside the window's content.
-
+    Sets the active page in the Window.
+<p>    This method basically hides all pages and shows the one with the given
+    page id and adjusts the content frame height to the current page height.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">frames</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The list of frames to be placed inside the content frame
+        <li><span class="parameter">pageId</span>
+
         </li>
     </ul>
 
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="../classes/Views.Windows.Window.html#">Views.Windows.Window</a></span>
-        The window instance, for method chaining
-    </ol>
 
 
 
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="keyword">local</span> frameA = <span class="function-name">CreateFrame</span>(...)
-<span class="keyword">local</span> frameB = <span class="function-name">CreateFrame</span>(...)
-<span class="keyword">local</span> frameC = <span class="function-name">CreateFrame</span>(...)
-
-window:<span class="function-name">setContent</span>({frameA, frameB, frameC})</pre>
-    </ul>
 
 </dd>
     <dt>
@@ -1046,7 +1053,7 @@ window:<span class="function-name">setContent</span>({frameA, frameB, frameC})</
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-07-10 08:57:51 </i>
+<i style="float:right;">Last updated 2024-07-19 14:29:33 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

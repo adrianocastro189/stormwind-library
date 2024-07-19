@@ -1,4 +1,6 @@
--- Library version = '1.8.0'
+-- Library version = '1.9.0'
+
+-- import src/Core/CallbackLoader.lua
 
 -- import src/Core/DumpAndDie.lua
 
@@ -32,10 +34,6 @@
 
 -- import src/Factories/ItemFactory.lua
 
--- @TODO: Move this to AbstractTooltip.lua once the library initialization callbacks are implemented <2024.05.04>
-self.tooltip = self:new('Tooltip')
-self.tooltip:registerTooltipHandlers()
-
 -- import src/Models/Container.lua
 -- import src/Models/Item.lua
 -- import src/Models/Inventory.lua
@@ -46,3 +44,6 @@ self.tooltip:registerTooltipHandlers()
 
 -- import src/Views/ViewConstants.lua
 -- import src/Views/Windows/Window.lua
+-- import src/Views/Windows/WindowPage.lua
+
+self:invokeLoadCallbacks()

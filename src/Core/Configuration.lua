@@ -202,8 +202,6 @@ variable property in the TOC file passed to the library constructor.
 @treturn bool True if the configuration is enabled, false otherwise
 --]]
 function self:isConfigEnabled()
-    -- @TODO: Remove this method once the library offers a structure to
-    --        execute callbacks when it's loaded <2024.04.22>
     self:maybeInitializeConfiguration()
 
     return self.configuration ~= nil
@@ -211,9 +209,6 @@ end
 
 --[[
 May initialize the addon configuration if it's not set yet.
-
-@TODO: Remove this method once the library offers a structure to execute
-       callbacks when it's loaded <2024.04.22>
 ]]
 function self:maybeInitializeConfiguration()
     local key = self.addon.data

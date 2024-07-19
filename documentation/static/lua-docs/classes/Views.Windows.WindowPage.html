@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+<!-- Google tag (gtag.js) --><script async src='https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71'></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GDGPH5FK71');</script></head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Events.html">Core.Events</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Target.html">Core.Target</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.PetJournal.html">Facades.PetJournal</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><a href="../classes/Models.Container.html">Models.Container</a></li>
+  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Interval.html">Support.Interval</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+  <li><strong>Views.Windows.WindowPage</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Views.Windows.WindowPage</code></h1>
+<p>WindowPage represents a page in a window content area.</p>
+<p>
+<p>With the concept of pages, it's possible to have a single window handling
+multiple content areas, each one with its own set of frames and change pages
+to switch between them.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage.createFrame">views.windows.windowpage.createFrame ()</a></td>
+	<td class="summary">This is just a facade method to call World of Warcraft's CreateFrame.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage.positionContentChildFrames">views.windows.windowpage.positionContentChildFrames ()</a></td>
+	<td class="summary">Positions the children frames inside the page.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage:create">views.windows.windowpage:create ()</a></td>
+	<td class="summary">Creates the page frame if it doesn't exist yet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage:getHeight">views.windows.windowpage:getHeight ()</a></td>
+	<td class="summary">Gets the page's height.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage:hide">views.windows.windowpage:hide ()</a></td>
+	<td class="summary">Hides the page frame.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage:setContent">views.windows.windowpage:setContent (frames)</a></td>
+	<td class="summary">Sets the page's content, which is a table of frames.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage:show">views.windows.windowpage:show ()</a></td>
+	<td class="summary">Shows the page frame.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.windows.windowpage:__construct">views.windows.windowpage:__construct (pageId)</a></td>
+	<td class="summary">WindowPage constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "views.windows.windowpage.createFrame"></a>
+    <strong>views.windows.windowpage.createFrame ()</strong>
+    </dt>
+    <dd>
+    This is just a facade method to call World of Warcraft's CreateFrame.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The frame created by CreateFrame
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Views.Windows.WindowPage.html#views.windows.windowpage:create">Views.Windows.WindowPage.create</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.windowpage.positionContentChildFrames"></a>
+    <strong>views.windows.windowpage.positionContentChildFrames ()</strong>
+    </dt>
+    <dd>
+    Positions the children frames inside the page.
+<p>    This is an internal method and it shouldn't be called by addons.
+
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "views.windows.windowpage:create"></a>
+    <strong>views.windows.windowpage:create ()</strong>
+    </dt>
+    <dd>
+    Creates the page frame if it doesn't exist yet.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.WindowPage.html#">Views.Windows.WindowPage</a></span>
+        The window page instance, for method chaining
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.windowpage:getHeight"></a>
+    <strong>views.windows.windowpage:getHeight ()</strong>
+    </dt>
+    <dd>
+    Gets the page's height.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.windowpage:hide"></a>
+    <strong>views.windows.windowpage:hide ()</strong>
+    </dt>
+    <dd>
+    Hides the page frame.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.windows.windowpage:setContent"></a>
+    <strong>views.windows.windowpage:setContent (frames)</strong>
+    </dt>
+    <dd>
+    Sets the page's content, which is a table of frames.
+<p>    The Stormwind Library Window Page was designed to accept a list of frames
+    to compose its content.
+<p>    This method is used to populate the content frame with the frames passed
+    in the frames parameter. The frames then will be positioned sequentially
+    from top to bottom, with the first frame being positioned at the top and
+    the last frame at the bottom. Their width will be the same as the content
+    frame's width and will grow horizontally to the right if the whole
+    page is resized.
+<p>    Please, read the library documentation for more information on how to
+    work with the frames inside the page's content.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">frames</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+         The list of frames to be placed inside the page
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.Windows.WindowPage.html#">Views.Windows.WindowPage</a></span>
+        The window page instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> frameA = <span class="function-name">CreateFrame</span>(...)
+<span class="keyword">local</span> frameB = <span class="function-name">CreateFrame</span>(...)
+<span class="keyword">local</span> frameC = <span class="function-name">CreateFrame</span>(...)
+
+page:<span class="function-name">setContent</span>({frameA, frameB, frameC})</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.windows.windowpage:show"></a>
+    <strong>views.windows.windowpage:show ()</strong>
+    </dt>
+    <dd>
+    Shows the page frame.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "views.windows.windowpage:__construct"></a>
+    <strong>views.windows.windowpage:__construct (pageId)</strong>
+    </dt>
+    <dd>
+    WindowPage constructor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pageId</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-07-19 14:29:33 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
