@@ -415,6 +415,35 @@ local Arr = {}
     end
 
     --[[--
+    Safe get is an internal method, not meant to be used by other classes
+    that will return a value from a list given a key that can be a string
+    or a number.
+
+    This method is a helper to allow dot notation keys to contain numbers,
+    which was a limitation of the get() method until version 1.10.0.
+
+    @internal
+
+    @tparam table list the table to have the value retrieved
+    @tparam string|number key the key to be used in the search
+
+    @treturn any|nil the value found in the list
+    ]]
+    function Arr:safeGet(list, key)
+        if list == nil then
+            return nil
+        end
+
+        local value = list[key]
+
+        if value ~= nil then
+            return value
+        end
+
+        return list[tonumber(key)]
+    end
+
+    --[[--
     Sets a value using arrays dot notation.
 
     It will basically iterate over the keys separated by "." and create
