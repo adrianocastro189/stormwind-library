@@ -164,7 +164,7 @@ local Arr = {}
         local current = list
     
         for i = 1, #keys do
-            current = current and current[keys[i]]
+            current = self:safeGet(current, keys[i])
             if current == nil then
                 return default
             end
