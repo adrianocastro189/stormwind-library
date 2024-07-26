@@ -1,4 +1,4 @@
--- Library version = '1.9.0'
+-- Library version = '1.10.0'
 
 -- import src/Core/CallbackLoader.lua
 
