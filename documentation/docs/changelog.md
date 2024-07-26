@@ -6,10 +6,10 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.10.0
 
-* New [Output method](resources/core/output#chat-methods) to make the
-  player yell something in the chat frame
 * Allow [dot notation keys](resources/support/arr#dot-notation-keys) to also 
   contain numbers when retrieving values from tables
+* New [Output method](resources/core/output#chat-methods) to make the
+  player yell something in the chat frame
 
 ## 2024.07.19 - version 1.9.0
 
