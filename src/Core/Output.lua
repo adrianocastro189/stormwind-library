@@ -152,6 +152,17 @@ local Output = {}
         self.history = {}
         self.mode = 'test'
     end
+
+    --[[--
+    Yells, which is equal to use /y in the game.
+
+    In other words, when called, this method will make the character yell!
+
+    @tparam string message The message to be yelled
+    ]]
+    function Output:yell(message)
+        SendChatMessage(message, 'YELL')
+    end
 -- end of Output
 
 -- sets the unique library output instance
