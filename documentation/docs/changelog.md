@@ -6,6 +6,9 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.10.0
 
+* Allow [dot notation keys](resources/support/arr#dot-notation-keys) to also 
+  contain numbers when retrieving values from tables
+
 ## 2024.07.19 - version 1.9.0
 
 * A complete rewrite of the Window class content management to introduce 
