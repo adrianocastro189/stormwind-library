@@ -164,7 +164,7 @@ local Arr = {}
         local current = list
     
         for i = 1, #keys do
-            current = current and current[keys[i]]
+            current = self:safeGet(current, keys[i])
             if current == nil then
                 return default
             end
@@ -449,6 +449,14 @@ local Arr = {}
     It will basically iterate over the keys separated by "." and create
     the missing indexes, finally setting the last key with the value in
     the args list.
+
+    @NOTE: Although dot notation keys are supported and when retrieving
+           values they can contain numbers or strings, when setting values with
+           numbers as keys, nested or not, they will be converted to strings.
+           That's a convention to avoid questions about the type of the keys,
+           considering that when retrieving, the library can check both types
+           and return the value, but when setting, it's not possible to
+           imagine what's the intention of the developer.
 
     @tparam table list the table to have the value set
     @tparam string key the key to be set
