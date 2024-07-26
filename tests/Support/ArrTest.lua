@@ -114,6 +114,9 @@ TestArr = BaseTestClass:new()
         listWithNestedIndexedTable['test-a'] = {'a', 'b', 'c'}
         execution(listWithNestedIndexedTable, 'test-a.2', nil, 'b')
 
+        local edgeCaseListWithSameKeyInDifferentTypes = {['a'] = {'another-value', ['1'] = 'value'}}
+        execution(edgeCaseListWithSameKeyInDifferentTypes, 'a.1', nil, 'value')
+
         local listWithFalseValue = {}
         listWithFalseValue['test'] = false
         execution(listWithFalseValue, 'test', nil, false)
