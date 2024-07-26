@@ -341,8 +341,13 @@ TestArr = BaseTestClass:new()
         arr:set(list, 'x.y.z', 'test-with-three-levels')
         arr:set(list, 'f', false)
 
-        -- checks if the property 
+        -- sets a property with a number key, that although a number, it's
+        -- stored as a string (expected behavior)
+        arr:set(list, 'a.1', 'test-with-number-key')
+
+        -- asserts the properties were set
         lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
+        lu.assertEquals('test-with-number-key', arr:get(list, 'a')['1'])
         lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
         lu.assertEquals('test-initial', arr:get(list, 'a.b'))
         lu.assertEquals(false, arr:get(list, 'f'))
