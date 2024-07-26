@@ -60,6 +60,47 @@ The code above is the same as doing `list['root']['level1-b']['level2']`,
 however, if `root` or `level1-b` are `nil`, they'll be created as `{}` until
 reaching the last key.
 
+:::warning Careful with dot notation keys containing numbers
+
+When retrieving values from a table using dot notation keys, it's possible to
+use numbers as keys. Methods like `Arr:get()` and `Arr:hasKey()` plus others
+that don't set values, will be able to return a value whether the key is a
+number or a string.
+
+As an example, calling `Arr:get()` with the following tables...
+
+```lua
+local listA = {['a'] = {['1'] = 'value'}}
+local listB = {['a'] = {'value'}}
+```
+
+...will return the same value when passing `'a.1'` as the key.
+
+**However**, when setting values with `Arr:set()`, the keys will always be
+considered a string. So when calling `Arr:set(list, 'a.1', 'value')`, the
+result will be:
+
+```lua
+local list = {['a'] = {['1'] = 'value'}}
+```
+
+That's the behavior adopted to avoid questions about the type of the keys,
+considering that when retrieving, the library can check both types and return 
+the value, but when setting, it's not possible to imagine what's the intention 
+of the developer.
+
+As a final note, for edge cases where a table contains both a string and the 
+same number as keys, `Arr:get()` will return the value of the string key.
+
+```lua
+local list = {['a'] = {'another-value', ['1'] = 'value'}}
+
+-- return will be 'value'
+Arr:get(list, 'a.1')
+```
+
+:::
+
 ## Creating constants
 
 Lua doesn't have a native way to create constants, but it's possible to

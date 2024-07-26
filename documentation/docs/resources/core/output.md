@@ -146,9 +146,20 @@ local myTable = { key = 'value' }
 library:dd(myTable)
 ```
 
-## Chat methods
+## ~Chat methods~
 
-The output structure has also a facade to the chat methods that can be used
-to print messages in the chat frame.
+:::warning Deprecated
 
-* `say(message)` - Makes the player say something in the chat frame.
+Due to updates to the `SendChatMessage` API, the chat methods in the output
+structure were removed in version 1.10.0.
+
+This section is kept for historical purposes only and will be removed in
+upcoming versions.
+
+:::
+
+~The output structure has also a facade to the chat methods that can be used
+to print messages in the chat frame.~
+
+* ~`say(message)` - Makes the player say something in the chat frame~
+* ~`yell(message)` - Makes the player yell something in the chat frame~

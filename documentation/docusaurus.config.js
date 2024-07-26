@@ -121,16 +121,16 @@ const config = {
             title: 'Addons',
             items: [
               {
+                label: 'Center Gossip Frame',
+                href: 'https://www.curseforge.com/wow/addons/center-gossip-frame',
+              },
+              {
                 label: 'Memory',
                 href: 'https://www.curseforge.com/wow/addons/memory',
               },
               {
                 label: 'MultiTargets',
                 href: 'https://www.curseforge.com/wow/addons/multitargets',
-              },
-              {
-                label: 'OMG! My Chicken is amazing!',
-                href: 'https://www.curseforge.com/wow/addons/omg-my-chicken-is-amazing',
               },
             ],
           },

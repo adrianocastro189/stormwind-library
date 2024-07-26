@@ -110,6 +110,13 @@ TestArr = BaseTestClass:new()
         listWithNestedKeys['test-a']['test-b']['test-c'] = 'test'
         execution(listWithNestedKeys, 'test-a.test-b.test-c', nil, 'test')
 
+        local listWithNestedIndexedTable = {}
+        listWithNestedIndexedTable['test-a'] = {'a', 'b', 'c'}
+        execution(listWithNestedIndexedTable, 'test-a.2', nil, 'b')
+
+        local edgeCaseListWithSameKeyInDifferentTypes = {['a'] = {'another-value', ['1'] = 'value'}}
+        execution(edgeCaseListWithSameKeyInDifferentTypes, 'a.1', nil, 'value')
+
         local listWithFalseValue = {}
         listWithFalseValue['test'] = false
         execution(listWithFalseValue, 'test', nil, false)
@@ -135,6 +142,9 @@ TestArr = BaseTestClass:new()
         execution(listWithNestedKeys, 'test-a', true)
         execution(listWithNestedKeys, 'test-a.test-b', true)
         execution(listWithNestedKeys, 'test-a.test-b.test-c', false)
+
+        -- with indexed list
+        execution({'a', 'b', 'c'}, 1, true)
     end
 
     -- @covers Arr:implode()
@@ -265,11 +275,11 @@ TestArr = BaseTestClass:new()
 
         execution({}, 'test-key', {})
 
-        local objectA = {['test-key'] = {['test-nested-key'] = 'test-value'}}
+        local objectA = {['test-key'] = {['test-nested-key'] = {'test-value-1', 'test-value-2'}}}
         local objectB = {['test-key'] = nil}
         local objectC = {}
 
-        execution({objectA, objectB, objectC}, 'test-key.test-nested-key', {'test-value'})
+        execution({objectA, objectB, objectC}, 'test-key.test-nested-key.2', {'test-value-2'})
     end
 
     -- @covers Arr:remove()
@@ -285,6 +295,34 @@ TestArr = BaseTestClass:new()
         execution({'a', 'b', 'c'}, 'a', {'b', 'c'})
         execution({1, 2, 3}, 2, {1, 3})
         execution({a = 'a', b = 'b', c = 'c'}, 'a', {a = 'a', b = 'b', c = 'c'})
+    end
+
+    -- @covers Arr:safeGet()
+    function TestArr:testSafeGet()
+        local function execution(list, key, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:safeGet(list, key))
+        end
+
+        -- with a nil list
+        execution(nil, 'test', nil)
+
+        -- with an empty list
+        execution({}, 'test', nil)
+
+        -- with an indexed list and string key
+        execution({'a', 'b', 'c'}, '2', 'b')
+
+        -- with an indexed list and number key
+        execution({'a', 'b', 'c'}, 1, 'a')
+
+        -- with an indexed list and non-existing key
+        execution({'a', 'b', 'c'}, 4, nil)
+
+        -- with non-indexed list and string key
+        execution({a = 'a', b = 'b', c = 'c'}, 'a', 'a')
+
+        -- with non-indexed list and non-existing key
+        execution({a = 'a', b = 'b', c = 'c'}, 'd', nil)
     end
 
     -- @covers Arr:set()
@@ -306,8 +344,13 @@ TestArr = BaseTestClass:new()
         arr:set(list, 'x.y.z', 'test-with-three-levels')
         arr:set(list, 'f', false)
 
-        -- checks if the property 
+        -- sets a property with a number key, that although a number, it's
+        -- stored as a string (expected behavior)
+        arr:set(list, 'a.1', 'test-with-number-key')
+
+        -- asserts the properties were set
         lu.assertEquals('test-with-set', arr:get(list, 'a.c'))
+        lu.assertEquals('test-with-number-key', arr:get(list, 'a')['1'])
         lu.assertEquals('test-with-three-levels', arr:get(list, 'x.y.z'))
         lu.assertEquals('test-initial', arr:get(list, 'a.b'))
         lu.assertEquals(false, arr:get(list, 'f'))

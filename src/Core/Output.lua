@@ -133,18 +133,6 @@ local Output = {}
     end
 
     --[[--
-    Sends a chat message which is equal to use /s in the game.
-
-    In other words, when called, this method will make the character say the
-    message in the chat.
-
-    @tparam string message The message to be said
-    ]]
-    function Output:say(message)
-        SendChatMessage(message, 'SAY')
-    end
-
-    --[[--
     Sets the output mode to 'test', changing the state of the output
     structure to be used in tests.
     ]]

@@ -4,6 +4,12 @@ sidebar_position: 2
 
 # Changelog
 
+## 2024.07.26 - version 1.10.0
+
+* Allow [dot notation keys](resources/support/arr#dot-notation-keys) to also 
+  contain numbers when retrieving values from tables
+* Remove the Output:say() method due to revisions in the SendChatMessage API
+
 ## 2024.07.19 - version 1.9.0
 
 * A complete rewrite of the Window class content management to introduce 
@@ -21,8 +27,8 @@ and [Inventory](resources/models/inventory#the-outdated-flag) models
 to indicate that their items lists are outdated and need to be refreshed
 * New [Interval class](resources/support/interval) to execute callback 
 functions at a specified interval in seconds
-* New [Output method](resources/core/output#chat-methods) to make the
-player say something in the chat frame
+* ~New Output method to make the player say something in the chat frame~ 
+  (removed in v1.10.0)
 * New [view constants file](resources/views/constants) to store values that 
 can be reused in multiple view classes and instances
 
