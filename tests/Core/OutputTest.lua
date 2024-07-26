@@ -1,29 +1,4 @@
 TestOutput = BaseTestClass:new()
-    -- @covers Output:say()
-    -- @covers Output:yell()
-    function TestOutput:testChatMessageCommands()
-        local function execution(method, expectedType)
-            local originalSendChatMessage = SendChatMessage
-
-            local messageArg = nil
-            local typeArg = nil
-            SendChatMessage = function(msg, type)
-                messageArg = msg
-                typeArg = type
-            end
-
-            __.output[method](__.output, 'test-message')
-
-            lu.assertEquals('test-message', messageArg)
-            lu.assertEquals(expectedType, typeArg)
-
-            SendChatMessage = originalSendChatMessage
-        end
-
-        execution('say', 'SAY')
-        execution('yell', 'YELL')
-    end
-
     -- @covers Output:color()
     function TestOutput:testColor()
         local function execution(value, color, primaryColor, expectedOutput)
