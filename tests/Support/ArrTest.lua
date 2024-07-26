@@ -287,6 +287,34 @@ TestArr = BaseTestClass:new()
         execution({a = 'a', b = 'b', c = 'c'}, 'a', {a = 'a', b = 'b', c = 'c'})
     end
 
+    -- @covers Arr:safeGet()
+    function TestArr:testSafeGet()
+        local function execution(list, key, expectedOutput)
+            lu.assertEquals(expectedOutput, __.arr:safeGet(list, key))
+        end
+
+        -- with a nil list
+        execution(nil, 'test', nil)
+
+        -- with an empty list
+        execution({}, 'test', nil)
+
+        -- with an indexed list and string key
+        execution({'a', 'b', 'c'}, '2', 'b')
+
+        -- with an indexed list and number key
+        execution({'a', 'b', 'c'}, 1, 'a')
+
+        -- with an indexed list and non-existing key
+        execution({'a', 'b', 'c'}, 4, nil)
+
+        -- with non-indexed list and string key
+        execution({a = 'a', b = 'b', c = 'c'}, 'a', 'a')
+
+        -- with non-indexed list and non-existing key
+        execution({a = 'a', b = 'b', c = 'c'}, 'd', nil)
+    end
+
     -- @covers Arr:set()
     function TestArr:testSet()
         local arr = __.arr
