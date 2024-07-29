@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Changelog
 
+## yyyy.mm.dd - version 1.11.0
+
 ## 2024.07.26 - version 1.10.0
 
 * Allow [dot notation keys](resources/support/arr#dot-notation-keys) to also 
