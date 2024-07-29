@@ -18,6 +18,7 @@ TestAddonProperties = BaseTestClass:new()
         lu.assertEquals('TestSuite', library.addon.name)
         lu.assertEquals({ test = 'data' }, library.addon.data)
         lu.assertEquals('1.0.0', library.addon.version)
+        lu.assertEquals(false, library.addon.inventory.track)
     end
 
     -- @covers AddonProperties.lua
