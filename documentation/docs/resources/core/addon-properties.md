@@ -97,3 +97,9 @@ player's containers by listening to the `BAG_UPDATE` event.
 * **Type:** string
 * **Required**
 * **Effect:** The library will store the addon name for multiple purposes.
+
+### version
+
+* **Type:** string
+* **Optional**
+* **Effect:** The library will store the addon version for multiple purposes.
