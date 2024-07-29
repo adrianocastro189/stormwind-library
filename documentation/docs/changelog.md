@@ -6,6 +6,9 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.11.0
 
+* Add "version" to the
+  [addon initialization properties](resources/core/addon-properties#version)
+
 ## 2024.07.26 - version 1.10.0
 
 * Allow [dot notation keys](resources/support/arr#dot-notation-keys) to also 
