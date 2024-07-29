@@ -17,6 +17,7 @@
 
 -- import src/Core/Configuration.lua
 -- import src/Core/Output.lua
+-- import src/Core/Version.lua
 
 -- import src/Commands/Command.lua
 -- import src/Commands/CommandsHandler.lua
