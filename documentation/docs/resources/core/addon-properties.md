@@ -102,4 +102,6 @@ player's containers by listening to the `BAG_UPDATE` event.
 
 * **Type:** string
 * **Optional**
-* **Effect:** The library will store the addon version for multiple purposes.
+* **Effect:** When set, the library's `getVersionLabel()` method will return
+  the version prefixed with `'v'`. Still, `getVersionedNameLabel()` will also
+  add the version label to the addon name.
