@@ -29,6 +29,82 @@ representatives of how a test class should be written.
 1. Update the `./tests/unit.lua` file to include the test file, preferably
    in alphabetical order
 
+See [this example](../resources/core/classes#class-recipe) of how a test class
+is structured.
+
+## Working with test cases
+
+Stormwind Library version 1.11.0 introduced a new way to write test cases by providing
+a test class that allows multiple scenarios to be tested in a single test body. It was
+initially added to `tests\unit.lua` but may be moved in the future in case a test
+library is created.
+
+By the way, `tests\unit.lua` can be copied to the addon's test directory and updated 
+to serve as the entry point for running all tests there as well.
+
+A test case is a simple class that contains a few chained setters and a register 
+method. Once called and configured, the register method will add a new method prefixed
+with `test` so the testing library can identify it as a test case. In other words, it
+works similarly as writing multiple test methods in a table.
+
+By the time of writing this documentation, Stormwind Library uses
+[luaunit](../testing/unit-suite) as the main testing library, so all test cases must
+be created as methods prefixed with `test` in tables that also start with the `Test`
+prefix.
+
+That said, for methods with conditionals and multiple possible outcomes, it's 
+recommended to share the same test body. However, having multiple assertions for each
+scenario can be a bit confusing to identify when they break. So it's recommended to 
+have atomic assertions for each scenario.
+
+Here's an example of how to write a test case with multiple scenarios:
+
+```lua
+TestCase.new()
+   :setName('add')
+   :setTestClass(TestMyCustomClass)
+   :setExecution(function(data)
+      local handler = {'imagine a handler class here...'}
+      handler:add(data.value)
+      lu.assertTrue(data.expectedResult, handler:getAddedValues())
+   end)
+   :setScenarios({
+      ['adding nil values'] = {
+         value = nil,
+         expectedResult = {}
+      },
+      ['adding a number'] = function ()
+         local something = _G['someCustomTable']:getSomething()
+         return {
+            value = something,
+            expectedResult = {something}
+         }
+      end,
+   })
+   :register()
+```
+
+* The test name can be anything that identifies the test case and must be unique
+* The test class must be the table instantiated in the test file
+* The execution method is where the test body is defined
+* Scenarios is a table with multiple scenarios that will be sent to the test body
+  as the `data` argument
+* The register method will add a new method prefixed with `test` to the test class
+  for each scenario
+
+Based on the example above, when executing the tests for `TestMyCustomClass`, two 
+test methods will be created, one for each scenario, which also desires a few notes:
+
+* The scenarios setter is not required, so it's possible to have a test case with
+  only one default scenario. Just omit the `setScenarios()` call and remove the `data`
+  parameter from the execution method.
+* Each scenario must have a unique name, otherwise they may overwrite each other
+* Note that scenarios can be defined as tables or functions in the example above:
+  * When they are tables, the test body will receive the table as the `data` parameter
+  * When they are functions, the test body will receive the return of the function as
+    the `data` parameter. This is useful when the scenario needs to access structures
+    that are available only at runtime, after the test setup.
+
 ## Getting the library instance in a test case
 
 A library instance is available in each test case through the global
