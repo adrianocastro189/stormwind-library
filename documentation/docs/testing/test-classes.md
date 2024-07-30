@@ -60,6 +60,8 @@ have atomic assertions for each scenario.
 Here's an example of how to write a test case with multiple scenarios:
 
 ```lua
+TestMyCustomClass = BaseTestClass:new()
+
 TestCase.new()
    :setName('add')
    :setTestClass(TestMyCustomClass)
