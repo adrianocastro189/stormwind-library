@@ -1,3 +1,5 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestEvents = BaseTestClass:new()
     -- @covers Events:createFrame()
     function TestEvents:testCreateFrame()

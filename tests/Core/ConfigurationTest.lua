@@ -1,3 +1,5 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestConfiguration = BaseTestClass:new()
     -- @covers Configuration:__construct()
     function TestConfiguration:testConstruct()

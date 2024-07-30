@@ -1,3 +1,5 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestRetailTooltip = BaseTestClass:new()
     -- helper method to instantiate the classic implementation
     function TestRetailTooltip:instance()

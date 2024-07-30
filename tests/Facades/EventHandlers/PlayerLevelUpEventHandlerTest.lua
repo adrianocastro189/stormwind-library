@@ -1,3 +1,5 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestPlayerLevelUpEventHandler = BaseTestClass:new()
     -- @covers PlayerLevelUpEventHandler.lua
     function TestPlayerLevelUpEventHandler:testEventNameIsSet()
