@@ -99,12 +99,16 @@ And this is an example of the first test class version for the class above:
 
 ```lua
 TestClassName = BaseTestClass:new()
-    -- @covers ClassName:__construct()
-    function TestClassName:testConstruct()
-        local instance = __:new('ClassName', --[[ args here ]])
 
+-- @covers ClassName:__construct()
+TestCase.new()
+    :setName('__construct')
+    :setTestClass(TestClassName)
+    :setExecution(function()
+        local instance = __:new('ClassName', --[[ args here ]])
         lu.assertNotNil(instance)
-    end
+    end)
+    :register()
 -- end of TestClassName
 ```
 

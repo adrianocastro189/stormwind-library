@@ -4,6 +4,13 @@ sidebar_position: 2
 
 # Changelog
 
+## 2024.08.01 - version 1.11.0
+
+* Add "version" to the
+  [addon initialization properties](resources/core/addon-properties#version)
+* New structure to allow multiple test scenarios using the same test body called
+  [TestCase](testing/test-classes#working-with-test-cases)
+
 ## 2024.07.26 - version 1.10.0
 
 * Allow [dot notation keys](resources/support/arr#dot-notation-keys) to also 

@@ -19,3 +19,5 @@ tool and execute any lua code like `print('Hello World')`
     * As an example, if the `lu54.exe` is inside `C:\lua`, the `luaunit.lua`
 should be there as well
 1. Go to the **root folder** and run `lua54 .\tests\unit.lua`
+
+See how to write test cases [here](../testing/test-classes).

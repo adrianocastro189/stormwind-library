@@ -1,3 +1,5 @@
+-- @TODO: Move this test class to the new TestCase structure <2024.07.30>
+
 TestInventory = BaseTestClass:new()
     -- @covers Inventory:__construct()
     function TestInventory:testConstruct()

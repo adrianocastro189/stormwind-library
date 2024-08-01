@@ -1,4 +1,4 @@
--- Library version = '1.10.0'
+-- Library version = '1.11.0'
 
 -- import src/Core/CallbackLoader.lua
 
@@ -17,6 +17,7 @@
 
 -- import src/Core/Configuration.lua
 -- import src/Core/Output.lua
+-- import src/Core/Version.lua
 
 -- import src/Commands/Command.lua
 -- import src/Commands/CommandsHandler.lua
