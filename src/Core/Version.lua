@@ -1,4 +1,4 @@
---[[--
+--[[
 Gets a formatted versioned name label for the addon.
 
 This method is similar to getVersionLabel(), but it also includes the addon
@@ -14,7 +14,7 @@ function self:getVersionedNameLabel()
     return self.addon.name .. (versionLabel and ' ' .. versionLabel or '')
 end
 
---[[--
+--[[
 Gets a formatted version label for the addon.
 
 By default, a version label is simply the version number prefixed with a 'v'.
