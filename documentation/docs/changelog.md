@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Changelog
 
-## yyyy.mm.dd - version 1.11.0
+## 2024.08.01 - version 1.11.0
 
 * Add "version" to the
   [addon initialization properties](resources/core/addon-properties#version)
