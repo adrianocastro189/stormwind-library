@@ -6,6 +6,8 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.12.0
 
+* Fix a couple of doc tag namespaces in the Facades package
+
 ## 2024.08.01 - version 1.11.0
 
 * Add "version" to the

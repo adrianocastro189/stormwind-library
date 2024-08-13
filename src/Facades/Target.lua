@@ -5,7 +5,7 @@ World of Warcraft API target related methods.
 This class can also be used to access the target with many other purposes,
 like setting the target marker.
 
-@classmod Core.Target
+@classmod Facades.Target
 ]]
 local Target = {}
     Target.__index = Target
