@@ -46,12 +46,22 @@ function MethodSpy:addCall(args)
 end
 
 --[[
+Asserts that the method was called at least an expected number of times.
+
+@return self
+]]
+function MethodSpy:assertCalledAtLeastNTimes(times)
+    lu.assertTrue(times <= self.count, string.format('Method "%s" was expected to be called at least %d time(s), but it was called %d time(s) only', self.name, times, self.count))
+    return self
+end
+
+--[[
 Asserts that the method was called with the expected arguments in the nth time.
 
 @return self
 ]]
 function MethodSpy:assertCalledNthTimeWith(nth, ...)
-    lu.assertTrue(nth <= self.count, string.format('Method "%s" was expected to be called at least %d time(s), but it was called %d time(s) only', self.name, nth, self.count))
+    self:assertCalledAtLeastNTimes(nth)
 
     local args = self.args[nth]
     lu.assertEquals({...}, args, string.format('Method "%s" call #%d does not match the expected arguments', self.name, nth))
@@ -84,6 +94,31 @@ Asserts that the method was called only once with the expected arguments.
 ]]
 function MethodSpy:assertCalledOnceWith(...)
     return self:assertCalledNthTimeWith(1, ...)
+end
+
+--[[
+Asserts that the method was called at least once or not called at all based on a
+flag.
+
+The flag should be a boolean value that indicates if the method was expected to be
+called or not.
+
+@tparam boolean calledOrNot
+
+@return self
+]]
+function MethodSpy:assertCalledOrNot(calledOrNot)
+    return calledOrNot and self:assertCalledAtLeastNTimes(1) or self:assertNotCalled()
+end
+
+--[[
+Asserts that the method was not called.
+
+@return self
+]]
+function MethodSpy:assertNotCalled()
+    lu.assertEquals(0, self.count, string.format('Method "%s" was not expected to be called, but it was called %d time(s)', self.name, self.count))
+    return self
 end
 
 --[[
@@ -125,9 +160,11 @@ function Spy.new(mockedObject)
         methodsSpies = {},
         --[[ Mocks a method of the mocked object ]]
         mockMethod = function (self, method, body)
+            body = body or function () end
             self.methodsSpies[method] = MethodSpy.new(method):setBody(body)
             -- the flag below is used to determine if the method was mocked
             self.mockedObject[method] = '__mocked'
+            return self
         end,
         --[[ The object being mocked (or spied) ]]
         mockedObject = mockedObject,

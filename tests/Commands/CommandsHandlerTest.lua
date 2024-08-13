@@ -251,12 +251,17 @@ TestCase.new()
     :setName('printHelp')
     :setTestClass(TestCommandsHandler)
     :setExecution(function(data)
-        local handler = __:new('CommandsHandler')
-        function handler:buildHelpContent() return data.helpContent end
-        local outputInvoked = false
-        function __.output:out() outputInvoked = true end
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('buildHelpContent', function() return data.helpContent end)
+
+        __.output = Spy
+            .new(__.output)
+            :mockMethod('out')
+
         handler:printHelp()
-        lu.assertEquals(data.shouldOutput, outputInvoked)
+
+        __.output:getMethod('out'):assertCalledOrNot(data.shouldOutput)
     end)
     :setScenarios({
         ['nil'] = { helpContent = nil, shouldOutput = false },
