@@ -24,7 +24,7 @@ interval
     :setCallback(function()
         print('Hello, World of Warcraft!')
     end)
-    :start()
+    :start() -- or :startImmediately()
 ```
 
 Later when the interval must be stopped, just call the `stop()` method on the
@@ -33,6 +33,10 @@ same instance.
 ```lua
 interval:stop()
 ```
+
+It's also possible to start the interval **immediately** by calling 
+`interval:startImmediately()`. This method will execute the callback
+function then start.
 
 ## Notes
 
@@ -46,5 +50,8 @@ The first execution of the callback function will occur after the interval
 time has passed. For example, if the interval is set to 5 seconds, the first
 execution will occur after 5 seconds, not immediately after calling the
 `start()` method.
+
+If you want the interval to execute the callback function before waiting for
+the interval time, use the `startImmediately()` method.
 
 :::
