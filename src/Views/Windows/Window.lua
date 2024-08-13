@@ -563,6 +563,8 @@ local Window = {}
     @treturn Views.Windows.Window The window instance, for method chaining
     --]]
     function Window:setVisibility(visible)
+        self.visible = visible
+
         if visible then self:show() else self:hide() end
 
         if self:isPersistingState() then self:setProperty('visibility', visible) end
@@ -705,5 +707,17 @@ local Window = {}
 
         self:setProperty('size.height', height)
         self:setProperty('size.width', width)
+    end
+
+    --[[--
+    Toggles the window visibility.
+
+    If the window is visible, it will be hidden. If it's hidden, it will be
+    shown.
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    ]]
+    function Window:toggleVisibility()
+        return self:setVisibility(not self.visible)
     end
 -- end of Window
