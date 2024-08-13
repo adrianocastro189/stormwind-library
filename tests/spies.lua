@@ -75,3 +75,53 @@ function MethodSpy:setBody(body)
     self.body = body
     return self
 end
+
+Spy = {}
+
+--[[
+Creates a new instance of Spy.
+
+Spy expects a mocked object to be passed as an argument. The mocked object is the
+object that will have its methods spied.
+]]
+function Spy.new(mockedObject)
+    return setmetatable({
+        --[[ Gets a method spy for the given method name, or nil if the method is not spied ]]
+        getMethod = function (self, method)
+            return self.methodsSpies[method]
+        end,
+        --[[ A list of MethodSpy instances, one for each method being spied ]]
+        methodsSpies = {},
+        --[[ Mocks a method of the mocked object ]]
+        mockMethod = function (self, method, body)
+            self.methodsSpies[method] = MethodSpy.new(method):setBody(body)
+            -- the flag below is used to determine if the method was mocked
+            self.mockedObject[method] = '__mocked'
+        end,
+        --[[ The object being mocked (or spied) ]]
+        mockedObject = mockedObject,
+    }, Spy)
+end
+
+--[[
+The Spy.__index function is used to implement the behavior of indexing a Spy
+instance.
+
+It checks if the method being accessed is mocked or not. If it is not mocked, the
+original method is returned. But if the method is mocked, it adds a call to the
+method spy and executes the body of the spy if it exists.
+]]
+function Spy.__index(instance, method)
+    if instance.mockedObject[method] ~= '__mocked' then
+        -- when not mocked, the original method is returned
+        return instance.mockedObject[method]
+    end
+
+    return function (_, ...)
+        local methodSpy = _.methodsSpies[method]
+        methodSpy:addCall({...})
+        if methodSpy.body then
+            return methodSpy.body(_, ...)
+        end
+    end
+end
