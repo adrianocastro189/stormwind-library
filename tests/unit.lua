@@ -79,6 +79,8 @@ TestCase = {}
     function TestCase:setTestClass(value) self.testClass = value return self end
 -- end of TestCase
 
+dofile('./tests/spies.lua')
+
 dofile('./tests/Commands/CommandsTest.lua')
 dofile('./tests/Commands/CommandsHandlerTest.lua')
 
