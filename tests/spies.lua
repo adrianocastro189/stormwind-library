@@ -78,6 +78,15 @@ function MethodSpy:assertCalledOnce()
 end
 
 --[[
+Asserts that the method was called only once with the expected arguments.
+
+@return self
+]]
+function MethodSpy:assertCalledOnceWith(...)
+    return self:assertCalledNthTimeWith(1, ...)
+end
+
+--[[
 Sets the spy body, which is the function that will be executed when the method
 is called.
 
