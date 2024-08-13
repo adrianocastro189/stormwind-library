@@ -52,6 +52,29 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Interval:startImmediately()
+TestCase.new()
+    :setName('start immediately')
+    :setTestClass(TestInterval)
+    :setExecution(function()
+        local callbackCalled = false
+
+        local callback = function () callbackCalled = true end
+
+        local instance = __:new('Interval')
+            :setCallback(callback)
+            :setSeconds(60)
+
+        instance.start = function(instance) instance.startInvoked = true end
+
+        local result = instance:startImmediately()
+
+        lu.assertTrue(callbackCalled)
+        lu.assertTrue(instance.startInvoked)
+        lu.assertEquals(instance, result)
+    end)
+    :register()
+
 -- @covers Interval:stop()
 TestCase.new()
     :setName('stop without starting')

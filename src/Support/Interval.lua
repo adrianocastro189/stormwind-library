@@ -56,6 +56,19 @@ local Interval = {}
     end
 
     --[[--
+    Executes the callback immediately and starts the interval.
+
+    @see Support.Interval.start
+
+    @treturn Support.Interval self
+    ]]
+    function Interval:startImmediately()
+        self.callback()
+        self:start()
+        return self
+    end
+
+    --[[--
     Stops the interval if it's running.
 
     @treturn Support.Interval self
