@@ -45,8 +45,23 @@ function MethodSpy:addCall(args)
     return self
 end
 
+--[[
+Asserts that the method was called with the expected arguments in the nth time.
+
+@return self
+]]
+function MethodSpy:assertCalledNthTimeWith(nth, ...)
+    lu.assertTrue(nth <= self.count, string.format('Method "%s" was expected to be called at least %d time(s), but it was called %d time(s) only', self.name, nth, self.count))
+
+    local args = self.args[nth]
+    lu.assertEquals({...}, args, string.format('Method "%s" call #%d does not match the expected arguments', self.name, nth))
+    return self
+end
+
 --[[ 
 Asserts that the method was called a specific number of times.
+
+@return self
 ]]
 function MethodSpy:assertCalledNTimes(times)
     lu.assertEquals(times, self.count, string.format('Method "%s" was expected to be called %d time(s), but it was called %d time(s)', self.name, times, self.count))
