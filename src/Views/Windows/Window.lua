@@ -563,6 +563,8 @@ local Window = {}
     @treturn Views.Windows.Window The window instance, for method chaining
     --]]
     function Window:setVisibility(visible)
+        self.visible = visible
+
         if visible then self:show() else self:hide() end
 
         if self:isPersistingState() then self:setProperty('visibility', visible) end

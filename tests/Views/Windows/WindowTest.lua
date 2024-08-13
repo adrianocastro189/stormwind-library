@@ -566,6 +566,7 @@ TestWindow = BaseTestClass:new()
             lu.assertEquals(shouldCallShow, showInvoked)
             lu.assertEquals(shouldCallHide, hideInvoked)
             lu.assertEquals(shouldCallSetProperty, setPropertyInvoked)
+            lu.assertEquals(visibility, instance.visible)
         end
 
         -- visible and persisting state
