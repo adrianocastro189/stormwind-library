@@ -159,11 +159,12 @@ TestCase.new()
     :setTestClass(TestCommandsHandler)
     :setExecution(function()
         local handler = __:new('CommandsHandler')
-        local command = __:new('Command')
-        command.validateArgs = function() return 'invalid arguments' end
+        local command = Spy.new(__:new('Command'))
+        command:mockMethod('validateArgs', function() return 'invalid arguments' end)
         handler.getCommandOrDefault = function() return command end
         handler:maybeInvokeCallback('test-operation', {})
         lu.assertIsTrue(__.output:printed('invalid arguments'))
+        command:getMethod('validateArgs'):assertCalledOnce()
     end)
     :register()
 
