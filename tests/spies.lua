@@ -47,9 +47,12 @@ end
 
 --[[
 Asserts that the method spied was called only once.
+
+@return self
 ]]
 function MethodSpy:assertCalledOnce()
     lu.assertEquals(1, self.count, string.format('Method "%s" was not called once', self.name))
+    return self
 end
 
 --[[
