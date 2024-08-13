@@ -126,25 +126,27 @@ update the alias in the `./tests/unit.lua` file.
 
 ## Mocking library properties and methods
 
-The library is set up before each test in the base test class, so mocking
-properties and methods of the library can be done in each test case without
-affecting other tests.
+A library instance is set up before each test in the base test class and also before 
+each scenario when the test case class is used. That said, mocking properties and 
+methods of the library can be done in each test execution without affecting other 
+tests.
 
-To mock a property or method of the library, simply assign a new value to
-the property or method in the test case. For example, to mock the `name`
-property of the library, you can do the following:
+To mock a property or method in this instance, simply assign a new value to
+the property or method in the test case. For example, to mock the addon `name`,
+you can do the following:
 
 ```lua
-__.name = 'MockedName'
+__.addon.name = 'MockedName'
 ```
 
-To mock a method of the library, you can assign a new function to the
-method in the test case.
+To mock a method library, you can assign a new function to do and/or return what
+you expect to help the test case.
 
 There's no need to revert the mocked properties and methods back to their
 original values after the test case is run, unless the test method is
 expected to be called multiple times in the same test class and with
-different mocks.
+different mocks, however, that's a sign that a test case should be created
+with multiple scenarios instead.
 
 Stormwind Library also provides a set of mocks for the World of Warcraft API
 that are better described in the [API Mocks](api-mocks) documentation.
