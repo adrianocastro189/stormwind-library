@@ -23,6 +23,12 @@ If you like this framework and want to support its development, you can
 
 Every contribution or subscription is deeply appreciated.
 
+### Addons built with Stormwind Library
+
+* [Center Gossip Frame](https://www.curseforge.com/wow/addons/center-gossip-frame)
+* [Memory](https://www.curseforge.com/wow/addons/memory)
+* [MultiTargets](https://www.curseforge.com/wow/addons/multitargets)
+
 ### Sponsors
 
 * [MattewsStox](https://github.com/MattewsStox)
