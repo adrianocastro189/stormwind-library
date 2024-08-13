@@ -45,14 +45,21 @@ function MethodSpy:addCall(args)
     return self
 end
 
+--[[ 
+Asserts that the method was called a specific number of times.
+]]
+function MethodSpy:assertCalledNTimes(times)
+    lu.assertEquals(times, self.count, string.format('Method "%s" was expected to be called %d time(s), but it was called %d time(s)', self.name, times, self.count))
+    return self
+end
+
 --[[
 Asserts that the method spied was called only once.
 
 @return self
 ]]
 function MethodSpy:assertCalledOnce()
-    lu.assertEquals(1, self.count, string.format('Method "%s" was not called once', self.name))
-    return self
+    return self:assertCalledNTimes(1)
 end
 
 --[[
