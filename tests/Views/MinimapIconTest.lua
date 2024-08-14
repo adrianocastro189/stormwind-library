@@ -91,12 +91,32 @@ TestCase.new()
     :register()
 
 -- @covers MinimapIcon:hide()
+-- @covers MinimapIcon:show()
 TestCase.new()
-    :setName('hide')
+    :setName('hide and show')
     :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI2 <2024.08.14>
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+
+        instance.minimapIcon = Spy
+            .new({})
+            :mockMethod('Hide')
+            :mockMethod('Show')
+
+        instance[data.method](instance)
+
+        instance.minimapIcon:getMethod(data.expected):assertCalledOnce()
     end)
+    :setScenarios({
+        ['hide'] = {
+            method = 'hide',
+            expected = 'Hide',
+        },
+        ['show'] = {
+            method = 'show',
+            expected = 'Show',
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:isCursorOver()
@@ -203,15 +223,6 @@ TestCase.new()
             isShiftKeyDown = false,
         },
     })
-    :register()
-
--- @covers MinimapIcon:show()
-TestCase.new()
-    :setName('show')
-    :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI2 <2024.08.14>
-    end)
     :register()
 
 -- @covers MinimapIcon:setAnglePositionOnCreation()

@@ -91,7 +91,7 @@ local MinimapIcon = {}
     Hides the minimap icon.
     ]]
     function MinimapIcon:hide()
-        -- @TODO: Implement in MI2 <2024.08.14>
+        self.minimapIcon:Hide()
     end
 
     --[[
@@ -329,7 +329,7 @@ local MinimapIcon = {}
     Shows the minimap icon.
     ]]
     function MinimapIcon:show()
-        -- @TODO: Implement in MI2 <2024.08.14>
+        self.minimapIcon:Show()
     end
 
     --[[--
