@@ -224,6 +224,15 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Determines whether the minimap icon should move instead of being clicked.
+
+    @treturn boolean Whether the minimap icon should move
+    ]]
+    function MinimapIcon:shouldMove()
+        return IsShiftKeyDown()
+    end
+
+    --[[--
     Shows the minimap icon.
     ]]
     function MinimapIcon:show()

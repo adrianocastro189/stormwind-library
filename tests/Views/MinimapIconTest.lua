@@ -95,6 +95,27 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:shouldMove()
+TestCase.new()
+    :setName('shouldMove')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        IsShiftKeyDown = function() return data.isShiftKeyDown end
+
+        local instance = __:new('MinimapIcon')
+
+        lu.assertEquals(data.isShiftKeyDown, instance:shouldMove())
+    end)
+    :setScenarios({
+        ['shift key down'] = {
+            isShiftKeyDown = true,
+        },
+        ['shift key up'] = {
+            isShiftKeyDown = false,
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:show()
 TestCase.new()
     :setName('show')
