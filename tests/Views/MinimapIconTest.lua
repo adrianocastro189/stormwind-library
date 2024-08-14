@@ -1,6 +1,6 @@
 TestMinimapIcon = BaseTestClass:new()
 
--- @covers TestMinimapIcon:__construct()
+-- @covers MinimapIcon:__construct()
 TestCase.new()
     :setName('__construct')
     :setTestClass(TestMinimapIcon)
@@ -9,6 +9,7 @@ TestCase.new()
         lu.assertNotNil(instance)
         lu.assertEquals(data.expectedId, instance.id)
         lu.assertIsFalse(instance.isDragging)
+        lu.assertIsFalse(instance.persistStateByPlayer)
     end)
     :setScenarios({
         ['no id provided'] = {
@@ -18,6 +19,62 @@ TestCase.new()
         ['id provided'] = {
             id = 'test-id',
             expectedId = 'test-id'
+        },
+    })
+    :register()
+
+-- @covers MinimapIcon:setAnglePosition()
+-- @covers MinimapIcon:setCallbackOnLeftClick()
+-- @covers MinimapIcon:setCallbackOnRightClick()
+-- @covers MinimapIcon:setFirstAnglePosition()
+-- @covers MinimapIcon:setIcon()
+-- @covers MinimapIcon:setPersistStateByPlayer()
+-- @covers MinimapIcon:setTooltipLines()
+TestCase.new()
+    :setName('setters')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+
+        instance[data.setter](instance, data.value)
+
+        lu.assertEquals(data.value, instance[data.property])
+    end)
+    :setScenarios({
+        ['setAnglePosition'] = {
+            setter = 'setAnglePosition',
+            property = 'anglePosition',
+            value = 85.5,
+        },
+        ['setCallbackOnLeftClick'] = {
+            setter = 'setCallbackOnLeftClick',
+            property = 'callbackOnLeftClick',
+            value = function() print('Left click!') end,
+        },
+        ['setCallbackOnRightClick'] = {
+            setter = 'setCallbackOnRightClick',
+            property = 'callbackOnRightClick',
+            value = function() print('Right click!') end,
+        },
+        ['setFirstAnglePosition'] = {
+            setter = 'setFirstAnglePosition',
+            property = 'firstAnglePosition',
+            value = 85.5,
+        },
+        ['setIcon'] = {
+            setter = 'setIcon',
+            property = 'icon',
+            value = 'test-icon',
+        },
+        ['setPersistStateByPlayer'] = {
+            setter = 'setPersistStateByPlayer',
+            property = 'persistStateByPlayer',
+            value = true,
+        },
+        ['setTooltipLines'] = {
+            setter = 'setTooltipLines',
+            property = 'tooltipLines',
+            value = {'test-line-1', 'test-line-2'},
         },
     })
     :register()
