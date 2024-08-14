@@ -23,6 +23,37 @@ TestCase.new()
     })
     :register()
 
+TestCase.new()
+    :setName('config')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+        instance.persistStateByPlayer = data.persistStateByPlayer
+
+        instance.__ = Spy.new(__)
+            :mockMethod('config', function () return 'config' end)
+            :mockMethod('playerConfig', function () return 'playerConfig' end)
+
+        local result = instance:config('test-arg-1', 'test-arg-2')
+
+        lu.assertEquals(data.expectedMethod, result)
+
+        instance.__:getMethod(data.expected):assertCalledOnceWith('test-arg-1', 'test-arg-2')
+    end)
+    :setScenarios({
+        ['persistStateByPlayer is false'] = {
+            persistStateByPlayer = false,
+            expected = 'config',
+            expectedMethod = 'config',
+        },
+        ['persistStateByPlayer is true'] = {
+            persistStateByPlayer = true,
+            expected = 'playerConfig',
+            expectedMethod = 'playerConfig',
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:create()
 TestCase.new()
     :setName('create')

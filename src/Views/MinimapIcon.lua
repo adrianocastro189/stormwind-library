@@ -29,6 +29,20 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Decides whether this instance should proxy to the player's or the global
+    configuration instance.
+
+    By default, the minimap icon will proxy to the global configuration instance.
+    ]]
+    function MinimapIcon:config(...)
+        if self.persistStateByPlayer then
+            return self.__:playerConfig(...)
+        end
+        
+        return self.__:config(...)
+    end
+
+    --[[--
     Creates the minimap icon visual components.
     ]]
     function MinimapIcon:create()
