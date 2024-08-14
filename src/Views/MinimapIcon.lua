@@ -53,13 +53,6 @@ local MinimapIcon = {}
     end
 
     --[[--
-    Shows the minimap icon.
-    ]]
-    function MinimapIcon:show()
-        -- @TODO: Implement in MI2 <2024.08.14>
-    end
-
-    --[[--
     Sets the minimap icon angle position.
 
     @tparam number value The angle position in degrees
@@ -177,5 +170,12 @@ local MinimapIcon = {}
     function MinimapIcon:setTooltipLines(value)
         self.tooltipLines = value
         return self
+    end
+
+    --[[--
+    Shows the minimap icon.
+    ]]
+    function MinimapIcon:show()
+        -- @TODO: Implement in MI2 <2024.08.14>
     end
 -- end of MinimapIcon
