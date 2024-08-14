@@ -151,18 +151,25 @@ local MinimapIcon = {}
     end
 
     --[[--
-    Sets the minimap icon angle position.
+    Sets the minimap icon angle position on creation.
 
-    @tparam number value The angle position in degrees
+    This method is called when the minimap icon is created, and it sets the angle
+    position to the first position set by the developer or the persisted
+    position if it's found.
 
-    @treturn Views.MinimapIcon The minimap icon instance, for method chaining
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
 
-    @usage
-        icon:setAnglePosition(85.5)
+    @local
     ]]
-    function MinimapIcon:setAnglePosition(value)
-        self.anglePosition = value
-        return self
+    function MinimapIcon:setAnglePositionOnCreation()
+        local angle = self.firstAnglePosition or 225
+
+        if self:isPersistingState() then
+            angle = self:getProperty('anglePosition') or angle
+        end
+
+        self:updatePosition(angle)
     end
 
     --[[--

@@ -214,7 +214,51 @@ TestCase.new()
     end)
     :register()
 
--- @covers MinimapIcon:setAnglePosition()
+-- @covers MinimapIcon:setAnglePositionOnCreation()
+TestCase.new()
+    :setName('setAnglePositionOnCreation')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('getProperty', function () return data.anglePositionProperty end)
+            :mockMethod('updatePosition')
+        
+        instance.firstAnglePosition = data.firstAnglePosition
+
+        instance:setAnglePositionOnCreation()
+
+        instance:getMethod('updatePosition'):assertCalledOnceWith(data.expectedAngle)
+    end)
+    :setScenarios({
+        ['not persisting state'] = {
+            isPersistingState = false,
+            firstAnglePosition = 85.5,
+            anglePositionProperty = 1,
+            expectedAngle = 85.5,
+        },
+        ['not persisting state and no first position'] = {
+            isPersistingState = false,
+            firstAnglePosition = nil,
+            anglePositionProperty = 1,
+            expectedAngle = 225,
+        },
+        ['persisting state'] = {
+            isPersistingState = true,
+            firstAnglePosition = 85.5,
+            anglePositionProperty = 1,
+            expectedAngle = 1,
+        },
+        ['persisting state but state has no angle'] = {
+            isPersistingState = true,
+            firstAnglePosition = 85.5,
+            anglePositionProperty = nil,
+            expectedAngle = 85.5,
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:setCallbackOnLeftClick()
 -- @covers MinimapIcon:setCallbackOnRightClick()
 -- @covers MinimapIcon:setFirstAnglePosition()
@@ -232,11 +276,6 @@ TestCase.new()
         lu.assertEquals(data.value, instance[data.property])
     end)
     :setScenarios({
-        ['setAnglePosition'] = {
-            setter = 'setAnglePosition',
-            property = 'anglePosition',
-            value = 85.5,
-        },
         ['setCallbackOnLeftClick'] = {
             setter = 'setCallbackOnLeftClick',
             property = 'callbackOnLeftClick',
