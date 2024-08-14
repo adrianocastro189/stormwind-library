@@ -51,6 +51,22 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Gets a minimap icon property using the library configuration instance.
+
+    This method is used internally by the library to persist state. It's not meant
+    to be called by addons.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn any The property value
+    ]]
+    function MinimapIcon:getProperty(key)
+        return self:config(self:getPropertyKey(key))
+    end
+
+    --[[--
     Gets the property key used by the minimap icon instance to persist its state
     using the library configuration instance.
 

@@ -63,6 +63,22 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:getProperty()
+TestCase.new()
+    :setName('getProperty')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = Spy.new(__:new('MinimapIcon'))
+            :mockMethod('config', function () return 'test-config' end)
+            :mockMethod('getPropertyKey', function () return 'test-property-key' end)
+
+        lu.assertEquals('test-config', instance:getProperty('test-key'))
+
+        instance:getMethod('config'):assertCalledOnceWith('test-property-key')
+        instance:getMethod('getPropertyKey'):assertCalledOnceWith('test-key')
+    end)
+    :register()
+
 -- @covers MinimapIcon:getPropertyKey()
 TestCase.new()
     :setName('getPropertyKey')
