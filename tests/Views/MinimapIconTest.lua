@@ -368,6 +368,44 @@ TestCase.new()
     })
     :register()
 
+TestCase.new()
+    :setName('setWindowVisibilityOnCreation')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('getProperty', function () return data.windowVisibilityProperty end)
+            :mockMethod('setVisibility')
+        
+        instance:setWindowVisibilityOnCreation()
+
+        instance:getMethod('setVisibility'):assertCalledOnceWith(data.expectedVisibility)
+    end)
+    :setScenarios({
+        ['not persisting state'] = {
+            isPersistingState = false,
+            windowVisibilityProperty = nil,
+            expectedVisibility = true,
+        },
+        ['persisting state, nil state'] = {
+            isPersistingState = true,
+            windowVisibilityProperty = nil,
+            expectedVisibility = true,
+        },
+        ['persisting state, false state'] = {
+            isPersistingState = true,
+            windowVisibilityProperty = false,
+            expectedVisibility = false,
+        },
+        ['persisting state, true state'] = {
+            isPersistingState = true,
+            windowVisibilityProperty = true,
+            expectedVisibility = true,
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:updatePosition()
 TestCase.new()
     :setName('updatePosition')

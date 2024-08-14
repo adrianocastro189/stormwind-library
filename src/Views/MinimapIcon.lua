@@ -317,6 +317,33 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Sets the minimap icon visibility on creation.
+
+    This method is called when the minimap icon is created, and it sets the
+    visibility to true (default) or the persisted state if it's found.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+    @local
+    ]]
+    function MinimapIcon:setWindowVisibilityOnCreation()
+        local visibility = true
+
+        if self:isPersistingState() then
+            local storedVisibility = self:getProperty('visibility')
+
+            -- these conditionals are necessary so Lua doesn't consider falsy values
+            -- as false, but as nil
+            if storedVisibility ~= nil then
+                visibility = self.__.bool:isTrue(storedVisibility)
+            end
+        end
+
+        self:setVisibility(visibility)
+    end
+
+    --[[--
     Determines whether the minimap icon should move instead of being clicked.
 
     @treturn boolean Whether the minimap icon should move
