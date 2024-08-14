@@ -178,6 +178,13 @@ instance.
 It checks if the method being accessed is mocked or not. If it is not mocked, the
 original method is returned. But if the method is mocked, it adds a call to the
 method spy and executes the body of the spy if it exists.
+
+@NOTE: Due to how this method is implemented, functions that are saved as properties
+       cannot be mocked as a "class method". Example: a class has a callback
+       stored as a property, and the callback is called inside a method. It's not
+       possible to mock the callback and expect that Spy will create a method spy
+       for it as it won't have the same behavior as a class method, so the "_"
+       parameter in this return function won't be the instance of the class.
 ]]
 function Spy.__index(instance, method)
     if instance.mockedObject[method] ~= '__mocked' then
