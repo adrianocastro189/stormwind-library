@@ -160,6 +160,15 @@ TestCase.new()
     })
     :register()
 
+-- @covers MinimapIcon:setVisibility()
+TestCase.new()
+    :setName('setVisibility')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        -- @TODO: Implement in MI2 <2024.08.14>
+    end)
+    :register()
+
 -- @covers MinimapIcon:updatePosition()
 TestCase.new()
     :setName('updatePosition')

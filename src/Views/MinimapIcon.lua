@@ -208,6 +208,22 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Sets the minimap icon visibility.
+
+    This is the method to be called by addons to show or hide the minimap icon,
+    instead of the local show() and hide(), considering that it not only controls
+    the minimap icon visibility but also persists the state if persistence is
+    enabled.
+
+    @tparam boolean visible The visibility state
+
+    @treturn Views.MinimapIcon The minimap icon instance, for method chaining
+    --]]
+    function MinimapIcon:setVisibility(visible)
+        -- @TODO: Implement in MI2 <2024.08.14>
+    end
+
+    --[[--
     Shows the minimap icon.
     ]]
     function MinimapIcon:show()
