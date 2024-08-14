@@ -307,7 +307,13 @@ local MinimapIcon = {}
     @treturn Views.MinimapIcon The minimap icon instance, for method chaining
     --]]
     function MinimapIcon:setVisibility(visible)
-        -- @TODO: Implement in MI2 <2024.08.14>
+        self.visible = visible
+
+        if visible then self:show() else self:hide() end
+
+        if self:isPersistingState() then self:setProperty('visibility', visible) end
+
+        return self
     end
 
     --[[--

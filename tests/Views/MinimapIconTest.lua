@@ -314,8 +314,47 @@ TestCase.new()
     :setName('setVisibility')
     :setTestClass(TestMinimapIcon)
     :setExecution(function(data)
-        -- @TODO: Implement in MI2 <2024.08.14>
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('hide')
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('setProperty')
+            :mockMethod('show')
+        
+        local result = instance:setVisibility(data.visible)
+
+        lu.assertEquals(instance, result)
+        lu.assertEquals(data.visible, instance.visible)
+
+        instance:getMethod('hide'):assertCalledOrNot(not data.visible)
+        instance:getMethod('show'):assertCalledOrNot(data.visible)
+        instance:getMethod('isPersistingState'):assertCalledOnce()
+
+        if data.isPersistingState then
+            instance:getMethod('setProperty'):assertCalledOnceWith('visibility', data.visible)
+            return
+        end
+        
+        instance:getMethod('setProperty'):assertNotCalled()
     end)
+    :setScenarios({
+        ['visible'] = {
+            visible = true,
+            isPersistingState = false,
+        },
+        ['not visible'] = {
+            visible = false,
+            isPersistingState = false,
+        },
+        ['visible and persisting state'] = {
+            visible = true,
+            isPersistingState = true,
+        },
+        ['not visible and persisting state'] = {
+            visible = false,
+            isPersistingState = true,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:updatePosition()
