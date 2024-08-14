@@ -44,6 +44,7 @@
 -- import src/Models/Player.lua
 
 -- import src/Views/ViewConstants.lua
+-- import src/Views/MinimapIcon.lua
 -- import src/Views/Windows/Window.lua
 -- import src/Views/Windows/WindowPage.lua
 
