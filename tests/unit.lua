@@ -119,6 +119,7 @@ dofile('./tests/Support/StrTest.lua')
 dofile('./tests/Support/IntervalTest.lua')
 
 dofile('./tests/Views/ViewConstantsTest.lua')
+dofile('./tests/Views/MinimapIconTest.lua')
 dofile('./tests/Views/Windows/WindowPageTest.lua')
 dofile('./tests/Views/Windows/WindowTest.lua')
 
