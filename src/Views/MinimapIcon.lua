@@ -53,6 +53,41 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Executes when the minimap icon is being dragged for repositioning.
+    ]]
+    function MinimapIcon:onDrag()
+        -- @TODO: Implement in MI7 <2024.08.14>
+    end
+
+    --[[--
+    Executes when the mouse enters the minimap icon.
+    ]]
+    function MinimapIcon:onEnter()
+        -- @TODO: Implement in MI10 <2024.08.14>
+    end
+
+    --[[--
+    Executes when the mouse leaves the minimap icon.
+    ]]
+    function MinimapIcon:onLeave()
+        -- @TODO: Implement in MI11 <2024.08.14>
+    end
+
+    --[[--
+    Executes when the mouse is pressed down on the minimap icon.
+    ]]
+    function MinimapIcon:onMouseDown()
+        -- @TODO: Implement in MI8 <2024.08.14>
+    end
+
+    --[[--
+    Executes when the mouse is released on the minimap icon.
+    ]]
+    function MinimapIcon:onMouseUp()
+        -- @TODO: Implement in MI9 <2024.08.14>
+    end
+
+    --[[--
     Sets the minimap icon angle position.
 
     @tparam number value The angle position in degrees
