@@ -23,6 +23,38 @@ TestCase.new()
     })
     :register()
 
+-- @covers MinimapIcon:config()
+TestCase.new()
+    :setName('config')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+        instance.persistStateByPlayer = data.persistStateByPlayer
+
+        instance.__ = Spy.new(__)
+            :mockMethod('config', function () return 'config' end)
+            :mockMethod('playerConfig', function () return 'playerConfig' end)
+
+        local result = instance:config('test-arg-1', 'test-arg-2')
+
+        lu.assertEquals(data.expectedMethod, result)
+
+        instance.__:getMethod(data.expected):assertCalledOnceWith('test-arg-1', 'test-arg-2')
+    end)
+    :setScenarios({
+        ['persistStateByPlayer is false'] = {
+            persistStateByPlayer = false,
+            expected = 'config',
+            expectedMethod = 'config',
+        },
+        ['persistStateByPlayer is true'] = {
+            persistStateByPlayer = true,
+            expected = 'playerConfig',
+            expectedMethod = 'playerConfig',
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:create()
 TestCase.new()
     :setName('create')
@@ -32,13 +64,60 @@ TestCase.new()
     end)
     :register()
 
--- @covers MinimapIcon:hide()
+-- @covers MinimapIcon:getProperty()
 TestCase.new()
-    :setName('hide')
+    :setName('getProperty')
     :setTestClass(TestMinimapIcon)
     :setExecution(function()
-        -- @TODO: Implement in MI2 <2024.08.14>
+        local instance = Spy.new(__:new('MinimapIcon'))
+            :mockMethod('config', function () return 'test-config' end)
+            :mockMethod('getPropertyKey', function () return 'test-property-key' end)
+
+        lu.assertEquals('test-config', instance:getProperty('test-key'))
+
+        instance:getMethod('config'):assertCalledOnceWith('test-property-key')
+        instance:getMethod('getPropertyKey'):assertCalledOnceWith('test-key')
     end)
+    :register()
+
+-- @covers MinimapIcon:getPropertyKey()
+TestCase.new()
+    :setName('getPropertyKey')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = __:new('MinimapIcon')
+
+        lu.assertEquals('minimapIcon.default.test-key', instance:getPropertyKey('test-key'))
+    end)
+    :register()
+
+-- @covers MinimapIcon:hide()
+-- @covers MinimapIcon:show()
+TestCase.new()
+    :setName('hide and show')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+
+        instance.minimapIcon = Spy
+            .new({})
+            :mockMethod('Hide')
+            :mockMethod('Show')
+
+        instance[data.method](instance)
+
+        instance.minimapIcon:getMethod(data.expected):assertCalledOnce()
+    end)
+    :setScenarios({
+        ['hide'] = {
+            method = 'hide',
+            expected = 'Hide',
+        },
+        ['show'] = {
+            method = 'show',
+            expected = 'Show',
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:isCursorOver()
@@ -47,6 +126,21 @@ TestCase.new()
     :setTestClass(TestMinimapIcon)
     :setExecution(function()
         -- @TODO: Implement in MI6 <2024.08.14>
+    end)
+    :register()
+
+-- @covers MinimapIcon:isPersistingState()
+TestCase.new()
+    :setName('isPersistingState')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = __:new('MinimapIcon')
+        
+        instance.__ = Spy
+            .new(__)
+            :mockMethod('isConfigEnabled', function () return true end)
+                
+        lu.assertIsTrue(instance:isPersistingState())
     end)
     :register()
 
@@ -95,37 +189,68 @@ TestCase.new()
     end)
     :register()
 
--- @covers MinimapIcon:shouldMove()
+-- @covers MinimapIcon:setAnglePositionOnCreation()
 TestCase.new()
-    :setName('shouldMove')
+    :setName('setAnglePositionOnCreation')
     :setTestClass(TestMinimapIcon)
     :setExecution(function(data)
-        IsShiftKeyDown = function() return data.isShiftKeyDown end
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('getProperty', function () return data.anglePositionProperty end)
+            :mockMethod('updatePosition')
+        
+        instance.firstAnglePosition = data.firstAnglePosition
 
-        local instance = __:new('MinimapIcon')
+        instance:setAnglePositionOnCreation()
 
-        lu.assertEquals(data.isShiftKeyDown, instance:shouldMove())
+        instance:getMethod('updatePosition'):assertCalledOnceWith(data.expectedAngle)
     end)
     :setScenarios({
-        ['shift key down'] = {
-            isShiftKeyDown = true,
+        ['not persisting state'] = {
+            isPersistingState = false,
+            firstAnglePosition = 85.5,
+            anglePositionProperty = 1,
+            expectedAngle = 85.5,
         },
-        ['shift key up'] = {
-            isShiftKeyDown = false,
+        ['not persisting state and no first position'] = {
+            isPersistingState = false,
+            firstAnglePosition = nil,
+            anglePositionProperty = 1,
+            expectedAngle = 225,
+        },
+        ['persisting state'] = {
+            isPersistingState = true,
+            firstAnglePosition = 85.5,
+            anglePositionProperty = 1,
+            expectedAngle = 1,
+        },
+        ['persisting state but state has no angle'] = {
+            isPersistingState = true,
+            firstAnglePosition = 85.5,
+            anglePositionProperty = nil,
+            expectedAngle = 85.5,
         },
     })
     :register()
 
--- @covers MinimapIcon:show()
+-- @covers MinimapIcon:setProperty()
 TestCase.new()
-    :setName('show')
+    :setName('setProperty')
     :setTestClass(TestMinimapIcon)
     :setExecution(function()
-        -- @TODO: Implement in MI2 <2024.08.14>
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('config')
+            :mockMethod('getPropertyKey', function () return 'property-key' end)
+
+        instance:setProperty('key', 'value')
+
+        instance:getMethod('getPropertyKey'):assertCalledOnceWith('key')
+        instance:getMethod('config'):assertCalledOnceWith({['property-key'] = 'value'})
     end)
     :register()
 
--- @covers MinimapIcon:setAnglePosition()
 -- @covers MinimapIcon:setCallbackOnLeftClick()
 -- @covers MinimapIcon:setCallbackOnRightClick()
 -- @covers MinimapIcon:setFirstAnglePosition()
@@ -143,11 +268,6 @@ TestCase.new()
         lu.assertEquals(data.value, instance[data.property])
     end)
     :setScenarios({
-        ['setAnglePosition'] = {
-            setter = 'setAnglePosition',
-            property = 'anglePosition',
-            value = 85.5,
-        },
         ['setCallbackOnLeftClick'] = {
             setter = 'setCallbackOnLeftClick',
             property = 'callbackOnLeftClick',
@@ -186,8 +306,107 @@ TestCase.new()
     :setName('setVisibility')
     :setTestClass(TestMinimapIcon)
     :setExecution(function(data)
-        -- @TODO: Implement in MI2 <2024.08.14>
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('hide')
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('setProperty')
+            :mockMethod('show')
+        
+        local result = instance:setVisibility(data.visible)
+
+        lu.assertEquals(instance, result)
+        lu.assertEquals(data.visible, instance.visible)
+
+        instance:getMethod('hide'):assertCalledOrNot(not data.visible)
+        instance:getMethod('show'):assertCalledOrNot(data.visible)
+        instance:getMethod('isPersistingState'):assertCalledOnce()
+
+        if data.isPersistingState then
+            instance:getMethod('setProperty'):assertCalledOnceWith('visibility', data.visible)
+            return
+        end
+        
+        instance:getMethod('setProperty'):assertNotCalled()
     end)
+    :setScenarios({
+        ['visible'] = {
+            visible = true,
+            isPersistingState = false,
+        },
+        ['not visible'] = {
+            visible = false,
+            isPersistingState = false,
+        },
+        ['visible and persisting state'] = {
+            visible = true,
+            isPersistingState = true,
+        },
+        ['not visible and persisting state'] = {
+            visible = false,
+            isPersistingState = true,
+        },
+    })
+    :register()
+
+-- @covers MinimapIcon:setVisibilityOnCreation()
+TestCase.new()
+    :setName('setVisibilityOnCreation')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('getProperty', function () return data.visibilityProperty end)
+            :mockMethod('setVisibility')
+        
+        instance:setVisibilityOnCreation()
+
+        instance:getMethod('setVisibility'):assertCalledOnceWith(data.expectedVisibility)
+    end)
+    :setScenarios({
+        ['not persisting state'] = {
+            isPersistingState = false,
+            visibilityProperty = nil,
+            expectedVisibility = true,
+        },
+        ['persisting state, nil state'] = {
+            isPersistingState = true,
+            visibilityProperty = nil,
+            expectedVisibility = true,
+        },
+        ['persisting state, false state'] = {
+            isPersistingState = true,
+            visibilityProperty = false,
+            expectedVisibility = false,
+        },
+        ['persisting state, true state'] = {
+            isPersistingState = true,
+            visibilityProperty = true,
+            expectedVisibility = true,
+        },
+    })
+    :register()
+
+-- @covers MinimapIcon:shouldMove()
+TestCase.new()
+    :setName('shouldMove')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        IsShiftKeyDown = function() return data.isShiftKeyDown end
+
+        local instance = __:new('MinimapIcon')
+
+        lu.assertEquals(data.isShiftKeyDown, instance:shouldMove())
+    end)
+    :setScenarios({
+        ['shift key down'] = {
+            isShiftKeyDown = true,
+        },
+        ['shift key up'] = {
+            isShiftKeyDown = false,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:updatePosition()

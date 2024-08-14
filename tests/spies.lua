@@ -93,6 +93,7 @@ Asserts that the method was called only once with the expected arguments.
 @return self
 ]]
 function MethodSpy:assertCalledOnceWith(...)
+    self:assertCalledOnce()
     return self:assertCalledNthTimeWith(1, ...)
 end
 

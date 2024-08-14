@@ -29,6 +29,20 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Decides whether this instance should proxy to the player's or the global
+    configuration instance.
+
+    By default, the minimap icon will proxy to the global configuration instance.
+    ]]
+    function MinimapIcon:config(...)
+        if self.persistStateByPlayer then
+            return self.__:playerConfig(...)
+        end
+        
+        return self.__:config(...)
+    end
+
+    --[[--
     Creates the minimap icon visual components.
     ]]
     function MinimapIcon:create()
@@ -37,10 +51,47 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Gets a minimap icon property using the library configuration instance.
+
+    This method is used internally by the library to persist state. It's not meant
+    to be called by addons.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn any The property value
+    ]]
+    function MinimapIcon:getProperty(key)
+        return self:config(self:getPropertyKey(key))
+    end
+
+    --[[--
+    Gets the property key used by the minimap icon instance to persist its state
+    using the library configuration instance.
+
+    A property key is a result of the concatenation of a static prefix, this
+    instance's id, and the key parameter.
+
+    This method is used internally by the library to persist state. It's not meant
+    to be called by addons.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn string The property key used by the minimap icon instance to persist
+                    its state using the library configuration instance
+    ]]
+    function MinimapIcon:getPropertyKey(key)
+        return 'minimapIcon.' .. self.id .. '.' .. key
+    end
+
+    --[[--
     Hides the minimap icon.
     ]]
     function MinimapIcon:hide()
-        -- @TODO: Implement in MI2 <2024.08.14>
+        self.minimapIcon:Hide()
     end
 
     --[[
@@ -50,6 +101,18 @@ local MinimapIcon = {}
     ]]
     function MinimapIcon:isCursorOver()
         -- @TODO: Implement in MI6 <2024.08.14>
+    end
+
+    --[[--
+    Determines if the minimap icon is persisting its state.
+
+    A minimap icon is considered to be persisting its state if the library is
+    created with a configuration set.
+
+    @treturn boolean true if the minimap icon is persisting its state, false otherwise
+    ]]
+    function MinimapIcon:isPersistingState()
+        return self.__:isConfigEnabled()
     end
 
     --[[--
@@ -88,18 +151,25 @@ local MinimapIcon = {}
     end
 
     --[[--
-    Sets the minimap icon angle position.
+    Sets the minimap icon angle position on creation.
 
-    @tparam number value The angle position in degrees
+    This method is called when the minimap icon is created, and it sets the angle
+    position to the first position set by the developer or the persisted
+    position if it's found.
 
-    @treturn Views.MinimapIcon The minimap icon instance, for method chaining
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
 
-    @usage
-        icon:setAnglePosition(85.5)
+    @local
     ]]
-    function MinimapIcon:setAnglePosition(value)
-        self.anglePosition = value
-        return self
+    function MinimapIcon:setAnglePositionOnCreation()
+        local angle = self.firstAnglePosition or 225
+
+        if self:isPersistingState() then
+            angle = self:getProperty('anglePosition') or angle
+        end
+
+        self:updatePosition(angle)
     end
 
     --[[--
@@ -187,6 +257,23 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Sets a minimap icon property using the library configuration instance.
+
+    This method is used internally by the library to persist  state. It's not meant
+    to be called by addons.
+
+    @local
+    
+    @tparam string key The property key
+    @param any value The property value
+    ]]
+    function MinimapIcon:setProperty(key, value)
+        self:config({
+            [self:getPropertyKey(key)] = value
+        })
+    end
+
+    --[[--
     Sets the minimap tooltip lines.
 
     If no lines are provided, the tooltip will be displayed with default information.
@@ -220,7 +307,40 @@ local MinimapIcon = {}
     @treturn Views.MinimapIcon The minimap icon instance, for method chaining
     --]]
     function MinimapIcon:setVisibility(visible)
-        -- @TODO: Implement in MI2 <2024.08.14>
+        self.visible = visible
+
+        if visible then self:show() else self:hide() end
+
+        if self:isPersistingState() then self:setProperty('visibility', visible) end
+
+        return self
+    end
+
+    --[[--
+    Sets the minimap icon visibility on creation.
+
+    This method is called when the minimap icon is created, and it sets the
+    visibility to true (default) or the persisted state if it's found.
+
+    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+    @local
+    ]]
+    function MinimapIcon:setVisibilityOnCreation()
+        local visibility = true
+
+        if self:isPersistingState() then
+            local storedVisibility = self:getProperty('visibility')
+
+            -- these conditionals are necessary so Lua doesn't consider falsy values
+            -- as false, but as nil
+            if storedVisibility ~= nil then
+                visibility = self.__.bool:isTrue(storedVisibility)
+            end
+        end
+
+        self:setVisibility(visibility)
     end
 
     --[[--
@@ -236,7 +356,7 @@ local MinimapIcon = {}
     Shows the minimap icon.
     ]]
     function MinimapIcon:show()
-        -- @TODO: Implement in MI2 <2024.08.14>
+        self.minimapIcon:Show()
     end
 
     --[[--
