@@ -250,6 +250,23 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Sets a minimap icon property using the library configuration instance.
+
+    This method is used internally by the library to persist  state. It's not meant
+    to be called by addons.
+
+    @local
+    
+    @tparam string key The property key
+    @param any value The property value
+    ]]
+    function MinimapIcon:setProperty(key, value)
+        self:config({
+            [self:getPropertyKey(key)] = value
+        })
+    end
+
+    --[[--
     Sets the minimap tooltip lines.
 
     If no lines are provided, the tooltip will be displayed with default information.

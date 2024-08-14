@@ -167,6 +167,23 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:setProperty()
+TestCase.new()
+    :setName('setProperty')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('config')
+            :mockMethod('getPropertyKey', function () return 'property-key' end)
+
+        instance:setProperty('key', 'value')
+
+        instance:getMethod('getPropertyKey'):assertCalledOnceWith('key')
+        instance:getMethod('config'):assertCalledOnceWith({['property-key'] = 'value'})
+    end)
+    :register()
+
 -- @covers MinimapIcon:shouldMove()
 TestCase.new()
     :setName('shouldMove')
