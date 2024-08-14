@@ -43,6 +43,15 @@ local MinimapIcon = {}
         -- @TODO: Implement in MI2 <2024.08.14>
     end
 
+    --[[
+    Determines whether the cursor is over the minimap icon.
+
+    @treturn boolean Whether the cursor is over the minimap icon
+    ]]
+    function MinimapIcon:isCursorOver()
+        -- @TODO: Implement in MI6 <2024.08.14>
+    end
+
     --[[--
     Shows the minimap icon.
     ]]

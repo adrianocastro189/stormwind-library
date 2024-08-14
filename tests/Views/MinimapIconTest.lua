@@ -41,6 +41,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:isCursorOver()
+TestCase.new()
+    :setName('isCursorOver')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        -- @TODO: Implement in MI6 <2024.08.14>
+    end)
+    :register()
+
 -- @covers MinimapIcon:create()
 TestCase.new()
     :setName('show')
