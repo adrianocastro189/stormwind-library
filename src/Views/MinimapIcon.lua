@@ -51,6 +51,27 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Gets the property key used by the minimap icon instance to persist its state
+    using the library configuration instance.
+
+    A property key is a result of the concatenation of a static prefix, this
+    instance's id, and the key parameter.
+
+    This method is used internally by the library to persist state. It's not meant
+    to be called by addons.
+
+    @local
+
+    @tparam string key The property key
+
+    @treturn string The property key used by the minimap icon instance to persist
+                    its state using the library configuration instance
+    ]]
+    function MinimapIcon:getPropertyKey(key)
+        return 'minimapIcon.' .. self.id .. '.' .. key
+    end
+
+    --[[--
     Hides the minimap icon.
     ]]
     function MinimapIcon:hide()

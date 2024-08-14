@@ -63,6 +63,17 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:getPropertyKey()
+TestCase.new()
+    :setName('getPropertyKey')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = __:new('MinimapIcon')
+
+        lu.assertEquals('minimapIcon.default.test-key', instance:getPropertyKey('test-key'))
+    end)
+    :register()
+
 -- @covers MinimapIcon:hide()
 TestCase.new()
     :setName('hide')
