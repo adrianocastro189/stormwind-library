@@ -23,6 +23,15 @@ TestCase.new()
     })
     :register()
 
+-- @covers MinimapIcon:create()
+TestCase.new()
+    :setName('create')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        -- @TODO: Implement in MI4 <2024.08.14>
+    end)
+    :register()
+
 -- @covers MinimapIcon:setAnglePosition()
 -- @covers MinimapIcon:setCallbackOnLeftClick()
 -- @covers MinimapIcon:setCallbackOnRightClick()

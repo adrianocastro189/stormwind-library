@@ -29,6 +29,14 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Creates the minimap icon visual components.
+    ]]
+    function MinimapIcon:create()
+        -- @TODO: Implement in MI4 <2024.08.14>
+        -- @TODO: Add @treturn if necessary <2024.08.14>
+    end
+
+    --[[--
     Sets the minimap icon angle position.
 
     @tparam number value The angle position in degrees
