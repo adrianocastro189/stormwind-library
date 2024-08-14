@@ -159,4 +159,13 @@ TestCase.new()
         },
     })
     :register()
+
+-- @covers MinimapIcon:updatePosition()
+TestCase.new()
+    :setName('updatePosition')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        -- @TODO: Implement in MI5 <2024.08.14>
+    end)
+    :register()
 -- end of TestMinimapIcon

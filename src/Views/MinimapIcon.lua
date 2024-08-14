@@ -213,4 +213,14 @@ local MinimapIcon = {}
     function MinimapIcon:show()
         -- @TODO: Implement in MI2 <2024.08.14>
     end
+
+    --[[--
+    Calculates the minimap icon position based on the angle.
+
+    @treturn Views.MinimapIcon The minimap icon instance, for method chaining
+    ]]
+    function MinimapIcon:updatePosition(angle)
+        -- @TODO: Implement in MI5 <2024.08.14>
+        return self
+    end
 -- end of MinimapIcon
