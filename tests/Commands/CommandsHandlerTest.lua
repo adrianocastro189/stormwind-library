@@ -173,31 +173,25 @@ TestCase.new()
     :setName('maybeInvokeCallback with valid args')
     :setTestClass(TestCommandsHandler)
     :setExecution(function()
-        local handler = __:new('CommandsHandler')
-        local command = __:new('Command')
+        local command = Spy
+            .new(__:new('Command'))
+            :mockMethod('validateArgs', function() return 'valid' end)
 
-        -- makes sure the arguments are properly unpacked for the validation phase
-        command.validateArgs = function(self, arg1, arg2, arg3)
-            self.validateArg1 = arg1
-            self.validateArg2 = arg2
-            self.validateArg3 = arg3
-            return 'valid'
-        end
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('getCommandOrDefault', function() return command end)
 
         -- makes sure the arguments are properly unpacked for the callback phase
-        command.callback =  function(arg1, arg2, arg3)
+        command.callback = function(arg1, arg2, arg3)
             command.callbackArg1 = arg1
             command.callbackArg2 = arg2
             command.callbackArg3 = arg3
         end
 
-        handler.getCommandOrDefault = function() return command end
-
         handler:maybeInvokeCallback('test-operation', {'test-arg1', 'test-arg2', 'test-arg3'})
 
-        lu.assertEquals('test-arg1', command.validateArg1)
-        lu.assertEquals('test-arg2', command.validateArg2)
-        lu.assertEquals('test-arg3', command.validateArg3)
+        -- command:getMethod('callback'):assertCalledOnceWith('test-arg1', 'test-arg2', 'test-arg3')
+        command:getMethod('validateArgs'):assertCalledOnceWith('test-arg1', 'test-arg2', 'test-arg3')
 
         lu.assertEquals('test-arg1', command.callbackArg1)
         lu.assertEquals('test-arg2', command.callbackArg2)
@@ -251,12 +245,17 @@ TestCase.new()
     :setName('printHelp')
     :setTestClass(TestCommandsHandler)
     :setExecution(function(data)
-        local handler = __:new('CommandsHandler')
-        function handler:buildHelpContent() return data.helpContent end
-        local outputInvoked = false
-        function __.output:out() outputInvoked = true end
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('buildHelpContent', function() return data.helpContent end)
+
+        __.output = Spy
+            .new(__.output)
+            :mockMethod('out')
+
         handler:printHelp()
-        lu.assertEquals(data.shouldOutput, outputInvoked)
+
+        __.output:getMethod('out'):assertCalledOrNot(data.shouldOutput)
     end)
     :setScenarios({
         ['nil'] = { helpContent = nil, shouldOutput = false },

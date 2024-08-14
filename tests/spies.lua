@@ -46,12 +46,78 @@ function MethodSpy:addCall(args)
 end
 
 --[[
+Asserts that the method was called at least an expected number of times.
+
+@return self
+]]
+function MethodSpy:assertCalledAtLeastNTimes(times)
+    lu.assertTrue(times <= self.count, string.format('Method "%s" was expected to be called at least %d time(s), but it was called %d time(s) only', self.name, times, self.count))
+    return self
+end
+
+--[[
+Asserts that the method was called with the expected arguments in the nth time.
+
+@return self
+]]
+function MethodSpy:assertCalledNthTimeWith(nth, ...)
+    self:assertCalledAtLeastNTimes(nth)
+
+    local args = self.args[nth]
+    lu.assertEquals({...}, args, string.format('Method "%s" call #%d does not match the expected arguments', self.name, nth))
+    return self
+end
+
+--[[ 
+Asserts that the method was called a specific number of times.
+
+@return self
+]]
+function MethodSpy:assertCalledNTimes(times)
+    lu.assertEquals(times, self.count, string.format('Method "%s" was expected to be called %d time(s), but it was called %d time(s)', self.name, times, self.count))
+    return self
+end
+
+--[[
 Asserts that the method spied was called only once.
 
 @return self
 ]]
 function MethodSpy:assertCalledOnce()
-    lu.assertEquals(1, self.count, string.format('Method "%s" was not called once', self.name))
+    return self:assertCalledNTimes(1)
+end
+
+--[[
+Asserts that the method was called only once with the expected arguments.
+
+@return self
+]]
+function MethodSpy:assertCalledOnceWith(...)
+    return self:assertCalledNthTimeWith(1, ...)
+end
+
+--[[
+Asserts that the method was called at least once or not called at all based on a
+flag.
+
+The flag should be a boolean value that indicates if the method was expected to be
+called or not.
+
+@tparam boolean calledOrNot
+
+@return self
+]]
+function MethodSpy:assertCalledOrNot(calledOrNot)
+    return calledOrNot and self:assertCalledAtLeastNTimes(1) or self:assertNotCalled()
+end
+
+--[[
+Asserts that the method was not called.
+
+@return self
+]]
+function MethodSpy:assertNotCalled()
+    lu.assertEquals(0, self.count, string.format('Method "%s" was not expected to be called, but it was called %d time(s)', self.name, self.count))
     return self
 end
 
@@ -94,9 +160,11 @@ function Spy.new(mockedObject)
         methodsSpies = {},
         --[[ Mocks a method of the mocked object ]]
         mockMethod = function (self, method, body)
+            body = body or function () end
             self.methodsSpies[method] = MethodSpy.new(method):setBody(body)
             -- the flag below is used to determine if the method was mocked
             self.mockedObject[method] = '__mocked'
+            return self
         end,
         --[[ The object being mocked (or spied) ]]
         mockedObject = mockedObject,
@@ -110,6 +178,13 @@ instance.
 It checks if the method being accessed is mocked or not. If it is not mocked, the
 original method is returned. But if the method is mocked, it adds a call to the
 method spy and executes the body of the spy if it exists.
+
+@NOTE: Due to how this method is implemented, functions that are saved as properties
+       cannot be mocked as a "class method". Example: a class has a callback
+       stored as a property, and the callback is called inside a method. It's not
+       possible to mock the callback and expect that Spy will create a method spy
+       for it as it won't have the same behavior as a class method, so the "_"
+       parameter in this return function won't be the instance of the class.
 ]]
 function Spy.__index(instance, method)
     if instance.mockedObject[method] ~= '__mocked' then
