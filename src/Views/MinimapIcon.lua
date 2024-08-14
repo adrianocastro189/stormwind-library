@@ -15,11 +15,14 @@ local MinimapIcon = {}
 
     --[[--
     MinimapIcon constructor.
+
+    @tparam string id The unique identifier for this icon, or 'default' if none is provided
     ]]
-    function MinimapIcon.__construct()
+    function MinimapIcon.__construct(id)
         local self = setmetatable({}, MinimapIcon)
 
-        -- add properties here
+        self.id = id or 'default'
+        self.isDragging = false
 
         return self
     end
