@@ -327,7 +327,7 @@ local MinimapIcon = {}
 
     @local
     ]]
-    function MinimapIcon:setWindowVisibilityOnCreation()
+    function MinimapIcon:setVisibilityOnCreation()
         local visibility = true
 
         if self:isPersistingState() then
