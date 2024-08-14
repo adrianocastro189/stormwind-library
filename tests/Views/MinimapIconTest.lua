@@ -108,6 +108,20 @@ TestCase.new()
     end)
     :register()
 
+TestCase.new()
+    :setName('isPersistingState')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = __:new('MinimapIcon')
+        
+        instance.__ = Spy
+            .new(__)
+            :mockMethod('isConfigEnabled', function () return true end)
+                
+        lu.assertIsTrue(instance:isPersistingState())
+    end)
+    :register()
+
 -- @covers MinimapIcon:onDrag()
 TestCase.new()
     :setName('onDrag')

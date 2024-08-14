@@ -104,6 +104,18 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Determines if the minimap icon is persisting its state.
+
+    A minimap icon is considered to be persisting its state if the library is
+    created with a configuration set.
+
+    @treturn boolean true if the minimap icon is persisting its state, false otherwise
+    ]]
+    function MinimapIcon:isPersistingState()
+        return self.__:isConfigEnabled()
+    end
+
+    --[[--
     Executes when the minimap icon is being dragged for repositioning.
     ]]
     function MinimapIcon:onDrag()
