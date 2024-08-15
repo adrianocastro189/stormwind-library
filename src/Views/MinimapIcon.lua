@@ -66,6 +66,20 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Creates and sets up the minimap icon texture, which is equivalent to saying that
+    it creates the minimap icon itself.
+
+    @treturn table The minimap icon texture created by CreateTexture
+    ]]
+    function MinimapIcon:createIconTexture()
+        local iconTexture = self.minimapIcon:CreateTexture(nil, 'BACKGROUND')
+        iconTexture:SetTexture(self.icon)
+        iconTexture:SetSize(20, 20)
+        iconTexture:SetPoint('CENTER', self.minimapIcon, 'CENTER')
+        return iconTexture
+    end
+
+    --[[--
     Gets a minimap icon property using the library configuration instance.
 
     This method is used internally by the library to persist state. It's not meant

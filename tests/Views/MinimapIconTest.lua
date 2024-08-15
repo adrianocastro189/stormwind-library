@@ -93,6 +93,35 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:createIconTexture()
+TestCase.new()
+    :setName('createIconTexture')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function ()
+        local instance = __
+            :new('MinimapIcon')
+            :setIcon('icon')
+
+        local textureSpy = Spy
+            .new({})
+            :mockMethod('SetTexture')
+            :mockMethod('SetSize')
+            :mockMethod('SetPoint')
+
+        instance.minimapIcon = Spy
+            .new({})
+            :mockMethod('CreateTexture', function () return textureSpy end)
+
+        local result = instance:createIconTexture()
+
+        lu.assertEquals(textureSpy, result)
+
+        textureSpy:getMethod('SetTexture'):assertCalledOnceWith('icon')
+        textureSpy:getMethod('SetSize'):assertCalledOnceWith(20, 20)
+        textureSpy:getMethod('SetPoint'):assertCalledOnceWith('CENTER', instance.minimapIcon, 'CENTER')
+    end)
+    :register()
+
 -- @covers MinimapIcon:getProperty()
 TestCase.new()
     :setName('getProperty')
