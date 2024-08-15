@@ -51,6 +51,48 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Creates and sets up a minimap icon frame.
+
+    @treturn table The minimap icon frame created by CreateFrame
+    ]]
+    function MinimapIcon:createIconFrame()
+        local minimapIcon = CreateFrame('Button', 'Minimap' .. self.id, Minimap)
+        minimapIcon:SetFrameStrata('MEDIUM')
+        minimapIcon:SetSize(31, 31)
+        minimapIcon:SetFrameLevel(8)
+        minimapIcon:RegisterForClicks('AnyUp')
+        minimapIcon:SetHighlightTexture('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
+        return minimapIcon
+    end
+
+    --[[--
+    Creates an icon overlay for the minimap icon.
+
+    @treturn table The minimap icon overlay texture created by CreateTexture
+    ]]
+    function MinimapIcon:createIconOverlay()
+        local overlay = self.minimapIcon:CreateTexture(nil, 'OVERLAY')
+        overlay:SetTexture('Interface\\Minimap\\MiniMap-TrackingBorder')
+        overlay:SetSize(53, 53)
+        overlay:SetPoint('TOPLEFT')
+        return overlay
+    end
+
+    --[[--
+    Creates and sets up the minimap icon texture, which is equivalent to saying that
+    it creates the minimap icon itself.
+
+    @treturn table The minimap icon texture created by CreateTexture
+    ]]
+    function MinimapIcon:createIconTexture()
+        local iconTexture = self.minimapIcon:CreateTexture(nil, 'BACKGROUND')
+        iconTexture:SetTexture(self.icon)
+        iconTexture:SetSize(20, 20)
+        iconTexture:SetPoint('CENTER', self.minimapIcon, 'CENTER')
+        return iconTexture
+    end
+
+    --[[--
     Gets a minimap icon property using the library configuration instance.
 
     This method is used internally by the library to persist state. It's not meant
