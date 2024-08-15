@@ -51,6 +51,21 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Creates and sets up a minimap icon frame.
+
+    @treturn table The minimap icon frame created by CreateFrame
+    ]]
+    function MinimapIcon:createIconFrame()
+        local minimapIcon = CreateFrame('Button', 'Minimap' .. self.id, Minimap)
+        minimapIcon:SetFrameStrata('MEDIUM')
+        minimapIcon:SetSize(31, 31)
+        minimapIcon:SetFrameLevel(8)
+        minimapIcon:RegisterForClicks('AnyUp')
+        minimapIcon:SetHighlightTexture('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
+        return minimapIcon
+    end
+
+    --[[--
     Gets a minimap icon property using the library configuration instance.
 
     This method is used internally by the library to persist state. It's not meant

@@ -64,6 +64,35 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:createIconFrame()
+TestCase.new()
+    :setName('createIconFrame')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function ()
+        local instance = __:new('MinimapIcon')
+
+        local frameSpy = Spy
+            .new({})
+            :mockMethod('SetFrameStrata')
+            :mockMethod('SetSize')
+            :mockMethod('SetFrameLevel')
+            :mockMethod('RegisterForClicks')
+            :mockMethod('SetHighlightTexture')
+
+        CreateFrame = function () return frameSpy end
+
+        local result = instance:createIconFrame()
+
+        lu.assertEquals(frameSpy, result)
+
+        frameSpy:getMethod('SetFrameStrata'):assertCalledOnceWith('MEDIUM')
+        frameSpy:getMethod('SetSize'):assertCalledOnceWith(31, 31)
+        frameSpy:getMethod('SetFrameLevel'):assertCalledOnceWith(8)
+        frameSpy:getMethod('RegisterForClicks'):assertCalledOnceWith('AnyUp')
+        frameSpy:getMethod('SetHighlightTexture'):assertCalledOnceWith('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
+    end)
+    :register()
+
 -- @covers MinimapIcon:getProperty()
 TestCase.new()
     :setName('getProperty')
