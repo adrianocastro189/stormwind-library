@@ -93,6 +93,33 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:createIconOverlay()
+TestCase.new()
+:setName('createIconOverlay')
+:setTestClass(TestMinimapIcon)
+:setExecution(function ()
+    local instance = __:new('MinimapIcon')
+
+    local textureSpy = Spy
+        .new({})
+        :mockMethod('SetTexture')
+        :mockMethod('SetSize')
+        :mockMethod('SetPoint')
+
+    instance.minimapIcon = Spy
+        .new({})
+        :mockMethod('CreateTexture', function () return textureSpy end)
+
+    local result = instance:createIconOverlay()
+
+    lu.assertEquals(textureSpy, result)
+
+    textureSpy:getMethod('SetTexture'):assertCalledOnceWith('Interface\\Minimap\\MiniMap-TrackingBorder')
+    textureSpy:getMethod('SetSize'):assertCalledOnceWith(53, 53)
+    textureSpy:getMethod('SetPoint'):assertCalledOnceWith('TOPLEFT')
+end)
+:register()
+
 -- @covers MinimapIcon:createIconTexture()
 TestCase.new()
     :setName('createIconTexture')

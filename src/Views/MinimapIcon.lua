@@ -66,6 +66,19 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Creates an icon overlay for the minimap icon.
+
+    @treturn table The minimap icon overlay texture created by CreateTexture
+    ]]
+    function MinimapIcon:createIconOverlay()
+        local overlay = self.minimapIcon:CreateTexture(nil, 'OVERLAY')
+        overlay:SetTexture('Interface\\Minimap\\MiniMap-TrackingBorder')
+        overlay:SetSize(53, 53)
+        overlay:SetPoint('TOPLEFT')
+        return overlay
+    end
+
+    --[[--
     Creates and sets up the minimap icon texture, which is equivalent to saying that
     it creates the minimap icon itself.
 
