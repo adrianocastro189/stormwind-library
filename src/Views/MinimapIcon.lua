@@ -150,7 +150,20 @@ local MinimapIcon = {}
     @treturn boolean Whether the cursor is over the minimap icon
     ]]
     function MinimapIcon:isCursorOver()
-        -- @TODO: Implement in MI6 <2024.08.14>
+        -- gets the minimap icon effective scale
+        local scale = self.minimapIcon:GetEffectiveScale()
+
+        -- gets the minimap icon width and height based on the scale
+        local width, height = self.minimapIcon:GetWidth() * scale, self.minimapIcon:GetHeight() * scale
+        
+        -- gets the cursor position using the World of Warcraft API
+        local cx, cy = GetCursorPosition()
+
+        -- gets the minimap icon position based on the scale
+        local lx, ly = self.minimapIcon:GetLeft() * scale, self.minimapIcon:GetBottom() * scale
+    
+        -- checks if the cursor is over the minimap icon based on the boundaries
+        return cx >= lx and cx <= lx + width and cy >= ly and cy <= ly + height
     end
 
     --[[--
