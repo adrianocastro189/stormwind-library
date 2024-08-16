@@ -152,6 +152,8 @@ Spy expects a mocked object to be passed as an argument. The mocked object is th
 object that will have its methods spied.
 ]]
 function Spy.new(mockedObject)
+    mockedObject = (type(mockedObject) == 'table') and mockedObject or {}
+
     return setmetatable({
         --[[ Gets a method spy for the given method name, or nil if the method is not spied ]]
         getMethod = function (self, method)
