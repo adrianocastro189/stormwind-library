@@ -239,9 +239,41 @@ TestCase.new()
 TestCase.new()
     :setName('isCursorOver')
     :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI6 <2024.08.14>
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+
+        instance.minimapIcon = Spy
+            .new({})
+            :mockMethod('GetBottom', function () return data.minimapBottom end)
+            :mockMethod('GetEffectiveScale', function () return 1.0 end)
+            :mockMethod('GetHeight', function () return data.height end)
+            :mockMethod('GetLeft', function () return data.left end)
+            :mockMethod('GetWidth', function () return data.width end)
+            
+        _G['GetCursorPosition'] = function () return data.cursorX, data.cursorY end
+
+        lu.assertEquals(data.expected, instance:isCursorOver())
     end)
+    :setScenarios({
+        ['cursor is over'] = {
+            cursorX = 0,
+            cursorY = 0,
+            height = 31,
+            left = 0,
+            minimapBottom = 0,
+            width = 31,
+            expected = true,
+        },
+        ['cursor is not over'] = {
+            cursorX = 100,
+            cursorY = 100,
+            height = 31,
+            left = 0,
+            minimapBottom = 0,
+            width = 31,
+            expected = false,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:isPersistingState()
