@@ -46,8 +46,16 @@ local MinimapIcon = {}
     Creates the minimap icon visual components.
     ]]
     function MinimapIcon:create()
-        -- @TODO: Implement in MI4 <2024.08.14>
-        -- @TODO: Add @treturn if necessary <2024.08.14>
+        if self.minimapIcon then
+            return
+        end
+
+        self.minimapIcon = self:createIconFrame()
+
+        self:createIconTexture()
+        self:createIconOverlay()
+        self:setAnglePositionOnCreation()
+        self:setVisibilityOnCreation()
     end
 
     --[[--

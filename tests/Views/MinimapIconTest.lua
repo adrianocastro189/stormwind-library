@@ -59,9 +59,39 @@ TestCase.new()
 TestCase.new()
     :setName('create')
     :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI4 <2024.08.14>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('createIconFrame', function () return 'created-icon-frame' end)
+            :mockMethod('createIconTexture')
+            :mockMethod('createIconOverlay')
+            :mockMethod('setAnglePositionOnCreation')
+            :mockMethod('setVisibilityOnCreation')
+
+        instance.minimapIcon = data.minimapIcon
+
+        instance:create()
+
+        lu.assertEquals(data.expectedMinimapIcon, instance.minimapIcon)
+
+        instance:getMethod('createIconFrame'):assertCalledOrNot(data.localMethodsCalled)
+        instance:getMethod('createIconTexture'):assertCalledOrNot(data.localMethodsCalled)
+        instance:getMethod('createIconOverlay'):assertCalledOrNot(data.localMethodsCalled)
+        instance:getMethod('setAnglePositionOnCreation'):assertCalledOrNot(data.localMethodsCalled)
+        instance:getMethod('setVisibilityOnCreation'):assertCalledOrNot(data.localMethodsCalled)
     end)
+    :setScenarios({
+        ['minimapIcon exists'] = {
+            minimapIcon = 'minimap-icon',
+            expectedMinimapIcon = 'minimap-icon',
+            localMethodsCalled = false,
+        },
+        ['minimapIcon does not exist'] = {
+            minimapIcon = nil,
+            expectedMinimapIcon = 'created-icon-frame',
+            localMethodsCalled = true,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:createIconFrame()
