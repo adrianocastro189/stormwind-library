@@ -65,11 +65,19 @@ local MinimapIcon = {}
     ]]
     function MinimapIcon:createIconFrame()
         local minimapIcon = CreateFrame('Button', 'Minimap' .. self.id, Minimap)
-        minimapIcon:SetFrameStrata('MEDIUM')
-        minimapIcon:SetSize(31, 31)
-        minimapIcon:SetFrameLevel(8)
         minimapIcon:RegisterForClicks('AnyUp')
+        minimapIcon:SetFrameLevel(8)
+        minimapIcon:SetFrameStrata('MEDIUM')
         minimapIcon:SetHighlightTexture('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
+        minimapIcon:SetScript('OnMouseDown', function (component, button)
+            self:onMouseDown(button)
+        end)
+        minimapIcon:SetScript('OnUpdate', function()
+            if self.isDragging and self:shouldMove() then
+                self:onDrag()
+            end
+        end)
+        minimapIcon:SetSize(31, 31)
         return minimapIcon
     end
 
@@ -216,8 +224,11 @@ local MinimapIcon = {}
     --[[--
     Executes when the mouse is pressed down on the minimap icon.
     ]]
-    function MinimapIcon:onMouseDown()
-        -- @TODO: Implement in MI8 <2024.08.14>
+    function MinimapIcon:onMouseDown(button)
+        if button == 'LeftButton' and self:shouldMove() then
+            self.isDragging = true
+            GameTooltip:Hide()
+        end
     end
 
     --[[--
