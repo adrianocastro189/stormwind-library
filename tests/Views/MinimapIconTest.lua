@@ -208,6 +208,32 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:getTooltipLines()
+TestCase.new()
+    :setName('getTooltipLines')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+
+        instance.tooltipLines = data.tooltipLines
+
+        lu.assertEquals(data.expected, instance:getTooltipLines())
+    end)
+    :setScenarios({
+        ['tooltip lines exist'] = {
+            tooltipLines = {'line-1', 'line-2'},
+            expected = {'line-1', 'line-2'},
+        },
+        ['tooltip lines do not exist'] = {
+            tooltipLines = nil,
+            expected = {
+                'TestSuite',
+                'Hold SHIFT and drag with the left mouse button to move this icon',
+            },
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:hide()
 -- @covers MinimapIcon:show()
 TestCase.new()

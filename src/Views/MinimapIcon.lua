@@ -155,6 +155,17 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Gets the minimap icon tooltip lines set on creation or by the developer or a
+    list of default lines if none is provided.
+    ]]
+    function MinimapIcon:getTooltipLines()
+        return self.tooltipLines or {
+            __:getVersionedNameLabel(),
+            'Hold SHIFT and drag with the left mouse button to move this icon',
+        }
+    end
+
+    --[[--
     Hides the minimap icon.
     ]]
     function MinimapIcon:hide()
