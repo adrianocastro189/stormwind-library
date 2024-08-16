@@ -103,11 +103,12 @@ TestCase.new()
 
         local frameSpy = Spy
             .new({})
-            :mockMethod('SetFrameStrata')
-            :mockMethod('SetSize')
-            :mockMethod('SetFrameLevel')
             :mockMethod('RegisterForClicks')
+            :mockMethod('SetScript')
+            :mockMethod('SetFrameLevel')
+            :mockMethod('SetFrameStrata')
             :mockMethod('SetHighlightTexture')
+            :mockMethod('SetSize')
 
         CreateFrame = function () return frameSpy end
 
@@ -115,11 +116,12 @@ TestCase.new()
 
         lu.assertEquals(frameSpy, result)
 
-        frameSpy:getMethod('SetFrameStrata'):assertCalledOnceWith('MEDIUM')
-        frameSpy:getMethod('SetSize'):assertCalledOnceWith(31, 31)
-        frameSpy:getMethod('SetFrameLevel'):assertCalledOnceWith(8)
         frameSpy:getMethod('RegisterForClicks'):assertCalledOnceWith('AnyUp')
+        frameSpy:getMethod('SetScript'):assertCalledNTimes(2)
+        frameSpy:getMethod('SetFrameLevel'):assertCalledOnceWith(8)
+        frameSpy:getMethod('SetFrameStrata'):assertCalledOnceWith('MEDIUM')
         frameSpy:getMethod('SetHighlightTexture'):assertCalledOnceWith('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
+        frameSpy:getMethod('SetSize'):assertCalledOnceWith(31, 31)
     end)
     :register()
 
@@ -339,9 +341,37 @@ TestCase.new()
 TestCase.new()
     :setName('onMouseDown')
     :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI8 <2024.08.14>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('shouldMove', function () return data.shouldMove end)
+
+        _G['GameTooltip'] = Spy
+            .new()
+            :mockMethod('Hide')
+        
+        instance:onMouseDown(data.button)
+
+        lu.assertEquals(data.expectedIsDragging, instance.isDragging)
+        GameTooltip:getMethod('Hide'):assertCalledOrNot(data.expectedIsDragging)
     end)
+    :setScenarios({
+        ['left click, should move'] = {
+            button = 'LeftButton',
+            shouldMove = true,
+            expectedIsDragging = true,
+        },
+        ['left click, should not move'] = {
+            button = 'LeftButton',
+            shouldMove = false,
+            expectedIsDragging = false,
+        },
+        ['right click'] = {
+            button = 'RightButton',
+            shouldMove = false,
+            expectedIsDragging = false,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:onMouseUp()
