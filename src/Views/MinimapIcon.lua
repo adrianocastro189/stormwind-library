@@ -324,6 +324,23 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Sets a minimap icon state property if it's persisting its state.
+
+    This method is used internally by the library to persist  state. It's not meant
+    to be called by addons.
+
+    @local
+    
+    @tparam string key The property key
+    @param any value The property value
+    ]]
+    function MinimapIcon:setPropertyIfPersistingState(key, value)
+        if self:isPersistingState() then
+            self:setProperty(key, value)
+        end
+    end
+
+    --[[--
     Sets the minimap tooltip lines.
 
     If no lines are provided, the tooltip will be displayed with default information.
@@ -412,10 +429,22 @@ local MinimapIcon = {}
     --[[--
     Calculates the minimap icon position based on the angle.
 
+    When updating the position, the angle position will also be persisted if this
+    instance is persisting its state. That guarantees that the icon will be in the
+    same position when the player logs in again.
+
     @treturn Views.MinimapIcon The minimap icon instance, for method chaining
     ]]
     function MinimapIcon:updatePosition(angle)
-        -- @TODO: Implement in MI5 <2024.08.14>
+        -- distance from the center of the minimap
+        local radius = 80
+        local x = math.cos(angle) * radius
+        local y = math.sin(angle) * radius
+
+        self.minimapIcon:SetPoint('CENTER', Minimap, 'CENTER', x, y)
+
+        self:setPropertyIfPersistingState('anglePosition', angle)
+
         return self
     end
 -- end of MinimapIcon
