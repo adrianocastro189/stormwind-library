@@ -366,6 +366,36 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:setPropertyIfPersistingState()
+TestCase.new()
+    :setName('setPropertyIfPersistingState')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('isPersistingState', function () return data.isPersistingState end)
+            :mockMethod('setProperty')
+
+        instance:setPropertyIfPersistingState('key', 'value')
+
+        instance:getMethod('isPersistingState'):assertCalledOnce()
+        
+        if data.isPersistingState then
+            instance:getMethod('setProperty'):assertCalledOnceWith('key', 'value')
+            return
+        end
+        instance:getMethod('setProperty'):assertNotCalled()
+    end)
+    :setScenarios({
+        ['persisting state'] = {
+            isPersistingState = true,
+        },
+        ['not persisting state'] = {
+            isPersistingState = false,
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:setCallbackOnLeftClick()
 -- @covers MinimapIcon:setCallbackOnRightClick()
 -- @covers MinimapIcon:setFirstAnglePosition()
@@ -529,7 +559,27 @@ TestCase.new()
     :setName('updatePosition')
     :setTestClass(TestMinimapIcon)
     :setExecution(function()
-        -- @TODO: Implement in MI5 <2024.08.14>
+        _G['Minimap'] = 'minimap'
+
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('setPropertyIfPersistingState')
+
+        instance.minimapIcon = Spy
+            .new({})
+            :mockMethod('SetPoint')
+
+        local result = instance:updatePosition(90)
+
+        lu.assertEquals(instance, result)
+
+        instance.minimapIcon
+            :getMethod('SetPoint')
+            -- must replicate the math.cos and math.sin calls due to imprecision when
+            -- comparing with hardcoded float values
+            :assertCalledOnceWith('CENTER', Minimap, 'CENTER', math.cos(90) * 80, math.sin(90) * 80)
+        
+        instance:getMethod('setPropertyIfPersistingState'):assertCalledOnceWith('anglePosition', 90)
     end)
     :register()
 -- end of TestMinimapIcon
