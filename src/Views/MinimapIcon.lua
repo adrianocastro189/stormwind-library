@@ -33,6 +33,8 @@ local MinimapIcon = {}
     configuration instance.
 
     By default, the minimap icon will proxy to the global configuration instance.
+
+    @local
     ]]
     function MinimapIcon:config(...)
         if self.persistStateByPlayer then
@@ -61,6 +63,8 @@ local MinimapIcon = {}
     --[[--
     Creates and sets up a minimap icon frame.
 
+    @local
+
     @treturn table The minimap icon frame created by CreateFrame
     ]]
     function MinimapIcon:createIconFrame()
@@ -72,10 +76,11 @@ local MinimapIcon = {}
         minimapIcon:SetScript('OnMouseDown', function (component, button)
             self:onMouseDown(button)
         end)
+        minimapIcon:SetScript('OnMouseUp', function (component, button)
+            self:onMouseUp(button)
+        end)
         minimapIcon:SetScript('OnUpdate', function()
-            if self.isDragging and self:shouldMove() then
-                self:onDrag()
-            end
+            self:onUpdate()
         end)
         minimapIcon:SetSize(31, 31)
         return minimapIcon
@@ -83,6 +88,8 @@ local MinimapIcon = {}
 
     --[[--
     Creates an icon overlay for the minimap icon.
+
+    @local
 
     @treturn table The minimap icon overlay texture created by CreateTexture
     ]]
@@ -97,6 +104,8 @@ local MinimapIcon = {}
     --[[--
     Creates and sets up the minimap icon texture, which is equivalent to saying that
     it creates the minimap icon itself.
+
+    @local
 
     @treturn table The minimap icon texture created by CreateTexture
     ]]
@@ -155,6 +164,8 @@ local MinimapIcon = {}
     --[[
     Determines whether the cursor is over the minimap icon.
 
+    @local
+
     @treturn boolean Whether the cursor is over the minimap icon
     ]]
     function MinimapIcon:isCursorOver()
@@ -180,6 +191,8 @@ local MinimapIcon = {}
     A minimap icon is considered to be persisting its state if the library is
     created with a configuration set.
 
+    @local
+
     @treturn boolean true if the minimap icon is persisting its state, false otherwise
     ]]
     function MinimapIcon:isPersistingState()
@@ -187,7 +200,22 @@ local MinimapIcon = {}
     end
 
     --[[--
+    May invoke the minimap icon callbacks if the cursor is over the icon.
+    ]]
+    function MinimapIcon:maybeInvokeCallbacks(button)
+        if self:isCursorOver() then
+            if button == 'LeftButton' and self.callbackOnLeftClick then
+                self.callbackOnLeftClick()
+            elseif button == 'RightButton' and self.callbackOnRightClick then
+                self.callbackOnRightClick()
+            end
+        end
+    end
+
+    --[[--
     Executes when the minimap icon is being dragged for repositioning.
+
+    @local
 
     @NOTE: It appears that math.atan2() is deprecated in environments with Lua 5.4,
            however, it's kept here considering that World of Warcraft doesn't use
@@ -209,6 +237,8 @@ local MinimapIcon = {}
 
     --[[--
     Executes when the mouse enters the minimap icon.
+
+    @local
     ]]
     function MinimapIcon:onEnter()
         -- @TODO: Implement in MI10 <2024.08.14>
@@ -216,6 +246,8 @@ local MinimapIcon = {}
 
     --[[--
     Executes when the mouse leaves the minimap icon.
+
+    @local
     ]]
     function MinimapIcon:onLeave()
         -- @TODO: Implement in MI11 <2024.08.14>
@@ -223,6 +255,8 @@ local MinimapIcon = {}
 
     --[[--
     Executes when the mouse is pressed down on the minimap icon.
+
+    @local
     ]]
     function MinimapIcon:onMouseDown(button)
         if button == 'LeftButton' and self:shouldMove() then
@@ -233,9 +267,27 @@ local MinimapIcon = {}
 
     --[[--
     Executes when the mouse is released on the minimap icon.
+
+    @local
     ]]
-    function MinimapIcon:onMouseUp()
-        -- @TODO: Implement in MI9 <2024.08.14>
+    function MinimapIcon:onMouseUp(button)
+        if self.isDragging then
+            self.isDragging = false
+            return
+        end
+
+        self:maybeInvokeCallbacks(button)
+    end
+
+    --[[--
+    Executes when the minimap icon frame is updated.
+
+    @local
+    ]]
+    function MinimapIcon:onUpdate()
+        if self.isDragging and self:shouldMove() then
+            self:onDrag()
+        end
     end
 
     --[[--
@@ -451,6 +503,8 @@ local MinimapIcon = {}
     --[[--
     Determines whether the minimap icon should move instead of being clicked.
 
+    @local
+
     @treturn boolean Whether the minimap icon should move
     ]]
     function MinimapIcon:shouldMove()
@@ -470,6 +524,8 @@ local MinimapIcon = {}
     When updating the position, the angle position will also be persisted if this
     instance is persisting its state. That guarantees that the icon will be in the
     same position when the player logs in again.
+
+    @local
 
     @treturn Views.MinimapIcon The minimap icon instance, for method chaining
     ]]
