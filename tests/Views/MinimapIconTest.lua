@@ -296,7 +296,24 @@ TestCase.new()
     :setName('onDrag')
     :setTestClass(TestMinimapIcon)
     :setExecution(function()
-        -- @TODO: Implement in MI7 <2024.08.14>
+        _G['GetCursorPosition'] = function () return 10, 10 end
+        _G['Minimap'] = Spy
+            .new({})
+            :mockMethod('GetLeft', function () return 5 end)
+            :mockMethod('GetBottom', function () return 5 end)
+        _G['UIParent'] = Spy
+            .new({})
+            :mockMethod('GetScale', function () return 1.0 end)
+        
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('updatePosition')
+        
+        instance:onDrag()
+
+        -- must replicate the math.atan2 call due to imprecision when comparing with
+        -- hardcoded float values
+        instance:getMethod('updatePosition'):assertCalledOnceWith(math.atan2(-65, -65))
     end)
     :register()
 
