@@ -180,9 +180,23 @@ local MinimapIcon = {}
 
     --[[--
     Executes when the minimap icon is being dragged for repositioning.
+
+    @NOTE: It appears that math.atan2() is deprecated in environments with Lua 5.4,
+           however, it's kept here considering that World of Warcraft doesn't use
+           the latest Lua version. However, it's important to keep an eye on this
+           method in the future.
     ]]
     function MinimapIcon:onDrag()
-        -- @TODO: Implement in MI7 <2024.08.14>
+        local xpos, ypos = GetCursorPosition()
+        local xmin, ymin = Minimap:GetLeft(), Minimap:GetBottom()
+        local scale = UIParent:GetScale()
+
+        xpos = xpos / scale - xmin - 70
+        ypos = ypos / scale - ymin - 70
+
+        local angle = math.atan2(ypos, xpos)
+
+        self:updatePosition(angle)
     end
 
     --[[--
