@@ -117,7 +117,7 @@ TestCase.new()
         lu.assertEquals(frameSpy, result)
 
         frameSpy:getMethod('RegisterForClicks'):assertCalledOnceWith('AnyUp')
-        frameSpy:getMethod('SetScript'):assertCalledNTimes(4)
+        frameSpy:getMethod('SetScript'):assertCalledNTimes(5)
         frameSpy:getMethod('SetFrameLevel'):assertCalledOnceWith(8)
         frameSpy:getMethod('SetFrameStrata'):assertCalledOnceWith('MEDIUM')
         frameSpy:getMethod('SetHighlightTexture'):assertCalledOnceWith('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
@@ -441,7 +441,15 @@ TestCase.new()
     :setName('onLeave')
     :setTestClass(TestMinimapIcon)
     :setExecution(function()
-        -- @TODO: Implement in MI11 <2024.08.14>
+        local instance = __:new('MinimapIcon')
+
+        _G['GameTooltip'] = Spy
+            .new()
+            :mockMethod('Hide')
+
+        instance:onLeave()
+        
+        GameTooltip:getMethod('Hide'):assertCalledOnce()
     end)
     :register()
 

@@ -74,6 +74,7 @@ local MinimapIcon = {}
         minimapIcon:SetFrameStrata('MEDIUM')
         minimapIcon:SetHighlightTexture('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
         minimapIcon:SetScript('OnEnter', function() self:onEnter() end)
+        minimapIcon:SetScript('OnLeave', function() self:onLeave() end)
         minimapIcon:SetScript('OnMouseDown', function (component, button) self:onMouseDown(button) end)
         minimapIcon:SetScript('OnMouseUp', function (component, button) self:onMouseUp(button) end)
         minimapIcon:SetScript('OnUpdate', function() self:onUpdate() end)
@@ -264,7 +265,7 @@ local MinimapIcon = {}
     @local
     ]]
     function MinimapIcon:onLeave()
-        -- @TODO: Implement in MI11 <2024.08.14>
+        GameTooltip:Hide()
     end
 
     --[[--
