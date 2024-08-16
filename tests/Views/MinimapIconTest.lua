@@ -117,7 +117,7 @@ TestCase.new()
         lu.assertEquals(frameSpy, result)
 
         frameSpy:getMethod('RegisterForClicks'):assertCalledOnceWith('AnyUp')
-        frameSpy:getMethod('SetScript'):assertCalledNTimes(3)
+        frameSpy:getMethod('SetScript'):assertCalledNTimes(4)
         frameSpy:getMethod('SetFrameLevel'):assertCalledOnceWith(8)
         frameSpy:getMethod('SetFrameStrata'):assertCalledOnceWith('MEDIUM')
         frameSpy:getMethod('SetHighlightTexture'):assertCalledOnceWith('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
@@ -206,6 +206,32 @@ TestCase.new()
 
         lu.assertEquals('minimapIcon.default.test-key', instance:getPropertyKey('test-key'))
     end)
+    :register()
+
+-- @covers MinimapIcon:getTooltipLines()
+TestCase.new()
+    :setName('getTooltipLines')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = __:new('MinimapIcon')
+
+        instance.tooltipLines = data.tooltipLines
+
+        lu.assertEquals(data.expected, instance:getTooltipLines())
+    end)
+    :setScenarios({
+        ['tooltip lines exist'] = {
+            tooltipLines = {'line-1', 'line-2'},
+            expected = {'line-1', 'line-2'},
+        },
+        ['tooltip lines do not exist'] = {
+            tooltipLines = nil,
+            expected = {
+                'TestSuite',
+                'Hold SHIFT and drag to move this icon',
+            },
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:hide()
@@ -370,9 +396,44 @@ TestCase.new()
 TestCase.new()
     :setName('onEnter')
     :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI10 <2024.08.14>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('getTooltipLines', function () return {
+                'line-1',
+                'line-2',
+            } end)
+        
+        instance.isDragging = data.isDragging
+        instance.minimapIcon = 'minimapIcon'
+        
+        _G['GameTooltip'] = Spy.new()
+            :mockMethod('SetOwner')
+            :mockMethod('AddLine')
+            :mockMethod('Show')
+
+        instance:onEnter()
+
+        if data.shouldShowTooltip then
+            GameTooltip:getMethod('SetOwner'):assertCalledOnceWith(instance.minimapIcon, 'ANCHOR_RIGHT')
+            GameTooltip:getMethod('AddLine'):assertCalledNthTimeWith(1, 'line-1')
+            GameTooltip:getMethod('AddLine'):assertCalledNthTimeWith(2, 'line-2')
+            GameTooltip:getMethod('Show'):assertCalledOnce()
+            return
+        end
+
+        GameTooltip:getMethod('SetOwner'):assertNotCalled()            
     end)
+    :setScenarios({
+        ['is dragging'] = {
+            isDragging = true,
+            shouldShowTooltip = false,
+        },
+        ['is not dragging'] = {
+            isDragging = false,
+            shouldShowTooltip = true,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:onLeave()

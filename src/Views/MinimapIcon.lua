@@ -73,15 +73,10 @@ local MinimapIcon = {}
         minimapIcon:SetFrameLevel(8)
         minimapIcon:SetFrameStrata('MEDIUM')
         minimapIcon:SetHighlightTexture('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
-        minimapIcon:SetScript('OnMouseDown', function (component, button)
-            self:onMouseDown(button)
-        end)
-        minimapIcon:SetScript('OnMouseUp', function (component, button)
-            self:onMouseUp(button)
-        end)
-        minimapIcon:SetScript('OnUpdate', function()
-            self:onUpdate()
-        end)
+        minimapIcon:SetScript('OnEnter', function() self:onEnter() end)
+        minimapIcon:SetScript('OnMouseDown', function (component, button) self:onMouseDown(button) end)
+        minimapIcon:SetScript('OnMouseUp', function (component, button) self:onMouseUp(button) end)
+        minimapIcon:SetScript('OnUpdate', function() self:onUpdate() end)
         minimapIcon:SetSize(31, 31)
         return minimapIcon
     end
@@ -152,6 +147,17 @@ local MinimapIcon = {}
     ]]
     function MinimapIcon:getPropertyKey(key)
         return 'minimapIcon.' .. self.id .. '.' .. key
+    end
+
+    --[[--
+    Gets the minimap icon tooltip lines set on creation or by the developer or a
+    list of default lines if none is provided.
+    ]]
+    function MinimapIcon:getTooltipLines()
+        return self.tooltipLines or {
+            self.__:getVersionedNameLabel(),
+            'Hold SHIFT and drag to move this icon',
+        }
     end
 
     --[[--
@@ -241,7 +247,15 @@ local MinimapIcon = {}
     @local
     ]]
     function MinimapIcon:onEnter()
-        -- @TODO: Implement in MI10 <2024.08.14>
+        if not self.isDragging then
+            GameTooltip:SetOwner(self.minimapIcon, 'ANCHOR_RIGHT')
+
+            self.__.arr:each(self:getTooltipLines(), function(line)
+                GameTooltip:AddLine(line)
+            end)
+
+            GameTooltip:Show()
+        end
     end
 
     --[[--
