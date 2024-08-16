@@ -117,7 +117,7 @@ TestCase.new()
         lu.assertEquals(frameSpy, result)
 
         frameSpy:getMethod('RegisterForClicks'):assertCalledOnceWith('AnyUp')
-        frameSpy:getMethod('SetScript'):assertCalledNTimes(2)
+        frameSpy:getMethod('SetScript'):assertCalledNTimes(3)
         frameSpy:getMethod('SetFrameLevel'):assertCalledOnceWith(8)
         frameSpy:getMethod('SetFrameStrata'):assertCalledOnceWith('MEDIUM')
         frameSpy:getMethod('SetHighlightTexture'):assertCalledOnceWith('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
@@ -293,6 +293,53 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:maybeInvokeCallbacks()
+TestCase.new()
+    :setName('maybeInvokeCallbacks')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('isCursorOver', function () return data.isCursorOver end)
+        
+        instance.callbackOnLeftClickInvoked = false
+        instance.callbackOnRightClickInvoked = false
+        instance.callbackOnLeftClick = function () instance.callbackOnLeftClickInvoked = true end
+        instance.callbackOnRightClick = function () instance.callbackOnRightClickInvoked = true end
+
+        instance:maybeInvokeCallbacks(data.button)
+
+        lu.assertEquals(data.expectedCallbackOnLeftClickInvoked, instance.callbackOnLeftClickInvoked)
+        lu.assertEquals(data.expectedCallbackOnRightClickInvoked, instance.callbackOnRightClickInvoked)
+    end)
+    :setScenarios({
+        ['left button, cursor is not over'] = {
+            button = 'LeftButton',
+            isCursorOver = false,
+            expectedCallbackOnLeftClickInvoked = false,
+            expectedCallbackOnRightClickInvoked = false,
+        },
+        ['right button, cursor is not over'] = {
+            button = 'RightButton',
+            isCursorOver = false,
+            expectedCallbackOnLeftClickInvoked = false,
+            expectedCallbackOnRightClickInvoked = false,
+        },
+        ['left button, cursor is over'] = {
+            button = 'LeftButton',
+            isCursorOver = true,
+            expectedCallbackOnLeftClickInvoked = true,
+            expectedCallbackOnRightClickInvoked = false,
+        },
+        ['right button, cursor is over'] = {
+            button = 'RightButton',
+            isCursorOver = true,
+            expectedCallbackOnLeftClickInvoked = false,
+            expectedCallbackOnRightClickInvoked = true,
+        },
+    })
+    :register()
+
 -- @covers MinimapIcon:onDrag()
 TestCase.new()
     :setName('onDrag')
@@ -378,9 +425,78 @@ TestCase.new()
 TestCase.new()
     :setName('onMouseUp')
     :setTestClass(TestMinimapIcon)
-    :setExecution(function()
-        -- @TODO: Implement in MI9 <2024.08.14>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('maybeInvokeCallbacks')
+        
+        instance.isDragging = data.isDragging
+
+        instance:onMouseUp(data.button)
+
+        lu.assertEquals(data.expectedIsDragging, instance.isDragging)
+
+        if data.shouldInvokeCallbacks then
+            instance:getMethod('maybeInvokeCallbacks'):assertCalledOnceWith(data.button)
+            return
+        end
+
+        instance:getMethod('maybeInvokeCallbacks'):assertNotCalled()
     end)
+    :setScenarios({
+        ['is not dragging'] = {
+            button = 'LeftButton',
+            isDragging = false,
+            expectedIsDragging = false,
+            shouldInvokeCallbacks = true,
+        },
+        ['is dragging'] = {
+            button = 'LeftButton',
+            isDragging = true,
+            expectedIsDragging = false,
+            shouldInvokeCallbacks = false,
+        },
+    })
+    :register()
+
+-- @covers MinimapIcon:onUpdate()
+TestCase.new()
+    :setName('onUpdate')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('MinimapIcon'))
+            :mockMethod('shouldMove', function () return data.shouldMove end)
+            :mockMethod('onDrag')
+
+        instance.isDragging = data.isDragging
+
+        instance:onUpdate()
+
+        instance:getMethod('onDrag'):assertCalledOrNot(data.expectedOnDragCalled)
+    end)
+    :setScenarios({
+        ['is dragging only'] = {
+            isDragging = true,
+            shouldMove = false,
+            expectedOnDragCalled = false,
+        },
+        ['should move only'] = {
+            isDragging = false,
+            shouldMove = true,
+            expectedOnDragCalled = false,
+        },
+        ['is dragging and should move'] = {
+            isDragging = true,
+            shouldMove = true,
+            expectedOnDragCalled = true,
+        },
+        ['neither is dragging nor should move'] = {
+            isDragging = false,
+            shouldMove = false,
+            expectedOnDragCalled = false,
+        },
+    })
     :register()
 
 -- @covers MinimapIcon:setAnglePositionOnCreation()
