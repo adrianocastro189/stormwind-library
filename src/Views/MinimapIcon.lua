@@ -153,6 +153,8 @@ local MinimapIcon = {}
     --[[--
     Gets the minimap icon tooltip lines set on creation or by the developer or a
     list of default lines if none is provided.
+
+    @local
     ]]
     function MinimapIcon:getTooltipLines()
         return self.tooltipLines or {
@@ -208,6 +210,8 @@ local MinimapIcon = {}
 
     --[[--
     May invoke the minimap icon callbacks if the cursor is over the icon.
+
+    @local
     ]]
     function MinimapIcon:maybeInvokeCallbacks(button)
         if self:isCursorOver() then
