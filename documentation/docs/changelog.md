@@ -7,6 +7,7 @@ sidebar_position: 2
 ## yyyy.mm.dd - version 1.12.0
 
 * Add the [Interval:startImmediately()](resources/support/interval#usage) method
+* Add the [MinimapIcon](resources/views/minimap-icon) class to easily minimap icons
 * Add the [Window:toggleVisibility()](resources/views/window#showing-and-hiding-the-window) method
 * Fix a couple of doc tag namespaces in the Facades package
 * Introduce the concept of [spies](testing/test-classes#spies) in the testing suite, 
