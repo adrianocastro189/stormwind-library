@@ -387,9 +387,7 @@ TestCase.new()
         
         instance:onDrag()
 
-        -- must replicate the math.atan2 call due to imprecision when comparing with
-        -- hardcoded float values
-        instance:getMethod('updatePosition'):assertCalledOnceWith(math.atan2(-65, -65))
+        instance:getMethod('updatePosition'):assertCalledOnceWith(-135.0)
     end)
     :register()
 
@@ -836,13 +834,15 @@ TestCase.new()
 
         local result = instance:updatePosition(90)
 
+        local angleInRadians = math.rad(90)
+
         lu.assertEquals(instance, result)
 
         instance.minimapIcon
             :getMethod('SetPoint')
             -- must replicate the math.cos and math.sin calls due to imprecision when
             -- comparing with hardcoded float values
-            :assertCalledOnceWith('CENTER', Minimap, 'CENTER', math.cos(90) * 80, math.sin(90) * 80)
+            :assertCalledOnceWith('CENTER', Minimap, 'CENTER', math.cos(angleInRadians) * 80, math.sin(angleInRadians) * 80)
         
         instance:getMethod('setPropertyIfPersistingState'):assertCalledOnceWith('anglePosition', 90)
     end)
