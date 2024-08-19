@@ -49,7 +49,7 @@ local MinimapIcon = {}
     ]]
     function MinimapIcon:create()
         if self.minimapIcon then
-            return
+            return self
         end
 
         self.minimapIcon = self:createIconFrame()
@@ -58,6 +58,8 @@ local MinimapIcon = {}
         self:createIconOverlay()
         self:setAnglePositionOnCreation()
         self:setVisibilityOnCreation()
+
+        return self
     end
 
     --[[--

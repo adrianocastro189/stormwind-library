@@ -70,9 +70,10 @@ TestCase.new()
 
         instance.minimapIcon = data.minimapIcon
 
-        instance:create()
+        local result = instance:create()
 
         lu.assertEquals(data.expectedMinimapIcon, instance.minimapIcon)
+        lu.assertEquals(instance, result)
 
         instance:getMethod('createIconFrame'):assertCalledOrNot(data.localMethodsCalled)
         instance:getMethod('createIconTexture'):assertCalledOrNot(data.localMethodsCalled)
