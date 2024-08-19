@@ -49,7 +49,7 @@ local MinimapIcon = {}
     ]]
     function MinimapIcon:create()
         if self.minimapIcon then
-            return
+            return self
         end
 
         self.minimapIcon = self:createIconFrame()
@@ -58,6 +58,8 @@ local MinimapIcon = {}
         self:createIconOverlay()
         self:setAnglePositionOnCreation()
         self:setVisibilityOnCreation()
+
+        return self
     end
 
     --[[--
@@ -243,7 +245,7 @@ local MinimapIcon = {}
 
         local angle = math.atan2(ypos, xpos)
 
-        self:updatePosition(angle)
+        self:updatePosition(math.deg(angle))
     end
 
     --[[--
@@ -366,18 +368,23 @@ local MinimapIcon = {}
     end
 
     --[[--
-    Sets the minimap icon first angle position.
+    Sets the minimap icon first angle position in degrees.
 
     The first angle position is the position that the minimap icon will have when
     it's first created. If the player moves the icon and this instance is persisting
     its state, this property will be ignored.
+
+    It's important to mention that the angle represented by 0.0 is the right side
+    (or 3 o'clock, east) of the minimap, and the angle increases counterclockwise,
+    which means that 90.0 is the top side (or 12 o'clock, north), 180.0 is the left
+    side (or 9 o'clock, west), and 270.0 is the bottom side (or 6 o'clock, south).
 
     @tparam number value The first angle position in degrees
 
     @treturn Views.MinimapIcon The minimap icon instance, for method chaining
 
     @usage
-        icon:setFirstAnglePosition(85.5)
+        icon:setFirstAnglePosition(225.0)
     ]]
     function MinimapIcon:setFirstAnglePosition(value)
         self.firstAnglePosition = value
@@ -538,7 +545,7 @@ local MinimapIcon = {}
     end
 
     --[[--
-    Calculates the minimap icon position based on the angle.
+    Calculates the minimap icon position based on the angle in degrees.
 
     When updating the position, the angle position will also be persisted if this
     instance is persisting its state. That guarantees that the icon will be in the
@@ -546,17 +553,21 @@ local MinimapIcon = {}
 
     @local
 
+    @tparam number angleInDegrees The angle in degrees
+
     @treturn Views.MinimapIcon The minimap icon instance, for method chaining
     ]]
-    function MinimapIcon:updatePosition(angle)
+    function MinimapIcon:updatePosition(angleInDegrees)
+        local angleInRadians = math.rad(angleInDegrees)
+
         -- distance from the center of the minimap
         local radius = 80
-        local x = math.cos(angle) * radius
-        local y = math.sin(angle) * radius
+        local x = math.cos(angleInRadians) * radius
+        local y = math.sin(angleInRadians) * radius
 
         self.minimapIcon:SetPoint('CENTER', Minimap, 'CENTER', x, y)
 
-        self:setPropertyIfPersistingState('anglePosition', angle)
+        self:setPropertyIfPersistingState('anglePosition', angleInDegrees)
 
         return self
     end
