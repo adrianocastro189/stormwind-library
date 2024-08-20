@@ -1,0 +1,1045 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+<!-- Google tag (gtag.js) --><script async src='https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71'></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GDGPH5FK71');</script></head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.Events.html">Facades.Events</a></li>
+  <li><a href="../classes/Facades.PetJournal.html">Facades.PetJournal</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Facades.Target.html">Facades.Target</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><a href="../classes/Models.Container.html">Models.Container</a></li>
+  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Interval.html">Support.Interval</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><strong>Views.MinimapIcon</strong></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+  <li><a href="../classes/Views.Windows.WindowPage.html">Views.Windows.WindowPage</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Views.MinimapIcon</code></h1>
+<p>MinimapIcon is responsible for handling all visual components of this kind of icon
+that's one of the most important parts of any addon.</p>
+<p>
+<p>It aims to provide a simple way to create and manage the icon that will be displayed
+on the minimap, allowing players to interact with it and providing callbacks for
+clicks.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.config">views.minimapicon.config (...)</a></td>
+	<td class="summary">Decides whether this instance should proxy to the player's or the global
+    configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.createIconFrame">views.minimapicon.createIconFrame ()</a></td>
+	<td class="summary">Creates and sets up a minimap icon frame.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.createIconOverlay">views.minimapicon.createIconOverlay ()</a></td>
+	<td class="summary">Creates an icon overlay for the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.createIconTexture">views.minimapicon.createIconTexture ()</a></td>
+	<td class="summary">Creates and sets up the minimap icon texture, which is equivalent to saying that
+    it creates the minimap icon itself.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.getMinimapRadius">views.minimapicon.getMinimapRadius ()</a></td>
+	<td class="summary">Gets the minimap icon radius based on the minimap width.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.getProperty">views.minimapicon.getProperty (key)</a></td>
+	<td class="summary">Gets a minimap icon property using the library configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.getPropertyKey">views.minimapicon.getPropertyKey (key)</a></td>
+	<td class="summary">Gets the property key used by the minimap icon instance to persist its state
+    using the library configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.getTooltipLines">views.minimapicon.getTooltipLines ()</a></td>
+	<td class="summary">Gets the minimap icon tooltip lines set on creation or by the developer or a
+    list of default lines if none is provided.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.hide">views.minimapicon.hide ()</a></td>
+	<td class="summary">Hides the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.isPersistingState">views.minimapicon.isPersistingState ()</a></td>
+	<td class="summary">Determines if the minimap icon is persisting its state.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.maybeInvokeCallbacks">views.minimapicon.maybeInvokeCallbacks (button)</a></td>
+	<td class="summary">May invoke the minimap icon callbacks if the cursor is over the icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.onDrag">views.minimapicon.onDrag ()</a></td>
+	<td class="summary">Executes when the minimap icon is being dragged for repositioning.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.onEnter">views.minimapicon.onEnter ()</a></td>
+	<td class="summary">Executes when the mouse enters the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.onLeave">views.minimapicon.onLeave ()</a></td>
+	<td class="summary">Executes when the mouse leaves the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.onMouseDown">views.minimapicon.onMouseDown (button)</a></td>
+	<td class="summary">Executes when the mouse is pressed down on the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.onMouseUp">views.minimapicon.onMouseUp (button)</a></td>
+	<td class="summary">Executes when the mouse is released on the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.onUpdate">views.minimapicon.onUpdate ()</a></td>
+	<td class="summary">Executes when the minimap icon frame is updated.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.setAnglePositionOnCreation">views.minimapicon.setAnglePositionOnCreation ()</a></td>
+	<td class="summary">Sets the minimap icon angle position on creation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.setProperty">views.minimapicon.setProperty (key, any)</a></td>
+	<td class="summary">Sets a minimap icon property using the library configuration instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.setPropertyIfPersistingState">views.minimapicon.setPropertyIfPersistingState (key, any)</a></td>
+	<td class="summary">Sets a minimap icon state property if it's persisting its state.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.setVisibilityOnCreation">views.minimapicon.setVisibilityOnCreation ()</a></td>
+	<td class="summary">Sets the minimap icon visibility on creation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.shouldMove">views.minimapicon.shouldMove ()</a></td>
+	<td class="summary">Determines whether the minimap icon should move instead of being clicked.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.show">views.minimapicon.show ()</a></td>
+	<td class="summary">Shows the minimap icon.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon.updatePosition">views.minimapicon.updatePosition (angleInDegrees)</a></td>
+	<td class="summary">Calculates the minimap icon position based on the angle in degrees.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:create">views.minimapicon:create ()</a></td>
+	<td class="summary">Creates the minimap icon visual components.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setCallbackOnLeftClick">views.minimapicon:setCallbackOnLeftClick (value)</a></td>
+	<td class="summary">Sets the minimap icon callback for left clicks.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setCallbackOnRightClick">views.minimapicon:setCallbackOnRightClick (value)</a></td>
+	<td class="summary">Sets the minimap icon callback for right clicks.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setFirstAnglePosition">views.minimapicon:setFirstAnglePosition (value)</a></td>
+	<td class="summary">Sets the minimap icon first angle position in degrees.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setIcon">views.minimapicon:setIcon (value)</a></td>
+	<td class="summary">Sets the minimap icon image, which will be passed to the icon texture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setPersistStateByPlayer">views.minimapicon:setPersistStateByPlayer (value)</a></td>
+	<td class="summary">Sets the minimap icon instance to have its stated persisted in the player's
+    configuration instead of the global one.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setTooltipLines">views.minimapicon:setTooltipLines (value)</a></td>
+	<td class="summary">Sets the minimap tooltip lines.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:setVisibility">views.minimapicon:setVisibility (visible)</a></td>
+	<td class="summary">Sets the minimap icon visibility.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#views.minimapicon:__construct">views.minimapicon:__construct (id)</a></td>
+	<td class="summary">MinimapIcon constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "views.minimapicon.config"></a>
+    <strong>views.minimapicon.config (...)</strong>
+    </dt>
+    <dd>
+    Decides whether this instance should proxy to the player's or the global
+    configuration instance.
+<p>    By default, the minimap icon will proxy to the global configuration instance.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.createIconFrame"></a>
+    <strong>views.minimapicon.createIconFrame ()</strong>
+    </dt>
+    <dd>
+    Creates and sets up a minimap icon frame.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The minimap icon frame created by CreateFrame
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.createIconOverlay"></a>
+    <strong>views.minimapicon.createIconOverlay ()</strong>
+    </dt>
+    <dd>
+    Creates an icon overlay for the minimap icon.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The minimap icon overlay texture created by CreateTexture
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.createIconTexture"></a>
+    <strong>views.minimapicon.createIconTexture ()</strong>
+    </dt>
+    <dd>
+    Creates and sets up the minimap icon texture, which is equivalent to saying that
+    it creates the minimap icon itself.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
+        The minimap icon texture created by CreateTexture
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.getMinimapRadius"></a>
+    <strong>views.minimapicon.getMinimapRadius ()</strong>
+    </dt>
+    <dd>
+    Gets the minimap icon radius based on the minimap width.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The minimap icon radius
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.getProperty"></a>
+    <strong>views.minimapicon.getProperty (key)</strong>
+    </dt>
+    <dd>
+    Gets a minimap icon property using the library configuration instance.
+<p>    This method is used internally by the library to persist state. It's not meant
+    to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any</span></span>
+        The property value
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.getPropertyKey"></a>
+    <strong>views.minimapicon.getPropertyKey (key)</strong>
+    </dt>
+    <dd>
+    Gets the property key used by the minimap icon instance to persist its state
+    using the library configuration instance.
+<p>    A property key is a result of the concatenation of a static prefix, this
+    instance's id, and the key parameter.
+<p>    This method is used internally by the library to persist state. It's not meant
+    to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The property key used by the minimap icon instance to persist
+                    its state using the library configuration instance
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.getTooltipLines"></a>
+    <strong>views.minimapicon.getTooltipLines ()</strong>
+    </dt>
+    <dd>
+    Gets the minimap icon tooltip lines set on creation or by the developer or a
+    list of default lines if none is provided.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.hide"></a>
+    <strong>views.minimapicon.hide ()</strong>
+    </dt>
+    <dd>
+    Hides the minimap icon.
+<p>    This is just a facade method to call Hide() on the minimap icon frame. However,
+    it shouldn't be used by addons as an internal method. Use setVisibility(false)
+    instead.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Views.MinimapIcon.html#views.minimapicon:setVisibility">Views.MinimapIcon.setVisibility</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.isPersistingState"></a>
+    <strong>views.minimapicon.isPersistingState ()</strong>
+    </dt>
+    <dd>
+    Determines if the minimap icon is persisting its state.
+<p>    A minimap icon is considered to be persisting its state if the library is
+    created with a configuration set.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if the minimap icon is persisting its state, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.maybeInvokeCallbacks"></a>
+    <strong>views.minimapicon.maybeInvokeCallbacks (button)</strong>
+    </dt>
+    <dd>
+    May invoke the minimap icon callbacks if the cursor is over the icon.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">button</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.onDrag"></a>
+    <strong>views.minimapicon.onDrag ()</strong>
+    </dt>
+    <dd>
+    Executes when the minimap icon is being dragged for repositioning.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.onEnter"></a>
+    <strong>views.minimapicon.onEnter ()</strong>
+    </dt>
+    <dd>
+    Executes when the mouse enters the minimap icon.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.onLeave"></a>
+    <strong>views.minimapicon.onLeave ()</strong>
+    </dt>
+    <dd>
+    Executes when the mouse leaves the minimap icon.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.onMouseDown"></a>
+    <strong>views.minimapicon.onMouseDown (button)</strong>
+    </dt>
+    <dd>
+    Executes when the mouse is pressed down on the minimap icon.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">button</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.onMouseUp"></a>
+    <strong>views.minimapicon.onMouseUp (button)</strong>
+    </dt>
+    <dd>
+    Executes when the mouse is released on the minimap icon.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">button</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.onUpdate"></a>
+    <strong>views.minimapicon.onUpdate ()</strong>
+    </dt>
+    <dd>
+    Executes when the minimap icon frame is updated.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.setAnglePositionOnCreation"></a>
+    <strong>views.minimapicon.setAnglePositionOnCreation ()</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon angle position on creation.
+<p>    This method is called when the minimap icon is created, and it sets the angle
+    position to the first position set by the developer or the persisted
+    position if it's found.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.setProperty"></a>
+    <strong>views.minimapicon.setProperty (key, any)</strong>
+    </dt>
+    <dd>
+    Sets a minimap icon property using the library configuration instance.
+<p>    This method is used internally by the library to persist  state. It's not meant
+    to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+        <li><span class="parameter">any</span>
+         value The property value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.setPropertyIfPersistingState"></a>
+    <strong>views.minimapicon.setPropertyIfPersistingState (key, any)</strong>
+    </dt>
+    <dd>
+    Sets a minimap icon state property if it's persisting its state.
+<p>    This method is used internally by the library to persist  state. It's not meant
+    to be called by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The property key
+        </li>
+        <li><span class="parameter">any</span>
+         value The property value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.setVisibilityOnCreation"></a>
+    <strong>views.minimapicon.setVisibilityOnCreation ()</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon visibility on creation.
+<p>    This method is called when the minimap icon is created, and it sets the
+    visibility to true (default) or the persisted state if it's found.
+<p>    This method shouldn't be called directly. It's considered a complement
+    to the create() method.
+
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.shouldMove"></a>
+    <strong>views.minimapicon.shouldMove ()</strong>
+    </dt>
+    <dd>
+    Determines whether the minimap icon should move instead of being clicked.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the minimap icon should move
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.show"></a>
+    <strong>views.minimapicon.show ()</strong>
+    </dt>
+    <dd>
+    Shows the minimap icon.
+<p>    This is just a facade method to call Show() on the minimap icon frame. However,
+    it shouldn't be used by addons as an internal method. Use setVisibility(true)
+    instead.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Views.MinimapIcon.html#views.minimapicon:setVisibility">Views.MinimapIcon.setVisibility</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon.updatePosition"></a>
+    <strong>views.minimapicon.updatePosition (angleInDegrees)</strong>
+    </dt>
+    <dd>
+    Calculates the minimap icon position based on the angle in degrees.
+<p>    When updating the position, the angle position will also be persisted if this
+    instance is persisting its state. That guarantees that the icon will be in the
+    same position when the player logs in again.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">angleInDegrees</span>
+            <span class="types"><span class="type">number</span></span>
+         The angle in degrees
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "views.minimapicon:create"></a>
+    <strong>views.minimapicon:create ()</strong>
+    </dt>
+    <dd>
+    Creates the minimap icon visual components.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setCallbackOnLeftClick"></a>
+    <strong>views.minimapicon:setCallbackOnLeftClick (value)</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon callback for left clicks.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">function</span></span>
+         The callback function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">icon:<span class="function-name">setCallbackOnLeftClick</span>(<span class="keyword">function</span>()
+    <span class="global">print</span>(<span class="string">'Left click!'</span>)
+<span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setCallbackOnRightClick"></a>
+    <strong>views.minimapicon:setCallbackOnRightClick (value)</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon callback for right clicks.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">function</span></span>
+         The callback function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">icon:<span class="function-name">setCallbackOnRightClick</span>(<span class="keyword">function</span>()
+    <span class="global">print</span>(<span class="string">'Right click!'</span>)
+<span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setFirstAnglePosition"></a>
+    <strong>views.minimapicon:setFirstAnglePosition (value)</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon first angle position in degrees.
+<p>    The first angle position is the position that the minimap icon will have when
+    it's first created. If the player moves the icon and this instance is persisting
+    its state, this property will be ignored.
+<p>    It's important to mention that the angle represented by 0.0 is the right side
+    (or 3 o'clock, east) of the minimap, and the angle increases counterclockwise,
+    which means that 90.0 is the top side (or 12 o'clock, north), 180.0 is the left
+    side (or 9 o'clock, west), and 270.0 is the bottom side (or 6 o'clock, south).
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span></span>
+         The first angle position in degrees
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">icon:<span class="function-name">setFirstAnglePosition</span>(<span class="number">225.0</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setIcon"></a>
+    <strong>views.minimapicon:setIcon (value)</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon image, which will be passed to the icon texture.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The image path
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">icon:<span class="function-name">setImage</span>(<span class="string">'Interface\\Icons\\INV_Misc_QuestionMark'</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setPersistStateByPlayer"></a>
+    <strong>views.minimapicon:setPersistStateByPlayer (value)</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon instance to have its stated persisted in the player's
+    configuration instead of the global one.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Whether the minimap icon should persist its state by player
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">icon:<span class="function-name">setPersistStateByPlayer</span>(<span class="keyword">true</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setTooltipLines"></a>
+    <strong>views.minimapicon:setTooltipLines (value)</strong>
+    </dt>
+    <dd>
+    Sets the minimap tooltip lines.
+<p>    If no lines are provided, the tooltip will be displayed with default information.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string[]</a></span>
+         The tooltip lines
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">icon:<span class="function-name">setTooltipLines</span>({
+    <span class="string">'Click to open settings'</span>,
+    <span class="string">'Right click to show a panel'</span>,
+    <span class="string">'Drag this icon to move'</span>,
+})</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "views.minimapicon:setVisibility"></a>
+    <strong>views.minimapicon:setVisibility (visible)</strong>
+    </dt>
+    <dd>
+    Sets the minimap icon visibility.
+<p>    This is the method to be called by addons to show or hide the minimap icon,
+    instead of the local show() and hide(), considering that it not only controls
+    the minimap icon visibility but also persists the state if persistence is
+    enabled.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">visible</span>
+            <span class="types"><span class="type">boolean</span></span>
+         The visibility state
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Views.MinimapIcon.html#">Views.MinimapIcon</a></span>
+        The minimap icon instance, for method chaining
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "views.minimapicon:__construct"></a>
+    <strong>views.minimapicon:__construct (id)</strong>
+    </dt>
+    <dd>
+    MinimapIcon constructor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The unique identifier for this icon, or 'default' if none is provided
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-08-20 10:02:12 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
