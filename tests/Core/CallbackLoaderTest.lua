@@ -1,5 +1,6 @@
 TestCallbackLoader = BaseTestClass:new()
 
+-- @covers CallbackLoader.lua
 TestCase.new()
     :setName('onLoad')
     :setTestClass(TestCallbackLoader)
