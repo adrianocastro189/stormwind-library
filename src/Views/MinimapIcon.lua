@@ -178,6 +178,13 @@ local MinimapIcon = {}
 
     --[[--
     Hides the minimap icon.
+
+    This is just a facade method to call Hide() on the minimap icon frame. However,
+    it shouldn't be used by addons as an internal method. Use setVisibility(false)
+    instead.
+
+    @local
+    @see Views.MinimapIcon.setVisibility
     ]]
     function MinimapIcon:hide()
         self.minimapIcon:Hide()
@@ -552,6 +559,13 @@ local MinimapIcon = {}
 
     --[[--
     Shows the minimap icon.
+
+    This is just a facade method to call Show() on the minimap icon frame. However,
+    it shouldn't be used by addons as an internal method. Use setVisibility(true)
+    instead.
+
+    @local
+    @see Views.MinimapIcon.setVisibility
     ]]
     function MinimapIcon:show()
         self.minimapIcon:Show()

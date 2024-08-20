@@ -65,6 +65,18 @@ In its first version, it's not possible to change that, unless extending the
 `MinimapIcon` class and overriding the script callbacks. This feature may be
 implemented in future versions, depending on the feedback received.
 
+## Showing and hiding the minimap icon
+
+In the World of Warcraft API, frames have the `Show()` and `Hide()` methods to
+control the frame visibility. Although the `MinimapIcon` class has the same 
+methods, they're used internally as the class exposes the `setVisibility()`
+method that accepts a boolean value to show or hide it.
+
+**Addons should always use `setVisibility()`** to show or hide the minimap icon as 
+they persist the frame visible state between interface reloads. In other words, if 
+users hide the icon, the library will save this state and when the game interface 
+is reloaded, the icon will remain hidden.
+
 ## Persisting the icon state
 
 The minimap icon class uses the configuration system to persist the icon's state.

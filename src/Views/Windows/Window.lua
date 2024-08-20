@@ -384,9 +384,9 @@ local Window = {}
     --[[--
     Hides the window.
 
-    This is just a facade method to call the Hide method on the window frame.
-    However, it shouldn't be used by addons as an internal method. Use
-    setVisibility(false) instead.
+    This is just a facade method to call Hide() on the window frame. However, it
+    shouldn't be used by addons as an internal method. Use setVisibility(false)
+    instead.
 
     @local
     @see Views.Windows.Window.setVisibility
@@ -659,9 +659,9 @@ local Window = {}
     --[[--
     Shows the window.
 
-    This is just a facade method to call the Show method on the window frame.
-    However, it shouldn't be used by addons as an internal method. Use
-    setVisibility(true) instead.
+    This is just a facade method to call Show() on the window frame. However, it
+    shouldn't be used by addons as an internal method. Use setVisibility(true)
+    instead.
 
     @local
     @see Views.Windows.Window.setVisibility
