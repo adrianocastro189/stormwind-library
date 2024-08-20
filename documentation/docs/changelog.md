@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Changelog
 
+## yyyy.mm.dd - version 1.12.1
+
 ## 2024.08.20 - version 1.12.0
 
 * Add the [Interval:startImmediately()](resources/support/interval#usage) method
