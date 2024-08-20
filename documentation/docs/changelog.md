@@ -6,6 +6,7 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.12.1
 
+* Update Docusaurus to version 3.5.2
 * Update [Import](library-structure/import) documentation for a better understanding 
   of how to import the library into an addon
 
@@ -50,7 +51,7 @@ to indicate that their items lists are outdated and need to be refreshed
 functions at a specified interval in seconds
 * ~New Output method to make the player say something in the chat frame~ 
   (removed in v1.10.0)
-* New [view constants file](resources/views/constants) to store values that 
+* New [view constants file](resources/views/view-constants) to store values that 
 can be reused in multiple view classes and instances
 
 ## 2024.07.04 - version 1.7.0
