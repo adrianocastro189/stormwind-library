@@ -6,6 +6,9 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.12.1
 
+* Update [Import](library-structure/import) documentation for a better understanding 
+  of how to import the library into an addon
+
 ## 2024.08.20 - version 1.12.0
 
 * Add the [Interval:startImmediately()](resources/support/interval#usage) method
