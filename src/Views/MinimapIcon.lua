@@ -116,6 +116,17 @@ local MinimapIcon = {}
     end
 
     --[[--
+    Gets the minimap icon radius based on the minimap width.
+
+    @local
+
+    @treturn number The minimap icon radius
+    ]]
+    function MinimapIcon:getMinimapRadius()
+        return Minimap:GetWidth() / 2
+    end
+
+    --[[--
     Gets a minimap icon property using the library configuration instance.
 
     This method is used internally by the library to persist state. It's not meant
@@ -240,8 +251,10 @@ local MinimapIcon = {}
         local xmin, ymin = Minimap:GetLeft(), Minimap:GetBottom()
         local scale = UIParent:GetScale()
 
-        xpos = xpos / scale - xmin - 70
-        ypos = ypos / scale - ymin - 70
+        local radius = self:getMinimapRadius()
+
+        xpos = xpos / scale - xmin - radius
+        ypos = ypos / scale - ymin - radius
 
         local angle = math.atan2(ypos, xpos)
 
@@ -561,7 +574,7 @@ local MinimapIcon = {}
         local angleInRadians = math.rad(angleInDegrees)
 
         -- distance from the center of the minimap
-        local radius = 80
+        local radius = self:getMinimapRadius()
         local x = math.cos(angleInRadians) * radius
         local y = math.sin(angleInRadians) * radius
 

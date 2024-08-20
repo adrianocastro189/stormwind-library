@@ -182,6 +182,21 @@ TestCase.new()
     end)
     :register()
 
+-- @covers MinimapIcon:getMinimapRadius()
+TestCase.new()
+    :setName('getMinimapRadius')
+    :setTestClass(TestMinimapIcon)
+    :setExecution(function()
+        local instance = __:new('MinimapIcon')
+
+        _G['Minimap'] = Spy
+            .new({})
+            :mockMethod('GetWidth', function () return 250 end)
+
+        lu.assertEquals(125, instance:getMinimapRadius())
+    end)
+    :register()
+
 -- @covers MinimapIcon:getProperty()
 TestCase.new()
     :setName('getProperty')
@@ -383,6 +398,7 @@ TestCase.new()
         
         local instance = Spy
             .new(__:new('MinimapIcon'))
+            :mockMethod('getMinimapRadius', function () return 80 end)
             :mockMethod('updatePosition')
         
         instance:onDrag()
@@ -826,6 +842,7 @@ TestCase.new()
 
         local instance = Spy
             .new(__:new('MinimapIcon'))
+            :mockMethod('getMinimapRadius', function () return 80 end)
             :mockMethod('setPropertyIfPersistingState')
 
         instance.minimapIcon = Spy
