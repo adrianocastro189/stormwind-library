@@ -3,8 +3,10 @@ sidebar_position: 3
 title: Import
 ---
 
-When a new version of the library is [built](build), it's time to import it
-in the addon:
+When a new version of the library is [built](build), it can be downloaded and updated
+in an addon. The following steps describe how to import it for the first time. When
+updating, focus on steps **2** and **4**, by replacing the existing library file and
+the instantiation table name.
 
 1. Create a `lib` directory in the addon root folder, so `lib` is at the same 
    level as the addon `.toc` files
