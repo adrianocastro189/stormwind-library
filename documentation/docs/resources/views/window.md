@@ -62,10 +62,10 @@ control the frame visibility. Although the `Window` class has the same
 methods, they're used internally as the class exposes the `setVisibility()`
 method that accepts a boolean value to show or hide the window.
 
-Addons should use the `setVisibility()` method to show or hide the window as
-they persist the window visible state between interface reloads. In other 
-words, if users close the window, the library will save this state and when 
-the game interface is reloaded, the window will be hidden.
+**Addons should always use the `setVisibility()` or `toggleVisibility()` methods** 
+to show or hide the window as they persist the window visible state between 
+interface reloads. In other words, if users close the window, the library will save 
+this state and when the game interface is reloaded, the window will be hidden.
 
 ```lua
 -- consider a window instance created by
@@ -77,6 +77,21 @@ window:setVisibility(false)
 -- shows the window
 window:setVisibility(true)
 ```
+
+The `toggleVisibility()` method was introduced in Stormwind Library version 1.12.0 
+to show the window if it's hidden and hide it if it's shown.
+
+```lua
+-- consider a window which is visible
+window:setVisibility(true)
+
+-- toggles the window visibility, hiding it
+window:toggleVisibility()
+
+-- if called again, it will show the window
+window:toggleVisibility()
+```
+
 ## Adding content to the window
 
 One of the motivations to create the Window class was to provide an easy way

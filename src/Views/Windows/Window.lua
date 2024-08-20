@@ -384,9 +384,9 @@ local Window = {}
     --[[--
     Hides the window.
 
-    This is just a facade method to call the Hide method on the window frame.
-    However, it shouldn't be used by addons as an internal method. Use
-    setVisibility(false) instead.
+    This is just a facade method to call Hide() on the window frame. However, it
+    shouldn't be used by addons as an internal method. Use setVisibility(false)
+    instead.
 
     @local
     @see Views.Windows.Window.setVisibility
@@ -563,6 +563,8 @@ local Window = {}
     @treturn Views.Windows.Window The window instance, for method chaining
     --]]
     function Window:setVisibility(visible)
+        self.visible = visible
+
         if visible then self:show() else self:hide() end
 
         if self:isPersistingState() then self:setProperty('visibility', visible) end
@@ -657,9 +659,9 @@ local Window = {}
     --[[--
     Shows the window.
 
-    This is just a facade method to call the Show method on the window frame.
-    However, it shouldn't be used by addons as an internal method. Use
-    setVisibility(true) instead.
+    This is just a facade method to call Show() on the window frame. However, it
+    shouldn't be used by addons as an internal method. Use setVisibility(true)
+    instead.
 
     @local
     @see Views.Windows.Window.setVisibility
@@ -705,5 +707,17 @@ local Window = {}
 
         self:setProperty('size.height', height)
         self:setProperty('size.width', width)
+    end
+
+    --[[--
+    Toggles the window visibility.
+
+    If the window is visible, it will be hidden. If it's hidden, it will be
+    shown.
+
+    @treturn Views.Windows.Window The window instance, for method chaining
+    ]]
+    function Window:toggleVisibility()
+        return self:setVisibility(not self.visible)
     end
 -- end of Window

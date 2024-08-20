@@ -1,16 +1,22 @@
--- @TODO: Move this test class to the new TestCase structure <2024.07.30>
-
 TestInterval = BaseTestClass:new()
-    -- @covers Interval:__construct()
-    function TestInterval:testConstruct()
+
+-- @covers Interval:__construct()
+TestCase.new()
+    :setName('construct')
+    :setTestClass(TestInterval)
+    :setExecution(function(self)
         local instance = __:new('Interval')
 
         lu.assertNotNil(instance)
-    end
+    end)
+    :register()
 
-    -- @covers Interval:setCallback()
-    -- @covers Interval:setSeconds()
-    function TestInterval:testSetters()
+-- @covers Interval:setCallback()
+-- @covers Interval:setSeconds()
+TestCase.new()
+    :setName('setters')
+    :setTestClass(TestInterval)
+    :setExecution(function(data)
         local instance = __:new('Interval')
 
         lu.assertIsNil(instance.seconds)
@@ -22,11 +28,15 @@ TestInterval = BaseTestClass:new()
         lu.assertEquals(instance, result)
         lu.assertEquals(60, instance.seconds)
         lu.assertEquals(TestInterval.testSetters, instance.callback)
-    end
+    end)
+    :register()
 
-    -- @covers Interval:start()
-    -- @covers Interval:stop()
-    function TestInterval:testStartAndStop()
+-- @covers Interval:start()
+-- @covers Interval:stop()
+TestCase.new()
+    :setName('start and stop')
+    :setTestClass(TestInterval)
+    :setExecution(function()
         local instance = __:new('Interval')
             :setCallback(TestInterval.testSetters)
             :setSeconds(60)
@@ -39,10 +49,37 @@ TestInterval = BaseTestClass:new()
         instance:stop()
 
         lu.assertIsTrue(instance.ticker.canceled)
-    end
+    end)
+    :register()
 
-    -- @covers Interval:stop()
-    function TestInterval:testStopWithoutStarting()
+-- @covers Interval:startImmediately()
+TestCase.new()
+    :setName('start immediately')
+    :setTestClass(TestInterval)
+    :setExecution(function()
+        local callbackCalled = false
+
+        local callback = function () callbackCalled = true end
+
+        local instance = __:new('Interval')
+            :setCallback(callback)
+            :setSeconds(60)
+
+        instance.start = function(instance) instance.startInvoked = true end
+
+        local result = instance:startImmediately()
+
+        lu.assertTrue(callbackCalled)
+        lu.assertTrue(instance.startInvoked)
+        lu.assertEquals(instance, result)
+    end)
+    :register()
+
+-- @covers Interval:stop()
+TestCase.new()
+    :setName('stop without starting')
+    :setTestClass(TestInterval)
+    :setExecution(function()
         local instance = __:new('Interval')
             :setCallback(TestInterval.testSetters)
             :setSeconds(60)
@@ -50,5 +87,6 @@ TestInterval = BaseTestClass:new()
         instance:stop()
 
         lu.assertIsNil(instance.ticker)
-    end
+    end)
+    :register()
 -- end of TestInterval

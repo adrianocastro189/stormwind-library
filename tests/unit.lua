@@ -1,7 +1,7 @@
 lu = require('luaunit')
 
 dofile('./dist/stormwind-library.lua')
-StormwindLibrary = StormwindLibrary_v1_11_0
+StormwindLibrary = StormwindLibrary_v1_12_0
 
 --[[
 This is a base test class that sets up the library before each test.
@@ -79,6 +79,8 @@ TestCase = {}
     function TestCase:setTestClass(value) self.testClass = value return self end
 -- end of TestCase
 
+dofile('./tests/spies.lua')
+
 dofile('./tests/Commands/CommandsTest.lua')
 dofile('./tests/Commands/CommandsHandlerTest.lua')
 
@@ -117,6 +119,7 @@ dofile('./tests/Support/StrTest.lua')
 dofile('./tests/Support/IntervalTest.lua')
 
 dofile('./tests/Views/ViewConstantsTest.lua')
+dofile('./tests/Views/MinimapIconTest.lua')
 dofile('./tests/Views/Windows/WindowPageTest.lua')
 dofile('./tests/Views/Windows/WindowTest.lua')
 

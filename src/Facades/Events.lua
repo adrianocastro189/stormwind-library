@@ -5,7 +5,7 @@ triggered by the Stormwind Library.
 When using this library in an addon, it should focus on listening to the
 library events, which are more detailed and have more mapped parameters.
 
-@classmod Core.Events
+@classmod Facades.Events
 ]]
 local Events = {}
     Events.__index = Events

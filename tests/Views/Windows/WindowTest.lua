@@ -566,6 +566,7 @@ TestWindow = BaseTestClass:new()
             lu.assertEquals(shouldCallShow, showInvoked)
             lu.assertEquals(shouldCallHide, hideInvoked)
             lu.assertEquals(shouldCallSetProperty, setPropertyInvoked)
+            lu.assertEquals(visibility, instance.visible)
         end
 
         -- visible and persisting state
@@ -808,4 +809,30 @@ TestWindow = BaseTestClass:new()
         }, keyArgs)
         lu.assertEquals({2, 1}, valueArgs)
     end
+
+TestCase.new()
+    :setName('toggleVisibility')
+    :setTestClass(TestWindow)
+    :setExecution(function (data)
+        local instance = __:new('Window', 'test-id')
+
+        instance.visible = data.currentVisibility
+
+        instance.setVisibility = function(self, visibility) self.visibilityArg = visibility end
+
+        instance:toggleVisibility()
+
+        lu.assertEquals(data.expectedVisibility, instance.visibilityArg)
+    end)
+    :setScenarios({
+        ['window is hidden'] = {
+            currentVisibility = false,
+            expectedVisibility = true
+        },
+        ['window is visible'] = {
+            currentVisibility = true,
+            expectedVisibility = false
+        },
+    })
+    :register()
 -- end of TestWindow

@@ -1,4 +1,4 @@
--- Library version = '1.11.0'
+-- Library version = '1.12.0'
 
 -- import src/Core/CallbackLoader.lua
 
@@ -44,6 +44,7 @@
 -- import src/Models/Player.lua
 
 -- import src/Views/ViewConstants.lua
+-- import src/Views/MinimapIcon.lua
 -- import src/Views/Windows/Window.lua
 -- import src/Views/Windows/WindowPage.lua
 

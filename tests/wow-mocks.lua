@@ -54,6 +54,7 @@ CreateFrame = function (...)
     mockFrame.Left = { Hide = function (self) self.hideInvoked = true end }
     mockFrame.Middle = { Hide = function (self) self.hideInvoked = true end }
     mockFrame.RegisterEvent = function (self, event) table.insert(self.events, event) end
+    mockFrame.RegisterForClicks = function (self, ...) self.registerForClicksInvoked = true end
     mockFrame.Right = { Hide = function (self) self.hideInvoked = true end }
     mockFrame.SetAutoFocus = function (self, autoFocus) self.autoFocus = autoFocus end
     mockFrame.SetBackdrop = function (self, backdrop) self.backdrop = backdrop end
@@ -64,6 +65,8 @@ CreateFrame = function (...)
     mockFrame.SetFont = function (self, font, size) self.fontFamily = font self.fontSize = size end
     mockFrame.SetFontObject = function (self, fontObject) self.fontObject = fontObject end
     mockFrame.SetFontString = function (self, fontString) self.fontString = fontString end
+    mockFrame.SetFrameLevel = function (self, level) self.frameLevel = level end
+    mockFrame.SetFrameStrata = function (self, strata) self.frameStrata = strata end
     mockFrame.SetHeight = function (self, height) self.height = height end
     mockFrame.SetHighlightTexture = function (self, texture) self.highlightTexture = texture end
     mockFrame.SetJustifyH = function (self, justifyH) self.justifyH = justifyH end
@@ -119,6 +122,10 @@ GetZoneText = function () return 'Stormwind City' end
 
 LOOT_ITEM_SELF = 'You receive loot : %s|Hitem :%d :%d :%d :%d|h[%s]|h%s.'
 LOOT_ITEM_SELF_MULTIPLE = 'You receive loot: %sx%d.'
+
+Minimap = {
+    GetWidth = function () return 200 end,
+}
 
 UIErrorsFrame = { AddMessage = function(instance, message, r, g, b)
     UIErrorsFrame.messageArg = message

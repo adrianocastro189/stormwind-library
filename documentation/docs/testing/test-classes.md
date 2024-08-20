@@ -126,25 +126,162 @@ update the alias in the `./tests/unit.lua` file.
 
 ## Mocking library properties and methods
 
-The library is set up before each test in the base test class, so mocking
-properties and methods of the library can be done in each test case without
-affecting other tests.
+A library instance is set up before each test in the base test class and also before 
+each scenario when the test case class is used. That said, mocking properties and 
+methods of the library can be done in each test execution without affecting other 
+tests.
 
-To mock a property or method of the library, simply assign a new value to
-the property or method in the test case. For example, to mock the `name`
-property of the library, you can do the following:
+To mock a property or method in this instance, simply assign a new value to
+the property or method in the test case. For example, to mock the addon `name`,
+you can do the following:
 
 ```lua
-__.name = 'MockedName'
+__.addon.name = 'MockedName'
 ```
 
-To mock a method of the library, you can assign a new function to the
-method in the test case.
+To mock a method library, you can assign a new function to do and/or return what
+you expect to help the test case.
 
 There's no need to revert the mocked properties and methods back to their
 original values after the test case is run, unless the test method is
 expected to be called multiple times in the same test class and with
-different mocks.
+different mocks, however, that's a sign that a test case should be created
+with multiple scenarios instead.
 
 Stormwind Library also provides a set of mocks for the World of Warcraft API
 that are better described in the [API Mocks](api-mocks) documentation.
+
+### Spies
+
+Spies are a type of mock that allows you to replace a few parts of objects to track
+how they are being used. Of course, the concept of spies are way more complex than
+this, but Stormwind Library implements a simple version of it. It was introduced in
+v1.12.0 as an experimental feature that may be improved in the future.
+
+As of now, the two spy classes available are `Spy` and `MethodSpy`, both located in 
+`tests\spies.lua`. This file can be copied to the addon's test directory and 
+referenced with `dofile` so they can be used in test cases.
+
+You probably won't need to use `MethodSpy` directly as it's more like a utility class
+for `Spy`.
+
+As an example, consider a class called `EndGameFeatures` with a couple of methods 
+for handling end game features.
+
+```lua
+-- class declaration...
+EndGameFeatures = {}
+   -- other methods here...
+
+   function EndGameFeatures:getPlayerLevel()
+      return UnitLevel('player')
+   end
+
+   function EndGameFeatures:playerIsAtMaxLevel()
+      return self:getPlayerLevel() == MAX_PLAYER_LEVEL
+   end
+   
+   -- more methods here...
+```
+
+When testing this class, you may want to mock the `UnitLevel` function to return a
+specific value to serve the `getPlayerLevel` method. And in another method, you may
+wamt to mock `getPlayerLevel` to return a specific value to test 
+`playerIsAtMaxLevel`.
+
+This can be done directly by replacing the function references like this:
+
+```lua
+TestCase.new()
+   :setName('playerIsAtMaxLevel')
+   :setTestClass(TestEndGameFeatures)
+   :setExecution(function(data)
+      local instance = library:new('EndGameFeatures')
+
+      instance.getPlayerLevel = function()
+         return data.playerLevel
+      end
+
+      lu.assertEquals(data.expectedResult, instance:playerIsAtMaxLevel())
+   end)
+   :setScenarios({
+      ['player is at max level'] = {
+         playerLevel = 60,
+         expectedResult = true
+      },
+      ['player not at max level'] = {
+         playerLevel = 59,
+         expectedResult = false
+      }
+   })
+   :register()
+```
+
+It works as a valid test, but with spies, it can be improved to track how the method
+is observed. Here's how to do it:
+
+```lua
+TestCase.new()
+   :setName('playerIsAtMaxLevel')
+   :setTestClass(TestEndGameFeatures)
+   :setExecution(function(data)
+      local instance = Spy
+         .new(library:new('EndGameFeatures'))
+         :mockMethod('getPlayerLevel', function()
+            return data.playerLevel
+         end)
+
+      local result = instance:playerIsAtMaxLevel()
+
+      lu.assertEquals(data.expectedResult, result)
+      instance:getMethod('getPlayerLevel'):assertCalledOnce()
+   end)
+   :setScenarios({
+      ['player is at max level'] = {
+         playerLevel = 60,
+         expectedResult = true
+      },
+      ['player not at max level'] = {
+         playerLevel = 59,
+         expectedResult = false
+      }
+   })
+   :register()
+```
+
+This is what the test execution does:
+
+1. Create a new spy instance passing the `EndGameFeatures` instance
+1. Once wrapped, the spy instance can mock methods and properties and the mock 
+   methods are chained, which means it's possible to mock multiple methods one
+   after another and still hold the reference to the spy instance
+1. Call the `instance:playerIsAtMaxLevel()` method and store the result
+1. Assert the result is the expected one
+1. Assert the `getPlayerLevel` method was called once, and this is the main
+   advantage of using spies, as it allows you to track how the method is being
+   used
+
+The `MethodSpy` class has a few more assertions that use the same unit testing
+library, so it's not necessary to call `lu.assertEquals` and similar functions
+on the methods spies instances.
+
+:::note Mocking functions stored as properties
+
+Due to how this first Spy version is implemented, functions that are saved as 
+properties cannot be mocked as a "class method". Example: a class has a callback
+stored as a property, and the callback is called inside a method. It's not
+possible to mock the callback and expect that Spy will create a method spy
+for it as it won't have the same behavior as a class method.
+
+:::
+
+:::warning Use spies carefully
+
+It's important to mention that as of now, spies are still an experimental feature
+and may not work as expected in all scenarios. It's recommended to use them
+carefully and review the test results to ensure they are working as expected.
+
+If you find any issues with spies, please report them in the
+[library's repository issues page](https://github.com/adrianocastro189/stormwind-library/issues).
+
+:::
