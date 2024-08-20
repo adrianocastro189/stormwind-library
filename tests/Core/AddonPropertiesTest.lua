@@ -5,7 +5,8 @@ TestCase.new()
     :setName('fail when missing name')
     :setTestClass(TestAddonProperties)
     :setExecution(function()
-        lu.assertErrorMsgContains('The addon property "name" is required to initialize Stormwind Library.', StormwindLibrary.new, {})
+        lu.assertErrorMsgContains('The addon property "name" is required to initialize Stormwind Library.',
+            StormwindLibrary.new, {})
     end)
     :register()
 
