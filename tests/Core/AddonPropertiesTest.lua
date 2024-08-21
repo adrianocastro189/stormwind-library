@@ -1,8 +1,19 @@
--- @TODO: Move this test class to the new TestCase structure <2024.07.30>
-
 TestAddonProperties = BaseTestClass:new()
-    -- @covers AddonProperties.lua
-    function TestAddonProperties:testPropertiesAreSet()
+
+-- @covers AddonProperties.lua
+TestCase.new()
+    :setName('fail when missing name')
+    :setTestClass(TestAddonProperties)
+    :setExecution(function()
+        lu.assertErrorMsgContains('The addon property "name" is required to initialize Stormwind Library.',
+            StormwindLibrary.new, {})
+    end)
+    :register()
+
+TestCase.new()
+    :setName('propertiesAreSet')
+    :setTestClass(TestAddonProperties)
+    :setExecution(function()
         local library = StormwindLibrary.new({
             colors = {
                 primary = 'test-primary-color',
@@ -21,10 +32,6 @@ TestAddonProperties = BaseTestClass:new()
         lu.assertEquals({ test = 'data' }, library.addon.data)
         lu.assertEquals('1.0.0', library.addon.version)
         lu.assertEquals(false, library.addon.inventory.track)
-    end
-
-    -- @covers AddonProperties.lua
-    function TestAddonProperties:testFailWhenMissingName()
-        lu.assertErrorMsgContains('The addon property "name" is required to initialize Stormwind Library.', StormwindLibrary.new, {})
-    end
+    end)
+    :register()
 -- end of TestAddonProperties

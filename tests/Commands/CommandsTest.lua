@@ -1,12 +1,25 @@
--- @TODO: Move this test class to the new TestCase structure <2024.07.30>
-
 TestCommand = BaseTestClass:new()
-    -- @covers Command:setCallback()
-    -- @covers Command:setDescription()
-    -- @covers Command:setOperation()
-    function TestCommand:testChainedSetters()
+
+-- @covers Command:__construct()
+TestCase.new()
+    :setName('__construct')
+    :setTestClass(TestCommand)
+    :setExecution(function()
         local command = __:new('Command')
-        
+
+        lu.assertNotIsNil(command)
+    end)
+    :register()
+
+-- @covers Command:setCallback()
+-- @covers Command:setDescription()
+-- @covers Command:setOperation()
+TestCase.new()
+    :setName('chained setters')
+    :setTestClass(TestCommand)
+    :setExecution(function()
+        local command = __:new('Command')
+
         command
             :setArgsValidator('test-args-validator')
             :setCallback('test-callback')
@@ -17,49 +30,71 @@ TestCommand = BaseTestClass:new()
         lu.assertEquals('test-callback', command.callback)
         lu.assertEquals('test-description', command.description)
         lu.assertEquals('test-operation', command.operation)
-    end
+    end)
+    :register()
 
-    -- @covers Command:getHelpContent()
-    function TestCommand:testGetHelpContent()
-        local function execution(command, expectedOutput)
-            lu.assertEquals(expectedOutput, command:getHelpContent())
-        end
+-- @covers Command:getHelpContent()
+TestCase.new()
+    :setName('getHelpContent')
+    :setTestClass(TestCommand)
+    :setExecution(function(data)
+        lu.assertEquals(data.expectedOutput, data.command:getHelpContent())
+    end)
+    :setScenarios({
+        ['empty command'] = function()
+            return {
+                command = __:new('Command'),
+                expectedOutput = nil,
+            }
+        end,
+        ['command without description'] = function()
+            return {
+                command = __
+                    :new('Command')
+                    :setOperation('test-operation'),
+                expectedOutput = 'test-operation',
+            }
+        end,
+        ['complete command'] = function()
+            return {
+                command = __
+                    :new('Command')
+                    :setOperation('test-operation')
+                    :setDescription('test-description'),
+                expectedOutput = 'test-operation - test-description',
+            }
+        end,
+    })
+    :register()
 
-        local emptyCommand = __:new('Command')
-        local commandWithoutDescription = __:new('Command'):setOperation('test-operation')
-        local completeCommand = __:new('Command'):setOperation('test-operation'):setDescription('test-description')
-
-        execution(emptyCommand, nil)
-        execution(commandWithoutDescription, 'test-operation')
-        execution(completeCommand, 'test-operation - test-description')
-    end
-
-    -- @covers Command:__construct()
-    function TestCommand:testInstantiate()
+-- @covers Command:validateArgs()
+TestCase.new()
+    :setName('validateArgs')
+    :setTestClass(TestCommand)
+    :setExecution(function(data)
         local command = __:new('Command')
 
-        lu.assertNotIsNil(command)
-    end
+        command:setArgsValidator(data.validator)
 
-    -- @covers Command:validateArgs()
-    function TestCommand:testValidateArgs()
-        local function execution(validator, expectedOutput)
-            local command = __:new('Command')
+        lu.assertEquals(data.expectedOutput, command:validateArgs())
+    end)
+    :setScenarios({
+        ['no validator'] = {
+            validator = nil,
+            expectedOutput = 'valid',
+        },
+        ['validator returning invalid'] = {
+            validator = function() return 'invalid' end,
+            expectedOutput = 'invalid',
+        },
+    })
+    :register()
 
-            command:setArgsValidator(validator)
-
-            lu.assertEquals(expectedOutput, command:validateArgs())
-        end
-
-        -- no validator
-        execution(nil, 'valid')
-
-        -- validator returning invalid
-        execution(function() return 'invalid' end, 'invalid')
-    end
-
-    -- @covers Command:validateArgs()
-    function TestCommand:testValidateArgsWithMultipleParameters()
+-- @covers Command:validateArgs()
+TestCase.new()
+    :setName('validateArgs with multiple parameters')
+    :setTestClass(TestCommand)
+    :setExecution(function()
         local command = __:new('Command')
 
         -- makes sure the arguments are being passed to the validator
@@ -72,5 +107,6 @@ TestCommand = BaseTestClass:new()
 
         lu.assertEquals('arg1', command.arg1)
         lu.assertEquals('arg2', command.arg2)
-    end
+    end)
+    :register()
 -- end of TestCommand
