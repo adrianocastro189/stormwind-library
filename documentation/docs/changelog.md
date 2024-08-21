@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Changelog
 
-## yyyy.mm.dd - version 1.12.1
+## 2024.08.21 - version 1.12.1
 
 * Update Docusaurus to version 3.5.2
 * Update [Import](library-structure/import) documentation for a better understanding 
