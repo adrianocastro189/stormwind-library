@@ -1,3 +1,6 @@
+import React from 'react';
+import YouTubeEmbed from '@site/src/components/YouTubeEmbed';
+
 # Unit Suite
 
 :::note Lua version
@@ -6,6 +9,10 @@ For the steps below, Lua 5.4 will be used as the installed version, but the
 library should run well for any versions after, and including, 5.1.
 
 :::
+
+<YouTubeEmbed videoId="fotEXaAk6J4" />
+
+## How to run the unit test suite
 
 The Stormwind Library uses the [luaunit](https://github.com/bluebird75/luaunit) library to house the unit test suite.
 

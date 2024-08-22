@@ -1,3 +1,6 @@
+import React from 'react';
+import YouTubeEmbed from '@site/src/components/YouTubeEmbed';
+
 # Test Classes
 
 Test classes in the Stormwind Library are organized in a way that makes it
@@ -9,6 +12,8 @@ also defines a base test class that sets up the library before each test.
 Setting up the library before each test ensures that the library is in a
 clean state before each test is run, so mocking the library on tests won't
 affect the results of other tests.
+
+<YouTubeEmbed videoId="fotEXaAk6J4" />
 
 ## Writing a test class
 
