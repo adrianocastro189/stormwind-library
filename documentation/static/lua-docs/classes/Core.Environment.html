@@ -33,9 +33,7 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Functions">Functions</a></li>
 <li><a href="#Tables">Tables</a></li>
-<li><a href="#Fields">Fields</a></li>
 <li><a href="#Methods">Methods</a></li>
 <li><a href="#Metamethods">Metamethods</a></li>
 </ul>
@@ -96,54 +94,11 @@ know the current environment, use the library.environment instance.
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#self:addAbstractClass">self:addAbstractClass (classname, classStructure, clientFlavors)</a></td>
-	<td class="summary">Registers an abstract class.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self:addChildClass">self:addChildClass (classname, classStructure, parentClassname, clientFlavors, classType)</a></td>
-	<td class="summary">Helper method that extends a class structure with another by a parent class name
-and also adds the class.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self:addClass">self:addClass (classname, classStructure, clientFlavors, classType)</a></td>
-	<td class="summary">Registers a class so the library is able to instantiate it later.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self:extend">self:extend (classStructure, parentClassname)</a></td>
-	<td class="summary">Provides class inheritance by extending a class structure with another by its
-name.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self:getClass">self:getClass (classname, output)</a></td>
-	<td class="summary">Returns a class structure by its name.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self:new">self:new (classname, ...)</a></td>
-	<td class="summary">This method emulates the new keyword in OOP languages by instantiating a
-class by its name as long as the class has a __construct() method with or
-without parameters.</td>
-	</tr>
-</table>
 <h2><a href="#Tables">Tables</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#core.environment.constants">core.environment.constants</a></td>
 	<td class="summary">Constants for the available clients and test suite.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self.classes">self.classes</a></td>
-	<td class="summary">Contains a list of class structures that Stormwind Library can handle to allow
-instantiation, protection in case of abstractions, and inheritance.</td>
-	</tr>
-</table>
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#self.classTypes">self.classTypes</a></td>
-	<td class="summary">Maps all the possible class types Stormwind Library can handle.</td>
 	</tr>
 </table>
 <h2><a href="#Methods">Methods</a></h2>
@@ -173,213 +128,6 @@ instantiation, protection in case of abstractions, and inheritance.</td>
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
-    Methods
-    <dl class="function">
-    <dt>
-    <a name = "self:addAbstractClass"></a>
-    <strong>self:addAbstractClass (classname, classStructure, clientFlavors)</strong>
-    </dt>
-    <dd>
-    Registers an abstract class.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">classname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the abstract class to be registered
-        </li>
-        <li><span class="parameter">classStructure</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The abstract class structure to be registered
-        </li>
-        <li><span class="parameter">clientFlavors</span>
-            <span class="types"><span class="type">nil</span>, <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The client flavors the class is supported by
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "self:addChildClass"></a>
-    <strong>self:addChildClass (classname, classStructure, parentClassname, clientFlavors, classType)</strong>
-    </dt>
-    <dd>
-    Helper method that extends a class structure with another by a parent class name
-and also adds the class.
-<p>Calling this method is the same of calling extend() and addClass() in sequence.
-
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">classname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the class to be registered
-        </li>
-        <li><span class="parameter">classStructure</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The class structure to be registered
-        </li>
-        <li><span class="parameter">parentClassname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the parent class to be extended with
-        </li>
-        <li><span class="parameter">clientFlavors</span>
-            <span class="types"><span class="type">nil</span>, <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The client flavors the class is supported by
-        </li>
-        <li><span class="parameter">classType</span>
-            <span class="types"><span class="type">integer</span> or <span class="type">nil</span></span>
-         The class type, represented by the classTypes constants
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "self:addClass"></a>
-    <strong>self:addClass (classname, classStructure, clientFlavors, classType)</strong>
-    </dt>
-    <dd>
-    Registers a class so the library is able to instantiate it later.
-<p>This method just updates the library classes table by registering a class
-for the client flavors it's supported.
-
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">classname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the class to be registered
-        </li>
-        <li><span class="parameter">classStructure</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The class structure to be registered
-        </li>
-        <li><span class="parameter">clientFlavors</span>
-            <span class="types"><span class="type">nil</span>, <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The client flavors the class is supported by
-        </li>
-        <li><span class="parameter">classType</span>
-            <span class="types"><span class="type">integer</span> or <span class="type">nil</span></span>
-         The class type, represented by the classTypes constants
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "self:extend"></a>
-    <strong>self:extend (classStructure, parentClassname)</strong>
-    </dt>
-    <dd>
-    Provides class inheritance by extending a class structure with another by its
-name.
-<p>Calling this method is the same of getting the parent class structure with
-getClass() and setting the child class structure metatable. Consider this as
-a helper method to improve code readability.
-<p>It's important to note that this method respects the client flavors strategy
-just like getClass(), which means it will only work properly if the parent
-class is registered for the same client flavors as where this method is called.
-
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">classStructure</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-         The class structure to be extended
-        </li>
-        <li><span class="parameter">parentClassname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the parent class to be extended with
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "self:getClass"></a>
-    <strong>self:getClass (classname, output)</strong>
-    </dt>
-    <dd>
-    Returns a class structure by its name.
-<p>This method's the same as accessing self.classes[classname].
-
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">classname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the class to be returned
-        </li>
-        <li><span class="parameter">output</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The output format, either 'structure' (default) or 'type'
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">integer</span> or <a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-        The class structure or type, depending on the output parameter
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "self:new"></a>
-    <strong>self:new (classname, ...)</strong>
-    </dt>
-    <dd>
-    This method emulates the new keyword in OOP languages by instantiating a
-class by its name as long as the class has a __construct() method with or
-without parameters.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">classname</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
-         The name of the class to be instantiated
-        </li>
-        <li><span class="parameter">...</span>
-         The parameters to be passed to the class constructor
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table</a></span>
-        The class instance
-    </ol>
-
-
-
-
-</dd>
-</dl>
     <h2 class="section-header "><a name="Tables"></a>Tables</h2>
 
     <dl class="function">
@@ -409,39 +157,6 @@ without parameters.
                               without any World of Warcraft client
         </li>
     </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "self.classes"></a>
-    <strong>self.classes</strong>
-    </dt>
-    <dd>
-    Contains a list of class structures that Stormwind Library can handle to allow
-instantiation, protection in case of abstractions, and inheritance.
-
-
-
-
-
-
-
-</dd>
-</dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "self.classTypes"></a>
-    <strong>self.classTypes</strong>
-    </dt>
-    <dd>
-    Maps all the possible class types Stormwind Library can handle.
-
-
 
 
 
@@ -548,7 +263,7 @@ instantiation, protection in case of abstractions, and inheritance.
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-08-21 15:36:45 </i>
+<i style="float:right;">Last updated 2024-08-23 17:36:18 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
