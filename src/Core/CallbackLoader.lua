@@ -1,7 +1,7 @@
 -- list of callbacks to be invoked when the library is loaded
 self.loadCallbacks = {}
 
---[[--
+--[[
 Removes the callback loader and its properties.
 ]]
 function self:destroyCallbackLoader()
@@ -11,7 +11,7 @@ function self:destroyCallbackLoader()
     self.onLoad = nil
 end
 
---[[--
+--[[
 Invokes all the callbacks that have been enqueued.
 ]]
 function self:invokeLoadCallbacks()
@@ -22,7 +22,7 @@ function self:invokeLoadCallbacks()
     self:destroyCallbackLoader()
 end
 
---[[--
+--[[
 Enqueues a callback function to be invoked when the library is loaded.
 
 @tparam function callback The callback function to be invoked when the library is loaded

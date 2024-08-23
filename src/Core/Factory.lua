@@ -1,10 +1,10 @@
---[[--
+--[[
 Contains a list of class structures that Stormwind Library can handle to allow
 instantiation, protection in case of abstractions, and inheritance.
 ]]
 self.classes = {}
 
---[[--
+--[[
 Maps all the possible class types Stormwind Library can handle.
 ]]
 self.classTypes = self.arr:freeze({
@@ -12,7 +12,7 @@ self.classTypes = self.arr:freeze({
     CLASS_TYPE_CONCRETE = 2,
 })
 
---[[--
+--[[
 Registers an abstract class.
 
 @tparam string classname The name of the abstract class to be registered
@@ -23,7 +23,7 @@ function self:addAbstractClass(classname, classStructure, clientFlavors)
     self:addClass(classname, classStructure, clientFlavors, self.classTypes.CLASS_TYPE_ABSTRACT)
 end
 
---[[--
+--[[
 Helper method that extends a class structure with another by a parent class name
 and also adds the class.
 
@@ -40,7 +40,7 @@ function self:addChildClass(classname, classStructure, parentClassname, clientFl
     self:addClass(classname, classStructure, clientFlavors, classType)
 end
 
---[[--
+--[[
 Registers a class so the library is able to instantiate it later.
 
 This method just updates the library classes table by registering a class
@@ -72,7 +72,7 @@ function self:addClass(classname, classStructure, clientFlavors, classType)
     end)
 end
 
---[[--
+--[[
 Provides class inheritance by extending a class structure with another by its
 name.
 
@@ -92,7 +92,7 @@ function self:extend(classStructure, parentClassname)
     setmetatable(classStructure, parentStructure)
 end
 
---[[--
+--[[
 Returns a class structure by its name.
 
 This method's the same as accessing self.classes[classname].
@@ -108,7 +108,7 @@ function self:getClass(classname, output)
     return self.classes[clientFlavor][classname][output or 'structure']
 end
 
---[[--
+--[[
 This method emulates the new keyword in OOP languages by instantiating a
 class by its name as long as the class has a __construct() method with or
 without parameters.
