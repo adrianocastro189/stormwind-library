@@ -1,21 +1,29 @@
--- @TODO: Move this test class to the new TestCase structure <2024.07.30>
-
 TestConfiguration = BaseTestClass:new()
-    -- @covers Configuration:__construct()
-    function TestConfiguration:testConstruct()
-        local savedVariable = {['test-property'] = 'test-value'}
+
+-- @covers Configuration:__construct()
+TestCase.new()
+    :setName('__construct')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
+        local savedVariable = { ['test-property'] = 'test-value' }
 
         local instance = __:new('Configuration', savedVariable)
 
         lu.assertNotNil(instance)
         lu.assertEquals(savedVariable, instance.data)
-    end
+    end)
+    :register()
 
-    -- @covers StormwindLibrary:config()
-    function TestConfiguration:testConfig()
+-- @covers StormwindLibrary:config()
+TestCase.new()
+    :setName('config')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
         local arg1, arg2 = nil, nil
 
-        __.isConfigEnabled = function() return false end
+        __ = Spy
+            .new(__)
+            :mockMethod('isConfigEnabled', function() return false end)
 
         lu.assertIsNil(__:config('test-property', 'default-value'))
 
@@ -23,122 +31,165 @@ TestConfiguration = BaseTestClass:new()
 
         function __.configuration:handle(...) arg1, arg2 = ... end
 
-        __.isConfigEnabled = function() return true end
+        __:mockMethod('isConfigEnabled', function() return true end)
 
         __:config('test-property', 'default-value')
 
         lu.assertEquals('test-property', arg1)
         lu.assertEquals('default-value', arg2)
-    end
+    end)
+    :register()
 
-    -- @covers Configuration:get()
-    function TestConfiguration:testGet()
-        local listArg, keyArg, defaultValueArg = nil, nil, nil
+-- @covers Configuration:get()
+TestCase.new()
+    :setName('get')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
+        __.arr = Spy
+            .new(__.arr)
+            :mockMethod('get', function() return 'test-get-result' end)
 
-        function __.arr:get(list, key, default)
-            listArg, keyArg, defaultValueArg = list, key, default
-            return 'test-get-result'
-        end
-
-        local data = {'test-data'}
+        local data = { 'test-data' }
 
         local configuration = __:new('Configuration', data)
-        
+
         -- this will confirm get is calling the maybePrefixKey() method
         configuration.prefixKey = 'test-prefix'
 
         local result = configuration:get('test-key', 'test-default')
 
         lu.assertEquals('test-get-result', result)
-        lu.assertEquals(data, listArg)
-        lu.assertEquals('test-prefix.test-key', keyArg)
-        lu.assertEquals('test-default', defaultValueArg)
-    end
 
-    -- @covers Configuration:getOrInitialize()
-    function TestConfiguration:testGetOrInitialize()
-        -- in this context, mi stands to "maybe initialize"
-        local miListArg, miKeyArg, miInitialValueArg = nil, nil, nil
-        local getKeyArg, getDefaultValueArg = nil, nil
+        __.arr
+            :getMethod('get')
+            :assertCalledOnceWith(data, 'test-prefix.test-key', 'test-default')
+    end)
+    :register()
 
-        function __.arr:maybeInitialize(list, key, initialValue)
-            miListArg, miKeyArg, miInitialValueArg = list, key, initialValue
-        end
+-- @covers Configuration:getOrInitialize()
+TestCase.new()
+    :setName('getOrInitialize')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
+        __.arr = Spy
+            .new(__.arr)
+            :mockMethod('maybeInitialize')
 
-        local data = {'test-data'}
+        local data = { 'test-data' }
 
-        local instance = __:new('Configuration', data)
+        local instance = Spy
+            .new(__:new('Configuration', data))
+            :mockMethod('get', function() return 'test-get-result' end)
 
         -- this will confirm getOrInitialize is calling the maybePrefixKey()
         -- method for the Arr:maybeInitialize() only
         instance.prefixKey = 'test-prefix'
 
-        function instance:get(key, defaultValue)
-            getKeyArg, getDefaultValueArg = key, defaultValue
-
-            return 'test-get-result'
-        end
-
         local result = instance:getOrInitialize('test-key', 'test-default')
 
         lu.assertEquals('test-get-result', result)
-        lu.assertEquals(data, miListArg)
-        lu.assertEquals('test-prefix.test-key', miKeyArg)
-        lu.assertEquals('test-default', miInitialValueArg)
-        lu.assertEquals('test-key', getKeyArg)
-        lu.assertEquals('test-default', getDefaultValueArg)
-    end
 
-    -- @covers Configuration:handle()
-    function TestConfiguration:testHandleToGetOrInitializeValues()
-        local function execution(arg1, arg2, arg3, shouldCallGetOrInitialize)
-            local keyArg, defaultValueArg = nil, nil
+        __.arr
+            :getMethod('maybeInitialize')
+            :assertCalledOnceWith(data, 'test-prefix.test-key', 'test-default')
 
-            local configuration = __:new('Configuration', {})
+        instance
+            :getMethod('get')
+            :assertCalledOnceWith('test-key', 'test-default')
+    end)
+    :register()
 
-            function configuration:getOrInitialize(key, defaultValue)
-                keyArg = key
-                defaultValueArg = defaultValue
-            end
+-- @covers Configuration:handle()
+TestCase.new()
+    :setName('handle')
+    :setTestClass(TestConfiguration)
+    :setExecution(function(data)
+        local keyArg, defaultValueArg = nil, nil
 
-            configuration:handle(arg1, arg2, arg3)
+        local configuration = __:new('Configuration', {})
 
-            lu.assertEquals(shouldCallGetOrInitialize and arg1 or nil, keyArg)
-            lu.assertEquals(shouldCallGetOrInitialize and arg2 or nil, defaultValueArg)
+        function configuration:getOrInitialize(key, defaultValue)
+            keyArg = key
+            defaultValueArg = defaultValue
         end
 
-        execution('test', nil, nil, false)
-        execution('test', 'default', nil, false)
-        execution('test', 'default', false, false)
-        execution('test', 'default', 'no', false)
-        execution('test', 'default', true, true)
-        execution('test', 'default', 'yes', true)
-    end
+        configuration:handle(data.arg1, data.arg2, data.arg3)
 
-    -- @covers Configuration:handle()
-    function TestConfiguration:testHandleToGetValues()
-        local function execution(arg1, arg2)
-            local keyArg, defaultValueArg = nil, nil
+        lu.assertEquals(data.shouldCallGetOrInitialize and data.arg1 or nil, keyArg)
+        lu.assertEquals(data.shouldCallGetOrInitialize and data.arg2 or nil, defaultValueArg)
+    end)
+    :setScenarios({
+        ['single argument'] = {
+            arg1 = 'test',
+            arg2 = nil,
+            arg3 = nil,
+            shouldCallGetOrInitialize = false,
+        },
+        ['two arguments'] = {
+            arg1 = 'test',
+            arg2 = 'default',
+            arg3 = nil,
+            shouldCallGetOrInitialize = false,
+        },
+        ['three arguments with false'] = {
+            arg1 = 'test',
+            arg2 = 'default',
+            arg3 = false,
+            shouldCallGetOrInitialize = false,
+        },
+        ['three arguments with no'] = {
+            arg1 = 'test',
+            arg2 = 'default',
+            arg3 = 'no',
+            shouldCallGetOrInitialize = false,
+        },
+        ['three arguments with true'] = {
+            arg1 = 'test',
+            arg2 = 'default',
+            arg3 = true,
+            shouldCallGetOrInitialize = true,
+        },
+        ['three arguments with yes'] = {
+            arg1 = 'test',
+            arg2 = 'default',
+            arg3 = 'yes',
+            shouldCallGetOrInitialize = true,
+        },
+    })
+    :register()
 
-            local configuration = __:new('Configuration', {})
+-- @covers Configuration:handle()
+TestCase.new()
+    :setName('handle to get values')
+    :setTestClass(TestConfiguration)
+    :setExecution(function(data)
+        local configuration = Spy
+            .new(__:new('Configuration', {}))
+            :mockMethod('get')
 
-            function configuration:get(key, defaultValue)
-                keyArg = key
-                defaultValueArg = defaultValue
-            end
+        configuration:handle(data.arg1, data.arg2)
 
-            configuration:handle(arg1, arg2)
+        configuration
+            :getMethod('get')
+            :assertCalledOnceWith(data.arg1, data.arg2)
+    end)
+    :setScenarios({
+        ['nil default value'] = {
+            arg1 = 'test',
+            arg2 = nil,
+        },
+        ['default value'] = {
+            arg1 = 'test',
+            arg2 = 'default-value',
+        },
+    })
+    :register()
 
-            lu.assertEquals(arg1, keyArg)
-            lu.assertEquals(arg2, defaultValueArg)
-        end
-
-        execution('test', nil)
-        execution('test', 'default-value')
-    end
-
-    -- @covers Configuration:handle()
-    function TestConfiguration:testHandleToSet()
+-- @covers Configuration:handle()
+TestCase.new()
+    :setName('handle to set values')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
         local configuration = __:new('Configuration', {})
 
         local keyArgs, valueArgs = {}, {}
@@ -154,25 +205,35 @@ TestConfiguration = BaseTestClass:new()
             ['test-key-c'] = 'test-value-c',
         })
 
-        local expectedKeyArgs = {'test-key-a', 'test-key-b', 'test-key-c'}
-        local expectedValueArgs = {'test-value-a', 'test-value-b', 'test-value-c'}
+        local expectedKeyArgs = { 'test-key-a', 'test-key-b', 'test-key-c' }
+        local expectedValueArgs = { 'test-value-a', 'test-value-b', 'test-value-c' }
 
         for i, key in ipairs(keyArgs) do lu.assertTableContains(expectedKeyArgs, key) end
         for i, value in ipairs(valueArgs) do lu.assertTableContains(expectedValueArgs, value) end
-    end
+    end)
+    :register()
 
-    -- @covers Configuration:handle()
-    function TestConfiguration:testHandleWithNoData()
+-- @covers Configuration:handle()
+TestCase.new()
+    :setName('handle with no data')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
         local configuration = __:new('Configuration')
 
         lu.assertEquals(nil, configuration:handle())
 
-        lu.assertIsTrue(__.output:printed('There was an attempt to get or set configuration values with no addon respective data set. Please, pass the data variable name when initializing the Stormwind Library to use this feature.'))
-    end
+        lu.assertIsTrue(__.output:printed(
+            'There was an attempt to get or set configuration values with no addon respective data set. Please, pass the data variable name when initializing the Stormwind Library to use this feature.'
+        ))
+    end)
+    :register()
 
-    -- @covers Configuration:handle()
-    -- Tests the handle method with data close to a real scenario
-    function TestConfiguration:testHandleWithRealData()
+-- @covers Configuration:handle()
+-- Tests the handle method with data close to a real scenario
+TestCase.new()
+    :setName('handle with real data')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
         local data = {
             rate = 0.1,
             ['z-index'] = 100,
@@ -210,65 +271,103 @@ TestConfiguration = BaseTestClass:new()
 
         -- any invalid call should return nil
         lu.assertIsNil(configuration:handle(1))
-    end
+    end)
+    :register()
 
-    -- @covers StormwindLibrary:isConfigEnabled()
-    function TestConfiguration:testIsConfigEnabled()
-        local function execution(instance, expectedOutput)
-            __.maybeInitializeConfiguration = function() end
-            __.configuration = instance
+-- @covers StormwindLibrary:isConfigEnabled()
+TestCase.new()
+    :setName('isConfigEnabled')
+    :setTestClass(TestConfiguration)
+    :setExecution(function(data)
+        __.maybeInitializeConfiguration = function() end
+        __.configuration = data.instance
 
-            lu.assertEquals(expectedOutput, __:isConfigEnabled())
-        end
+        lu.assertEquals(data.expectedOutput, __:isConfigEnabled())
+    end)
+    :setScenarios({
+        ['nil configuration'] = {
+            instance = nil,
+            expectedOutput = false,
+        },
+        ['empty configuration'] = {
+            instance = {},
+            expectedOutput = true,
+        },
+    })
+    :register()
 
-        execution(nil, false)
-        execution({}, true)
-    end
+-- @covers StormwindLibrary:maybeInitializeConfiguration()
+TestCase.new()
+    :setName('maybeInitializeConfiguration')
+    :setTestClass(TestConfiguration)
+    :setExecution(function(data)
+        _G['test-data'] = {}
 
-    -- @covers StormwindLibrary:maybeInitializeConfiguration()
-    function TestConfiguration:testMaybeInitializeConfiguration()
-        local function execution(addonDataPropertyName, configuration, playerConfiguration, globalDataTable, expectedConfiguration, expectedPlayerConfiguration)
-            __.configuration = configuration
-            __.playerConfiguration = playerConfiguration
-            __.addon.data = addonDataPropertyName
-            if globalDataTable then _G[addonDataPropertyName] = globalDataTable end
+        __.configuration = data.configuration
+        __.playerConfiguration = data.playerConfiguration
+        __.addon.data = data.addonDataPropertyName
+        if data.globalDataTable then _G[data.addonDataPropertyName] = data.globalDataTable end
 
-            __:maybeInitializeConfiguration()
+        __:maybeInitializeConfiguration()
 
-            lu.assertEquals(expectedConfiguration, __.configuration)
-            lu.assertEquals(expectedPlayerConfiguration, __.playerConfiguration)
-        end
+        lu.assertEquals(data.expectedConfiguration, __.configuration)
+        lu.assertEquals(data.expectedPlayerConfiguration, __.playerConfiguration)
+    end)
+    :setScenarios({
+        ['no property name'] = {
+            addonDataPropertyName = nil,
+            configuration = nil,
+            playerConfiguration = nil,
+            globalDataTable = nil,
+            expectedConfiguration = nil,
+            expectedPlayerConfiguration = nil,
+        },
+        ['no global data table'] = function()
+            return {
+                addonDataPropertyName = 'test-data',
+                configuration = nil,
+                playerConfiguration = nil,
+                globalDataTable = nil,
+                expectedConfiguration = __:new('Configuration', {}),
+                expectedPlayerConfiguration = __
+                    :new('Configuration', {})
+                    :setPrefixKey('test-realm.test-player-name'),
+            }
+        end,
+        ['with global data table'] = function()
+            return {
+                addonDataPropertyName = 'test-data',
+                configuration = nil,
+                playerConfiguration = nil,
+                globalDataTable = { ['test-key'] = 'test-value' },
+                expectedConfiguration = __:new('Configuration', { ['test-key'] = 'test-value' }),
+                expectedPlayerConfiguration = __
+                    :new('Configuration', { ['test-key'] = 'test-value' })
+                    :setPrefixKey('test-realm.test-player-name'),
+            }
+        end,
+        ['player configuration'] = function()
+            return {
+                addonDataPropertyName = 'test-data',
+                configuration = __:new('Configuration', { 'test-configuration' }),
+                playerConfiguration = __
+                    :new('Configuration', { 'test-configuration' })
+                    :setPrefixKey('test-realm.test-player-name'),
+                globalDataTable = nil,
+                expectedConfiguration = __:new('Configuration', { 'test-configuration' }),
+                expectedPlayerConfiguration = __
+                    :new('Configuration', { 'test-configuration' })
+                    :setPrefixKey('test-realm.test-player-name'),
+            }
+        end,
+    })
+    :register()
 
-        execution(nil, nil, nil, nil, nil, nil)
-        execution(
-            'test-data',
-            nil,
-            nil,
-            nil,
-            __:new('Configuration', {}),
-            __:new('Configuration', {})
-                :setPrefixKey('test-realm.test-player-name')
-        )
-
-        local addonData = {['test-key'] = 'test-value'}
-        execution(
-            'test-data',
-            nil,
-            nil,
-            addonData,
-            __:new('Configuration', addonData),
-            __:new('Configuration', addonData)
-                :setPrefixKey('test-realm.test-player-name')
-        )
-
-        local configuration = __:new('Configuration', {'test-configuration'})
-        local playerConfiguration = __:new('Configuration', {'test-configuration'})
-            :setPrefixKey('test-realm.test-player-name')
-        execution('test-data', configuration, playerConfiguration, nil, configuration, playerConfiguration)
-    end
-
-    -- @covers Configuration:maybePrefixKey()
-    function TestConfiguration:testMaybePrefixKey()
+-- @covers Configuration:maybePrefixKey()
+TestCase.new()
+    :setName('maybePrefixKey')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
         local instance = __:new('Configuration', {})
 
         lu.assertEquals('test-key', instance:maybePrefixKey('test-key'))
@@ -276,37 +375,44 @@ TestConfiguration = BaseTestClass:new()
         instance:setPrefixKey('test-prefix')
 
         lu.assertEquals('test-prefix.test-key', instance:maybePrefixKey('test-key'))
-    end
+    end)
+    :register()
 
-    -- @covers StormwindLibrary:playerConfig()
-    function TestConfiguration:testPlayerConfig()
-        local arg1, arg2 = nil, nil
-
-        __.isConfigEnabled = function() return false end
+-- @covers StormwindLibrary:playerConfig()
+TestCase.new()
+    :setName('playerConfig')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
+        __ = Spy
+            .new(__)
+            :mockMethod('isConfigEnabled', function() return false end)
 
         lu.assertIsNil(__:playerConfig('test-property', 'default-value'))
 
-        __.playerConfiguration = __:new('Configuration', {})
+        __.playerConfiguration = Spy
+            .new(__:new('Configuration', {}))
+            :mockMethod('handle')
 
-        function __.playerConfiguration:handle(...) arg1, arg2 = ... end
-
-        __.isConfigEnabled = function() return true end
+        __:mockMethod('isConfigEnabled', function() return true end)
 
         __:playerConfig('test-property', 'default-value')
 
-        lu.assertEquals('test-property', arg1)
-        lu.assertEquals('default-value', arg2)
-    end
+        __.playerConfiguration
+            :getMethod('handle')
+            :assertCalledOnceWith('test-property', 'default-value')
+    end)
+    :register()
 
-    -- @covers Configuration:set()
-    function TestConfiguration:testSet()
-        local setListArg, setKeyArg, setValueArg = nil, nil, nil
+-- @covers Configuration:set()
+TestCase.new()
+    :setName('set')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
+        __.arr = Spy
+            .new(__.arr)
+            :mockMethod('set')
 
-        function __.arr:set(list, key, value)
-            setListArg, setKeyArg, setValueArg = list, key, value
-        end
-
-        local data = {'test-data'}
+        local data = { 'test-data' }
 
         local instance = __:new('Configuration', data)
 
@@ -315,13 +421,17 @@ TestConfiguration = BaseTestClass:new()
 
         instance:set('test-key', 'test-value')
 
-        lu.assertEquals(data, setListArg)
-        lu.assertEquals('test-prefix.test-key', setKeyArg)
-        lu.assertEquals('test-value', setValueArg)
-    end
+        __.arr
+            :getMethod('set')
+            :assertCalledOnceWith(data, 'test-prefix.test-key', 'test-value')
+    end)
+    :register()
 
-    -- @covers Configuration:setPrefixKey()
-    function TestConfiguration:testSetPrefixKey()
+-- @covers Configuration:setPrefixKey()
+TestCase.new()
+    :setName('setPrefixKey')
+    :setTestClass(TestConfiguration)
+    :setExecution(function()
         local instance = __:new('Configuration', {})
 
         lu.assertIsNil(instance.prefixKey)
@@ -329,5 +439,6 @@ TestConfiguration = BaseTestClass:new()
         instance:setPrefixKey('test-prefix')
 
         lu.assertEquals('test-prefix', instance.prefixKey)
-    end
+    end)
+    :register()
 -- end of TestConfiguration

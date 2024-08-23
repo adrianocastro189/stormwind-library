@@ -1,4 +1,4 @@
---[[--
+--[[
 Dumps the values of variables and tables in the output, then dies.
 
 The dd() stands for "dump and die" and it's a helper function inspired by a PHP framework
