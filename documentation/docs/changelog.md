@@ -6,6 +6,8 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.12.2
 
+* Update wrong LuaDoc tags in some classes to fix the technical documentation
+
 ## 2024.08.21 - version 1.12.1
 
 * Update Docusaurus to version 3.5.2
