@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Changelog
 
+## yyyy.mm.dd - version 1.13.0
+
 ## 2024.08.23 - version 1.12.2
 
 * Update wrong LuaDoc tags in some classes to fix the technical documentation
