@@ -208,6 +208,27 @@ local Str = {}
     function Str:trim(value)
         return value and value:gsub("^%s*(.-)%s*$", "%1") or value
     end
+
+    --[[--
+    Returns the given string with the first character capitalized.
+
+    @NOTE: This function may not work properly if the string starts with a special
+           character, like an accent, because it uses Lua's default implementations
+           for sub and upper functions. It should be used with caution and better
+           when the string is known to start with a letter. Future implementations
+           may improve this behavior if needed.
+
+    @tparam string value The string to have the first character capitalized
+
+    @treturn string The string with the first character capitalized
+
+    @usage
+        local value = "hello, world!"
+        library.str:ucFirst(value) -- "Hello, world!"
+    ]]
+    function Str:ucFirst(value)
+        return value:sub(1, 1):upper() .. value:sub(2)
+    end
 -- end of Str
 
 self.str = Str
