@@ -69,6 +69,15 @@ local Setting = {}
     end
 
     --[[--
+    Gets the setting stored value.
+
+    @treturn any The setting stored value
+    ]]
+    function Setting:getValue()
+        -- @TODO: Implement this method in SE4 <2024.09.05>
+    end
+
+    --[[--
     Sets whether the setting is accessible by a command.
 
     @tparam boolean value Whether the setting is accessible by a command

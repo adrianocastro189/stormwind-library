@@ -41,6 +41,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Setting:getValue()
+TestCase.new()
+    :setName('getValue')
+    :setTestClass(TestSetting)
+    :setExecution(function()
+        -- @TODO: Implement this method in SE4 <2024.09.05>
+    end)
+    :register()
+
 -- @covers Setting:setAccessibleByCommand()
 -- @covers Setting:setDefault()
 -- @covers Setting:setDescription()
