@@ -50,6 +50,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Setting:isTrue()
+TestCase.new()
+    :setName('isTrue')
+    :setTestClass(TestSetting)
+    :setExecution(function()
+        -- @TODO: Implement this method in SE6 <2024.09.05>
+    end)
+    :register()
+
 -- @covers Setting:setValue()
 TestCase.new()
     :setName('setValue')

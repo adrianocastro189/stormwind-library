@@ -69,6 +69,20 @@ local Setting = {}
     end
 
     --[[--
+    Determines whether the setting stored value evaluates to true.
+
+    This is a helper method that returns true if the stored value is any kind of
+    value that should be considered true using Support.Bool.
+
+    @see Support.Bool.isTrue
+
+    @treturn boolean Whether the setting stored value evaluates to true
+    ]]
+    function Setting:isTrue()
+        -- @TODO: Implement this method in SE6 <2024.09.05>
+    end
+
+    --[[--
     Gets the setting stored value.
 
     @treturn any The setting stored value
