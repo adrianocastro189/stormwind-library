@@ -33,4 +33,100 @@ local Setting = {}
 
         return self
     end
+
+    --[[--
+    Sets whether the setting is accessible by a command.
+
+    @tparam boolean value Whether the setting is accessible by a command
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setAccessibleByCommand(value)
+        self.accessibleByCommand = value
+        return self
+    end
+
+    --[[--
+    Sets the default value of this setting.
+
+    @tparam mixed value The setting's default value
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setDefault(value)
+        self.default = value
+        return self
+    end
+
+    --[[--
+    Sets the setting description.
+
+    @tparam string value The setting's description
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setDescription(value)
+        self.description = value
+        return self
+    end
+
+    --[[--
+    Sets the setting group.
+
+    @tparam Core.Settings.SettingGroup value The setting's group
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setGroup(value)
+        self.group = value
+        return self
+    end
+
+    --[[--
+    Sets the setting id.
+
+    @tparam string value The setting's id
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setId(value)
+        self.id = value
+        return self
+    end
+
+    --[[--
+    Sets the setting label.
+
+    @tparam string value The setting's label
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setLabel(value)
+        self.label = value
+        return self
+    end
+
+    --[[--
+    Sets the setting scope.
+
+    @tparam string value The setting's scope, listed in Setting.constants
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setScope(value)
+        self.scope = value
+        return self
+    end
+
+    --[[--
+    Sets the setting type.
+
+    @tparam string value The setting's type, listed in Setting.constants
+
+    @treturn Core.Settings.Setting self
+    ]]
+    function Setting:setType(value)
+        self.type = value
+        return self
+    end
 -- end of Setting

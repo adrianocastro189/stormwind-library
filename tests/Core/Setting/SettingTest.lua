@@ -13,4 +13,34 @@ TestCase.new()
         lu.assertEquals(instance.type, 'string')
     end)
     :register()
+
+-- @covers Setting:setAccessibleByCommand()
+-- @covers Setting:setDefault()
+-- @covers Setting:setDescription()
+-- @covers Setting:setGroup()
+-- @covers Setting:setScope()
+-- @covers Setting:setType()
+TestCase.new()
+    :setName('setters')
+    :setTestClass(TestSetting)
+    :setExecution(function(data)
+        local instance = __:new('Setting')
+
+        local setter = 'set' .. __.str:ucFirst(data.property)
+
+        local result = instance[setter](instance, 'value')
+
+        lu.assertEquals(instance, result)
+
+        lu.assertEquals('value', instance[data.property])
+    end)
+    :setScenarios({
+        ['accessibleByCommand'] = { property = 'accessibleByCommand' },
+        ['default'] = { property = 'default' },
+        ['description'] = { property = 'description' },
+        ['group'] = { property = 'group' },
+        ['scope'] = { property = 'scope' },
+        ['type'] = { property = 'type' },
+    })
+    :register()
 -- end of TestSetting
