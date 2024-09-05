@@ -35,6 +35,15 @@ local Setting = {}
     end
 
     --[[--
+    Gets a text that explains how to use the setting in a command.
+
+    @treturn string The command help content
+    ]]
+    function Setting:getCommandHelpContent()
+        -- @TODO: Implement this method in SE1A <2024.09.05>
+    end
+
+    --[[--
     Sets whether the setting is accessible by a command.
 
     @tparam boolean value Whether the setting is accessible by a command
