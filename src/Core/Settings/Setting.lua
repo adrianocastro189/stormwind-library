@@ -44,6 +44,17 @@ local Setting = {}
     end
 
     --[[--
+    Gets the setting fully qualified id.
+
+    The fully qualified id is the setting id prefixed by the group id.
+
+    @treturn string The setting fully qualified id
+    ]]
+    function Setting:getFullyQualifiedId()
+        -- @TODO: Implement this method in SE2 <2024.09.05>
+    end
+
+    --[[--
     Sets whether the setting is accessible by a command.
 
     @tparam boolean value Whether the setting is accessible by a command

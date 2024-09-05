@@ -23,6 +23,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Setting:getFullyQualifiedId()
+TestCase.new()
+    :setName('getFullyQualifiedId')
+    :setTestClass(TestSetting)
+    :setExecution(function()
+        -- @TODO: Implement this method in SE2 <2024.09.05>
+    end)
+    :register()
+
 -- @covers Setting:setAccessibleByCommand()
 -- @covers Setting:setDefault()
 -- @covers Setting:setDescription()
