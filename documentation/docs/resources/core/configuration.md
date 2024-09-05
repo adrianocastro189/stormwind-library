@@ -22,6 +22,8 @@ Settings are a **subset** of configurations that are meant to be changed by
 the user. That said, the Configuration class is also used to handle the 
 settings if the addon developer wants to, but not restricted to that.
 
+Please, read the [settings documentation](settings) for more information.
+
 :::
 
 ## Creating a configuration
