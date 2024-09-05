@@ -44,6 +44,20 @@ local Setting = {}
     end
 
     --[[--
+    Gets the configuration method to be used when saving the setting.
+
+    The configuration method varies between global and player settings, so this
+    method returns the proper method to be used in this instance.
+
+    @local
+
+    @treturn string The configuration method
+    ]]
+    function Setting:getConfigurationMethod()
+        -- @TODO: Implement this method in SE3 <2024.09.05>
+    end
+
+    --[[--
     Gets the setting fully qualified id.
 
     The fully qualified id is the setting id prefixed by the group id.

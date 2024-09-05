@@ -23,6 +23,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Setting:getConfigurationMethod()
+TestCase.new()
+    :setName('getConfigurationMethod')
+    :setTestClass(TestSetting)
+    :setExecution(function()
+        -- @TODO: Implement this method in SE3 <2024.09.05>
+    end)
+    :register()
+
 -- @covers Setting:getFullyQualifiedId()
 TestCase.new()
     :setName('getFullyQualifiedId')
