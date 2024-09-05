@@ -13,13 +13,23 @@ local Setting = {}
     Setting.__ = self
     self:addClass('Setting', Setting)
 
+    Setting.constants = self.arr:freeze({
+        SCOPE_GLOBAL = 'global',
+        SCOPE_PLAYER = 'player',
+        TYPE_BOOLEAN = 'boolean',
+        TYPE_NUMBER = 'number',
+        TYPE_STRING = 'string',
+    })
+
     --[[--
     Setting constructor.
     ]]
     function Setting.__construct()
         local self = setmetatable({}, Setting)
 
-        -- add properties here
+        self.accessibleByCommand = true
+        self.scope = self.constants.SCOPE_PLAYER
+        self.type = self.constants.TYPE_STRING
 
         return self
     end
