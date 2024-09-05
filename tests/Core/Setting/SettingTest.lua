@@ -50,6 +50,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Setting:setValue()
+TestCase.new()
+    :setName('setValue')
+    :setTestClass(TestSetting)
+    :setExecution(function()
+        -- @TODO: Implement this method in SE5 <2024.09.05>
+    end)
+    :register()
+
 -- @covers Setting:setAccessibleByCommand()
 -- @covers Setting:setDefault()
 -- @covers Setting:setDescription()

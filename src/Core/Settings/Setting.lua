@@ -172,4 +172,13 @@ local Setting = {}
         self.type = value
         return self
     end
+
+    --[[--
+    Sets the setting value and saves it.
+
+    @tparam any value The setting value
+    ]]
+    function Setting:setValue(value)
+        -- @TODO: Implement this method in SE5 <2024.09.05>
+    end
 -- end of Setting
