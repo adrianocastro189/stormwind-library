@@ -6,6 +6,7 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.13.0
 
+* Add [Settings](resources/core/settings) to handle player settings
 * Add Str:ucFirst() to capitalize the first letter of a string
 
 ## 2024.08.23 - version 1.12.2
