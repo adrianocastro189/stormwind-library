@@ -156,9 +156,49 @@ TestCase.new()
 TestCase.new()
     :setName('setValue')
     :setTestClass(TestSetting)
-    :setExecution(function()
-        -- @TODO: Implement this method in SE5 <2024.09.05>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getKey', function() return 'groupId.settingId' end)
+            :mockMethod('getValue', function() return data.oldValue end)
+
+        instance.__ = Spy
+            .new(__)
+            :mockMethod('config')
+            :mockMethod('playerConfig')
+ 
+        instance.scope = data.scope
+
+        instance:setValue(data.newValue)
+
+        local method = instance.__:getMethod(data.scope == 'global' and 'config' or 'playerConfig')
+
+        if data.shouldSet then
+            method:assertCalledOnceWith({['groupId.settingId'] = data.newValue})
+        else
+            method:assertNotCalled()
+        end
     end)
+    :setScenarios({
+        ['global scope'] = {
+            scope = 'global',
+            newValue = 'globalValue',
+            oldValue = 'oldValue',
+            shouldSet = true,
+        },
+        ['player scope'] = {
+            scope = 'global',
+            newValue = 'globalValue',
+            oldValue = 'oldValue',
+            shouldSet = true,
+        },
+        ['no changes'] = {
+            scope = 'global',
+            newValue = 'globalValue',
+            oldValue = 'globalValue',
+            shouldSet = false,
+        },
+    })
     :register()
 
 -- @covers Setting:setAccessibleByCommand()

@@ -91,7 +91,6 @@ local Setting = {}
     ]]
     function Setting:getValue()
         local method = self:getConfigurationMethod()
-
         local key = self:getKey()
 
         return self.__[method](self.__, key, self.default)
@@ -211,8 +210,22 @@ local Setting = {}
     Sets the setting value and saves it.
 
     @tparam any value The setting value
+
+    @treturn Core.Settings.Setting self
     ]]
     function Setting:setValue(value)
-        -- @TODO: Implement this method in SE5 <2024.09.05>
+
+        local oldValue = self:getValue()
+
+        if oldValue == value then
+            return self
+        end
+
+        local method = self:getConfigurationMethod()
+        local key = self:getKey()
+
+        self.__[method](self.__, {[key] = value})
+
+        return self
     end
 -- end of Setting
