@@ -39,7 +39,7 @@ TestCase.new()
             description = '',
             expectedOutput = 'groupId.settingId <type>',
         },
-        ['description'] = {
+        ['with description'] = {
             description = 'description',
             expectedOutput = 'groupId.settingId <type> description',
         },
