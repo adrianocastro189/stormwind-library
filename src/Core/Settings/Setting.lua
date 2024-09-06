@@ -227,7 +227,7 @@ local Setting = {}
         
         self.__[method](self.__, {[key] = value})
 
-        self.__.events:notify('SETTING_CHANGED', id, oldValue, value)
+        self.__.events:notify('SETTING_UPDATED', id, oldValue, value)
 
         return self
     end

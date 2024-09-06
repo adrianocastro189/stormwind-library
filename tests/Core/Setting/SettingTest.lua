@@ -167,7 +167,7 @@ TestCase.new()
             :mockMethod('config')
             :mockMethod('playerConfig')
 
-        instance.__.events:listen('SETTING_CHANGED', function(id, oldValue, newValue)
+        instance.__.events:listen('SETTING_UPDATED', function(id, oldValue, newValue)
             instance.idArg = id
             instance.oldValueArg = oldValue
             instance.newValueArg = newValue
