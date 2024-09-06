@@ -50,9 +50,35 @@ TestCase.new()
 TestCase.new()
     :setName('getConfigurationMethod')
     :setTestClass(TestSetting)
-    :setExecution(function()
-        -- @TODO: Implement this method in SE3 <2024.09.05>
+    :setExecution(function(data)
+        local instance = __:new('Setting')
+
+        instance.scope = data.scope
+
+        lu.assertEquals(data.expectedResult, instance:getConfigurationMethod())
     end)
+    :setScenarios({
+        ['nil scope'] = {
+            scope = nil,
+            expectedResult = 'playerConfig',
+        },
+        ['empty scope'] = {
+            scope = '',
+            expectedResult = 'playerConfig',
+        },
+        ['invalid scope'] = {
+            scope = 'invalid',
+            expectedResult = 'playerConfig',
+        },
+        ['player scope'] = {
+            scope = 'player',
+            expectedResult = 'playerConfig',
+        },
+        ['global scope'] = {
+            scope = 'global',
+            expectedResult = 'config',
+        },
+    })
     :register()
 
 -- @covers Setting:getFullyQualifiedId()

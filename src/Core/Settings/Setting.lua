@@ -58,7 +58,7 @@ local Setting = {}
     @treturn string The configuration method
     ]]
     function Setting:getConfigurationMethod()
-        -- @TODO: Implement this method in SE3 <2024.09.05>
+        return self.scope == self.constants.SCOPE_GLOBAL and 'config' or 'playerConfig'
     end
 
     --[[--
