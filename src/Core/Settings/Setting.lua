@@ -14,6 +14,7 @@ local Setting = {}
     self:addClass('Setting', Setting)
 
     Setting.constants = self.arr:freeze({
+        PREFIX = '__settings',
         SCOPE_GLOBAL = 'global',
         SCOPE_PLAYER = 'player',
         TYPE_BOOLEAN = 'boolean',
@@ -73,6 +74,30 @@ local Setting = {}
     end
 
     --[[--
+    Gets the setting key, used to store the setting value in the configuration.
+
+    @local
+
+    @treturn string The setting key
+    ]]
+    function Setting:getKey()
+        return self.constants.PREFIX .. '.' .. self:getFullyQualifiedId()
+    end
+
+    --[[--
+    Gets the setting stored value.
+
+    @treturn any The setting stored value
+    ]]
+    function Setting:getValue()
+        local method = self:getConfigurationMethod()
+
+        local key = self:getKey()
+
+        return self.__[method](self.__, key, self.default)
+    end
+
+    --[[--
     Determines whether the setting stored value evaluates to true.
 
     This is a helper method that returns true if the stored value is any kind of
@@ -84,15 +109,6 @@ local Setting = {}
     ]]
     function Setting:isTrue()
         -- @TODO: Implement this method in SE6 <2024.09.05>
-    end
-
-    --[[--
-    Gets the setting stored value.
-
-    @treturn any The setting stored value
-    ]]
-    function Setting:getValue()
-        -- @TODO: Implement this method in SE4 <2024.09.05>
     end
 
     --[[--
