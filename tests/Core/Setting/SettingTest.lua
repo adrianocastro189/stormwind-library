@@ -147,9 +147,27 @@ TestCase.new()
 TestCase.new()
     :setName('isTrue')
     :setTestClass(TestSetting)
-    :setExecution(function()
-        -- @TODO: Implement this method in SE6 <2024.09.05>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getValue', function() return data.value end)
+        
+        lu.assertEquals(data.expectedResult, instance:isTrue())
     end)
+    :setScenarios({
+        ['true'] = {
+            value = true,
+            expectedResult = true,
+        },
+        ['false'] = {
+            value = false,
+            expectedResult = false,
+        },
+        ['nil'] = {
+            value = nil,
+            expectedResult = false,
+        },
+    })
     :register()
 
 -- @covers Setting:setValue()

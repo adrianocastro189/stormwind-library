@@ -107,7 +107,7 @@ local Setting = {}
     @treturn boolean Whether the setting stored value evaluates to true
     ]]
     function Setting:isTrue()
-        -- @TODO: Implement this method in SE6 <2024.09.05>
+        return self.__.bool:isTrue(self:getValue())
     end
 
     --[[--
