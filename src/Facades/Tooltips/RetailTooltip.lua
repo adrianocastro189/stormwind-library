@@ -22,7 +22,7 @@ local RetailTooltip = {}
     ]]
     function RetailTooltip:registerTooltipHandlers()
         TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
-            self:onItemTooltipShow(tooltip);
+            self:onItemTooltipShow(tooltip)
         end)
 
         TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, function(tooltip, data)
