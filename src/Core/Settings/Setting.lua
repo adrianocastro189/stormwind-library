@@ -40,7 +40,11 @@ local Setting = {}
     @treturn string The command help content
     ]]
     function Setting:getCommandHelpContent()
-        -- @TODO: Implement this method in SE1A <2024.09.05>
+        return self.__.str:trim(
+            self:getFullyQualifiedId() ..
+            ' <' .. self.type .. '> ' ..
+            (self.description or '')
+        )
     end
 
     --[[--

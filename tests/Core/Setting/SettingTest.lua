@@ -18,9 +18,32 @@ TestCase.new()
 TestCase.new()
     :setName('getCommandHelpContent')
     :setTestClass(TestSetting)
-    :setExecution(function()
-        -- @TODO: Implement this method in SE1A <2024.09.05>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getFullyQualifiedId', function() return 'groupId.settingId' end)
+
+        instance.type = 'type'
+        instance.description = data.description
+
+        local result = instance:getCommandHelpContent()
+
+        lu.assertEquals(data.expectedOutput, result)
     end)
+    :setScenarios({
+        ['nil description'] = {
+            description = nil,
+            expectedOutput = 'groupId.settingId <type>',
+        },
+        ['empty description'] = {
+            description = '',
+            expectedOutput = 'groupId.settingId <type>',
+        },
+        ['description'] = {
+            description = 'description',
+            expectedOutput = 'groupId.settingId <type> description',
+        },
+    })
     :register()
 
 -- @covers Setting:getConfigurationMethod()
