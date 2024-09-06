@@ -221,10 +221,13 @@ local Setting = {}
             return self
         end
 
-        local method = self:getConfigurationMethod()
+        local id = self:getFullyQualifiedId()
         local key = self:getKey()
-
+        local method = self:getConfigurationMethod()
+        
         self.__[method](self.__, {[key] = value})
+
+        self.__.events:notify('SETTING_CHANGED', id, oldValue, value)
 
         return self
     end

@@ -159,13 +159,19 @@ TestCase.new()
     :setExecution(function(data)
         local instance = Spy
             .new(__:new('Setting'))
-            :mockMethod('getKey', function() return 'groupId.settingId' end)
+            :mockMethod('getFullyQualifiedId', function() return 'groupId.settingId' end)
             :mockMethod('getValue', function() return data.oldValue end)
 
         instance.__ = Spy
             .new(__)
             :mockMethod('config')
             :mockMethod('playerConfig')
+
+        instance.__.events:listen('SETTING_CHANGED', function(id, oldValue, newValue)
+            instance.idArg = id
+            instance.oldValueArg = oldValue
+            instance.newValueArg = newValue
+        end)
  
         instance.scope = data.scope
 
@@ -174,9 +180,15 @@ TestCase.new()
         local method = instance.__:getMethod(data.scope == 'global' and 'config' or 'playerConfig')
 
         if data.shouldSet then
-            method:assertCalledOnceWith({['groupId.settingId'] = data.newValue})
+            method:assertCalledOnceWith({['__settings.groupId.settingId'] = data.newValue})
+            lu.assertEquals('groupId.settingId', instance.idArg)
+            lu.assertEquals(data.oldValue, instance.oldValueArg)
+            lu.assertEquals(data.newValue, instance.newValueArg)
         else
             method:assertNotCalled()
+            lu.assertIsNil(instance.idArg)
+            lu.assertIsNil(instance.oldValueArg)
+            lu.assertIsNil(instance.newValueArg)
         end
     end)
     :setScenarios({
