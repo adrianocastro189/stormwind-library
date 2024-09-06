@@ -60,7 +60,12 @@ TestCase.new()
     :setName('getFullyQualifiedId')
     :setTestClass(TestSetting)
     :setExecution(function()
-        -- @TODO: Implement this method in SE2 <2024.09.05>
+        local instance = __:new('Setting')
+
+        instance.group = { id = 'groupId' }
+        instance.id = 'settingId'
+
+        lu.assertEquals('groupId.settingId', instance:getFullyQualifiedId())
     end)
     :register()
 

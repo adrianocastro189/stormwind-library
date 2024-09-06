@@ -69,7 +69,7 @@ local Setting = {}
     @treturn string The setting fully qualified id
     ]]
     function Setting:getFullyQualifiedId()
-        -- @TODO: Implement this method in SE2 <2024.09.05>
+        return self.group.id .. '.' .. self.id
     end
 
     --[[--
