@@ -75,3 +75,33 @@ Let's break down the chained methods used in the example above:
   forms of visual representation of the setting to let players know what kind of
   value they're dealing with. The `Setting` class has constants for these values so 
   devs don't need to hardcode them.
+
+## Getting and setting values
+
+Once a setting is instantiated, it can be used to get and set a value to be persisted
+in the addon's data table.
+
+```lua
+local setting = -- setting instantiation here
+
+-- setting value
+setting:setValue('my value')
+
+-- the code above will store 'my value' in the addon's data table's
+-- global or player scope, depending on the setting scope
+
+-- getting the value
+local value = setting:getValue()
+```
+
+When updating a value (changing it with a new value, different from the current one),
+the library will trigger the `SETTING_UPDATED`
+[event](../facades/events.md#setting_updated) and the payload will contain the 
+setting **full qualified id**, **old value** and **new value**. Which means that 
+addons can watch for this event and react to setting changes like this:
+
+```lua
+library.events:listen('SETTING_UPDATED', function(id, oldValue, newValue)
+    -- do something with the setting change here
+end)
+```
