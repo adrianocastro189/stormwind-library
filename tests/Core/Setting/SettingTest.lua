@@ -95,13 +95,52 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Setting:getKey()
+TestCase.new()
+    :setName('getKey')
+    :setTestClass(TestSetting)
+    :setExecution(function()
+        local instance = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getFullyQualifiedId', function() return 'groupId.settingId' end)
+
+        lu.assertEquals('__settings.groupId.settingId', instance:getKey())
+    end)
+    :register()
+
 -- @covers Setting:getValue()
 TestCase.new()
     :setName('getValue')
     :setTestClass(TestSetting)
-    :setExecution(function()
-        -- @TODO: Implement this method in SE4 <2024.09.05>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getFullyQualifiedId', function() return 'groupId.settingId' end)
+
+        instance.__ = Spy
+            .new(__)
+            :mockMethod('config', function() return 'globalValue' end)
+            :mockMethod('playerConfig', function() return 'playerValue' end)
+        
+        instance.default = 'default'
+        instance.scope = data.scope
+
+        lu.assertEquals(data.expectedResult, instance:getValue())
+
+        local method = instance.__:getMethod(data.scope == 'global' and 'config' or 'playerConfig')
+
+        method:assertCalledOnceWith('__settings.groupId.settingId', 'default')
     end)
+    :setScenarios({
+        ['global scope'] = {
+            scope = 'global',
+            expectedResult = 'globalValue',
+        },
+        ['player scope'] = {
+            scope = 'player',
+            expectedResult = 'playerValue',
+        },
+    })
     :register()
 
 -- @covers Setting:isTrue()

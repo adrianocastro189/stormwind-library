@@ -175,13 +175,13 @@ that's the default state of this class.
 local config = library:new('Configuration', MyAddon_Data)
 
 -- this will try to access the key 'property.a' in the MyAddonData table
-config('property.a')
+library:config('property.a')
 
 -- setting a prefix key
 config:setPrefix('any.prefix')
 
 -- after the prefix is set, calling...
-config('property.a')
+library:config('property.a')
 
 -- ...will have the configuration instance trying to access the key
 -- 'any.prefix.property.a' in the MyAddonData table
