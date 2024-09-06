@@ -26,11 +26,11 @@ methods allow to build a new instance and set its properties in a single call li
 this:
 
 ```lua
-local group = library.__:new('SettingGroup')
+local group = library:new('SettingGroup')
 
 -- group setters called here
 
-local setting = library.__:new('Setting')
+local setting = library:new('Setting')
     :setAccessibleByCommand(true)
     :setDefault('default value')
     :setDescription('This is a setting description')
@@ -60,7 +60,7 @@ Let's break down the chained methods used in the example above:
 * `setDescription`: sets the setting description. It's used by the library in any 
   visual representation of the setting like UI elements and chat command outputs.
 * `setGroup`: sets the setting group. It's used to group settings in the UI elements
-  and also to build the setting full qualified id.
+  and also to build the setting fully qualified id.
 * `setId`: sets the setting id. It's used to identify the setting and must be unique
   **within the group.** Which means two settings may have the same id as long as they
   belong to different groups.
@@ -97,7 +97,7 @@ local value = setting:getValue()
 When updating a value (changing it with a new value, different from the current one),
 the library will trigger the `SETTING_UPDATED`
 [event](../facades/events.md#setting_updated) and the payload will contain the 
-setting **full qualified id**, **old value** and **new value**. Which means that 
+setting **fully qualified id**, **old value** and **new value**. Which means that 
 addons can watch for this event and react to setting changes like this:
 
 ```lua
