@@ -85,6 +85,19 @@ local Setting = {}
     end
 
     --[[--
+    Gets the setting stored value.
+
+    @treturn any The setting stored value
+    ]]
+    function Setting:getValue()
+        local method = self:getConfigurationMethod()
+
+        local key = self:getKey()
+
+        return self.__[method](self.__, key, self.default)
+    end
+
+    --[[--
     Determines whether the setting stored value evaluates to true.
 
     This is a helper method that returns true if the stored value is any kind of
@@ -96,19 +109,6 @@ local Setting = {}
     ]]
     function Setting:isTrue()
         -- @TODO: Implement this method in SE6 <2024.09.05>
-    end
-
-    --[[--
-    Gets the setting stored value.
-
-    @treturn any The setting stored value
-    ]]
-    function Setting:getValue()
-        local method = self:getConfigurationMethod()
-
-        local key = self:getKey()
-
-        return self.__[method](self.__, key, self.default)
     end
 
     --[[--
