@@ -105,3 +105,7 @@ library.events:listen('SETTING_UPDATED', function(id, oldValue, newValue)
     -- do something with the setting change here
 end)
 ```
+
+It's also possible to use the `Setting:isTrue()` method when dealing with boolean
+settings in many formats like `1`, `true`, `yes` and a few more covered by
+[Bool](../support/bool).
