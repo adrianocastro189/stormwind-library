@@ -39,6 +39,19 @@ local SettingGroup = {}
     end
 
     --[[--
+    Gets a setting in this group by its id.
+
+    It's important to pass the setting id, not the fully qualified id.
+
+    @tparam string id The setting id
+
+    @treturn Core.Settings.Setting|nil The setting instance
+    ]]
+    function SettingGroup:getSetting(id)
+    -- @TODO: Implement this method in SG3 <2024.09.07>
+    end
+
+    --[[--
     Sets the setting group id.
 
     @tparam string value The setting group's id

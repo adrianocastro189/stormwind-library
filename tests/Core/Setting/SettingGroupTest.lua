@@ -21,6 +21,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers SettingGroup:getSetting()
+TestCase.new()
+    :setName('getSetting')
+    :setTestClass(TestSettingGroup)
+    :setExecution(function()
+    -- @TODO: Implement this method in SG3 <2024.09.07>
+    end)
+    :register()
+
 -- @covers SettingGroup:setId()
 -- @covers SettingGroup:setLabel()
 TestCase.new()
