@@ -8,6 +8,7 @@ TestCase.new()
         local instance = __:new('SettingGroup')
 
         lu.assertNotNil(instance)
+        lu.assertEquals({}, instance.settings)
     end)
     :register()
 -- end of TestSettingGroup

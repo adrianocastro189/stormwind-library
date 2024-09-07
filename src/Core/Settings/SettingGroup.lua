@@ -21,6 +21,8 @@ local SettingGroup = {}
     function SettingGroup.__construct()
         local self = setmetatable({}, SettingGroup)
 
+        self.settings = {}
+
         return self
     end
 -- end of SettingGroup
