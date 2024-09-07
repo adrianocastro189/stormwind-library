@@ -30,6 +30,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers SettingGroup:getSettingValue()
+TestCase.new()
+    :setName('getSettingValue')
+    :setTestClass(TestSettingGroup)
+    :setExecution(function()
+    -- @TODO: Implement this method in SG4 <2024.09.07>
+    end)
+    :register()
+
 -- @covers SettingGroup:setId()
 -- @covers SettingGroup:setLabel()
 TestCase.new()

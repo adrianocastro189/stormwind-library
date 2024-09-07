@@ -52,6 +52,19 @@ local SettingGroup = {}
     end
 
     --[[--
+    Gets a setting value in this group by its id.
+
+    It's important to pass the setting id, not the fully qualified id.
+
+    @tparam string id The setting id
+
+    @treturn any|nil The setting value
+    ]]
+    function SettingGroup:getSettingValue(id)
+    -- @TODO: Implement this method in SG4 <2024.09.07>
+    end
+
+    --[[--
     Sets the setting group id.
 
     @tparam string value The setting group's id
