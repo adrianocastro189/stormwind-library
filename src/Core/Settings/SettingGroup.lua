@@ -83,6 +83,15 @@ local SettingGroup = {}
     end
 
     --[[--
+    Determines whether this group has settings.
+
+    @treturn boolean Whether this group has settings
+    ]]
+    function SettingGroup:hasSettings()
+    -- @TODO: Implement this method in SG1A <2024.09.07>
+    end
+
+    --[[--
     Sets the setting group id.
 
     @tparam string value The setting group's id
