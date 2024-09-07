@@ -30,6 +30,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers SettingGroup:allAccessibleByCommand()
+TestCase.new()
+    :setName('allAccessibleByCommand')
+    :setTestClass(TestSettingGroup)
+    :setExecution(function()
+    -- @TODO: Implement this method in SG1B <2024.09.07>
+    end)
+    :register()
+
 -- @covers SettingGroup:getSetting()
 TestCase.new()
     :setName('getSetting')

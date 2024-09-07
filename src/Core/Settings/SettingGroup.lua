@@ -48,6 +48,15 @@ local SettingGroup = {}
     end
 
     --[[--
+    Gets all settings in this group that are accessible by a command.
+
+    @treturn table[Core.Settings.Setting] All the settings in this group that are accessible by a command
+    ]]
+    function SettingGroup:allAccessibleByCommand()
+    -- @TODO: Implement this method in SG1B <2024.09.07>
+    end
+
+    --[[--
     Gets a setting in this group by its id.
 
     It's important to pass the setting id, not the fully qualified id.
