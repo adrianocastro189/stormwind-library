@@ -235,6 +235,8 @@ TestCase.new()
 -- @covers Setting:setDefault()
 -- @covers Setting:setDescription()
 -- @covers Setting:setGroup()
+-- @covers Setting:setId()
+-- @covers Setting:setLabel()
 -- @covers Setting:setScope()
 -- @covers Setting:setType()
 TestCase.new()
@@ -256,6 +258,8 @@ TestCase.new()
         ['default'] = { property = 'default' },
         ['description'] = { property = 'description' },
         ['group'] = { property = 'group' },
+        ['id'] = { property = 'id' },
+        ['label'] = { property = 'label' },
         ['scope'] = { property = 'scope' },
         ['type'] = { property = 'type' },
     })

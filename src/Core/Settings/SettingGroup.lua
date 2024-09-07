@@ -25,4 +25,28 @@ local SettingGroup = {}
 
         return self
     end
+
+    --[[--
+    Sets the setting group id.
+
+    @tparam string value The setting group's id
+
+    @treturn Core.Settings.SettingGroup self
+    ]]
+    function SettingGroup:setId(value)
+        self.id = value
+        return self
+    end
+
+    --[[--
+    Sets the setting group label.
+
+    @tparam string value The setting group's label
+
+    @treturn Core.Settings.SettingGroup self
+    ]]
+    function SettingGroup:setLabel(value)
+        self.label = value
+        return self
+    end
 -- end of SettingGroup
