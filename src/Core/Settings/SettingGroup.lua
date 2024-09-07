@@ -92,6 +92,15 @@ local SettingGroup = {}
     end
 
     --[[--
+    Determines whether this group has at least one settings that's accessible by a command.
+
+    @treturn boolean Whether this group has at least one settings that's accessible by a command
+    ]]
+    function SettingGroup:hasSettingsAccessibleByCommand()
+    -- @TODO: Implement this method in SG1B <2024.09.07>
+    end
+
+    --[[--
     Sets the setting group id.
 
     @tparam string value The setting group's id
