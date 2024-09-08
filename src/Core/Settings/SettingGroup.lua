@@ -44,7 +44,7 @@ local SettingGroup = {}
     @treturn table[Core.Settings.Setting] All the settings in this group
     ]]
     function SettingGroup:all()
-    -- @TODO: Implement this method in SG1A <2024.09.07>
+        return self.settings
     end
 
     --[[--

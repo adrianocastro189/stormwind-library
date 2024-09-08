@@ -26,7 +26,16 @@ TestCase.new()
     :setName('all')
     :setTestClass(TestSettingGroup)
     :setExecution(function()
-    -- @TODO: Implement this method in SG1A <2024.09.07>
+        local instance = __:new('SettingGroup')
+
+        lu.assertEquals({}, instance:all())
+
+        local settingA = __:new('Setting')
+        local settingB = __:new('Setting')
+
+        instance.settings = { settingA, settingB }
+
+        lu.assertEquals({ settingA, settingB }, instance:all())
     end)
     :register()
 
