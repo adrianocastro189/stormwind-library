@@ -69,7 +69,7 @@ local SettingGroup = {}
     @treturn Core.Settings.Setting|nil The setting instance
     ]]
     function SettingGroup:getSetting(id)
-    -- @TODO: Implement this method in SG3 <2024.09.07>
+        return self.settings[id]
     end
 
     --[[--

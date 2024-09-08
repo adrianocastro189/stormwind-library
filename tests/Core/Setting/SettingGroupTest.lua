@@ -112,7 +112,14 @@ TestCase.new()
     :setName('getSetting')
     :setTestClass(TestSettingGroup)
     :setExecution(function()
-    -- @TODO: Implement this method in SG3 <2024.09.07>
+        local instance = __:new('SettingGroup')
+
+        local setting = __:new('Setting'):setId('settingId')
+
+        instance:addSetting(setting)
+
+        lu.assertEquals(setting, instance:getSetting('settingId'))
+        lu.assertIsNil(instance:getSetting('nonExistentSettingId'))
     end)
     :register()
 
