@@ -70,7 +70,6 @@ TestCase.new()
 TestCase.new()
     :setName('hasSettings')
     :setTestClass(TestSettingGroup)
-    :setExecution(function()
     :setExecution(function(data)
         local instance = __:new('SettingGroup')
 
