@@ -76,6 +76,41 @@ TestArr = BaseTestClass:new()
         execution({['a'] = 'a', ['b'] = 'b', ['c'] = 'c'}, {'a-a', 'b-b', 'c-c'})
     end
 
+TestCase.new()
+    :setName('filter')
+    :setTestClass(TestArr)
+    :setExecution(function(data)
+        lu.assertEquals(data.expectedOutput, __.arr:filter(data.list, data.callback))
+    end)
+    :setScenarios({
+        ['empty list, true callback'] = {
+            list = {},
+            callback = function () return true end,
+            expectedOutput = {}
+        },
+        ['empty list, false callback'] = {
+            list = {},
+            callback = function () return false end,
+            expectedOutput = {}
+        },
+        ['simple list, true callback'] = {
+            list = {'a', 'b', 'c'},
+            callback = function () return true end,
+            expectedOutput = {'a', 'b', 'c'}
+        },
+        ['simple list'] = {
+            list = {'a', 'b', 'c'},
+            callback = function (value) return value == 'b' end,
+            expectedOutput = {'b'}
+        },
+        ['associative list'] = {
+            list = {['a'] = 1, ['b'] = 2, ['c'] = 3},
+            callback = function (value, i) return i == 'c' end,
+            expectedOutput = {['c'] = 3}
+        }
+    })
+    :register()
+
     -- @covers Arr:freeze()
     function TestArr:testFreeze()
         local arr = __.arr
