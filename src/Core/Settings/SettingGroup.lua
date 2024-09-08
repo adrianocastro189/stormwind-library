@@ -53,7 +53,9 @@ local SettingGroup = {}
     @treturn table[Core.Settings.Setting] All the settings in this group that are accessible by a command
     ]]
     function SettingGroup:allAccessibleByCommand()
-    -- @TODO: Implement this method in SG1B <2024.09.07>
+        return self.__.arr:filter(self.settings, function(setting)
+            return setting:isAccessibleByCommand()
+        end)
     end
 
     --[[--
