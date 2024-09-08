@@ -77,12 +77,22 @@ local SettingGroup = {}
 
     It's important to pass the setting id, not the fully qualified id.
 
+    If the setting doesn't exist, this method won't throw an error, but return nil.
+
     @tparam string id The setting id
 
     @treturn any|nil The setting value
     ]]
     function SettingGroup:getSettingValue(id)
-    -- @TODO: Implement this method in SG4 <2024.09.07>
+        local setting = self:getSetting(id)
+
+        if setting then
+            -- this can't be placed in an inline return statement because it would
+            -- return nil if the setting value is falsy
+            return setting:getValue()
+        end
+
+        return nil
     end
 
     --[[--

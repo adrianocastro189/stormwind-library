@@ -21,13 +21,13 @@ TestCase.new()
 
         lu.assertEquals({}, instance.settings)
 
-        local setting = __:new('Setting'):setId('settingId')
+        local setting = __:new('Setting'):setId('setting-id')
 
         lu.assertIsNil(setting.group)
 
         instance:addSetting(setting)
 
-        lu.assertEquals(setting, instance.settings['settingId'])
+        lu.assertEquals(setting, instance.settings['setting-id'])
         lu.assertEquals(instance, setting.group)
     end)
     :register()
@@ -114,12 +114,12 @@ TestCase.new()
     :setExecution(function()
         local instance = __:new('SettingGroup')
 
-        local setting = __:new('Setting'):setId('settingId')
+        local setting = __:new('Setting'):setId('setting-id')
 
         instance:addSetting(setting)
 
-        lu.assertEquals(setting, instance:getSetting('settingId'))
-        lu.assertIsNil(instance:getSetting('nonExistentSettingId'))
+        lu.assertEquals(setting, instance:getSetting('setting-id'))
+        lu.assertIsNil(instance:getSetting('non-existent-setting-id'))
     end)
     :register()
 
@@ -127,9 +127,53 @@ TestCase.new()
 TestCase.new()
     :setName('getSettingValue')
     :setTestClass(TestSettingGroup)
-    :setExecution(function()
-    -- @TODO: Implement this method in SG4 <2024.09.07>
+    :setExecution(function(data)
+        local instance = __:new('SettingGroup')
+
+        instance.settings = data.settings
+
+        lu.assertEquals(data.expectedResult, instance:getSettingValue(data.settingId))
     end)
+    :setScenarios({
+        ['empty settings'] = {
+            settings = {},
+            settingId = 'setting-id',
+            expectedResult = nil,
+        },
+        ['has value'] = function()
+            local setting = Spy
+                .new(__:new('Setting'):setId('setting-id'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            return {
+                settings = { ['setting-id'] = setting },
+                settingId = 'setting-id',
+                expectedResult = 'value',
+            }
+        end,
+        ['value is falsy'] = function()
+            local setting = Spy
+                .new(__:new('Setting'):setId('setting-id'))
+                :mockMethod('getValue', function() return false end)
+
+            return {
+                settings = { ['setting-id'] = setting },
+                settingId = 'setting-id',
+                expectedResult = false,
+            }
+        end,
+        ['setting is invalid'] = function()
+            local setting = Spy
+                .new(__:new('Setting'):setId('setting-id'))
+                :mockMethod('getValue', function() return false end)
+
+            return {
+                settings = { ['setting-id'] = setting },
+                settingId = 'invalid-setting-id',
+                expectedResult = nil,
+            }
+        end,
+    })
     :register()
 
 -- @covers SettingGroup:hasSettings()
