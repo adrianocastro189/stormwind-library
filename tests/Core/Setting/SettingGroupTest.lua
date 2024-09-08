@@ -17,7 +17,18 @@ TestCase.new()
     :setName('addSetting')
     :setTestClass(TestSettingGroup)
     :setExecution(function()
-    -- @TODO: Implement this method in SG2 <2024.09.07>
+        local instance = __:new('SettingGroup')
+
+        lu.assertEquals({}, instance.settings)
+
+        local setting = __:new('Setting'):setId('settingId')
+
+        lu.assertIsNil(setting.group)
+
+        instance:addSetting(setting)
+
+        lu.assertEquals(setting, instance.settings['settingId'])
+        lu.assertEquals(instance, setting.group)
     end)
     :register()
 

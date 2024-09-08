@@ -34,7 +34,8 @@ local SettingGroup = {}
     @treturn Core.Settings.SettingGroup self
     ]]
     function SettingGroup:addSetting(setting)
-        -- @TODO: Implement this method in SG2 <2024.09.07>
+        self.settings[setting.id] = setting
+        setting:setGroup(self)
         return self
     end
 
