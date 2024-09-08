@@ -120,7 +120,7 @@ local Arr = {}
     a boolean value. When it evaluates to true, the value is stored in the results
     table.
 
-    If list is an array, the results will be stored in a new array. If it's a
+    If list is an array, the results will be stored in a new array. If it's an
     associative array, the results will be stored in a new associative array with
     the same keys.
 
