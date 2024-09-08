@@ -113,6 +113,45 @@ local Arr = {}
     end
 
     --[[--
+    Filters the list values based on a callback function.
+
+    The callback function must be a function that accepts (val) or (val, i)
+    where val is the object in the interaction and i it's index. It must return
+    a boolean value. When it evaluates to true, the value is stored in the results
+    table.
+
+    If list is an array, the results will be stored in a new array. If it's a
+    associative array, the results will be stored in a new associative array with
+    the same keys.
+
+    @tparam table list The list to be filtered
+    @tparam function callback The function to be called for each item in the list
+    
+    @treturn table The filtered list
+
+    @usage
+        local list = {1, 2, 3}
+        local results = library.arr:filter(list, function(val) return val > 1 end)
+        -- results = {2, 3}
+    ]]
+    function Arr:filter(list, callback)
+        local results = {}
+
+        self:each(list, function(val, i)
+            if callback(val, i) then
+                if self:isArray(list) then
+                    table.insert(results, val)
+                    return
+                end
+                
+                results[i] = val
+            end
+        end)
+
+        return results
+    end
+
+    --[[--
     Freezes a table, making it immutable.
 
     This method is useful when you want to create a constant table that

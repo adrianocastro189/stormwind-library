@@ -6,6 +6,7 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.13.0
 
+* Add Arr:filter() to filter values in a table from a callback function
 * Add [Settings](resources/core/settings) to handle player settings
 * Add Str:ucFirst() to capitalize the first letter of a string
 
