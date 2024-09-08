@@ -26,7 +26,16 @@ TestCase.new()
     :setName('all')
     :setTestClass(TestSettingGroup)
     :setExecution(function()
-    -- @TODO: Implement this method in SG1A <2024.09.07>
+        local instance = __:new('SettingGroup')
+
+        lu.assertEquals({}, instance:all())
+
+        local settingA = __:new('Setting')
+        local settingB = __:new('Setting')
+
+        instance.settings = { settingA, settingB }
+
+        lu.assertEquals({ settingA, settingB }, instance:all())
     end)
     :register()
 
@@ -61,9 +70,27 @@ TestCase.new()
 TestCase.new()
     :setName('hasSettings')
     :setTestClass(TestSettingGroup)
-    :setExecution(function()
-    -- @TODO: Implement this method in SG1A <2024.09.07>
+    :setExecution(function(data)
+        local instance = __:new('SettingGroup')
+
+        instance.settings = data.settings
+
+        lu.assertEquals(data.expectedResult, instance:hasSettings())
     end)
+    :setScenarios({
+        ['empty settings'] = {
+            settings = {},
+            expectedResult = false,
+        },
+        ['non-empty settings'] = {
+            settings = { 'setting' },
+            expectedResult = true,
+        },
+        ['indexed settings'] = {
+            settings = { ['setting'] = 'setting' },
+            expectedResult = true,
+        },
+    })
     :register()
 
 -- @covers SettingGroup:hasSettingsAccessibleByCommand()
