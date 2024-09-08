@@ -109,3 +109,38 @@ end)
 It's also possible to use the `Setting:isTrue()` method when dealing with boolean
 settings in many formats like `1`, `true`, `yes` and a few more covered by
 [Bool](../support/bool).
+
+## Setting Groups
+
+Settings in Stormwind Library were designed to **always belong to groups.** The 
+reason for this is to have it prepared for a second phase in this structure where
+settings will be automatically converted into UI elements for auto generated settings
+[pages](../views/window#adding-content-to-the-window).
+
+Although not available yet in v1.13.0 (as of this writing), by creating settings 
+with groups in mind, the impact of this resource will be minimal when the feature is 
+released.
+
+Groups can be easily instantiated and set up like this:
+
+```lua
+local group = library
+    :new('SettingGroup')
+    :setId('groupId')
+    :setLabel('Group Label')
+```
+
+After that, settings can be added to it:
+
+```lua
+local setting = library
+    :new('Setting')
+    :setID('settingId')
+    
+group:addSetting(setting)
+```
+
+Once a setting is added to a group, it's fully qualified id will be built using the
+group id and the setting id. Using the example above, it will be `groupId.settingId`.
+That's the id that will be used by addons to retrieve settings instances and, of 
+course, their values.
