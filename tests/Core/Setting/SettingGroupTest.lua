@@ -145,9 +145,57 @@ TestCase.new()
 TestCase.new()
     :setName('hasSettingsAccessibleByCommand')
     :setTestClass(TestSettingGroup)
-    :setExecution(function()
-    -- @TODO: Implement this method in SG1B <2024.09.07>
+    :setExecution(function(data)
+        local instance = __:new('SettingGroup')
+
+        instance.settings = data.settings
+
+        local hasSettingsAccessibleByCommand = instance:hasSettingsAccessibleByCommand()
+
+        lu.assertEquals(data.expectedResult, hasSettingsAccessibleByCommand)
     end)
+    :setScenarios({
+        ['empty settings'] = {
+            settings = {},
+            expectedResult = false,
+        },
+        ['non-accessible settings'] = function()
+            local settingA = __:new('Setting')
+            local settingB = __:new('Setting')
+
+            settingA.isAccessibleByCommand = function() return false end
+            settingB.isAccessibleByCommand = function() return false end
+
+            return {
+                settings = { ['a'] = settingA, ['b'] = settingB },
+                expectedResult = false,
+            }
+        end,
+        ['accessible settings'] = function()
+            local settingA = __:new('Setting')
+            local settingB = __:new('Setting')
+
+            settingA.isAccessibleByCommand = function() return true end
+            settingB.isAccessibleByCommand = function() return true end
+
+            return {
+                settings = { ['a'] = settingA, ['b'] = settingB },
+                expectedResult = true,
+            }
+        end,
+        ['mixed settings'] = function()
+            local settingA = __:new('Setting')
+            local settingB = __:new('Setting')
+
+            settingA.isAccessibleByCommand = function() return false end
+            settingB.isAccessibleByCommand = function() return true end
+
+            return {
+                settings = { ['a'] = settingA, ['b'] = settingB },
+                expectedResult = true,
+            }
+        end,
+    })
     :register()
 
 -- @covers SettingGroup:setId()
