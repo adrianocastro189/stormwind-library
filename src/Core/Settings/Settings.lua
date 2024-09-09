@@ -75,7 +75,9 @@ local Settings = {}
     @treturn boolean Whether the addon has at least one setting
     ]]
     function Settings:hasSettings()
-        -- @TODO: Implement this method in SS1A <2024.09.09>
+        return self.__.arr:any(self.settingGroups, function(settingGroup)
+            return settingGroup:hasSettings()
+        end)
     end
 
     --[[--
