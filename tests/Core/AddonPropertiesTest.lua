@@ -19,7 +19,7 @@ TestCase.new()
                 primary = 'test-primary-color',
                 secondary = 'test-secondary-color'
             },
-            data = { test = 'data' },
+            data = 'temporary-addon-table',
             command = 'test-command',
             name = 'TestSuite',
             version = '1.0.0'
@@ -29,7 +29,7 @@ TestCase.new()
         lu.assertEquals('test-secondary-color', library.addon.colors.secondary)
         lu.assertEquals('test-command', library.addon.command)
         lu.assertEquals('TestSuite', library.addon.name)
-        lu.assertEquals({ test = 'data' }, library.addon.data)
+        lu.assertEquals('temporary-addon-table', library.addon.data)
         lu.assertEquals('1.0.0', library.addon.version)
         lu.assertEquals(false, library.addon.inventory.track)
     end)
