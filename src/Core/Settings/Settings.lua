@@ -20,4 +20,15 @@ local Settings = {}
 
         return self
     end
+
+    --[[--
+    Adds a setting group to the list of setting groups.
+
+    @tparam Core.Settings.SettingGroup settingGroup The setting group to be added
+
+    @treturn Core.Settings.Settings self
+    ]]
+    function Settings:addSettingGroup(settingGroup)
+        -- @TODO: Implement this method in SS2 <2024.09.09>
+    end
 -- end of Settings

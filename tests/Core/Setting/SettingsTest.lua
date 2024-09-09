@@ -11,4 +11,13 @@ TestCase.new()
         lu.assertNotNil(instance)
     end)
     :register()
+
+-- @covers Settings:addSettingGroup()
+TestCase.new()
+    :setName('addSettingGroup')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in SS2 <2024.09.09>
+    end)
+    :register()
 -- end of Settings
