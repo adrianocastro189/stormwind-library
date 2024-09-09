@@ -91,6 +91,7 @@ dofile('./tests/Core/EnvironmentTest.lua')
 dofile('./tests/Core/FactoryTest.lua')
 dofile('./tests/Core/OutputTest.lua')
 dofile('./tests/Core/Setting/SettingGroupTest.lua')
+dofile('./tests/Core/Setting/SettingsTest.lua')
 dofile('./tests/Core/Setting/SettingTest.lua')
 dofile('./tests/Core/VersionTest.lua')
 

@@ -14,6 +14,7 @@
 -- import src/Core/Factory.lua
 -- import src/Core/Settings/Setting.lua
 -- import src/Core/Settings/SettingGroup.lua
+-- import src/Core/Settings/Settings.lua
 
 -- import src/Support/Interval.lua
 
