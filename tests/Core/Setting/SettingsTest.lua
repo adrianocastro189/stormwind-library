@@ -35,29 +35,15 @@ TestCase.new()
     :setName('all')
     :setTestClass(TestSettings)
     :setExecution(function()
-        local settings = __:new('Settings')
+        local settings = Spy
+            .new(__:new('Settings'))
+            :mockMethod('listSettings')
 
-        local settingA = __:new('Setting'):setId('setting-a')
-        local settingB = __:new('Setting'):setId('setting-b')
-        local settingC = __:new('Setting'):setId('setting-c')
+        settings:all()
 
-        local settingGroup1 = __:new('SettingGroup')
-        local settingGroup2 = __:new('SettingGroup')
-
-        settingGroup1:addSetting(settingA)
-        settingGroup1:addSetting(settingB)
-        settingGroup2:addSetting(settingC)
-
-        settings.settingGroups = {
-            ['setting-group-1'] = settingGroup1,
-            ['setting-group-2'] = settingGroup2,
-        }
-
-        local allSettings = settings:all()
-
-        lu.assertIsTrue(__.arr:inArray(allSettings, settingA))
-        lu.assertIsTrue(__.arr:inArray(allSettings, settingB))
-        lu.assertIsTrue(__.arr:inArray(allSettings, settingC))
+        settings
+            :getMethod('listSettings')
+            :assertCalledOnceWith('all')
     end)
     :register()
 
@@ -66,7 +52,15 @@ TestCase.new()
     :setName('allAccessibleByCommand')
     :setTestClass(TestSettings)
     :setExecution(function()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+        local settings = Spy
+            .new(__:new('Settings'))
+            :mockMethod('listSettings')
+
+        settings:allAccessibleByCommand()
+
+        settings
+            :getMethod('listSettings')
+            :assertCalledOnceWith('allAccessibleByCommand')
     end)
     :register()
 
@@ -79,7 +73,7 @@ TestCase.new()
 
         settings.settingGroups = data.settingGroups
 
-        lu.assertEquals(data.expectedResult, settings:hasSettings())
+        lu.assertEquals(data.expectedResult, settings:hasSettings(data.method))
     end)
     :setScenarios({
         ['no groups'] = {
@@ -120,6 +114,24 @@ TestCase.new()
                 expectedResult = true,
             }
         end,
+        ['use another method'] = function()
+            local settingGroupA = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsWithAnotherFilter', function() return false end)
+
+            local settingGroupB = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsWithAnotherFilter', function() return true end)
+            
+            return {
+                settingGroups = {
+                    ['setting-group-a'] = settingGroupA,
+                    ['setting-group-b'] = settingGroupB,
+                },
+                method = 'hasSettingsWithAnotherFilter',
+                expectedResult = true,
+            }
+        end,
     })
     :register()
 
@@ -127,8 +139,47 @@ TestCase.new()
 TestCase.new()
     :setName('hasSettingsAccessibleByCommand')
     :setTestClass(TestSettings)
+    :setExecution(function(data)
+        local settings = Spy
+            .new(__:new('Settings'))
+            :mockMethod('hasSettings', function() return true end)
+
+        local result = settings:hasSettingsAccessibleByCommand()
+
+        lu.assertIsTrue(result)
+
+        settings
+            :getMethod('hasSettings')
+            :assertCalledOnceWith('hasSettingsAccessibleByCommand')
+    end)
+    :register()
+
+-- @covers Settings:listSettings()
+TestCase.new()
+    :setName('listSettings')
+    :setTestClass(TestSettings)
     :setExecution(function()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+        local instance = __:new('Settings')
+
+        local settingGroupA = Spy
+            .new(__:new('SettingGroup'))
+            :mockMethod('getFilteredSettings', function() return { 'setting-a1', 'setting-a2' } end)
+
+        local settingGroupB = Spy
+            .new(__:new('SettingGroup'))
+            :mockMethod('getFilteredSettings', function() return { 'setting-b1', 'setting-b2' } end)
+
+        instance.settingGroups = {
+            ['setting-group-a'] = settingGroupA,
+            ['setting-group-b'] = settingGroupB,
+        }
+
+        local allSettings = instance:listSettings('getFilteredSettings')
+
+        lu.assertIsTrue(__.arr:inArray(allSettings, 'setting-a1'))
+        lu.assertIsTrue(__.arr:inArray(allSettings, 'setting-a2'))
+        lu.assertIsTrue(__.arr:inArray(allSettings, 'setting-b1'))
+        lu.assertIsTrue(__.arr:inArray(allSettings, 'setting-b2'))
     end)
     :register()
 

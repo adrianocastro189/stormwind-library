@@ -50,13 +50,7 @@ local Settings = {}
     @treturn table[Core.Settings.Setting] The setting instances
     ]]
     function Settings:all()
-        local settings = {}
-
-        self.__.arr:each(self.settingGroups, function(settingGroup)
-            settings = self.__.arr:concat(settings, settingGroup:all())
-        end)
-
-        return settings
+        return self:listSettings('all')
     end
 
     --[[--
@@ -66,17 +60,25 @@ local Settings = {}
     @treturn table[Core.Settings.Setting] The setting instances that are accessible by command
     ]]
     function Settings:allAccessibleByCommand()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+        return self:listSettings('allAccessibleByCommand')
     end
 
     --[[--
     Determines whether the addon has at least one setting.
 
+    This method accepts an optional parameter that allows the caller to specify
+    the method to be called for each setting group to determine whether it has
+    at least one setting. With that, it's possible to add more filters in the future
+    without replicating the same logic.
+
+    @tparam[opt='hasSettings'] string settingGroupMethod The method to be called for each setting group
+
     @treturn boolean Whether the addon has at least one setting
     ]]
-    function Settings:hasSettings()
+    function Settings:hasSettings(settingGroupMethod)
+        settingGroupMethod = settingGroupMethod or 'hasSettings'
         return self.__.arr:any(self.settingGroups, function(settingGroup)
-            return settingGroup:hasSettings()
+            return settingGroup[settingGroupMethod](settingGroup)
         end)
     end
 
@@ -87,7 +89,26 @@ local Settings = {}
     @treturn boolean Whether the addon has at least one setting that is accessible by command
     ]]
     function Settings:hasSettingsAccessibleByCommand()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+        return self:hasSettings('hasSettingsAccessibleByCommand')
+    end
+
+    --[[--
+    Lists settings by invoking a method on each setting group.
+
+    @local
+
+    @tparam string groupMethod The method to be called for each setting group
+
+    @treturn table[Core.Settings.Setting] The setting instances
+    ]]
+    function Settings:listSettings(groupMethod)
+        local settings = {}
+
+        self.__.arr:each(self.settingGroups, function(settingGroup)
+            settings = self.__.arr:concat(settings, settingGroup[groupMethod](settingGroup))
+        end)
+
+        return settings
     end
 
     --[[--
