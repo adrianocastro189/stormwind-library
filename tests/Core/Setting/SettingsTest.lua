@@ -26,7 +26,13 @@ TestCase.new()
     :setName('addSettingGroup')
     :setTestClass(TestSettings)
     :setExecution(function()
-        -- @TODO: Implement this method in SS2 <2024.09.09>
+        local instance = __:new('Settings')
+
+        local settingGroup = __:new('SettingGroup'):setId('group')
+
+        instance:addSettingGroup(settingGroup)
+
+        lu.assertEquals(settingGroup, instance.settingGroups['group'])
     end)
     :register()
 
