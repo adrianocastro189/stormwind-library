@@ -333,8 +333,52 @@ TestCase.new()
 TestCase.new()
     :setName('setting')
     :setTestClass(TestSettings)
-    :setExecution(function()
-        -- @TODO: Implement this method in SS5 <2024.09.09>
+    :setExecution(function(data)
+        local instance = __:new('Settings')
+
+        local settingGroupA = __:new('SettingGroup'):setId('group-a')
+        local settingGroupG = __:new('SettingGroup'):setId('general')
+
+        local setting1 = __:new('Setting'):setId('setting-1')
+        local setting2 = __:new('Setting'):setId('setting-2')
+        local setting3 = __:new('Setting'):setId('setting-3')
+
+        settingGroupA:addSetting(setting1)
+        settingGroupA:addSetting(setting2)
+        settingGroupG:addSetting(setting3)
+
+        instance:addSettingGroup(settingGroupA)
+        instance:addSettingGroup(settingGroupG)
+
+        local result = instance:setting(data.settingFullyQualifiedId)
+
+        lu.assertEquals(data.expectedSettingId, result and result.id or nil)
     end)
+    :setScenarios({
+        ['empty id'] = {
+            settingFullyQualifiedId = '',
+            expectedSettingId = nil,
+        },
+        ['invalid id'] = {
+            settingFullyQualifiedId = 'group-a.setting-1.something-else',
+            expectedSettingId = nil,
+        },
+        ['full qualified id'] = {
+            settingFullyQualifiedId = 'group-a.setting-1',
+            expectedSettingId = 'setting-1',
+        },
+        ['general group'] = {
+            settingFullyQualifiedId = 'setting-3',
+            expectedSettingId = 'setting-3',
+        },
+        ['setting not found'] = {
+            settingFullyQualifiedId = 'group-a.setting-4',
+            expectedSettingId = nil,
+        },
+        ['general setting not found'] = {
+            settingFullyQualifiedId = 'setting-4',
+            expectedSettingId = nil,
+        },
+    })
     :register()
 -- end of Settings

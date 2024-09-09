@@ -170,12 +170,25 @@ local Settings = {}
     --[[--
     Gets a setting instance by its fully qualified id.
 
+    The fully qualified id is the id of the setting group followed by a dot and
+    the id of the setting. If a single setting id is passed, it's assumed to be
+    part of the general group.
+
     @tparam string settingFullyQualifiedId The fully qualified id of the setting
 
     @treturn Core.Settings.Setting|nil The setting instance
     ]]
     function Settings:setting(settingFullyQualifiedId)
-        -- @TODO: Implement this method in SS5 <2024.09.09>
+        local id = self.__.str:split(settingFullyQualifiedId, '.')
+
+        local isFullyQualified = #id == 2
+
+        local groupId = isFullyQualified and id[1] or 'general'
+        local settingId = isFullyQualified and id[2] or id[1]
+
+        local group = self.settingGroups[groupId]
+
+        return group and group:getSetting(settingId) or nil
     end
 -- end of Settings
 
