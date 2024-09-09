@@ -6,6 +6,8 @@ TestCase.new()
     :setTestClass(TestSettings)
     :setExecution(function()
         local instance = __:new('Settings')
+
+        lu.assertEquals({}, instance.settingGroups)
         lu.assertNotNil(instance)
     end)
     :register()

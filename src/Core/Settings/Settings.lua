@@ -16,7 +16,7 @@ local Settings = {}
     function Settings.__construct()
         local self = setmetatable({}, Settings)
 
-        -- add properties here
+        self.settingGroups = {}
 
         return self
     end
