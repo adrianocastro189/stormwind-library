@@ -104,6 +104,30 @@ local Settings = {}
     end
 
     --[[--
+    Maybe creates the library Settings instance if the library configuration is
+    enabled.
+
+    This method works as a static method that shouldn't be called directly by
+    addons. It's just a way to isolate its logic from the library onLoad callback,
+    which is the only place where it should be called.
+
+    If configuration is not enabled, this method will bail out early and won't
+    create any Settings instance.
+
+    @local
+    ]]
+    function Settings.maybeCreateLibraryInstance()
+        local library = Settings.__
+        if library:isConfigEnabled() then
+            library.settings = library:new('Settings')
+            -- proxy method to get a setting instance by its fully qualified id
+            library.setting = function(self, settingFullyQualifiedId)
+                return self.settings:setting(settingFullyQualifiedId)
+            end
+        end
+    end
+
+    --[[--
     Gets a setting instance by its fully qualified id.
 
     @tparam string settingFullyQualifiedId The fully qualified id of the setting
@@ -114,3 +138,8 @@ local Settings = {}
         -- @TODO: Implement this method in SS5 <2024.09.09>
     end
 -- end of Settings
+
+self:onLoad(function()
+    -- may create the library Settings instance
+    self:getClass('Settings').maybeCreateLibraryInstance()
+end)
