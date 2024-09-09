@@ -121,9 +121,53 @@ TestCase.new()
 TestCase.new()
     :setName('hasSettingsAccessibleByCommand')
     :setTestClass(TestSettings)
-    :setExecution(function()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+    :setExecution(function(data)
+        local settings = __:new('Settings')
+
+        settings.settingGroups = data.settingGroups
+
+        lu.assertEquals(data.expectedResult, settings:hasSettingsAccessibleByCommand())
     end)
+    :setScenarios({
+        ['no groups'] = {
+            settingGroups = {},
+            expectedResult = false,
+        },
+        ['groups have no settings'] = function()
+            local settingGroupA = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsAccessibleByCommand', function() return false end)
+
+            local settingGroupB = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsAccessibleByCommand', function() return false end)
+            
+            return {
+                settingGroups = {
+                    ['setting-group-a'] = settingGroupA,
+                    ['setting-group-b'] = settingGroupB,
+                },
+                expectedResult = false,
+            }
+        end,
+        ['one group has settings'] = function()
+            local settingGroupA = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsAccessibleByCommand', function() return false end)
+
+            local settingGroupB = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsAccessibleByCommand', function() return true end)
+            
+            return {
+                settingGroups = {
+                    ['setting-group-a'] = settingGroupA,
+                    ['setting-group-b'] = settingGroupB,
+                },
+                expectedResult = true,
+            }
+        end,
+    })
     :register()
 
 -- @covers Settings:listSettings()

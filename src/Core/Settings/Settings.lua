@@ -81,7 +81,9 @@ local Settings = {}
     @treturn boolean Whether the addon has at least one setting that is accessible by command
     ]]
     function Settings:hasSettingsAccessibleByCommand()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+        return self.__.arr:any(self.settingGroups, function(settingGroup)
+            return settingGroup:hasSettingsAccessibleByCommand()
+        end)
     end
 
     --[[--
