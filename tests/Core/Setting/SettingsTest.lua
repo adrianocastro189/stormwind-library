@@ -38,4 +38,13 @@ TestCase.new()
         -- @TODO: Implement this method in SS3 <2024.09.09>
     end)
     :register()
+
+-- @covers Settings:setting()
+TestCase.new()
+    :setName('setting')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in SS5 <2024.09.09>
+    end)
+    :register()
 -- end of Settings

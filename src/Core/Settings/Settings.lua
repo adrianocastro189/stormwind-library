@@ -53,4 +53,15 @@ local Settings = {}
     function Settings:maybeAddGeneralGroup()
         -- @TODO: Implement this method in SS3 <2024.09.09>
     end
+
+    --[[--
+    Gets a setting instance by its fully qualified id.
+
+    @tparam string settingFullyQualifiedId The fully qualified id of the setting
+
+    @treturn Core.Settings.Setting|nil The setting instance
+    ]]
+    function Settings:setting(settingFullyQualifiedId)
+        -- @TODO: Implement this method in SS5 <2024.09.09>
+    end
 -- end of Settings
