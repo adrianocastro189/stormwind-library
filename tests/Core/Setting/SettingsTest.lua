@@ -12,6 +12,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Settings:addSetting()
+TestCase.new()
+    :setName('addSetting')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in SS4 <2024.09.09>
+    end)
+    :register()
+
 -- @covers Settings:addSettingGroup()
 TestCase.new()
     :setName('addSettingGroup')
