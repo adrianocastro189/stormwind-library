@@ -39,6 +39,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Settings:allAccessibleByCommand()
+TestCase.new()
+    :setName('allAccessibleByCommand')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in SS1B <2024.09.09>
+    end)
+    :register()
+
 -- @covers Settings:mapFromAddonProperties()
 TestCase.new()
     :setName('mapFromAddonProperties')

@@ -54,6 +54,16 @@ local Settings = {}
     end
 
     --[[--
+    Gets all the command accessible setting instances that are stored in the
+    setting groups.
+
+    @treturn table[Core.Settings.Setting] The setting instances that are accessible by command
+    ]]
+    function Settings:allAccessibleByCommand()
+        -- @TODO: Implement this method in SS1B <2024.09.09>
+    end
+
+    --[[--
     Gets all the settings that were configured in the addon properties to convert
     them into real setting and setting group instances.
 
