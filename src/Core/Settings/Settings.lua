@@ -50,13 +50,7 @@ local Settings = {}
     @treturn table[Core.Settings.Setting] The setting instances
     ]]
     function Settings:all()
-        local settings = {}
-
-        self.__.arr:each(self.settingGroups, function(settingGroup)
-            settings = self.__.arr:concat(settings, settingGroup:all())
-        end)
-
-        return settings
+        return self:listSettings('all')
     end
 
     --[[--
@@ -66,7 +60,7 @@ local Settings = {}
     @treturn table[Core.Settings.Setting] The setting instances that are accessible by command
     ]]
     function Settings:allAccessibleByCommand()
-        -- @TODO: Implement this method in SS1B <2024.09.09>
+        return self:listSettings('allAccessibleByCommand')
     end
 
     --[[--
@@ -88,6 +82,25 @@ local Settings = {}
     ]]
     function Settings:hasSettingsAccessibleByCommand()
         -- @TODO: Implement this method in SS1B <2024.09.09>
+    end
+
+    --[[--
+    Lists settings by invoking a method on each setting group.
+
+    @local
+
+    @tparam string groupMethod The method to be called for each setting group
+
+    @treturn table[Core.Settings.Setting] The setting instances
+    ]]
+    function Settings:listSettings(groupMethod)
+        local settings = {}
+
+        self.__.arr:each(self.settingGroups, function(settingGroup)
+            settings = self.__.arr:concat(settings, settingGroup[groupMethod](settingGroup))
+        end)
+
+        return settings
     end
 
     --[[--
