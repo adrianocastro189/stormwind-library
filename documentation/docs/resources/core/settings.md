@@ -144,3 +144,82 @@ Once a setting is added to a group, it's fully qualified id will be built using 
 group id and the setting id. Using the example above, it will be `groupId.settingId`.
 That's the id that will be used by addons to retrieve settings instances and, of 
 course, their values.
+
+## The Settings class
+
+When the library is instantiated, it may create a `Settings` instance in case a data
+table [has been set](../core/addon-properties#data). This instance is accessible
+by the `settings` property in the library table root and it's used to handle all 
+addon settings.
+
+Addons must start by creating setting groups:
+
+```lua
+local groupA = library
+    :new('SettingGroup')
+    :setId('groupA')
+    :setLabel('Group A')
+
+local groupB = -- instantiate group B here
+local groupC = -- instantiate group C here and so on
+```
+
+After that, settings can be added to these groups:
+
+```lua
+local settingA = -- instantiate setting A here
+local settingB = -- instantiate setting B here and so on
+
+groupA:addSetting(settingA)
+groupB:addSetting(settingB)
+```
+
+And finally, the groups can be added to the settings instance:
+
+```lua
+library.settings:addSettingGroup(groupA)
+library.settings:addSettingGroup(groupB)
+```
+
+Alternatively, settings can be added directly to the settings instance:
+
+```lua
+library.settings:addSetting(settingA, 'groupA')
+library.settings:addSetting(settingB, 'groupB')
+```
+
+Note that in this case, the group id must be passed as the second argument to the
+`addSetting` method. In case it's not passed, the library will assume the settings is
+being added to the default group, which is called **General** (id = `general`).
+
+```lua
+-- adding settingA to the general group
+library.settings:addSetting(settingA)
+```
+
+Once the settings are added to the settings instance, they're already part of the
+addon settings and can be retrieved by their **fully qualified id:**
+
+```lua
+-- this will return the Setting A instance which is in Group A
+local setting = library.settings:getSetting('groupA.settingA')
+
+-- this will return the Setting B instance which is in the general group
+local setting = library.settings:getSetting('settingB')
+```
+
+:::warning Settings:setting() returns an instance, not a value
+
+Please, note that the `Settings:setting()` method returns the setting instance, not
+its stored value. To get the value, use result's `getValue()` method, but remember
+that the instance can be nil for invalid settings, which means some validation is 
+required.
+
+:::
+
+A shortcut is also available to get setting instances by their fully qualified id:
+
+```lua
+-- this will return the same as library.settings:setting('groupA.settingA')
+local setting = library:setting('groupA.settingA')
+```
