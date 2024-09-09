@@ -25,12 +25,16 @@ local Settings = {}
     Adds a setting to a group represented by its id.
 
     @tparam Core.Settings.Setting setting The setting to be added
-    @tparam string group The id of the group to which the setting will be added
+    @tparam[opt='general'] string group The id of the group to which the setting will be added
 
     @treturn Core.Settings.Settings self
     ]]
     function Settings:addSetting(setting, group)
-        -- @TODO: Implement this method in SS4 <2024.09.09>
+        group = group or 'general'
+
+        self:maybeAddGeneralGroup()
+
+        self.settingGroups[group]:addSetting(setting)
     end
 
     --[[--

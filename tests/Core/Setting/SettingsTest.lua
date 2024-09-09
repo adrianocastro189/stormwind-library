@@ -16,9 +16,39 @@ TestCase.new()
 TestCase.new()
     :setName('addSetting')
     :setTestClass(TestSettings)
-    :setExecution(function()
-        -- @TODO: Implement this method in SS4 <2024.09.09>
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('Settings'))
+            :mockMethod('maybeAddGeneralGroup')
+
+        local setting = __:new('Setting')
+
+        local settingGroup = Spy
+            .new(__:new('SettingGroup'))
+            :mockMethod('addSetting')
+
+        instance.settingGroups = { [data.expectedGroupToUse] = settingGroup }
+
+        instance:addSetting(setting, data.group)
+
+        instance
+            :getMethod('maybeAddGeneralGroup')
+            :assertCalledOnce()
+
+        settingGroup
+            :getMethod('addSetting')
+            :assertCalledOnceWith(setting)
     end)
+    :setScenarios({
+        ['group ommited'] = {
+            group = nil,
+            expectedGroupToUse = 'general',
+        },
+        ['group provided'] = {
+            group = 'group',
+            expectedGroupToUse = 'group',
+        },
+    })
     :register()
 
 -- @covers Settings:addSettingGroup()
