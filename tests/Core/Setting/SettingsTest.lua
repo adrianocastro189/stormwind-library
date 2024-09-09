@@ -48,6 +48,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Settings:hasSettings()
+TestCase.new()
+    :setName('hasSettings')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in SS1A <2024.09.09>
+    end)
+    :register()
+
 -- @covers Settings:mapFromAddonProperties()
 TestCase.new()
     :setName('mapFromAddonProperties')

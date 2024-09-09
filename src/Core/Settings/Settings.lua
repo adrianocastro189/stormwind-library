@@ -64,6 +64,15 @@ local Settings = {}
     end
 
     --[[--
+    Determines whether the addon has at least one setting.
+
+    @treturn boolean Whether the addon has at least one setting
+    ]]
+    function Settings:hasSettings()
+        -- @TODO: Implement this method in SS1A <2024.09.09>
+    end
+
+    --[[--
     Gets all the settings that were configured in the addon properties to convert
     them into real setting and setting group instances.
 
