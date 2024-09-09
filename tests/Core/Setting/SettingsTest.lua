@@ -73,7 +73,7 @@ TestCase.new()
 
         settings.settingGroups = data.settingGroups
 
-        lu.assertEquals(data.expectedResult, settings:hasSettings())
+        lu.assertEquals(data.expectedResult, settings:hasSettings(data.method))
     end)
     :setScenarios({
         ['no groups'] = {
@@ -114,6 +114,24 @@ TestCase.new()
                 expectedResult = true,
             }
         end,
+        ['use another method'] = function()
+            local settingGroupA = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsWithAnotherFilter', function() return false end)
+
+            local settingGroupB = Spy
+                .new(__:new('SettingGroup'))
+                :mockMethod('hasSettingsWithAnotherFilter', function() return true end)
+            
+            return {
+                settingGroups = {
+                    ['setting-group-a'] = settingGroupA,
+                    ['setting-group-b'] = settingGroupB,
+                },
+                method = 'hasSettingsWithAnotherFilter',
+                expectedResult = true,
+            }
+        end,
     })
     :register()
 
@@ -122,52 +140,16 @@ TestCase.new()
     :setName('hasSettingsAccessibleByCommand')
     :setTestClass(TestSettings)
     :setExecution(function(data)
-        local settings = __:new('Settings')
+        local settings = Spy
+            .new(__:new('Settings'))
+            :mockMethod('hasSettings')
 
-        settings.settingGroups = data.settingGroups
+        settings:hasSettingsAccessibleByCommand()
 
-        lu.assertEquals(data.expectedResult, settings:hasSettingsAccessibleByCommand())
+        settings
+            :getMethod('hasSettings')
+            :assertCalledOnceWith('hasSettingsAccessibleByCommand')
     end)
-    :setScenarios({
-        ['no groups'] = {
-            settingGroups = {},
-            expectedResult = false,
-        },
-        ['groups have no settings'] = function()
-            local settingGroupA = Spy
-                .new(__:new('SettingGroup'))
-                :mockMethod('hasSettingsAccessibleByCommand', function() return false end)
-
-            local settingGroupB = Spy
-                .new(__:new('SettingGroup'))
-                :mockMethod('hasSettingsAccessibleByCommand', function() return false end)
-            
-            return {
-                settingGroups = {
-                    ['setting-group-a'] = settingGroupA,
-                    ['setting-group-b'] = settingGroupB,
-                },
-                expectedResult = false,
-            }
-        end,
-        ['one group has settings'] = function()
-            local settingGroupA = Spy
-                .new(__:new('SettingGroup'))
-                :mockMethod('hasSettingsAccessibleByCommand', function() return false end)
-
-            local settingGroupB = Spy
-                .new(__:new('SettingGroup'))
-                :mockMethod('hasSettingsAccessibleByCommand', function() return true end)
-            
-            return {
-                settingGroups = {
-                    ['setting-group-a'] = settingGroupA,
-                    ['setting-group-b'] = settingGroupB,
-                },
-                expectedResult = true,
-            }
-        end,
-    })
     :register()
 
 -- @covers Settings:listSettings()

@@ -66,11 +66,19 @@ local Settings = {}
     --[[--
     Determines whether the addon has at least one setting.
 
+    This method accepts an optional parameter that allows the caller to specify
+    the method to be called for each setting group to determine whether it has
+    at least one setting. With that, it's possible to add more filters in the future
+    without replicating the same logic.
+
+    @tparam[opt='hasSettings'] string settingGroupMethod The method to be called for each setting group
+
     @treturn boolean Whether the addon has at least one setting
     ]]
-    function Settings:hasSettings()
+    function Settings:hasSettings(settingGroupMethod)
+        settingGroupMethod = settingGroupMethod or 'hasSettings'
         return self.__.arr:any(self.settingGroups, function(settingGroup)
-            return settingGroup:hasSettings()
+            return settingGroup[settingGroupMethod](settingGroup)
         end)
     end
 
@@ -81,9 +89,7 @@ local Settings = {}
     @treturn boolean Whether the addon has at least one setting that is accessible by command
     ]]
     function Settings:hasSettingsAccessibleByCommand()
-        return self.__.arr:any(self.settingGroups, function(settingGroup)
-            return settingGroup:hasSettingsAccessibleByCommand()
-        end)
+        return self:hasSettings('hasSettingsAccessibleByCommand')
     end
 
     --[[--
