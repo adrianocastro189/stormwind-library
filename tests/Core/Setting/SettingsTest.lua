@@ -30,6 +30,15 @@ TestCase.new()
     end)
     :register()
 
+-- @covers Settings:mapFromAddonProperties()
+TestCase.new()
+    :setName('mapFromAddonProperties')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in AP2 <2024.09.09>
+    end)
+    :register()
+
 -- @covers Settings:maybeAddGeneralGroup()
 TestCase.new()
     :setName('maybeAddGeneralGroup')

@@ -45,6 +45,17 @@ local Settings = {}
     end
 
     --[[--
+    Gets all the settings that were configured in the addon properties to convert
+    them into real setting and setting group instances.
+
+    Although not a local method, addons shouldn't call this method directly as it
+    is meant to be called by the library during the initialization process.
+    ]]
+    function Settings:mapFromAddonProperties()
+        -- @TODO: Implement this method in AP2 <2024.09.09>
+    end
+
+    --[[--
     Maybe adds the general setting group to the list of setting groups if it doesn't
     already exist.
 
