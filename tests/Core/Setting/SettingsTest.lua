@@ -20,4 +20,13 @@ TestCase.new()
         -- @TODO: Implement this method in SS2 <2024.09.09>
     end)
     :register()
+
+-- @covers Settings:maybeAddGeneralGroup()
+TestCase.new()
+    :setName('maybeAddGeneralGroup')
+    :setTestClass(TestSettings)
+    :setExecution(function()
+        -- @TODO: Implement this method in SS3 <2024.09.09>
+    end)
+    :register()
 -- end of Settings

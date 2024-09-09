@@ -31,4 +31,14 @@ local Settings = {}
     function Settings:addSettingGroup(settingGroup)
         -- @TODO: Implement this method in SS2 <2024.09.09>
     end
+
+    --[[--
+    Maybe adds the general setting group to the list of setting groups if it doesn't
+    already exist.
+
+    @local
+    ]]
+    function Settings:maybeAddGeneralGroup()
+        -- @TODO: Implement this method in SS3 <2024.09.09>
+    end
 -- end of Settings
