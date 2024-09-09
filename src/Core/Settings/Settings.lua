@@ -129,7 +129,14 @@ local Settings = {}
     @local
     ]]
     function Settings:maybeAddGeneralGroup()
-        -- @TODO: Implement this method in SS3 <2024.09.09>
+        if not self.settingGroups['general'] then
+            local generalGroup = self.__
+                :new('SettingGroup')
+                :setId('general')
+                :setLabel('General')
+
+            self:addSettingGroup(generalGroup)
+        end
     end
 
     --[[--

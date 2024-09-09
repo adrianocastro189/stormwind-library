@@ -202,9 +202,37 @@ TestCase.new()
 TestCase.new()
     :setName('maybeAddGeneralGroup')
     :setTestClass(TestSettings)
-    :setExecution(function()
-        -- @TODO: Implement this method in SS3 <2024.09.09>
+    :setExecution(function(data)
+        local instance = __:new('Settings')
+
+        instance.settingGroups = data.settingGroups
+
+        instance:maybeAddGeneralGroup()
+
+        lu.assertEquals(data.expectedGroupId, instance.settingGroups['general'].id)
+        lu.assertEquals(data.expectedGroupLabel, instance.settingGroups['general'].label)
     end)
+    :setScenarios({
+        ['already exists'] = function()
+            local generalSettingGroup = __
+                :new('SettingGroup')
+                :setId('general-overridden')
+                :setLabel('General Overridden')
+            
+            return {
+                settingGroups = {
+                    ['general'] = generalSettingGroup,
+                },
+                expectedGroupId = 'general-overridden',
+                expectedGroupLabel = 'General Overridden',
+            }
+        end,
+        ['not exists'] = {
+            settingGroups = {},
+            expectedGroupId = 'general',
+            expectedGroupLabel = 'General',
+        },
+    })
     :register()
 
 -- @covers Settings.maybeCreateLibraryInstance()
