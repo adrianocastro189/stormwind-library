@@ -142,9 +142,11 @@ TestCase.new()
     :setExecution(function(data)
         local settings = Spy
             .new(__:new('Settings'))
-            :mockMethod('hasSettings')
+            :mockMethod('hasSettings', function() return true end)
 
-        settings:hasSettingsAccessibleByCommand()
+        local result = settings:hasSettingsAccessibleByCommand()
+
+        lu.assertIsTrue(result)
 
         settings
             :getMethod('hasSettings')
