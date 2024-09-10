@@ -98,6 +98,14 @@ player's containers by listening to the `BAG_UPDATE` event.
 * **Required**
 * **Effect:** The library will store the addon name for multiple purposes.
 
+### settings
+
+* **Type:** table
+* **Optional**
+* **Effect:** The library will handle settings for the addon. Please, read the
+  [settings documentation](settings#settings-via-addon-properties) for reference,
+  structure, and usage.
+
 ### version
 
 * **Type:** string
