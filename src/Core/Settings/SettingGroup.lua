@@ -55,7 +55,7 @@ local SettingGroup = {}
     ]]
     function SettingGroup:allAccessibleByCommand()
         return self.__.arr:filter(self.settings, function(setting)
-            return setting:isAccessibleByCommand()
+            return setting.accessibleByCommand
         end)
     end
 
@@ -111,7 +111,7 @@ local SettingGroup = {}
     ]]
     function SettingGroup:hasSettingsAccessibleByCommand()
         return self.__.arr:any(self.settings, function(setting)
-            return setting:isAccessibleByCommand()
+            return setting.accessibleByCommand
         end)
     end
 
