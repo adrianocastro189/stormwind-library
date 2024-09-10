@@ -102,12 +102,17 @@ TestCase.new()
         ['get'] = {
             method = 'addGetOperation',
             expectedOperation = 'get',
-            expectedDescription = 'Gets the value of a setting identified by its id.',
+            expectedDescription = 'Gets the value of a setting identified by its id',
         },
         ['help'] = {
             method = 'addHelpOperation',
             expectedOperation = 'help',
-            expectedDescription = 'Shows the available operations for this command.',
+            expectedDescription = 'Shows the available operations for this command',
+        },
+        ['set'] = {
+            method = 'addSetOperation',
+            expectedOperation = 'set',
+            expectedDescription = 'Sets the value of a setting identified by its id',
         },
     })
     :register()
@@ -384,6 +389,57 @@ TestCase.new()
             expectedSlashCommand = '/test',
             expectedSlashCmdListIndex = 'TEST'
         },
+    })
+    :register()
+
+-- @covers CommandsHandler set operation
+TestCase.new()
+    :setName('set operation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = __:new('CommandsHandler')
+
+        handler.__ = Spy
+            .new(handler.__)
+            :mockMethod('setting', function() return data.setting end)
+
+        handler:addSetOperation()
+
+        local callback = handler.operations['set'].callback
+
+        callback('test', 'value')
+
+        handler.__:getMethod('setting'):assertCalledOnceWith('test')
+
+        lu.assertIsTrue(__.output:printed(data.expectedOutput))
+    end)
+    :setScenarios({
+        ['invalid setting'] = {
+            setting = nil,
+            expectedOutput = 'Setting not found: test',
+        },
+        ['valid'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('setValue')
+
+            return {
+                setting = setting,
+                expectedOutput = 'test set with value',
+            }
+        end,
+        ['not accessible by command'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            setting:setAccessibleByCommand(false)
+
+            return {
+                setting = setting,
+                expectedOutput = 'Setting not found: test',
+            }
+        end,
     })
     :register()
 -- end of TestCommandsHandler

@@ -50,7 +50,7 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addGetOperation()
-        self:addOperation('get', 'Gets the value of a setting identified by its id.', function (settingId)
+        self:addOperation('get', 'Gets the value of a setting identified by its id', function (settingId)
             local setting = self.__:setting(settingId)
 
             if setting and setting.accessibleByCommand then
@@ -76,7 +76,7 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addHelpOperation()
-        self:addOperation('help', 'Shows the available operations for this command.', function () self:printHelp() end)
+        self:addOperation('help', 'Shows the available operations for this command', function () self:printHelp() end)
     end
 
     --[[--
@@ -98,6 +98,34 @@ local CommandsHandler = {}
         command:setCallback(callback)
 
         self:add(command)
+    end
+
+    --[[--
+    Adds a set operation to the commands handler.
+
+    The set operation is a default operation that can be overridden in case the
+    addon wants to provide a custom set command. This implementation sets the value
+    of a setting and prints the result to the chat frame.
+
+    To be accessible by the set operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addSetOperation()
+        self:addOperation('set', 'Sets the value of a setting identified by its id', function (settingId, newValue)
+            local setting = self.__:setting(settingId)
+
+            if setting and setting.accessibleByCommand then
+                setting:setValue(newValue)
+                self.__.output:out(settingId.. ' set with '..newValue)
+                return
+            end
+
+            self.__.output:out('Setting not found: '..settingId)
+        end)
     end
 
     --[[--
