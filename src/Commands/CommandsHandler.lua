@@ -45,6 +45,8 @@ local CommandsHandler = {}
     To be accessible by the get operation, the setting must be registered in the
     settings handler as accessible by command.
 
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
     @see Core.Settings.Setting.setAccessibleByCommand
 
     @local
@@ -110,6 +112,8 @@ local CommandsHandler = {}
     To be accessible by the set operation, the setting must be registered in the
     settings handler as accessible by command.
 
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
     @see Core.Settings.Setting.setAccessibleByCommand
 
     @local
@@ -125,6 +129,43 @@ local CommandsHandler = {}
             end
 
             self.__.output:out('Setting not found: '..settingId)
+        end)
+    end
+
+    --[[--
+    Adds a settings operation to the commands handler.
+
+    The settings operation is a default operation that can be overridden in case the
+    addon wants to provide a custom settings command. This implementation prints a
+    list of all settings that are accessible by command and their descriptions.
+
+    To be listed by the settings operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addSettingsOperation()
+        self:addOperation('settings', 'Lists all the setting ids that can be used by get or set', function ()
+            local introduction =
+                'Available settings, that can be retrieved with '..
+                self.__.output:color(self.slashCommand..' get {id}')..' '..
+                'and updated with '..
+                self.__.output:color(self.slashCommand..' set {id}')..' '..
+                'by replacing '..
+                self.__.output:color('{id}')..' '..
+                'with any of the ids listed below'
+
+            local helpContent = {introduction}
+
+            self.__.arr:each(self.__.settings:allAccessibleByCommand(), function (setting)
+                table.insert(helpContent, setting:getCommandHelpContent())
+            end)
+
+            self.__.output:out(helpContent)
         end)
     end
 

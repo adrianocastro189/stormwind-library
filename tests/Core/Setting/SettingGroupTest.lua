@@ -72,8 +72,8 @@ TestCase.new()
             local settingA = __:new('Setting')
             local settingB = __:new('Setting')
 
-            settingA.isAccessibleByCommand = function() return false end
-            settingB.isAccessibleByCommand = function() return false end
+            settingA.accessibleByCommand = false
+            settingB.accessibleByCommand = false
 
             return {
                 settings = { ['a'] = settingA, ['b'] = settingB },
@@ -84,8 +84,8 @@ TestCase.new()
             local settingA = __:new('Setting')
             local settingB = __:new('Setting')
 
-            settingA.isAccessibleByCommand = function() return true end
-            settingB.isAccessibleByCommand = function() return true end
+            settingA.accessibleByCommand = true
+            settingB.accessibleByCommand = true
 
             return {
                 settings = { ['a'] = settingA, ['b'] = settingB },
@@ -96,8 +96,8 @@ TestCase.new()
             local settingA = __:new('Setting')
             local settingB = __:new('Setting')
 
-            settingA.isAccessibleByCommand = function() return false end
-            settingB.isAccessibleByCommand = function() return true end
+            settingA.accessibleByCommand = false
+            settingB.accessibleByCommand = true
 
             return {
                 settings = { ['a'] = settingA, ['b'] = settingB },
@@ -225,8 +225,8 @@ TestCase.new()
             local settingA = __:new('Setting')
             local settingB = __:new('Setting')
 
-            settingA.isAccessibleByCommand = function() return false end
-            settingB.isAccessibleByCommand = function() return false end
+            settingA.accessibleByCommand = false
+            settingB.accessibleByCommand = false
 
             return {
                 settings = { ['a'] = settingA, ['b'] = settingB },
@@ -237,8 +237,8 @@ TestCase.new()
             local settingA = __:new('Setting')
             local settingB = __:new('Setting')
 
-            settingA.isAccessibleByCommand = function() return true end
-            settingB.isAccessibleByCommand = function() return true end
+            settingA.accessibleByCommand = true
+            settingB.accessibleByCommand = true
 
             return {
                 settings = { ['a'] = settingA, ['b'] = settingB },
@@ -249,8 +249,8 @@ TestCase.new()
             local settingA = __:new('Setting')
             local settingB = __:new('Setting')
 
-            settingA.isAccessibleByCommand = function() return false end
-            settingB.isAccessibleByCommand = function() return true end
+            settingA.accessibleByCommand = false
+            settingB.accessibleByCommand = true
 
             return {
                 settings = { ['a'] = settingA, ['b'] = settingB },
