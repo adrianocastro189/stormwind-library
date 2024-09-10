@@ -190,7 +190,6 @@ local Settings = {}
             library.setting = function(self, settingFullyQualifiedId)
                 return self.settings:setting(settingFullyQualifiedId)
             end
-
         end
     end
 
@@ -220,6 +219,8 @@ local Settings = {}
 -- end of Settings
 
 self:onLoad(function()
-    -- may create the library Settings instance
-    self:getClass('Settings').maybeCreateLibraryInstance()
+    self.events:listen(self.events.EVENT_NAME_PLAYER_LOGIN, function()
+        -- initializes the library Settings instance
+        self:getClass('Settings').maybeCreateLibraryInstance()
+    end)
 end)

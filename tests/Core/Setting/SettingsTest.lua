@@ -381,29 +381,6 @@ TestCase.new()
     })
     :register()
 
-TestCase.new()
-    :setName('onLoad callback')
-    :setTestClass(TestSettings)
-    :setExecution(function(data)
-        local library = StormwindLibrary.new({
-            name = 'temporary-library-instance',
-            data = data.table,
-        })
-
-        lu.assertEquals(data.shouldCreateSettingsInstance, library.settings ~= nil)
-    end)
-    :setScenarios({
-        ['data has no value'] = {
-            table = nil,
-            shouldCreateSettingsInstance = false,
-        },
-        ['data has value'] = {
-            table = 'TestTable',
-            shouldCreateSettingsInstance = true,
-        },
-    })
-    :register()
-
 -- @covers Settings:setting()
 TestCase.new()
     :setName('setting')
