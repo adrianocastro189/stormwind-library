@@ -51,7 +51,7 @@ local CommandsHandler = {}
     ]]
     function CommandsHandler:addGetOperation()
         self:addOperation('get', 'Gets the value of a setting identified by its id.', function (settingId)
-            local setting = self.__.settings:get(settingId)
+            local setting = self.__:setting(settingId)
 
             if setting then
                 self.__.output:out(settingId.. ' = '..setting:getValue())

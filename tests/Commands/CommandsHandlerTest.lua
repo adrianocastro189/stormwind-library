@@ -161,19 +161,19 @@ TestCase.new()
     :setName('get operation')
     :setTestClass(TestCommandsHandler)
     :setExecution(function(data)
-        __.settings = Spy
-            .new({})
-            :mockMethod('get', function() return data.setting end)
-
         local handler = __:new('CommandsHandler')
-        
+
+        handler.__ = Spy
+            .new(handler.__)
+            :mockMethod('setting', function() return data.setting end)
+
         handler:addGetOperation()
 
         local callback = handler.operations['get'].callback
 
         callback('test')
 
-        __.settings:getMethod('get'):assertCalledOnceWith('test')
+        handler.__:getMethod('setting'):assertCalledOnceWith('test')
 
         lu.assertIsTrue(__.output:printed(data.expectedOutput))
     end)
