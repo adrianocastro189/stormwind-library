@@ -10,6 +10,7 @@ Allowed properties = {
     inventory: table, optional
         track: boolean, optional
     name: string, optional
+    settings: table, optional, read the documentation for more information
     version: string, optional
 }
 ]]
@@ -22,6 +23,7 @@ self.addon.inventory = self.arr:get(props or {}, 'inventory', {
     track = false,
 })
 self.addon.name = self.arr:get(props or {}, 'name')
+self.addon.settings = self.arr:get(props or {}, 'settings', {})
 self.addon.version = self.arr:get(props or {}, 'version')
 
 local requiredProperties = {
