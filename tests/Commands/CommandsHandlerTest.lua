@@ -192,6 +192,18 @@ TestCase.new()
                 expectedOutput = 'test = value',
             }
         end,
+        ['not accessible by command'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            setting:setAccessibleByCommand(false)
+
+            return {
+                setting = setting,
+                expectedOutput = 'Setting not found: test',
+            }
+        end,
     })
     :register()
 

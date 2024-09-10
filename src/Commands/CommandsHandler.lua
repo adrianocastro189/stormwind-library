@@ -53,8 +53,8 @@ local CommandsHandler = {}
         self:addOperation('get', 'Gets the value of a setting identified by its id.', function (settingId)
             local setting = self.__:setting(settingId)
 
-            if setting then
-                self.__.output:out(settingId.. ' = '..setting:getValue())
+            if setting and setting.accessibleByCommand then
+                self.__.output:out(settingId.. ' = '..tostring(setting:getValue()))
                 return
             end
 
