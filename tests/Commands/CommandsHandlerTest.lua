@@ -102,12 +102,12 @@ TestCase.new()
         ['get'] = {
             method = 'addGetOperation',
             expectedOperation = 'get',
-            expectedDescription = 'Gets the value of a setting identified by its id.',
+            expectedDescription = 'Gets the value of a setting identified by its id',
         },
         ['help'] = {
             method = 'addHelpOperation',
             expectedOperation = 'help',
-            expectedDescription = 'Shows the available operations for this command.',
+            expectedDescription = 'Shows the available operations for this command',
         },
     })
     :register()
@@ -160,12 +160,12 @@ TestCase.new()
 TestCase.new()
     :setName('get operation')
     :setTestClass(TestCommandsHandler)
-    :setExecution(function(data)
+    :setExecution(function()
         local handler = __:new('CommandsHandler')
 
-        handler.__ = Spy
+        handler.__.settings = Spy
             .new(handler.__)
-            :mockMethod('setting', function() return data.setting end)
+            :mockMethod('printValue')
 
         handler:addGetOperation()
 
@@ -173,26 +173,8 @@ TestCase.new()
 
         callback('test')
 
-        handler.__:getMethod('setting'):assertCalledOnceWith('test')
-
-        lu.assertIsTrue(__.output:printed(data.expectedOutput))
+        handler.__.settings:getMethod('printValue'):assertCalledOnceWith('test')
     end)
-    :setScenarios({
-        ['invalid setting'] = {
-            setting = nil,
-            expectedOutput = 'Setting not found: test',
-        },
-        ['valid'] = function()
-            local setting = Spy
-                .new(__:new('Setting'))
-                :mockMethod('getValue', function() return 'value' end)
-
-            return {
-                setting = setting,
-                expectedOutput = 'test = value',
-            }
-        end,
-    })
     :register()
 
 -- @covers CommandsHandler:handle()

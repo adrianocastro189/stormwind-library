@@ -194,6 +194,26 @@ local Settings = {}
     end
 
     --[[--
+    Prints the value of a setting by its fully qualified id.
+
+    If the setting doesn't exist, an alert message is printed.
+
+    @TODO: Improve how values are printed instead a simple string concatenation <2024.09.10>
+
+    @tparam string settingId The fully qualified id of the setting
+    ]]
+    function Settings:printValue(settingId)
+        local setting = self:setting(settingId)
+
+        if setting then
+            self.__.output:out(settingId.. ' = '..setting:getValue())
+            return
+        end
+
+        self.__.output:out('Setting not found: '..settingId)
+    end
+
+    --[[--
     Gets a setting instance by its fully qualified id.
 
     The fully qualified id is the id of the setting group followed by a dot and

@@ -381,6 +381,39 @@ TestCase.new()
     })
     :register()
 
+-- @covers Settings:printValue()
+TestCase.new()
+    :setName('printValue')
+    :setTestClass(TestSettings)
+    :setExecution(function(data)
+        local instance = Spy
+            .new(__:new('Settings'))
+            :mockMethod('setting', function() return data.setting end)
+
+        instance:printValue('test')
+
+        instance:getMethod('setting'):assertCalledOnceWith('test')
+
+        lu.assertIsTrue(__.output:printed(data.expectedOutput))
+    end)
+    :setScenarios({
+        ['invalid setting'] = {
+            setting = nil,
+            expectedOutput = 'Setting not found: test',
+        },
+        ['valid'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            return {
+                setting = setting,
+                expectedOutput = 'test = value',
+            }
+        end,
+    })
+    :register()
+
 -- @covers Settings:setting()
 TestCase.new()
     :setName('setting')

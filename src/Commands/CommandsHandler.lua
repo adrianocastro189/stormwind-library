@@ -50,15 +50,8 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addGetOperation()
-        self:addOperation('get', 'Gets the value of a setting identified by its id.', function (settingId)
-            local setting = self.__:setting(settingId)
-
-            if setting then
-                self.__.output:out(settingId.. ' = '..setting:getValue())
-                return
-            end
-
-            self.__.output:out('Setting not found: '..settingId)
+        self:addOperation('get', 'Gets the value of a setting identified by its id', function (settingId)
+            self.__.settings:printValue(settingId)
         end)
     end
 
@@ -76,7 +69,9 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addHelpOperation()
-        self:addOperation('help', 'Shows the available operations for this command.', function () self:printHelp() end)
+        self:addOperation('help', 'Shows the available operations for this command', function ()
+            self:printHelp()
+        end)
     end
 
     --[[--
