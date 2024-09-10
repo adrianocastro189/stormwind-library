@@ -224,7 +224,82 @@ TestCase.new()
     :setName('mapFromAddonProperties')
     :setTestClass(TestSettings)
     :setExecution(function()
-        -- @TODO: Implement this method in AP2 <2024.09.09>
+        local properties = {
+            groups = {
+                {
+                    id = 'group-a',
+                    label = 'Group A',
+                    settings = {
+                        {
+                            id = 'setting-a',
+                            label = 'Setting A',
+                            description = 'This is setting A',
+                            type = 'string',
+                            default = 'default value',
+                            scope = 'player',
+                            accessibleByCommand = true
+                        },
+                        {
+                            id = 'setting-b',
+                            label = 'Setting B',
+                            description = 'This is setting B',
+                            type = 'boolean',
+                            default = true,
+                            scope = 'global',
+                            accessibleByCommand = true
+                        },
+                    },
+                },
+                {
+                    id = 'group-b',
+                    label = 'Group B',
+                    settings = {
+                        {
+                            id = 'setting-c',
+                            label = 'Setting C',
+                            description = 'This is setting C',
+                            type = 'number',
+                            default = 10,
+                            scope = 'player',
+                            accessibleByCommand = false
+                        },
+                        {
+                            id = 'setting-d',
+                            label = 'Setting D',
+                            description = 'This is setting D',
+                            type = 'boolean',
+                            default = false,
+                            scope = 'global',
+                            accessibleByCommand = false
+                        },
+                    },
+                },
+            },
+        }
+
+        local instance = StormwindLibrary.new({
+            name = 'addon',
+            settings = properties,
+        })
+
+        instance.settings = instance:new('Settings')
+
+        instance.settings:mapFromAddonProperties()
+
+        -- checks if all settings were added in the correct groups
+        lu.assertEquals('setting-a', instance.settings:setting('group-a.setting-a').id)
+        lu.assertEquals('setting-b', instance.settings:setting('group-a.setting-b').id)
+        lu.assertEquals('setting-c', instance.settings:setting('group-b.setting-c').id)
+        lu.assertEquals('setting-d', instance.settings:setting('group-b.setting-d').id)
+
+        -- checks if specific setting properties were set correctly
+        local settingA = instance.settings:setting('group-a.setting-a')
+        lu.assertIsTrue(settingA.accessibleByCommand)
+        lu.assertEquals('default value', settingA.default)
+        lu.assertEquals('This is setting A', settingA.description)
+        lu.assertEquals('Setting A', settingA.label)
+        lu.assertEquals('player', settingA.scope)
+        lu.assertEquals('string', settingA.type)
     end)
     :register()
 

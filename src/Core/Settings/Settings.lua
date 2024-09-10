@@ -123,7 +123,28 @@ local Settings = {}
     is meant to be called by the library during the initialization process.
     ]]
     function Settings:mapFromAddonProperties()
-        -- @TODO: Implement this method in AP2 <2024.09.09>
+        self.__.arr:each(self.__.addon.settings.groups, function(group)
+            local settingGroup = self.__
+                :new('SettingGroup')
+                :setId(group.id)
+                :setLabel(group.label)
+
+            self:addSettingGroup(settingGroup)
+
+            self.__.arr:each(group.settings, function(setting)
+                local settingInstance = self.__
+                    :new('Setting')
+                    :setId(setting.id)
+                    :setLabel(setting.label)
+                    :setDescription(setting.description)
+                    :setType(setting.type)
+                    :setDefault(setting.default)
+                    :setScope(setting.scope)
+                    :setAccessibleByCommand(setting.accessibleByCommand)
+
+                self:addSetting(settingInstance, group.id)
+            end)
+        end)
     end
 
     --[[--
