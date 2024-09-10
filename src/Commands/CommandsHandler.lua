@@ -170,6 +170,19 @@ local CommandsHandler = {}
     end
 
     --[[--
+    Adds all the default operations related to the settings structure.
+
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
+    @local
+    ]]
+    function CommandsHandler:addSettingsOperations()
+        self:addGetOperation()
+        self:addSetOperation()
+        self:addSettingsOperation()
+    end
+
+    --[[--
     Builds a help content that lists all available operations and their
     descriptions.
     

@@ -27,6 +27,25 @@ TestCase.new()
     end)
     :register()
 
+-- @covers CommandsHandler:addSettingsOperations()
+TestCase.new()
+    :setName('addSettingsOperations')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function()
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addGetOperation')
+            :mockMethod('addSetOperation')
+            :mockMethod('addSettingsOperation')
+
+        handler:addSettingsOperations()
+
+        handler:getMethod('addGetOperation'):assertCalledOnce()
+        handler:getMethod('addSetOperation'):assertCalledOnce()
+        handler:getMethod('addSettingsOperation'):assertCalledOnce()
+    end)
+    :register()
+
 -- @covers CommandsHandler:buildHelpContent()
 TestCase.new()
     :setName('buildHelpContent')
@@ -113,6 +132,11 @@ TestCase.new()
             method = 'addSetOperation',
             expectedOperation = 'set',
             expectedDescription = 'Sets the value of a setting identified by its id',
+        },
+        ['settings'] = {
+            method = 'addSettingsOperation',
+            expectedOperation = 'settings',
+            expectedDescription = 'Lists all the setting ids that can be used by get or set',
         },
     })
     :register()
