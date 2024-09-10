@@ -442,4 +442,43 @@ TestCase.new()
         end,
     })
     :register()
+
+-- @covers CommandsHandler settings operation
+TestCase.new()
+    :setName('settings operation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local settingA = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getCommandHelpContent', function() return 'setting-a' end)
+
+        local settingB = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getCommandHelpContent', function() return 'setting-b' end)
+
+        local handler = __:new('CommandsHandler')
+
+        handler.__.settings = Spy
+            .new(handler.__.settings)
+            :mockMethod('allAccessibleByCommand', function() return {settingA, settingB} end)
+
+        handler.slashCommand = '/test'
+
+        handler.__.output = Spy
+            .new(handler.__.output)
+            :mockMethod('out')
+
+        handler:addSettingsOperation()
+
+        local callback = handler.operations['settings'].callback
+
+        callback()
+
+        handler.__.output:getMethod('out'):assertCalledOnceWith({
+            'Available settings, that can be retrieved with /test get {id} and updated with /test set {id} by replacing {id} with any of the ids listed below',
+            'setting-a',
+            'setting-b',
+        })
+    end)
+    :register()
 -- end of TestCommandsHandler
