@@ -154,10 +154,12 @@ local CommandsHandler = {}
                 'Available settings, that can be retrieved with '..
                 self.__.output:color(self.slashCommand..' get {id}')..' '..
                 'and updated with '..
-                self.__.output:color(self.slashCommand..' set {id}')..' '..
+                self.__.output:color(self.slashCommand..' set {id} {value}')..' '..
                 'by replacing '..
                 self.__.output:color('{id}')..' '..
-                'with any of the ids listed below'
+                'with any of the ids listed below and '..
+                self.__.output:color('{value}')..' '..
+                'with the new value'
 
             local helpContent = {introduction}
 

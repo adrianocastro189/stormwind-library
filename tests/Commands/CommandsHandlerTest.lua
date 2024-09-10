@@ -499,7 +499,7 @@ TestCase.new()
         callback()
 
         handler.__.output:getMethod('out'):assertCalledOnceWith({
-            'Available settings, that can be retrieved with /test get {id} and updated with /test set {id} by replacing {id} with any of the ids listed below',
+            'Available settings, that can be retrieved with /test get {id} and updated with /test set {id} {value} by replacing {id} with any of the ids listed below and {value} with the new value',
             'setting-a',
             'setting-b',
         })
