@@ -49,13 +49,28 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addHelpOperation()
-        local helpCommand = self.__:new('Command')
+        self:addOperation('help', 'Shows the available operations for this command.', function () self:printHelp() end)
+    end
 
-        helpCommand:setOperation('help')
-        helpCommand:setDescription('Shows the available operations for this command.')
-        helpCommand:setCallback(function () self:printHelp() end)
+    --[[--
+    Adds a new operation to the commands handler.
 
-        self:add(helpCommand)
+    This is a local method and should not be called directly by addons.
+
+    @local
+
+    @tparam string operation The operation that will trigger the callback
+    @tparam string description The description of the operation
+    @tparam function callback The callback that will be triggered when the operation is called
+    ]]
+    function CommandsHandler:addOperation(operation, description, callback)
+        local command = self.__:new('Command')
+
+        command:setOperation(operation)
+        command:setDescription(description)
+        command:setCallback(callback)
+
+        self:add(command)
     end
 
     --[[--

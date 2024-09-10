@@ -21,9 +21,29 @@ TestCase.new()
     :setName('addHelpOperation')
     :setTestClass(TestCommandsHandler)
     :setExecution(function()
-        local handler = __:new('CommandsHandler')
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addOperation')
+
         handler:addHelpOperation()
-        lu.assertNotNil(handler.operations['help'])
+
+        local method = handler:getMethod('addOperation')
+
+        method:assertCalledOnce()
+        lu.assertEquals('help', method.args[1][1])
+        lu.assertEquals('Shows the available operations for this command.', method.args[1][2])
+        lu.assertIsFunction(method.args[1][3])
+    end)
+    :register()
+
+-- @covers CommandsHandler:addOperation()
+TestCase.new()
+    :setName('addOperation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function()
+        local handler = __:new('CommandsHandler')
+        handler:addOperation('test-operation', 'test-description', 'test-callback')
+        lu.assertNotNil(handler.operations['test-operation'])
     end)
     :register()
 
