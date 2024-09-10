@@ -23,7 +23,7 @@ self.addon.inventory = self.arr:get(props or {}, 'inventory', {
     track = false,
 })
 self.addon.name = self.arr:get(props or {}, 'name')
-self.addon.settings = self.arr:get(props or {}, 'settings', {})
+self.addon.settings = self.arr:get(props or {}, 'settings')
 self.addon.version = self.arr:get(props or {}, 'version')
 
 local requiredProperties = {

@@ -123,6 +123,10 @@ local Settings = {}
     is meant to be called by the library during the initialization process.
     ]]
     function Settings:mapFromAddonProperties()
+        if self.__.addon.settings == nil then
+            return
+        end
+
         self.__.arr:each(self.__.addon.settings.groups, function(group)
             local settingGroup = self.__
                 :new('SettingGroup')
@@ -181,10 +185,12 @@ local Settings = {}
         local library = Settings.__
         if library:isConfigEnabled() then
             library.settings = library:new('Settings')
+            library.settings:mapFromAddonProperties()
             -- proxy method to get a setting instance by its fully qualified id
             library.setting = function(self, settingFullyQualifiedId)
                 return self.settings:setting(settingFullyQualifiedId)
             end
+
         end
     end
 

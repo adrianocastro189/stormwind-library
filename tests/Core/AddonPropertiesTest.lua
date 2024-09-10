@@ -15,6 +15,10 @@ TestCase.new()
     :setName('propertiesAreSet')
     :setTestClass(TestAddonProperties)
     :setExecution(function()
+        local settings = {
+            groups = {}
+        }
+
         local library = StormwindLibrary.new({
             colors = {
                 primary = 'test-primary-color',
@@ -23,7 +27,7 @@ TestCase.new()
             command = 'test-command',
             data = 'temporary-addon-table',
             name = 'TestSuite',
-            settings = { 'complex-table-here...' },
+            settings = settings,
             version = '1.0.0'
         })
 
@@ -32,7 +36,7 @@ TestCase.new()
         lu.assertEquals('test-command', library.addon.command)
         lu.assertEquals('temporary-addon-table', library.addon.data)
         lu.assertEquals(false, library.addon.inventory.track)
-        lu.assertEquals({ 'complex-table-here...' }, library.addon.settings)
+        lu.assertEquals(settings, library.addon.settings)
         lu.assertEquals('TestSuite', library.addon.name)
         lu.assertEquals('1.0.0', library.addon.version)
     end)
