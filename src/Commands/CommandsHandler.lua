@@ -36,7 +36,34 @@ local CommandsHandler = {}
     end
 
     --[[--
-    This method adds a help operation to the commands handler.
+    Adds a get operation to the commands handler.
+
+    The get operation is a default operation that can be overridden in case the
+    addon wants to provide a custom get command. This implementation gets the value
+    of a setting and prints it to the chat frame.
+
+    To be accessible by the get operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addGetOperation()
+        self:addOperation('get', 'Gets the value of a setting identified by its id.', function (settingId)
+            local setting = self.__:setting(settingId)
+
+            if setting and setting.accessibleByCommand then
+                self.__.output:out(settingId.. ' = '..tostring(setting:getValue()))
+                return
+            end
+
+            self.__.output:out('Setting not found: '..settingId)
+        end)
+    end
+
+    --[[--
+    Adds a help operation to the commands handler.
 
     The help operation is a default operation that can be overridden in
     case the addon wants to provide a custom help command. For that, just
@@ -49,13 +76,28 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addHelpOperation()
-        local helpCommand = self.__:new('Command')
+        self:addOperation('help', 'Shows the available operations for this command.', function () self:printHelp() end)
+    end
 
-        helpCommand:setOperation('help')
-        helpCommand:setDescription('Shows the available operations for this command.')
-        helpCommand:setCallback(function () self:printHelp() end)
+    --[[--
+    Adds a new operation to the commands handler.
 
-        self:add(helpCommand)
+    This is a local method and should not be called directly by addons.
+
+    @local
+
+    @tparam string operation The operation that will trigger the callback
+    @tparam string description The description of the operation
+    @tparam function callback The callback that will be triggered when the operation is called
+    ]]
+    function CommandsHandler:addOperation(operation, description, callback)
+        local command = self.__:new('Command')
+
+        command:setOperation(operation)
+        command:setDescription(description)
+        command:setCallback(callback)
+
+        self:add(command)
     end
 
     --[[--
