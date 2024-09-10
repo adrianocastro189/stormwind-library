@@ -48,6 +48,13 @@ instantiates the library with a data table set.**
 [Read this](../core/addon-properties.md#data) for more information as that's the only
 way settings will be persisted when players reload the game.
 
+Also, settings must be added to the library settings instance **after** the 
+`PLAYER_LOGIN` event is triggered. This is because the library data table must be 
+already loaded, otherwise settings won't be persisted. If you are not sure about the 
+timing your addon settings are being added, consider configuring settings with
+[addon properties](#settings-via-addon-properties), which is the safer and easier 
+way.
+
 :::
 
 Let's break down the chained methods used in the example above:
