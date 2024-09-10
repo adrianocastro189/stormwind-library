@@ -186,6 +186,7 @@ local Settings = {}
         if library:isConfigEnabled() then
             library.settings = library:new('Settings')
             library.settings:mapFromAddonProperties()
+            library.commands:maybeAddSettingsOperations()
             -- proxy method to get a setting instance by its fully qualified id
             library.setting = function(self, settingFullyQualifiedId)
                 return self.settings:setting(settingFullyQualifiedId)

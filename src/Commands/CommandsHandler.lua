@@ -252,6 +252,20 @@ local CommandsHandler = {}
     end
 
     --[[--
+    May add the default settings operations to the commands handler if there's at
+    least one setting that is accessible by command.
+
+    @TODO: Move this method to a separate function or class <2024.09.10>
+
+    @local
+    ]]
+    function CommandsHandler:maybeAddSettingsOperations()
+        if self.__.settings and self.__.settings:hasSettingsAccessibleByCommand() then
+            self:addSettingsOperations()
+        end
+    end
+
+    --[[--
     This method is responsible for invoking the callback that was registered
     for the operation, if it exists, or the default one otherwise.
 

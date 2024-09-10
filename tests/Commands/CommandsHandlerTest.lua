@@ -265,6 +265,35 @@ TestCase.new()
     end)
     :register()
 
+-- @covers CommandsHandler:maybeAddSettingsOperations()
+TestCase.new()
+    :setName('maybeAddSettingsOperations')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addSettingsOperations')
+
+        handler.__.settings = Spy
+            .new(__:new('Settings'))
+            :mockMethod('hasSettingsAccessibleByCommand', function() return data.hasSettingsAccessibleByCommand end)
+
+        handler:maybeAddSettingsOperations()
+
+        handler:getMethod('addSettingsOperations'):assertCalledOrNot(data.shouldAddSettingsOperations)
+    end)
+    :setScenarios({
+        ['no settings'] = {
+            hasSettingsAccessibleByCommand = false,
+            shouldAddSettingsOperations = false,
+        },
+        ['has settings'] = {
+            hasSettingsAccessibleByCommand = true,
+            shouldAddSettingsOperations = true,
+        },
+    })
+    :register()
+
 -- @covers CommandsHandler:maybeInvokeCallback()
 TestCase.new()
     :setName('maybeInvokeCallback')
