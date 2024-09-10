@@ -16,26 +16,6 @@ TestCase.new()
     end)
     :register()
 
--- @covers CommandsHandler:addHelpOperation()
-TestCase.new()
-    :setName('addHelpOperation')
-    :setTestClass(TestCommandsHandler)
-    :setExecution(function()
-        local handler = Spy
-            .new(__:new('CommandsHandler'))
-            :mockMethod('addOperation')
-
-        handler:addHelpOperation()
-
-        local method = handler:getMethod('addOperation')
-
-        method:assertCalledOnce()
-        lu.assertEquals('help', method.args[1][1])
-        lu.assertEquals('Shows the available operations for this command.', method.args[1][2])
-        lu.assertIsFunction(method.args[1][3])
-    end)
-    :register()
-
 -- @covers CommandsHandler:addOperation()
 TestCase.new()
     :setName('addOperation')
@@ -100,6 +80,38 @@ TestCase.new()
     end)
     :register()
 
+-- @covers CommandsHandler:addHelpOperation()
+TestCase.new()
+    :setName('default operations')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addOperation')
+
+        handler[data.method](handler)
+
+        local method = handler:getMethod('addOperation')
+
+        method:assertCalledOnce()
+        lu.assertEquals(data.expectedOperation, method.args[1][1])
+        lu.assertEquals(data.expectedDescription, method.args[1][2])
+        lu.assertIsFunction(method.args[1][3])
+    end)
+    :setScenarios({
+        ['get'] = {
+            method = 'addGetOperation',
+            expectedOperation = 'get',
+            expectedDescription = 'Gets the value of a setting identified by its id.',
+        },
+        ['help'] = {
+            method = 'addHelpOperation',
+            expectedOperation = 'help',
+            expectedDescription = 'Shows the available operations for this command.',
+        },
+    })
+    :register()
+
 -- @covers CommandsHandler:getCommandOrDefault()
 TestCase.new()
     :setName('getCommandOrDefault')
@@ -139,6 +151,45 @@ TestCase.new()
                 command = commandWithCallback,
                 defaultCommand = 'test-help-command',
                 expectedResult = commandWithCallback,
+            }
+        end,
+    })
+    :register()
+
+-- @covers CommandsHandler get operation
+TestCase.new()
+    :setName('get operation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        __.settings = Spy
+            .new({})
+            :mockMethod('get', function() return data.setting end)
+
+        local handler = __:new('CommandsHandler')
+        
+        handler:addGetOperation()
+
+        local callback = handler.operations['get'].callback
+
+        callback('test')
+
+        __.settings:getMethod('get'):assertCalledOnceWith('test')
+
+        lu.assertIsTrue(__.output:printed(data.expectedOutput))
+    end)
+    :setScenarios({
+        ['invalid setting'] = {
+            setting = nil,
+            expectedOutput = 'Setting not found: test',
+        },
+        ['valid'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            return {
+                setting = setting,
+                expectedOutput = 'test = value',
             }
         end,
     })

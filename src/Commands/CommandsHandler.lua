@@ -36,7 +36,34 @@ local CommandsHandler = {}
     end
 
     --[[--
-    This method adds a help operation to the commands handler.
+    Adds a get operation to the commands handler.
+
+    The get operation is a default operation that can be overridden in case the
+    addon wants to provide a custom get command. This implementation gets the value
+    of a setting and prints it to the chat frame.
+
+    To be accessible by the get operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addGetOperation()
+        self:addOperation('get', 'Gets the value of a setting identified by its id.', function (settingId)
+            local setting = self.__.settings:get(settingId)
+
+            if setting then
+                self.__.output:out(settingId.. ' = '..setting:getValue())
+                return
+            end
+
+            self.__.output:out('Setting not found: '..settingId)
+        end)
+    end
+
+    --[[--
+    Adds a help operation to the commands handler.
 
     The help operation is a default operation that can be overridden in
     case the addon wants to provide a custom help command. For that, just
