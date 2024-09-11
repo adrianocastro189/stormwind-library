@@ -12,7 +12,8 @@ with a list of settings that can be toggled on and off. When a player moves this
 window, resizes it or even closes it, the window state is persisted by the 
 **[configuration structure](configuration)**, which means the last position, size and
 visibility are not directly set by players. But when they toggle the settings inside 
-this window, the values are stored in the **settings structure**, described below.
+this window, the options they see like "Show minimap icon" are stored in the
+**settings structure**, described below.
 
 And finally, configurations are only changed programmatically, while settings can be
 changed by players by running chat commands and interacting with UI elements. And 
@@ -52,7 +53,7 @@ Also, settings must be added to the library settings instance **after** the
 `PLAYER_LOGIN` event is triggered. This is because the library data table must be 
 already loaded, otherwise settings won't be persisted. If you are not sure about the 
 timing your addon settings are being added, consider configuring settings with
-[addon properties](#settings-via-addon-properties), which is the safer and easier 
+[addon properties](#settings-via-addon-properties), which is the safest and easiest 
 way.
 
 :::
@@ -196,7 +197,7 @@ library.settings:addSetting(settingB, 'groupB')
 ```
 
 Note that in this case, the group id must be passed as the second argument to the
-`addSetting` method. In case it's not passed, the library will assume the settings is
+`addSetting` method. In case it's not passed, the library will assume the setting is
 being added to the default group, which is called **General** (id = `general`).
 
 ```lua
@@ -219,7 +220,7 @@ local setting = library.settings:getSetting('settingB')
 
 Please, note that the `Settings:setting()` method returns the setting instance, not
 its stored value. To get the value, use result's `getValue()` method, but remember
-that the instance can be nil for invalid settings, which means some validation is 
+that the instance can be nil for invalid settings, which means a conditional may be 
 required.
 
 :::
@@ -246,7 +247,7 @@ expects the same class properties as both `SettingGroup` and `Setting` classes:
 ```lua
 MyAddon.__ = StormwindLibrary.new({
     name = 'My Custom Addon',
-    -- other properties here
+    -- other addon properties here
     settings = {
         groups = {
             {
@@ -292,6 +293,50 @@ they're added without one, the `general` group will be used instead.
 When using addon properties, it's important to group settings properly to avoid
 parsing errors. And even if no `general` group is set by the developer, if adding
 settings with addon properties and then later adding settings programmatically 
-without a group, the library will automatically create `general` anyway.
+without a group, the library will automatically create a `general` group anyway.
 
 :::
+
+## Commands integration
+
+Settings were designed to be available by players in two ways, basically:
+
+* Chat commands
+* UI (this will be released in future versions)
+
+When it comes to chat commands, the [commands structure](../commands/overview)
+is already prepared to create default operations for listing available settings,
+getting and updating their values.
+
+All you need to do is create settings that accessible by command and have a
+[command alias set to your addon](../core/addon-properties#command). The rest
+is automatically handled by the library.
+
+Imagine you have an addon created with `myaddon` as the command alias and the
+same settings as the [example above](#settings-via-addon-properties). Once the
+game is loaded, players can use the following command to list all settings
+they can change like this:
+
+```
+/myaddon settings
+```
+
+This will output a list similar to:
+
+```
+group-a.setting-a <string> This is setting A
+group-a.setting-b <boolean> This is setting B
+```
+
+Players can get the current value of a setting by running:
+
+```
+/myaddon get group-a.setting-a
+```
+
+And update it by running:
+
+```
+/myaddon set group-a.setting-a "new value"
+/myaddon set group-a.setting-b true
+```
