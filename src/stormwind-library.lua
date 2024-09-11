@@ -1,4 +1,4 @@
--- Library version = '1.12.2'
+-- Library version = '1.13.0'
 
 -- import src/Core/CallbackLoader.lua
 
@@ -12,6 +12,9 @@
 
 -- import src/Core/AddonProperties.lua
 -- import src/Core/Factory.lua
+-- import src/Core/Settings/Setting.lua
+-- import src/Core/Settings/SettingGroup.lua
+-- import src/Core/Settings/Settings.lua
 
 -- import src/Support/Interval.lua
 

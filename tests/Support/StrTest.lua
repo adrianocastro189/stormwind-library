@@ -163,4 +163,31 @@ TestStr = BaseTestClass:new()
         execution('  a b  ', 'a b')
         execution('  a  b  ', 'a  b')
     end
+
+TestCase.new()
+    :setName('ucFirst')
+    :setTestClass(TestStr)
+    :setExecution(function(data)
+        lu.assertEquals(data.expectedOutput, __.str:ucFirst(data.value))
+    end)
+    :setScenarios({
+        ['empty string'] = {
+            value = '',
+            expectedOutput = '',
+        },
+        ['single character'] = {
+            value = 'a',
+            expectedOutput = 'A',
+        },
+        ['single word'] = {
+            value = 'word',
+            expectedOutput = 'Word',
+        },
+        ['multiple words'] = {
+            value = 'hello, world!',
+            expectedOutput = 'Hello, world!',
+        },
+    })
+    :register()
+    
 -- end of TestStr

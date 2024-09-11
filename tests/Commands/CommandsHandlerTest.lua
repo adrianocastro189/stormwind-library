@@ -16,14 +16,33 @@ TestCase.new()
     end)
     :register()
 
--- @covers CommandsHandler:addHelpOperation()
+-- @covers CommandsHandler:addOperation()
 TestCase.new()
-    :setName('addHelpOperation')
+    :setName('addOperation')
     :setTestClass(TestCommandsHandler)
     :setExecution(function()
         local handler = __:new('CommandsHandler')
-        handler:addHelpOperation()
-        lu.assertNotNil(handler.operations['help'])
+        handler:addOperation('test-operation', 'test-description', 'test-callback')
+        lu.assertNotNil(handler.operations['test-operation'])
+    end)
+    :register()
+
+-- @covers CommandsHandler:addSettingsOperations()
+TestCase.new()
+    :setName('addSettingsOperations')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function()
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addGetOperation')
+            :mockMethod('addSetOperation')
+            :mockMethod('addSettingsOperation')
+
+        handler:addSettingsOperations()
+
+        handler:getMethod('addGetOperation'):assertCalledOnce()
+        handler:getMethod('addSetOperation'):assertCalledOnce()
+        handler:getMethod('addSettingsOperation'):assertCalledOnce()
     end)
     :register()
 
@@ -80,6 +99,48 @@ TestCase.new()
     end)
     :register()
 
+-- @covers CommandsHandler:addHelpOperation()
+TestCase.new()
+    :setName('default operations')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addOperation')
+
+        handler[data.method](handler)
+
+        local method = handler:getMethod('addOperation')
+
+        method:assertCalledOnce()
+        lu.assertEquals(data.expectedOperation, method.args[1][1])
+        lu.assertEquals(data.expectedDescription, method.args[1][2])
+        lu.assertIsFunction(method.args[1][3])
+    end)
+    :setScenarios({
+        ['get'] = {
+            method = 'addGetOperation',
+            expectedOperation = 'get',
+            expectedDescription = 'Gets the value of a setting identified by its id',
+        },
+        ['help'] = {
+            method = 'addHelpOperation',
+            expectedOperation = 'help',
+            expectedDescription = 'Shows the available operations for this command',
+        },
+        ['set'] = {
+            method = 'addSetOperation',
+            expectedOperation = 'set',
+            expectedDescription = 'Sets the value of a setting identified by its id',
+        },
+        ['settings'] = {
+            method = 'addSettingsOperation',
+            expectedOperation = 'settings',
+            expectedDescription = 'Lists all the setting ids that can be used by get or set',
+        },
+    })
+    :register()
+
 -- @covers CommandsHandler:getCommandOrDefault()
 TestCase.new()
     :setName('getCommandOrDefault')
@@ -124,6 +185,57 @@ TestCase.new()
     })
     :register()
 
+-- @covers CommandsHandler get operation
+TestCase.new()
+    :setName('get operation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = __:new('CommandsHandler')
+
+        handler.__ = Spy
+            .new(handler.__)
+            :mockMethod('setting', function() return data.setting end)
+
+        handler:addGetOperation()
+
+        local callback = handler.operations['get'].callback
+
+        callback('test')
+
+        handler.__:getMethod('setting'):assertCalledOnceWith('test')
+
+        lu.assertIsTrue(__.output:printed(data.expectedOutput))
+    end)
+    :setScenarios({
+        ['invalid setting'] = {
+            setting = nil,
+            expectedOutput = 'Setting not found: test',
+        },
+        ['valid'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            return {
+                setting = setting,
+                expectedOutput = 'test = value',
+            }
+        end,
+        ['not accessible by command'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            setting:setAccessibleByCommand(false)
+
+            return {
+                setting = setting,
+                expectedOutput = 'Setting not found: test',
+            }
+        end,
+    })
+    :register()
+
 -- @covers CommandsHandler:handle()
 TestCase.new()
     :setName('handle')
@@ -151,6 +263,35 @@ TestCase.new()
     :setExecution(function()
         __:new('CommandsHandler'):handle('invalid-operation')
     end)
+    :register()
+
+-- @covers CommandsHandler:maybeAddSettingsOperations()
+TestCase.new()
+    :setName('maybeAddSettingsOperations')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = Spy
+            .new(__:new('CommandsHandler'))
+            :mockMethod('addSettingsOperations')
+
+        handler.__.settings = Spy
+            .new(__:new('Settings'))
+            :mockMethod('hasSettingsAccessibleByCommand', function() return data.hasSettingsAccessibleByCommand end)
+
+        handler:maybeAddSettingsOperations()
+
+        handler:getMethod('addSettingsOperations'):assertCalledOrNot(data.shouldAddSettingsOperations)
+    end)
+    :setScenarios({
+        ['no settings'] = {
+            hasSettingsAccessibleByCommand = false,
+            shouldAddSettingsOperations = false,
+        },
+        ['has settings'] = {
+            hasSettingsAccessibleByCommand = true,
+            shouldAddSettingsOperations = true,
+        },
+    })
     :register()
 
 -- @covers CommandsHandler:maybeInvokeCallback()
@@ -302,5 +443,95 @@ TestCase.new()
             expectedSlashCmdListIndex = 'TEST'
         },
     })
+    :register()
+
+-- @covers CommandsHandler set operation
+TestCase.new()
+    :setName('set operation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local handler = __:new('CommandsHandler')
+
+        handler.__ = Spy
+            .new(handler.__)
+            :mockMethod('setting', function() return data.setting end)
+
+        handler:addSetOperation()
+
+        local callback = handler.operations['set'].callback
+
+        callback('test', 'value')
+
+        handler.__:getMethod('setting'):assertCalledOnceWith('test')
+
+        lu.assertIsTrue(__.output:printed(data.expectedOutput))
+    end)
+    :setScenarios({
+        ['invalid setting'] = {
+            setting = nil,
+            expectedOutput = 'Setting not found: test',
+        },
+        ['valid'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('setValue')
+
+            return {
+                setting = setting,
+                expectedOutput = 'test set with value',
+            }
+        end,
+        ['not accessible by command'] = function()
+            local setting = Spy
+                .new(__:new('Setting'))
+                :mockMethod('getValue', function() return 'value' end)
+
+            setting:setAccessibleByCommand(false)
+
+            return {
+                setting = setting,
+                expectedOutput = 'Setting not found: test',
+            }
+        end,
+    })
+    :register()
+
+-- @covers CommandsHandler settings operation
+TestCase.new()
+    :setName('settings operation')
+    :setTestClass(TestCommandsHandler)
+    :setExecution(function(data)
+        local settingA = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getCommandHelpContent', function() return 'setting-a' end)
+
+        local settingB = Spy
+            .new(__:new('Setting'))
+            :mockMethod('getCommandHelpContent', function() return 'setting-b' end)
+
+        local handler = __:new('CommandsHandler')
+
+        handler.__.settings = Spy
+            .new(handler.__.settings)
+            :mockMethod('allAccessibleByCommand', function() return {settingA, settingB} end)
+
+        handler.slashCommand = '/test'
+
+        handler.__.output = Spy
+            .new(handler.__.output)
+            :mockMethod('out')
+
+        handler:addSettingsOperation()
+
+        local callback = handler.operations['settings'].callback
+
+        callback()
+
+        handler.__.output:getMethod('out'):assertCalledOnceWith({
+            'Available settings, that can be retrieved with /test get {id} and updated with /test set {id} {value} by replacing {id} with any of the ids listed below and {value} with the new value',
+            'setting-a',
+            'setting-b',
+        })
+    end)
     :register()
 -- end of TestCommandsHandler

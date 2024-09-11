@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+<!-- Google tag (gtag.js) --><script async src='https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71'></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GDGPH5FK71');</script></head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Settings.Setting.html">Core.Settings.Setting</a></li>
+  <li><a href="../classes/Core.Settings.SettingGroup.html">Core.Settings.SettingGroup</a></li>
+  <li><strong>Core.Settings.Settings</strong></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.Events.html">Facades.Events</a></li>
+  <li><a href="../classes/Facades.PetJournal.html">Facades.PetJournal</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Facades.Target.html">Facades.Target</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><a href="../classes/Models.Container.html">Models.Container</a></li>
+  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Interval.html">Support.Interval</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.MinimapIcon.html">Views.MinimapIcon</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+  <li><a href="../classes/Views.Windows.WindowPage.html">Views.Windows.WindowPage</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Core.Settings.Settings</code></h1>
+<p>Settings is the class that holds all the settings for the addon.</p>
+<p>
+<p>It maintains a list of setting groups, which in turn maintain a list of settings.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings.listSettings">core.settings.settings.listSettings (groupMethod)</a></td>
+	<td class="summary">Lists settings by invoking a method on each setting group.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings.maybeAddGeneralGroup">core.settings.settings.maybeAddGeneralGroup ()</a></td>
+	<td class="summary">Maybe adds the general setting group to the list of setting groups if it doesn't
+    already exist.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings.maybeCreateLibraryInstance">core.settings.settings.maybeCreateLibraryInstance ()</a></td>
+	<td class="summary">Maybe creates the library Settings instance if the library configuration is
+    enabled.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:addSetting">core.settings.settings:addSetting (setting[, group='general'])</a></td>
+	<td class="summary">Adds a setting to a group represented by its id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:addSettingGroup">core.settings.settings:addSettingGroup (settingGroup)</a></td>
+	<td class="summary">Adds a setting group to the list of setting groups.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:all">core.settings.settings:all ()</a></td>
+	<td class="summary">Gets all the setting instances that are stored in the setting groups.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:allAccessibleByCommand">core.settings.settings:allAccessibleByCommand ()</a></td>
+	<td class="summary">Gets all the command accessible setting instances that are stored in the
+    setting groups.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:hasSettings">core.settings.settings:hasSettings ([settingGroupMethod='hasSettings'])</a></td>
+	<td class="summary">Determines whether the addon has at least one setting.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:hasSettingsAccessibleByCommand">core.settings.settings:hasSettingsAccessibleByCommand ()</a></td>
+	<td class="summary">Determines whether the addon has at least one setting that is accessible by
+    command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:mapFromAddonProperties">core.settings.settings:mapFromAddonProperties ()</a></td>
+	<td class="summary">Gets all the settings that were configured in the addon properties to convert
+    them into real setting and setting group instances.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:setting">core.settings.settings:setting (settingFullyQualifiedId)</a></td>
+	<td class="summary">Gets a setting instance by its fully qualified id.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.settings:__construct">core.settings.settings:__construct ()</a></td>
+	<td class="summary">Settings constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "core.settings.settings.listSettings"></a>
+    <strong>core.settings.settings.listSettings (groupMethod)</strong>
+    </dt>
+    <dd>
+    Lists settings by invoking a method on each setting group.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">groupMethod</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The method to be called for each setting group
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[Core.Settings.Setting]</a></span>
+        The setting instances
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings.maybeAddGeneralGroup"></a>
+    <strong>core.settings.settings.maybeAddGeneralGroup ()</strong>
+    </dt>
+    <dd>
+    Maybe adds the general setting group to the list of setting groups if it doesn't
+    already exist.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings.maybeCreateLibraryInstance"></a>
+    <strong>core.settings.settings.maybeCreateLibraryInstance ()</strong>
+    </dt>
+    <dd>
+    Maybe creates the library Settings instance if the library configuration is
+    enabled.
+<p>    This method works as a static method that shouldn't be called directly by
+    addons. It's just a way to isolate its logic from the library onLoad callback,
+    which is the only place where it should be called.
+<p>    If configuration is not enabled, this method will bail out early and won't
+    create any Settings instance.
+
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.settings.settings:addSetting"></a>
+    <strong>core.settings.settings:addSetting (setting[, group='general'])</strong>
+    </dt>
+    <dd>
+    Adds a setting to a group represented by its id.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">setting</span>
+            <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+         The setting to be added
+        </li>
+        <li><span class="parameter">group</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The id of the group to which the setting will be added
+         (<em>default</em> 'general')
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Settings.html#">Core.Settings.Settings</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:addSettingGroup"></a>
+    <strong>core.settings.settings:addSettingGroup (settingGroup)</strong>
+    </dt>
+    <dd>
+    Adds a setting group to the list of setting groups.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">settingGroup</span>
+            <span class="types"><a class="type" href="../classes/Core.Settings.SettingGroup.html#">Core.Settings.SettingGroup</a></span>
+         The setting group to be added
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Settings.html#">Core.Settings.Settings</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:all"></a>
+    <strong>core.settings.settings:all ()</strong>
+    </dt>
+    <dd>
+    Gets all the setting instances that are stored in the setting groups.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[Core.Settings.Setting]</a></span>
+        The setting instances
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:allAccessibleByCommand"></a>
+    <strong>core.settings.settings:allAccessibleByCommand ()</strong>
+    </dt>
+    <dd>
+    Gets all the command accessible setting instances that are stored in the
+    setting groups.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.6">table[Core.Settings.Setting]</a></span>
+        The setting instances that are accessible by command
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:hasSettings"></a>
+    <strong>core.settings.settings:hasSettings ([settingGroupMethod='hasSettings'])</strong>
+    </dt>
+    <dd>
+    Determines whether the addon has at least one setting.
+<p>    This method accepts an optional parameter that allows the caller to specify
+    the method to be called for each setting group to determine whether it has
+    at least one setting. With that, it's possible to add more filters in the future
+    without replicating the same logic.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">settingGroupMethod</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The method to be called for each setting group
+         (<em>default</em> 'hasSettings')
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the addon has at least one setting
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:hasSettingsAccessibleByCommand"></a>
+    <strong>core.settings.settings:hasSettingsAccessibleByCommand ()</strong>
+    </dt>
+    <dd>
+    Determines whether the addon has at least one setting that is accessible by
+    command.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the addon has at least one setting that is accessible by command
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:mapFromAddonProperties"></a>
+    <strong>core.settings.settings:mapFromAddonProperties ()</strong>
+    </dt>
+    <dd>
+    Gets all the settings that were configured in the addon properties to convert
+    them into real setting and setting group instances.
+<p>    Although not a local method, addons shouldn't call this method directly as it
+    is meant to be called by the library during the initialization process.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.settings:setting"></a>
+    <strong>core.settings.settings:setting (settingFullyQualifiedId)</strong>
+    </dt>
+    <dd>
+    Gets a setting instance by its fully qualified id.
+<p>    The fully qualified id is the id of the setting group followed by a dot and
+    the id of the setting. If a single setting id is passed, it's assumed to be
+    part of the general group.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">settingFullyQualifiedId</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The fully qualified id of the setting
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a> or <span class="type">nil</span></span>
+        The setting instance
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.settings.settings:__construct"></a>
+    <strong>core.settings.settings:__construct ()</strong>
+    </dt>
+    <dd>
+    Settings constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-09-11 16:27:53 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

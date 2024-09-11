@@ -36,7 +36,36 @@ local CommandsHandler = {}
     end
 
     --[[--
-    This method adds a help operation to the commands handler.
+    Adds a get operation to the commands handler.
+
+    The get operation is a default operation that can be overridden in case the
+    addon wants to provide a custom get command. This implementation gets the value
+    of a setting and prints it to the chat frame.
+
+    To be accessible by the get operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addGetOperation()
+        self:addOperation('get', 'Gets the value of a setting identified by its id', function (settingId)
+            local setting = self.__:setting(settingId)
+
+            if setting and setting.accessibleByCommand then
+                self.__.output:out(settingId.. ' = '..tostring(setting:getValue()))
+                return
+            end
+
+            self.__.output:out('Setting not found: '..settingId)
+        end)
+    end
+
+    --[[--
+    Adds a help operation to the commands handler.
 
     The help operation is a default operation that can be overridden in
     case the addon wants to provide a custom help command. For that, just
@@ -49,13 +78,110 @@ local CommandsHandler = {}
     @local
     ]]
     function CommandsHandler:addHelpOperation()
-        local helpCommand = self.__:new('Command')
+        self:addOperation('help', 'Shows the available operations for this command', function () self:printHelp() end)
+    end
 
-        helpCommand:setOperation('help')
-        helpCommand:setDescription('Shows the available operations for this command.')
-        helpCommand:setCallback(function () self:printHelp() end)
+    --[[--
+    Adds a new operation to the commands handler.
 
-        self:add(helpCommand)
+    This is a local method and should not be called directly by addons.
+
+    @local
+
+    @tparam string operation The operation that will trigger the callback
+    @tparam string description The description of the operation
+    @tparam function callback The callback that will be triggered when the operation is called
+    ]]
+    function CommandsHandler:addOperation(operation, description, callback)
+        local command = self.__:new('Command')
+
+        command:setOperation(operation)
+        command:setDescription(description)
+        command:setCallback(callback)
+
+        self:add(command)
+    end
+
+    --[[--
+    Adds a set operation to the commands handler.
+
+    The set operation is a default operation that can be overridden in case the
+    addon wants to provide a custom set command. This implementation sets the value
+    of a setting and prints the result to the chat frame.
+
+    To be accessible by the set operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addSetOperation()
+        self:addOperation('set', 'Sets the value of a setting identified by its id', function (settingId, newValue)
+            local setting = self.__:setting(settingId)
+
+            if setting and setting.accessibleByCommand then
+                setting:setValue(newValue)
+                self.__.output:out(settingId.. ' set with '..newValue)
+                return
+            end
+
+            self.__.output:out('Setting not found: '..settingId)
+        end)
+    end
+
+    --[[--
+    Adds a settings operation to the commands handler.
+
+    The settings operation is a default operation that can be overridden in case the
+    addon wants to provide a custom settings command. This implementation prints a
+    list of all settings that are accessible by command and their descriptions.
+
+    To be listed by the settings operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
+    @see Core.Settings.Setting.setAccessibleByCommand
+
+    @local
+    ]]
+    function CommandsHandler:addSettingsOperation()
+        self:addOperation('settings', 'Lists all the setting ids that can be used by get or set', function ()
+            local introduction =
+                'Available settings, that can be retrieved with '..
+                self.__.output:color(self.slashCommand..' get {id}')..' '..
+                'and updated with '..
+                self.__.output:color(self.slashCommand..' set {id} {value}')..' '..
+                'by replacing '..
+                self.__.output:color('{id}')..' '..
+                'with any of the ids listed below and '..
+                self.__.output:color('{value}')..' '..
+                'with the new value'
+
+            local helpContent = {introduction}
+
+            self.__.arr:each(self.__.settings:allAccessibleByCommand(), function (setting)
+                table.insert(helpContent, setting:getCommandHelpContent())
+            end)
+
+            self.__.output:out(helpContent)
+        end)
+    end
+
+    --[[--
+    Adds all the default operations related to the settings structure.
+
+    @TODO: Move the callback in this method to a separate function or class <2024.09.10>
+
+    @local
+    ]]
+    function CommandsHandler:addSettingsOperations()
+        self:addGetOperation()
+        self:addSetOperation()
+        self:addSettingsOperation()
     end
 
     --[[--
@@ -123,6 +249,20 @@ local CommandsHandler = {}
                 self:parseArguments(commandArg)
             )
         )
+    end
+
+    --[[--
+    May add the default settings operations to the commands handler if there's at
+    least one setting that is accessible by command.
+
+    @TODO: Move this method to a separate function or class <2024.09.10>
+
+    @local
+    ]]
+    function CommandsHandler:maybeAddSettingsOperations()
+        if self.__.settings and self.__.settings:hasSettingsAccessibleByCommand() then
+            self:addSettingsOperations()
+        end
     end
 
     --[[--

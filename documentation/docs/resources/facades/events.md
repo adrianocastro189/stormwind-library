@@ -112,6 +112,17 @@ target before.
 * **Payload:** No data is sent with this event
 * **Description:** Triggered when a player clears the target.
 
+#### `SETTING_UPDATED`
+
+* **Constant:** (none)
+* **Payload:**
+  * `id` - The setting **full qualified id**
+  * `oldValue` - The old setting value before the update
+  * `newValue` - The new setting value after the update
+* **Description:** Triggered when a setting is updated using the
+  [settings structure](../core/settings). This event is not related to the World of
+  Warcraft events, but to the library settings system.
+
 #### `TOOLTIP_ITEM_SHOWN`
 
 * **Constant:** (not available yet)

@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+<!-- Google tag (gtag.js) --><script async src='https://www.googletagmanager.com/gtag/js?id=G-GDGPH5FK71'></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GDGPH5FK71');</script></head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Local_Functions">Local Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Commands.Command.html">Commands.Command</a></li>
+  <li><a href="../classes/Commands.CommandsHandler.html">Commands.CommandsHandler</a></li>
+  <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
+  <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
+  <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><strong>Core.Settings.Setting</strong></li>
+  <li><a href="../classes/Core.Settings.SettingGroup.html">Core.Settings.SettingGroup</a></li>
+  <li><a href="../classes/Core.Settings.Settings.html">Core.Settings.Settings</a></li>
+  <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
+  <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
+  <li><a href="../classes/Facades.Events.html">Facades.Events</a></li>
+  <li><a href="../classes/Facades.PetJournal.html">Facades.PetJournal</a></li>
+  <li><a href="../classes/Facades.RetailTooltip.html">Facades.RetailTooltip</a></li>
+  <li><a href="../classes/Facades.Target.html">Facades.Target</a></li>
+  <li><a href="../classes/Factories.ItemFactory.html">Factories.ItemFactory</a></li>
+  <li><a href="../classes/Models.Container.html">Models.Container</a></li>
+  <li><a href="../classes/Models.Inventory.html">Models.Inventory</a></li>
+  <li><a href="../classes/Models.Item.html">Models.Item</a></li>
+  <li><a href="../classes/Models.Macro.html">Models.Macro</a></li>
+  <li><a href="../classes/Models.Player.html">Models.Player</a></li>
+  <li><a href="../classes/Models.RaidMarker.html">Models.RaidMarker</a></li>
+  <li><a href="../classes/Models.Realm.html">Models.Realm</a></li>
+  <li><a href="../classes/Support.Arr.html">Support.Arr</a></li>
+  <li><a href="../classes/Support.Bool.html">Support.Bool</a></li>
+  <li><a href="../classes/Support.Interval.html">Support.Interval</a></li>
+  <li><a href="../classes/Support.Str.html">Support.Str</a></li>
+  <li><a href="../classes/Views.MinimapIcon.html">Views.MinimapIcon</a></li>
+  <li><a href="../classes/Views.Windows.Window.html">Views.Windows.Window</a></li>
+  <li><a href="../classes/Views.Windows.WindowPage.html">Views.Windows.WindowPage</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/stormwind-library.html">stormwind-library</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Core.Settings.Setting</code></h1>
+<p>A setting is basically a configuration value that can be changed by players.</p>
+<p>
+<p>Although a setting instance uses Core.Configuration internally for storage purposes,
+it's not meant to be used as a configuration value. Configuration values are wider
+and can be used in many ways, like saving UI states and even addon data. Settings
+are meant to allow players to change the behavior of the addon.
+</p>
+
+
+<h2><a href="#Local_Functions">Local Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting.getConfigurationMethod">core.settings.setting.getConfigurationMethod ()</a></td>
+	<td class="summary">Gets the configuration method to be used when saving the setting.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting.getKey">core.settings.setting.getKey ()</a></td>
+	<td class="summary">Gets the setting key, used to store the setting value in the configuration.</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:getCommandHelpContent">core.settings.setting:getCommandHelpContent ()</a></td>
+	<td class="summary">Gets a text that explains how to use the setting in a command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:getFullyQualifiedId">core.settings.setting:getFullyQualifiedId ()</a></td>
+	<td class="summary">Gets the setting fully qualified id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:getValue">core.settings.setting:getValue ()</a></td>
+	<td class="summary">Gets the setting stored value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:isTrue">core.settings.setting:isTrue ()</a></td>
+	<td class="summary">Determines whether the setting stored value evaluates to true.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setAccessibleByCommand">core.settings.setting:setAccessibleByCommand (value)</a></td>
+	<td class="summary">Sets whether the setting is accessible by a command.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setDefault">core.settings.setting:setDefault (value)</a></td>
+	<td class="summary">Sets the default value of this setting.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setDescription">core.settings.setting:setDescription (value)</a></td>
+	<td class="summary">Sets the setting description.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setGroup">core.settings.setting:setGroup (value)</a></td>
+	<td class="summary">Sets the setting group.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setId">core.settings.setting:setId (value)</a></td>
+	<td class="summary">Sets the setting id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setLabel">core.settings.setting:setLabel (value)</a></td>
+	<td class="summary">Sets the setting label.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setScope">core.settings.setting:setScope (value)</a></td>
+	<td class="summary">Sets the setting scope.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setType">core.settings.setting:setType (value)</a></td>
+	<td class="summary">Sets the setting type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:setValue">core.settings.setting:setValue (value)</a></td>
+	<td class="summary">Sets the setting value and saves it.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#core.settings.setting:__construct">core.settings.setting:__construct ()</a></td>
+	<td class="summary">Setting constructor.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Local_Functions"></a>Local Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "core.settings.setting.getConfigurationMethod"></a>
+    <strong>core.settings.setting.getConfigurationMethod ()</strong>
+    </dt>
+    <dd>
+    Gets the configuration method to be used when saving the setting.
+<p>    The configuration method varies between global and player settings, so this
+    method returns the proper method to be used in this instance.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The configuration method
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting.getKey"></a>
+    <strong>core.settings.setting.getKey ()</strong>
+    </dt>
+    <dd>
+    Gets the setting key, used to store the setting value in the configuration.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The setting key
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.settings.setting:getCommandHelpContent"></a>
+    <strong>core.settings.setting:getCommandHelpContent ()</strong>
+    </dt>
+    <dd>
+    Gets a text that explains how to use the setting in a command.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The command help content
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:getFullyQualifiedId"></a>
+    <strong>core.settings.setting:getFullyQualifiedId ()</strong>
+    </dt>
+    <dd>
+    Gets the setting fully qualified id.
+<p>    The fully qualified id is the setting id prefixed by the group id.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+        The setting fully qualified id
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:getValue"></a>
+    <strong>core.settings.setting:getValue ()</strong>
+    </dt>
+    <dd>
+    Gets the setting stored value.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">any</span></span>
+        The setting stored value
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:isTrue"></a>
+    <strong>core.settings.setting:isTrue ()</strong>
+    </dt>
+    <dd>
+    Determines whether the setting stored value evaluates to true.
+<p>    This is a helper method that returns true if the stored value is any kind of
+    value that should be considered true using Support.Bool.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Whether the setting stored value evaluates to true
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Support.Bool.html#support.bool:isTrue">Support.Bool.isTrue</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setAccessibleByCommand"></a>
+    <strong>core.settings.setting:setAccessibleByCommand (value)</strong>
+    </dt>
+    <dd>
+    Sets whether the setting is accessible by a command.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Whether the setting is accessible by a command
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setDefault"></a>
+    <strong>core.settings.setting:setDefault (value)</strong>
+    </dt>
+    <dd>
+    Sets the default value of this setting.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">mixed</span></span>
+         The setting's default value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setDescription"></a>
+    <strong>core.settings.setting:setDescription (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting description.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The setting's description
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setGroup"></a>
+    <strong>core.settings.setting:setGroup (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting group.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="../classes/Core.Settings.SettingGroup.html#">Core.Settings.SettingGroup</a></span>
+         The setting's group
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setId"></a>
+    <strong>core.settings.setting:setId (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting id.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The setting's id
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setLabel"></a>
+    <strong>core.settings.setting:setLabel (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting label.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The setting's label
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setScope"></a>
+    <strong>core.settings.setting:setScope (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting scope.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The setting's scope, listed in Setting.constants
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setType"></a>
+    <strong>core.settings.setting:setType (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting type.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The setting's type, listed in Setting.constants
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "core.settings.setting:setValue"></a>
+    <strong>core.settings.setting:setValue (value)</strong>
+    </dt>
+    <dd>
+    Sets the setting value and saves it.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">any</span></span>
+         The setting value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Core.Settings.Setting.html#">Core.Settings.Setting</a></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "core.settings.setting:__construct"></a>
+    <strong>core.settings.setting:__construct ()</strong>
+    </dt>
+    <dd>
+    Setting constructor.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-09-11 16:27:53 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -22,6 +22,8 @@ Settings are a **subset** of configurations that are meant to be changed by
 the user. That said, the Configuration class is also used to handle the 
 settings if the addon developer wants to, but not restricted to that.
 
+Please, read the [settings documentation](settings) for more information.
+
 :::
 
 ## Creating a configuration
@@ -173,13 +175,13 @@ that's the default state of this class.
 local config = library:new('Configuration', MyAddon_Data)
 
 -- this will try to access the key 'property.a' in the MyAddonData table
-config('property.a')
+library:config('property.a')
 
 -- setting a prefix key
 config:setPrefix('any.prefix')
 
 -- after the prefix is set, calling...
-config('property.a')
+library:config('property.a')
 
 -- ...will have the configuration instance trying to access the key
 -- 'any.prefix.property.a' in the MyAddonData table
