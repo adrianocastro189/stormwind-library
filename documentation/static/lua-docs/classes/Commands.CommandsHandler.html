@@ -46,6 +46,9 @@
   <li><a href="../classes/Core.Configuration.html">Core.Configuration</a></li>
   <li><a href="../classes/Core.Environment.html">Core.Environment</a></li>
   <li><a href="../classes/Core.Output.html">Core.Output</a></li>
+  <li><a href="../classes/Core.Settings.Setting.html">Core.Settings.Setting</a></li>
+  <li><a href="../classes/Core.Settings.SettingGroup.html">Core.Settings.SettingGroup</a></li>
+  <li><a href="../classes/Core.Settings.Settings.html">Core.Settings.Settings</a></li>
   <li><a href="../classes/Facades.AbstractTooltip.html">Facades.AbstractTooltip</a></li>
   <li><a href="../classes/Facades.ClassicTooltip.html">Facades.ClassicTooltip</a></li>
   <li><a href="../classes/Facades.Events.html">Facades.Events</a></li>
@@ -86,8 +89,28 @@ listening and triggering.</p>
 <h2><a href="#Local_Functions">Local Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.addGetOperation">commands.commandshandler.addGetOperation ()</a></td>
+	<td class="summary">Adds a get operation to the commands handler.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#commands.commandshandler.addHelpOperation">commands.commandshandler.addHelpOperation ()</a></td>
-	<td class="summary">This method adds a help operation to the commands handler.</td>
+	<td class="summary">Adds a help operation to the commands handler.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.addOperation">commands.commandshandler.addOperation (operation, description, callback)</a></td>
+	<td class="summary">Adds a new operation to the commands handler.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.addSetOperation">commands.commandshandler.addSetOperation ()</a></td>
+	<td class="summary">Adds a set operation to the commands handler.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.addSettingsOperation">commands.commandshandler.addSettingsOperation ()</a></td>
+	<td class="summary">Adds a settings operation to the commands handler.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.addSettingsOperations">commands.commandshandler.addSettingsOperations ()</a></td>
+	<td class="summary">Adds all the default operations related to the settings structure.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#commands.commandshandler.buildHelpContent">commands.commandshandler.buildHelpContent ()</a></td>
@@ -99,6 +122,11 @@ listening and triggering.</p>
 	<td class="summary">This method is responsible for handling the command that was triggered
     by the user, parsing the arguments and invoking the callback that was
     registered for the operation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#commands.commandshandler.maybeAddSettingsOperations">commands.commandshandler.maybeAddSettingsOperations ()</a></td>
+	<td class="summary">May add the default settings operations to the commands handler if there's at
+    least one setting that is accessible by command.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#commands.commandshandler.maybeInvokeCallback">commands.commandshandler.maybeInvokeCallback (operation, args)</a></td>
@@ -152,11 +180,35 @@ listening and triggering.</p>
     Methods
     <dl class="function">
     <dt>
+    <a name = "commands.commandshandler.addGetOperation"></a>
+    <strong>commands.commandshandler.addGetOperation ()</strong>
+    </dt>
+    <dd>
+    Adds a get operation to the commands handler.
+<p>    The get operation is a default operation that can be overridden in case the
+    addon wants to provide a custom get command. This implementation gets the value
+    of a setting and prints it to the chat frame.
+<p>    To be accessible by the get operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Core.Settings.Setting.html#core.settings.setting:setAccessibleByCommand">Core.Settings.Setting.setAccessibleByCommand</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "commands.commandshandler.addHelpOperation"></a>
     <strong>commands.commandshandler.addHelpOperation ()</strong>
     </dt>
     <dd>
-    This method adds a help operation to the commands handler.
+    Adds a help operation to the commands handler.
 <p>    The help operation is a default operation that can be overridden in
     case the addon wants to provide a custom help command. For that, just
     add a command with the operation "help" and a custom callback.
@@ -164,6 +216,99 @@ listening and triggering.</p>
     printed to the chat frame with the available operations and their
     descriptions, when available.
 
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.addOperation"></a>
+    <strong>commands.commandshandler.addOperation (operation, description, callback)</strong>
+    </dt>
+    <dd>
+    Adds a new operation to the commands handler.
+<p>    This is a local method and should not be called directly by addons.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">operation</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The operation that will trigger the callback
+        </li>
+        <li><span class="parameter">description</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.4/manual.html#6.4">string</a></span>
+         The description of the operation
+        </li>
+        <li><span class="parameter">callback</span>
+            <span class="types"><span class="type">function</span></span>
+         The callback that will be triggered when the operation is called
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.addSetOperation"></a>
+    <strong>commands.commandshandler.addSetOperation ()</strong>
+    </dt>
+    <dd>
+    Adds a set operation to the commands handler.
+<p>    The set operation is a default operation that can be overridden in case the
+    addon wants to provide a custom set command. This implementation sets the value
+    of a setting and prints the result to the chat frame.
+<p>    To be accessible by the set operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Core.Settings.Setting.html#core.settings.setting:setAccessibleByCommand">Core.Settings.Setting.setAccessibleByCommand</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.addSettingsOperation"></a>
+    <strong>commands.commandshandler.addSettingsOperation ()</strong>
+    </dt>
+    <dd>
+    Adds a settings operation to the commands handler.
+<p>    The settings operation is a default operation that can be overridden in case the
+    addon wants to provide a custom settings command. This implementation prints a
+    list of all settings that are accessible by command and their descriptions.
+<p>    To be listed by the settings operation, the setting must be registered in the
+    settings handler as accessible by command.
+
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Core.Settings.Setting.html#core.settings.setting:setAccessibleByCommand">Core.Settings.Setting.setAccessibleByCommand</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.addSettingsOperations"></a>
+    <strong>commands.commandshandler.addSettingsOperations ()</strong>
+    </dt>
+    <dd>
+    Adds all the default operations related to the settings structure.
 
 
 
@@ -211,6 +356,21 @@ listening and triggering.</p>
          The full command argument
         </li>
     </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "commands.commandshandler.maybeAddSettingsOperations"></a>
+    <strong>commands.commandshandler.maybeAddSettingsOperations ()</strong>
+    </dt>
+    <dd>
+    May add the default settings operations to the commands handler if there's at
+    least one setting that is accessible by command.
+
+
 
 
 
@@ -445,7 +605,7 @@ listening and triggering.</p>
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2024-08-23 17:36:18 </i>
+<i style="float:right;">Last updated 2024-09-11 16:27:53 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
