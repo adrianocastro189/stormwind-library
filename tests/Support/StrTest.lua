@@ -165,6 +165,46 @@ TestStr = BaseTestClass:new()
     end
 
 TestCase.new()
+    :setName('startsWith')
+    :setTestClass(TestStr)
+    :setExecution(function(data)
+        lu.assertEquals(data.expectedOutput, __.str:startsWith(data.value, data.prefix))
+    end)
+    :setScenarios({
+        ['empty string'] = {
+            value = '',
+            prefix = '',
+            expectedOutput = false,
+        },
+        ['empty prefix'] = {
+            value = 'a',
+            prefix = '',
+            expectedOutput = false,
+        },
+        ['single character'] = {
+            value = 'a',
+            prefix = 'a',
+            expectedOutput = true,
+        },
+        ['single word'] = {
+            value = 'word',
+            prefix = 'word',
+            expectedOutput = true,
+        },
+        ['case sensitive'] = {
+            value = 'Hello, world!',
+            prefix = 'hello',
+            expectedOutput = false,
+        },
+        ['multiple words'] = {
+            value = 'hello, world!',
+            prefix = 'hello',
+            expectedOutput = true,
+        },
+    })
+    :register()
+
+TestCase.new()
     :setName('ucFirst')
     :setTestClass(TestStr)
     :setExecution(function(data)
