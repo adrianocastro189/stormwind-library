@@ -404,4 +404,36 @@ TestCase.new()
         execution('test', {'test'})
         execution({'test'}, {'test'})
     end
+
+-- @covers Arr:truncate()
+TestCase.new()
+    :setName('truncate')
+    :setTestClass(TestArr)
+    :setExecution(function(data)
+        lu.assertEquals(data.expectedOutput, __.arr:truncate(data.list, data.length))
+    end)
+    :setScenarios({
+        ['empty list'] = {
+            list = {},
+            length = 1,
+            expectedOutput = {},
+        },
+        ['simple list'] = {
+            list = {'a', 'b', 'c'},
+            length = 2,
+            expectedOutput = {'a', 'b'},
+        },
+        ['size is bigger than the list'] = {
+            list = {'a', 'b', 'c'},
+            length = 4,
+            expectedOutput = {'a', 'b', 'c'},
+        },
+        ['associative list'] = {
+            list = {a = 'a', b = 'b', c = 'c'},
+            length = 2,
+            expectedOutput = {a = 'a', b = 'b', c = 'c'},
+        }
+    })
+    :register()
+
 -- end of TestArr
