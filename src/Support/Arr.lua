@@ -528,6 +528,33 @@ local Arr = {}
     end
 
     --[[--
+    Truncates a list to a given size.
+
+    By a design decision, this method accepts only arrays, not associative
+    tables as it wouldn't produce the same results for the same input,
+    considering how Lua handles tables.
+
+    @tparam table list The list to be truncated
+    @tparam integer size The size to truncate the list to
+
+    @treturn table The truncated list
+
+    @usage
+        local list = {1, 2, 3}
+        local results = library.arr:truncate(list, 2)
+        -- results = {1, 2}
+    ]]
+    function Arr:truncate(list, size)
+        if size > #list then return list end
+
+        local results = {}
+        for i = 1, size do
+            table.insert(results, list[i])
+        end
+        return results
+    end
+
+    --[[--
     Calls the available unpack() method given the running environment.
 
     This method is an important helper because World of Warcraft supports

@@ -6,6 +6,7 @@ sidebar_position: 2
 
 ## yyyy.mm.dd - version 1.14.0
 
+* Add Arr:truncate() to truncate arrays to a specific length
 * Add Str:startsWith() to check if a string starts with a specific substring
 
 ## 2024.09.11 - version 1.13.0
