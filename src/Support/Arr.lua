@@ -535,7 +535,7 @@ local Arr = {}
 
     @tparam table list The list to be sliced
     @tparam integer offset The offset to start the slice
-    @tparam integer length The length of the slice
+    @tparam[opt='#list'] integer length The length of the slice, or nil to slice until the end
 
     @treturn table The sliced list
 
@@ -546,6 +546,9 @@ local Arr = {}
     ]]
     function Arr:slice(list, offset, length)
         if not self:isArray(list) then return list end
+
+        -- if the length is nil, it will slice until the end of the list
+        if length == nil then length = #list end
 
         local results = {}
         for i = offset, offset + length - 1 do

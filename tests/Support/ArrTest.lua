@@ -413,11 +413,16 @@ TestCase.new()
             length = 1,
             expectedOutput = {'b'},
         },
-        ['simple list with no length'] = {
+        ['simple list with zero length'] = {
             list = {'a', 'b', 'c'},
             offset = 2,
             length = 0,
             expectedOutput = {},
+        },
+        ['simple list with nil length'] = {
+            list = {'a', 'b', 'c'},
+            offset = 2,
+            expectedOutput = {'b', 'c'},
         },
         ['simple list with invalid offset'] = {
             list = {'a', 'b', 'c'},
