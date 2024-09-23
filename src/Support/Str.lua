@@ -195,6 +195,29 @@ local Str = {}
     end
 
     --[[--
+    Determines whether a string starts with a prefix.
+
+    This method also handles the case where value or prefix are empty and will
+    return false in both cases.
+
+    @tparam string value The string to be checked
+    @tparam string prefix The prefix to be checked
+
+    @treturn boolean Whether the string starts with the prefix
+
+    @usage
+        local value = "Hello, world!"
+        library.str:startsWith(value, "Hello") -- true
+    ]]
+    function Str:startsWith(value, prefix)
+        if self:isEmpty(value) or self:isEmpty(prefix) then
+            return false
+        end
+
+        return value:sub(1, #prefix) == prefix
+    end
+
+    --[[--
     Removes all whitespace from the beginning and end of a string.
 
     @tparam string value the string to be trimmed
