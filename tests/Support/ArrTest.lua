@@ -393,6 +393,65 @@ TestCase.new()
         lu.assertEquals(false, arr:get(list, 'f'))
     end
 
+-- @covers Arr:slice()
+TestCase.new()
+    :setName('slice')
+    :setTestClass(TestArr)
+    :setExecution(function(data)
+        lu.assertEquals(data.expectedOutput, __.arr:slice(data.list, data.offset, data.length))
+    end)
+    :setScenarios({
+        ['empty list'] = {
+            list = {},
+            offset = 1,
+            length = 1,
+            expectedOutput = {},
+        },
+        ['simple list'] = {
+            list = {'a', 'b', 'c'},
+            offset = 2,
+            length = 1,
+            expectedOutput = {'b'},
+        },
+        ['simple list with no length'] = {
+            list = {'a', 'b', 'c'},
+            offset = 2,
+            length = 0,
+            expectedOutput = {},
+        },
+        ['simple list with invalid offset'] = {
+            list = {'a', 'b', 'c'},
+            offset = 0,
+            length = 1,
+            expectedOutput = {},
+        },
+        ['simple list with negative offset'] = {
+            list = {'a', 'b', 'c'},
+            offset = -1,
+            length = 1,
+            expectedOutput = {},
+        },
+        ['simple list with negative length'] = {
+            list = {'a', 'b', 'c'},
+            offset = 2,
+            length = -1,
+            expectedOutput = {},
+        },
+        ['size is bigger than the list'] = {
+            list = {'a', 'b', 'c'},
+            offset = 1,
+            length = 4,
+            expectedOutput = {'a', 'b', 'c'},
+        },
+        ['associative list'] = {
+            list = {a = 'a', b = 'b', c = 'c'},
+            offset = 2,
+            length = 1,
+            expectedOutput = {a = 'a', b = 'b', c = 'c'},
+        }
+    })
+    :register()
+
     -- @covers Arr:wrap()
     function TestArr:testWrap()
         local function execution(value, expectedOutput)

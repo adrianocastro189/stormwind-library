@@ -528,6 +528,33 @@ local Arr = {}
     end
 
     --[[--
+    Extracts a slice of a list.
+
+    As a first version of this method, it only accepts arrays and won't work for
+    associative tables.
+
+    @tparam table list The list to be sliced
+    @tparam integer offset The offset to start the slice
+    @tparam integer length The length of the slice
+
+    @treturn table The sliced list
+
+    @usage
+        local list = {1, 2, 3}
+        local results = library.arr:slice(list, 2, 2)
+        -- results = {2, 3}
+    ]]
+    function Arr:slice(list, offset, length)
+        if not self:isArray(list) then return list end
+
+        local results = {}
+        for i = offset, offset + length - 1 do
+            table.insert(results, list[i])
+        end
+        return results
+    end
+
+    --[[--
     Truncates a list to a given size.
 
     By a design decision, this method accepts only arrays, not associative
